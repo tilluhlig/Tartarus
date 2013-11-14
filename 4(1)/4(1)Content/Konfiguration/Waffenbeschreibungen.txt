@@ -1,0 +1,69 @@
+Rakete
+
+Wie kommt man allein auf die Idee, Raketen aus einem Panzerrohr abzufeuern? Die Antwort ist einfach: Einmal versucht und es hat geklappt! Und Ersatzroehre soll man ohnehin vorraetig haben. Fuer alle Faelle.
+---
+Riesenrakete
+
+Noch groesser und explosiver als die normale Rakete, macht enormen Fahrzeugschaden. Und das beste ist: passt immer noch ins Panzerrohr! 
+---
+Cryorakete
+
+Durch die Einwirkung von den in der Rakete enthaltenden Instafrost wird aus dem Treibstoff des Fahrzeug schwer ansaugbares Gelee. Zudem, wegen der hydroskopischen Nebenwirkung, bekommt das Fahrzeug eine stabile Eisschischt (und die Insassen nasse Fuesse).
+---
+Korrosionsrakete
+
+Einmal, als das Spuellmittel ausging, haben wir die Restchemikalien aus dem Lager zusammengemischt. Die entstandene Mischung loeste Bratfett, Angebranntes und die Pfanne selbst restlos auf. Und einer hat sich das Rezept gemerkt.
+---
+Nuke
+
+Gross, gewaltig, disintegriert ziemlich alles um den Einschlagsbereich. Feuerlauf auf der nach Einschlag gluehenden Erde aus medizinischen Gruenden nicht empfohlen. Fuer mehr Info fragt euren bekannten Kernphysiker oder lest ein schlaues Buch.
+---
+Airstrike
+
+<Beschreibungstext>
+---
+Geschoss
+
+Ein einfaches Bleigeschoss, billig und zugaenglich. Sehr gut geeignet, um getarnte Einheiten zu entdecken. Ausserdem macht der mehr Schaden als Nocebo-Effect,das ist wissentschaftlich bewiesen.
+---
+Explosivgeschoss
+
+Um die Durchschlagskraft des normalen Geschosses zu steigern wurde Explosives in die vergroesserte Aussenhuelle gesteckt. Damit entstand diese Minirakete.
+---
+Bauen
+<nichts>
+---
+Graben
+<nichts>
+---
+Sprengfass
+
+Ein typischer Vertreter der hausgemachten Sprengfallen: Gehe in die Apotheke, gehe zum Baumarkt, gehe zu google.com und voila! Da es aber mehr Zerstoerungskraft als die normale Mine aufweist, muss auch der Preis deutlich hoeher sein, das ist bei jedem Spiel so.
+---
+Feuermine
+
+Ein schnell aufstellbarer Einwegfahrzeuggrill. Erstens: Human, da der Fahrer sehr schnell die Nerven verliert und flieht. Zweitens: Umweltfreundlich, da das Fahrzeug keine Abgase mehr produziert.
+---
+Korrosionsmine
+
+<Beschreibungstext>
+---
+EMP-Mine
+
+Hat eigentlich nichts mit Elektrizitaet und Blitzen zu tun, vielmehr mit Atomexplosionen. Damit ist es fast genauso realistisch wie der Bloodscreen. So real.
+---
+Bunker
+<nichts>
+---
+Tunnel
+<nichts>
+---
+Geschütz I
+<nichts>
+---
+Geschütz II
+<nichts>
+---
+MG
+
+Ein einfache Schnellschusswaffe getreu den Motto "Du brauchst kein guter Schuetze zu sein, du musst nur viele Kugeln abfeuern!".
