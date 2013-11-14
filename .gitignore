@@ -1,4 +1,4 @@
-Statistik/statistik/bin/Debug/statistik.exe.config
+﻿Statistik/statistik/bin/Debug/statistik.exe.config
 Statistik/statistik/bin/x64/Debug/statistik.exe.config
 Statistik/statistik/bin/x64/Release/statistik.exe.config
 Statistik/statistik/obj/Debug/GenerateResource.read.1.tlog
@@ -138,7 +138,6 @@ Upload/obj/x86/Release/Upload.Properties.Resources.resources
 Upload/obj/x86/Release/Upload.csproj.FileListAbsolute.txt
 Links.txt
 Namen.txt
-hausbutton.png
 icon.ico
 img_034_010.png
 nebelkreis.png
