@@ -1,0 +1,53 @@
+V panzer treffer erkennen
+V wenn gelände unter panzer getroffen, panzer richtig setzen
+V explosion von rakete zeichnen
+V sounds suchen
+V explosionen zeichnen verzögern
+V oben zeigen, wo rakete gerade ist, wenn sie ausserhalb des bildschirmes ist (grüner pfeil irgendwas)
+V verhindern, das panzer unten aus dem bild fallen
+V langsamere focus bewegung
+V neue panzer grafiken
+V neue panzer einbauen
+V spielende erkennen und behandeln
+V zielvorgang für Airstrike einbauen
+V grafik für zielkreuz für zielvorgang
+V zusätzliche objekte (Bäume, Häuser)
+V wind anwenden
+V windpfeil malen    (Grafik)
+V klasse für häuser anlegen
+V klasse für bäume
+V klasse für sounds
+V größere Karten ermöglichen / foreground texturen aneinanderhängen
+V Panzer fahrsound
+V startmenü erstellen
+V raketenrauch verbessern
+V Zeichnen der Karte beschleunigen
+V hintergrundmusik suchen
+V eine Funktion für brände
+V tasten um sich über karte zu bewegen
+V Minimap erstellen
+V bunker bauen
+V Wind verbessern
+V freeze definieren
+V Timeout links unten anzeigen
+V shootpowergrafik neben panzer    (Grafik)
+V zusätzliche panzer
+V neue raketen bilder   (Grafik)
+V neue Panzertypen suchen
+V weitere munitionssorten überlegen
+V weitere munitionssorten definieren
+V Baufahrzeug
+V lebenspunktelinie über panzer
+v panzer richtig fahren (winkel)
+V kollisionsabfrage für Häuser und Bäume
+V Bunker kollision
+V kollisionsabfrage für panzer
+V Karte besser zerstörbar machen
+v Netzwerkfunktionen
+- seitenmenü für panzer (zur anzeige der werte der panzer)   (Grafik)
+- icon erstellen       (Grafik)
+V Häuser/Bäume zerstören
+V Bunker zerstören
+V Munitionsbilder    (Grafik)
+? getroffene Häuser brennen/rauchen lassen
+? Kisten vom Himmel fallen lassen (neue Munition)
