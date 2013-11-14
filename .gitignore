@@ -1,4 +1,4 @@
-﻿Statistik/statistik/bin/Debug/statistik.exe.config
+Statistik/statistik/bin/Debug/statistik.exe.config
 Statistik/statistik/bin/x64/Debug/statistik.exe.config
 Statistik/statistik/bin/x64/Release/statistik.exe.config
 Statistik/statistik/obj/Debug/GenerateResource.read.1.tlog
@@ -1803,3 +1803,4 @@ Minesweeper/Unbenannt.xcf
 4(1)/4(1)Content/Textures/NichtBenutzt/spielermenuok.png
 4(1)/4(1)Content/Textures/NichtBenutzt/steinigestruktureinerklippe_512.jpg
 4(1)/4(1)Content/Textures/NichtBenutzt/wasser05.jpg
+hausbutton.png
