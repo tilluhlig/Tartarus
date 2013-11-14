@@ -137,7 +137,6 @@ Upload/obj/x86/Release/Upload.Form1.resources
 Upload/obj/x86/Release/Upload.Properties.Resources.resources
 Upload/obj/x86/Release/Upload.csproj.FileListAbsolute.txt
 Links.txt
-Namen.txt
 icon.ico
 img_034_010.png
 nebelkreis.png
@@ -1804,3 +1803,4 @@ Minesweeper/Unbenannt.xcf
 4(1)/4(1)Content/Textures/NichtBenutzt/steinigestruktureinerklippe_512.jpg
 4(1)/4(1)Content/Textures/NichtBenutzt/wasser05.jpg
 hausbutton.png
+4(1)/4(1)/bin/x86/Release/Content/Konfiguration/Namen.txt
