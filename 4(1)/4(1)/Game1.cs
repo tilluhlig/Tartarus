@@ -33,7 +33,7 @@ namespace _4_1_
         /// </summary>
         public static Var<bool> DEBUG_AKTIV = new Var<bool>("DEBUG_AKTIV", false);
 
-        public static Var<int> SHADER = new Var<int>("SHADER", 4);
+        public static Var<int> SHADER = new Var<int>("SHADER", 0);
 
         /// <summary>
         /// The spiel2
