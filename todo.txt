@@ -47,7 +47,10 @@ v Netzwerkfunktionen
 - seitenmenü für panzer (zur anzeige der werte der panzer)   (Grafik)
 - icon erstellen       (Grafik)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 V Häuser/Bäume zerstören
 V Bunker zerstören
 V Munitionsbilder    (Grafik)
