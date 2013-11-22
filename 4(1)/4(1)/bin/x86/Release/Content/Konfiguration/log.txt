@@ -1,0 +1,28 @@
+22.11.2013 23:02:28
+<Message>
+Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt.
+<Source>
+Spiel
+<StackTrace>
+   bei _4_1_.SpezialBefehle.PrüfeBefehl(String Text) in C:\Users\Till\Documents\tartarus\4(1)\4(1)\Sonstiges\SpezialBefehle.cs:Zeile 200.
+   bei _4_1_.Eingabefenster.KeyboardKeys(KeyboardState keybState, KeyboardState keybState2) in C:\Users\Till\Documents\tartarus\4(1)\4(1)\Tools\Eingabefenster.cs:Zeile 242.
+   bei _4_1_.Game1.KeyboardKeys() in C:\Users\Till\Documents\tartarus\4(1)\4(1)\Game1.cs:Zeile 2031.
+   bei _4_1_.Game1.Update(GameTime gameTime) in C:\Users\Till\Documents\tartarus\4(1)\4(1)\Game1.cs:Zeile 1739.
+   bei Microsoft.Xna.Framework.Game.Tick()
+   bei Microsoft.Xna.Framework.Game.HostIdle(Object sender, EventArgs e)
+   bei Microsoft.Xna.Framework.GameHost.OnIdle()
+   bei Microsoft.Xna.Framework.WindowsGameHost.RunOneFrame()
+   bei Microsoft.Xna.Framework.WindowsGameHost.ApplicationIdle(Object sender, EventArgs e)
+   bei System.Windows.Forms.Application.ThreadContext.System.Windows.Forms.UnsafeNativeMethods.IMsoComponent.FDoIdle(Int32 grfidlef)
+   bei System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   bei System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   bei System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   bei System.Windows.Forms.Application.Run(Form mainForm)
+   bei Microsoft.Xna.Framework.WindowsGameHost.Run()
+   bei Microsoft.Xna.Framework.Game.RunGame(Boolean useBlockingRun)
+   bei _4_1_.Program.Main(String[] args) in C:\Users\Till\Documents\tartarus\4(1)\4(1)\Program.cs:Zeile 45.
+<Auslöser>
+Name: PrüfeBefehl
+DeclaringType: _4_1_.SpezialBefehle
+
+
