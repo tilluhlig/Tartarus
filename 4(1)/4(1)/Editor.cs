@@ -174,13 +174,13 @@ namespace _4_1_
                 for (int i = (int)(-Fenster.X); i < Fensterbreite; i += 50)
                 {
                     if (i < 0) continue;
-                    Help.DrawLine(spriteBatch, new Vector2(i, 0), new Vector2(i, Fensterhoehe), Color.LightGoldenrodYellow * 0.5f, 1);
+                    Help.DrawLine(spriteBatch, new Vector2(i, 0), new Vector2(i, Fensterhoehe), Color.LightGoldenrodYellow * 0.15f, 2);
                 }
 
                 for (int i = (int)(-Fenster.Y); i < Fensterhoehe; i += 50)
                 {
                     if (i < 0) continue;
-                    Help.DrawLine(spriteBatch, new Vector2(0, i), new Vector2(Fensterbreite, i), Color.LightGoldenrodYellow * 0.5f, 1);
+                    Help.DrawLine(spriteBatch, new Vector2(0, i), new Vector2(Fensterbreite, i), Color.LightGoldenrodYellow * 0.15f, 2);
                 }
             }
 
