@@ -29,10 +29,13 @@ namespace _4_1_
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         /// <summary>
-        /// The DEBUG_ AKTIV
+        /// gibt an, ob der Debug Modus aktiv ist
         /// </summary>
         public static Var<bool> DEBUG_AKTIV = new Var<bool>("DEBUG_AKTIV", false);
 
+        /// <summary>
+        /// gibt an, welcher Shader verwendet werden soll
+        /// </summary>
         public static Var<int> SHADER = new Var<int>("SHADER", 0);
 
         /// <summary>
@@ -40,9 +43,8 @@ namespace _4_1_
         /// </summary>
         public static Spiel Spiel2 = null;
 
-        // public int CurrentMissle;
         /// <summary>
-        /// The kartengroesse
+        /// Die Kartenbreite in Pixel
         /// </summary>
         public int Kartengroesse = (int)(2048 * 5);
 
@@ -123,9 +125,9 @@ namespace _4_1_
         /// </summary>
         private int wait = 0;
 
-        // Maus einschalten oder abschalten
+       
         /// <summary>
-        /// The water
+        /// Maus einschalten oder abschalten
         /// </summary>
         private Color[,] water;
 
@@ -182,24 +184,25 @@ namespace _4_1_
             // Erstelle Spiel
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+           // graphics.IsFullScreen = true;  // schaltet fullsceen an
             ContentAll = Content;
 
             this.graphics.PreferredBackBufferWidth = Hauptfenster.Tausch.screenwidth;
             this.graphics.PreferredBackBufferHeight = Hauptfenster.Tausch.screenheight;
 
-            //this.graphics.PreferredBackBufferWidth = 1366;
-            //this.graphics.PreferredBackBufferHeight = 768;
+           // this.graphics.PreferredBackBufferWidth = 1366;
+           // this.graphics.PreferredBackBufferHeight = 768;
             this.drawSurface = drawSurface;
-
+           
             graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
             System.Windows.Forms.Control.FromHandle((this.Window.Handle)).VisibleChanged += new EventHandler(Game1_VisibleChanged);
-            //this.graphics.IsFullScreen = true;  // schaltet fullsceen an
+          // this.graphics.IsFullScreen = true;  // schaltet fullsceen an
         }
 
         public static List<string> Ladebildschirmtexte = null;
 
         /// <summary>
-        /// Lades the text.
+        /// Hiermit wird der Text beim Laden eines Vorgangs angezeigt
         /// </summary>
         /// <param name="Text2">The text2.</param>
         public static void LadeText(String Text2)
@@ -377,7 +380,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Creates the neues spiel.
+        /// Erstellt ein neues Spiel
         /// </summary>
         public void CreateNeuesSpiel()
         {
@@ -388,9 +391,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the airstrike.
+        /// Zeichnet die Airstrikes
         /// </summary>
-        public void DrawAirstrike() // Zeichnet die Airstrikes
+        public void DrawAirstrike() 
         {
             if (Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon == 5)
             {
@@ -429,9 +432,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the bunker.
+        /// Zeichnet die Bunker
         /// </summary>
-        public void DrawBunker() // Zeichnet die Bunker
+        public void DrawBunker() 
         {
             if (Spiel2 == null) return;
 
@@ -522,9 +525,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the explosion.
+        /// Zeichnet die Explosionen
         /// </summary>
-        public void DrawExplosion() // Zeichnet die Explosionen
+        public void DrawExplosion() 
         {
             for (int i = 0; i < Spiel2.Karte.particleListExp.Count; i++)
             {
@@ -537,9 +540,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the kisten.
+        /// Zeichnet die Kisten
         /// </summary>
-        public void DrawKisten() // Zeichnet die Kisten
+        public void DrawKisten() 
         {
             if (Spiel2 == null) return;
 
@@ -722,9 +725,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the minen.
+        /// Zeichnet die Minen
         /// </summary>
-        public void DrawMinen() // Zeichnet die Minen
+        public void DrawMinen() 
         {
             if (Spiel2 == null) return;
 
@@ -749,9 +752,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the minen kreis.
+        /// Zeichnet die Minekreisen
         /// </summary>
-        public void DrawMinenKreis() // Zeichnet die Minekreisen
+        public void DrawMinenKreis() 
         {
             if (Spiel2 == null) return;
 
@@ -782,9 +785,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the minimap.
+        /// Zeichnet die Minimap
         /// </summary>
-        public void DrawMinimap() // Zeichnet die Minimap
+        public void DrawMinimap() 
         {
             if (Spiel2 == null) return;
             int screenWidth2 = screenWidth * 4;
@@ -823,9 +826,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the minimap dot.
+        /// Zeichnet die Minimap Punkte, also die markierungen, wo sich ein Fahrzeug befindet
         /// </summary>
-        public void DrawMinimapDot() // Zeichnet die Minimap
+        public void DrawMinimapDot() 
         {
             if (Spiel2 == null) return;
             if (Spiel2.CurrentPlayer == -1) return;
@@ -848,9 +851,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the missle.
+        /// Zeichnet die Raketen
         /// </summary>
-        public void DrawMissle() // Zeichnet die Raketen
+        public void DrawMissle() 
         {
             if (Spiel2 == null) return;
             for (int i = 0; i < Spiel2.Missile.Length; i++)
@@ -923,11 +926,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the players.
+        /// Zeichnet die Spieler, also die Fahrzeuge
         /// </summary>
         /// <param name="found">if set to <c>true</c> [found].</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-        public bool DrawPlayers(bool found) // Zeichnet die Spieler
+        public bool DrawPlayers(bool found) 
         {
             if (Spiel2 == null || Spiel2.players[0].pos.Count == 0) return false;
 
@@ -1113,9 +1116,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the scenery background.
+        /// Zeichnet den Hintergrund
         /// </summary>
-        public void DrawSceneryBackground() // Zeichnet den Hintergrund
+        public void DrawSceneryBackground() 
         {
             if (Spiel2 == null) return;
             screen = new Rectangle(0, 0, screenWidth, screenHeight);
@@ -1157,9 +1160,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the text.
+        /// Zeichnet den Spielstatustext
         /// </summary>
-        public void DrawText() // Zeichnet den Spielstatustext
+        public void DrawText() 
         {
             if (Spiel2 == null) return;
             if (Spiel2.CurrentPlayer == -1) return;
@@ -1173,9 +1176,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the text end.
+        /// Zeichnet den Spielendetext
         /// </summary>
-        public void DrawTextEnd() // Zeichnet den Spielendetext
+        public void DrawTextEnd() 
         {
             if (Editor.visible) return;
             if (Spiel2 == null) return;
@@ -1188,9 +1191,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the wind.
+        /// Zeichnet den Wind
         /// </summary>
-        public void DrawWind() // Zeichnet den Wind
+        public void DrawWind() 
         {
             bool flip = false;
             int anteil;
@@ -1676,10 +1679,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Reference page contains links to related conceptual articles.
+        /// Ruft alle check..  Methoden auf
         /// </summary>
         /// <param name="gameTime">Time passed since the last call to Update.</param>
-        protected override void Update(GameTime gameTime) // Ruft alle check..  Methoden auf
+        protected override void Update(GameTime gameTime) 
         {
             /* if (reduzierung % 3 != 0)
              {
@@ -2003,9 +2006,9 @@ namespace _4_1_
         private int qq = 0;
 
         /// <summary>
-        /// Keyboards the keys.
+        /// Tastaturabfragen werden hier bearbeitet
         /// </summary>
-        private void KeyboardKeys() // Tastaturabfragen
+        private void KeyboardKeys() 
         {
             // Eingabe.KeyboardKeys(keybState);
             if (Spiel2 == null) return;
@@ -3351,7 +3354,7 @@ namespace _4_1_
         private int clicktimer = 0;
 
         /// <summary>
-        /// Mouses the keys.
+        /// Hier werden alle Mauseingaben des Nutzers abgefangen
         /// </summary>
         private void MouseKeys()
         {
