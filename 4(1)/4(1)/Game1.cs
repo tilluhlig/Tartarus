@@ -1062,7 +1062,8 @@ namespace _4_1_
                                   Help.DrawLine(spriteBatch, p, p2, Color.Goldenrod*0.3f, dicke);
                 */
                             }
-                        if (Besitzer)
+
+                        if (Besitzer && Mod.NAME_TANK_VISIBLE.Wert)
                         {
                             try
                             {
@@ -1448,7 +1449,7 @@ namespace _4_1_
             spriteBatch.End();
             spriteBatch.Begin();
 
-            DrawOrtsschilder();
+            if (Mod.ORTSSCHILD_VISIBLE.Wert) DrawOrtsschilder();
             Meldungen.Draw(spriteBatch, Texturen.font2);
 
             spriteBatch.End();

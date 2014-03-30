@@ -100,6 +100,11 @@ namespace _4_1_
         public static Var<bool> LEISTE_TANK_VISIBLE = new Var<bool>("LEISTE_TANK_VISIBLE", false);
 
         /// <summary>
+        /// The LEIST e_ TAN k_ VISIBLE
+        /// </summary>
+        public static Var<bool> NAME_TANK_VISIBLE = new Var<bool>("NAME_TANK_VISIBLE", true);
+
+        /// <summary>
         /// The MINIMA p_ VISIBLE
         /// </summary>
         public static Var<bool> MINIMAP_VISIBLE = new Var<bool>("MINIMAP_VISIBLE", false);
@@ -128,6 +133,11 @@ namespace _4_1_
         /// The SPIELERMEN u_ VISIBLE
         /// </summary>
         public static Var<bool> SPIELERMENU_VISIBLE = new Var<bool>("SPIELERMENU_VISIBLE", false);
+
+        /// <summary>
+        /// The SPIELERMEN u_ VISIBLE
+        /// </summary>
+        public static Var<bool> ORTSSCHILD_VISIBLE = new Var<bool>("ORTSSCHILD_VISIBLE", true);
 
         /// <summary>
         /// Loads the specified datei.
