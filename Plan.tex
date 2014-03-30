@@ -1,0 +1,609 @@
+\documentclass[10pt,a4paper,final]{scrartcl}
+\setlength{\parindent}{0pt}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{lmodern}
+\usepackage{ulem}
+\usepackage{calc}
+\usepackage{xcolor}
+
+
+\newcommand{\raus}[1]{\xout{#1}}
+\newcommand{\ueberdenken}[1]{\colorbox{yellow}{\parbox{\textwidth}{??? #1}}}
+\newcommand{\unwichtig}[1]{\textcolor{gray}{#1}}
+\newcommand{\problem}{\colorbox{red}{\parbox{\widthof{A}}\#\#\#}}
+\newcommand{\notiz}[1]{\textcolor{blue}{#1}}
+
+%\thesubsection.
+\renewcommand{\labelenumi}{\thesubsection.\theenumi}
+
+\begin{document}
+
+
+
+\tableofcontents
+\cleardoublepage
+
+\section{Spielmechanik}
+\begin{enumerate}
+\item spiel soll rundenbasiert laufen, auch über mehrere folgespiele
+\item falls ein spiel sich über eine festgelegte rundenzahl zieht, dann tritt der sudden death ein, 
+der das ende des spiels näherbringt
+\item boni können innerhalb der spiele erworben werden, sodass man einen vorteil im nächsten spiel bekommt
+(mehr startguthaben, extrapanzer...)
+\item nach festgelegter spieleanzahl wird der sieger festgelegt \notiz{best of 7}
+\item jeder spieler fängt an mit einer \raus{citadella}, einem scout und einem bauwagen \notiz{vielleicht insgesamt 5 (auch panzer)}
+\item panzer verwenden beim schießen munition, verbrauchen zusätzlich konstant viele aktionspunkte 
+\item aktionspunkteverbrauch ist determiniert durch art der munition 
+(projektil:a punkte, rakete: b punkte, spezial: c punkte)
+\item panzer verbrauchen treibstoff beim fahren, das kostet aktionspunkte und treibstoff
+(beides an treibstoffverbrauch festgemacht)
+\item jede runde werden aktionspunkte bis einen festgelegten wert aufgefüllt 
+der wert kann auf verschiedene weisen erhöht werden
+\end{enumerate}
+
+\section{Nachschub}
+\begin{enumerate}
+\item rucksackinhalte können auf dem gelände liegen gelassen werden oder auch als vorrat abgeworfen werden
+(zweites kostet aktionspunkte, liegende päckchen können eingesammelt werden)
+\item abgelegte päckchen haben hp und können zerstört werden
+\item im falle der zerstörung dieser wird eine explosion ausgelöst. ihr radius und schaden wird durch den 
+gesamtpreis ihrer inhalte determiniert \notiz{inhalt explodieren lassen?}
+\end{enumerate}
+
+\section{Gebäude}
+\begin{enumerate}
+\item kommen in 4 typen vor haus, neutraler bunker, fabrik und waffenhändler \notiz{gebäude nicht komplett zerstören(kein delete)}
+\item alle können durch fahrzeuge erobert werden, was aber aktionspunkte kostet
+\item dazu wird eine variable benutzt, die durch das erobern durch fahrzeuge gefüllt wird 
+\item ein fahrzeug kann pro spielzug nur begrentzt viel erobern
+\item der variablenwert wird zurückgesetzt, falls das gebäude eine runde lang nicht erobert wurde
+\item scouts erobern doppelt so schnell und verbrauchen dafür keine aktionspunkte
+\item wenn der wert der variable einen richtwert übersteigt, dann gehört das gebäude den erobernden spieler
+\item das gebäude kann pro zeit nur von höchstens einem spieler erobert werden \notiz{Eroberungssperre, nach eroberung (1 runde?)}
+\item der besitzer wird durch eine fahne seiner farbe am gebäude festgesetzt, die nach rechts ragt
+\item \ueberdenken{der eroberer des gebäudes wird auch durch eine fahne erkannt, die fahne ragt aber nach links}
+\item \notiz{besser ist: blinken des gebäudes, welches erobert wird in der farbe des eroberers}
+\item jedes fahrzeug kann bei fabrik und waffenhändler einkaufen, soweit noch platz im rucksack
+\item jedes gebäude kann repariert, zerstört, erobert und ausgebaut werden
+\item sollte das gebäude komplett zerstört werden, kann man dessen trümmer für geld einsammeln
+\end{enumerate}
+
+\subsection{Haus}
+\begin{enumerate}
+\item generiert geld jede runde, der aufenthalt neben deinem \notiz{(jedem?)} haus reduziert den erhaltenen schaden
+\notiz{(ist das nicht eh so?)}
+\item \ueberdenken{durch aufrüsten erhält der mehr hp, wird schwerer zu erobern, generiert mehr geld
+und bietet besseren schutz vor schaden} \notiz{nicht aufrüsten/keine updates}
+\end{enumerate}
+
+\subsection{neutraler bunker}
+\begin{enumerate}
+\item ein panzer im freundlichen bunker ist komplett vor schaden geschützt,  \notiz{durch bunker durchfahren, wenn besetzt?}
+\item dazu muss der bunker erst selbst zerstört werden
+\item gibt keine überreste bei zerstörung, beschädigt das drinstehende fahrzeug bei zerstörung
+\item aufrüsten erhöht hp und deren regeneration pro runde als auch die anzahl der fahrzeuge, 
+die von ihn auf einmal geschützt werden können
+\item hat wesentlich mehr hp als der von bauwagen gebaute bunker \notiz{aus bunker feuern?}
+\end{enumerate}
+
+\subsection{Fabrik}
+\begin{enumerate}
+\item produziert fahrzeuge, pro runde kann nur ein fahrzeug pro fabrik gebaut werden
+\item repariert freundliche fahrzeuge am ende der runde ein wenig \notiz{im umkreis?}
+\item frisch produziertes fahrzeug leidet an produktionsschwäche und kommt der runde, in der es gebaut wurde, 
+nicht zum einsatz
+\item aufrüsten verringert die produktionskosten und gibt weitere fahrzeuge frei als auch erhöht hp, kann mehr reparieren
+und wird schwerer zu erobern
+\end{enumerate}
+
+\subsection{Waffenhändler}
+\begin{enumerate}
+\item verkauft waffen, upgrades und konsumierbares an freundliche fahrzeuge, erhöht aktionspunkte ein wenig
+\item aufrüsten verringert die produktionskosten und gibt weitere items frei als auch erhöht hp, gibt größeren 
+aktionspunktebonus und wird schwerer zu erobern
+\end{enumerate}
+
+\section{Fahrzeuge}
+\begin{enumerate}
+\item \ueberdenken{ein spieler kann beliebig viele fahrzeuge besitzen}
+\item jedes hat einen eigenen rucksack, AP sind aber global
+\item abschuss der gegnerischen gebäude und fahrzeuge als auch erobern der gegnergebäude erhöht erfahrung des fahrzeugs;
+fahrzeug steigt levels auf, wenn genügend erfahrung gesammelt
+\item levels erhöhen immer die hp und schaden, levelstufen x und y bescheren zusätzliche boni (x<y)
+\item bei zerstörung des fahrzeugs bleiben seine überreste, die für geld und munition gesammelt werden sollen
+\item geldbonus ergibt sich aus den geldkosten des fahrzeugs, 
+\item munition aus prozentsatz der rucksackmunition des zerstörten fahrzeugs
+\item jedes fahrzeug kann bis zu drei kompatible upgrades bei sich installieren
+\item es ist nicht möglich die upgrades zu deinstallieren
+\item jedes fahrzeug kann pro runde von höchstens drei statusveränderungen betroffen sein, weitere statusveränderungen
+zeigen keine wirkung
+\item jedes fahrzeug und spieler kann päckchen sammeln
+\item jedes fahrzeug kann beliebige güter im rucksack aufbewahren, aber nicht alle nutzen \notiz{mit anderen Tauschen? (items)}
+\end{enumerate}
+
+\subsection{Artillerie}
+\begin{enumerate}
+\item nutzt raketen und spezialmunition 
+\item \unwichtig{verbraucht weniger AP per schuss als andere fahrzeuge bei selben waffenklasse, rohr sehr gut verstellbar}
+\item \unwichtig{hat erhöhten treibstoffverbrauch} \ueberdenken{ und minimalabschusskraft verschieden von 0}
+\item \unwichtig{bei level x : AP verbrauch beim schießen verringert sich noch weiter}
+\item \unwichtig{bei level y : verbraucht keine munition, falls standardrakete abgefeuert wird}
+\end{enumerate}
+
+\subsection{Panzer}
+\begin{enumerate}
+\item \unwichtig{nuzt geschosse und raketen, keine besonderen boni}
+\item \unwichtig{hat zusammen mit bauwagen größte hp von serienfahrzeugen}
+\item rohr nur im kleinen winkel verstellbar, muss gut positioniert werden
+\item \unwichtig{bei level x: bekommt weniger schaden von allen waffen}
+\item \unwichtig{bei lever y: bekommt dauerhaften hp-und schadensbonus für jedes zerstörte fahrzeug}
+\end{enumerate}
+
+\subsection{Scout}
+\begin{enumerate}
+\item \unwichtig{nutzt geschosse und streugewehr(levelaufstieg)}
+\item \unwichtig{sehr mobil durch kleinen treibstoffverbrauch und hohe geschwindigkeit, geländegängig}
+\item doppelte eroberungsgeschwindigkeit ohne AP verbrauch
+\item sehr geringe hp, raketentreffer meist fatal
+\item kann rohr nicht verstellen, schießt geradeaus
+\item kann auch durch upgrades keine weiteren munitionsarten abschießen
+\item \unwichtig{bei level x: schaltet das streugewehr frei}
+\item \unwichtig{bei level y: fahren benötigt keine AP}
+\end{enumerate}
+
+\subsection{bauwagen \notiz{derzeit crawler}}
+\begin{enumerate}
+\item nutzt bautools, geländetool und airstrikes \notiz{andere Fahrzeuge betanken/reparieren?}
+\item geländegängig, verbraucht beim fahren kein treibstoff, \ueberdenken{verbraucht aber AP}
+\item \ueberdenken{immun gegen negative effekte, wie korrosion oder einfrieren}
+\item \ueberdenken{ einziges fahrzeug, was (feindliche) gebäude reparieren und verbessern kann}
+\item \unwichtig{bei level x: verringerte reparatur-und aufrüstungskosten der neutralen gebäude}
+\item \unwichtig{bei level y: von ihn gebaute gebäude sind verbessert, brückenbau verbraucht keine munition}
+\end{enumerate}
+
+\subsection{\raus{Tarnpanzer}}
+\begin{enumerate}
+\item \raus{nutzt raketen und geschosse}
+\item \raus{hat tarnkit als upgrade integriert, hat nur 2 weitere slots für upgrades} \notiz{besonders? (ist ein scout)}
+\item \raus{die bewegungen werden nicht dem gegner gezeigt}
+\item \raus{für den gegner tarnt sich als ein baum}
+\item \raus{tarnung fliegt für die runde auf, falls der schaden in der runde schaden bekommt}
+\item \raus{werte und schussverhalten wie bei normalen panzer, deutlich weniger hp}
+\item \raus{bei level x: kann in den gegnerischen gebäuden einkaufen}
+\item \raus{bei level y: tarnung fliegt nie auf}
+\end{enumerate}
+
+\subsection{\raus{Snipercrawler}}
+\begin{enumerate}
+\item \raus{nutzt geschosse}
+\item \raus{direckte treffer machen doppelten schaden}
+\item \raus{hat eine zielhilfe als upgrade integriert, hat nur 2 weitere slots für upgrades}
+\item \raus{beim schießen werden bäume und gebäude ignoriert  } \notiz{besonders?}
+\item \raus{schießt immer mit maximaler stärke}
+\item \raus{rohr nur um wenige grad verstellbar}
+\item \raus{hp mit artilleriehp vergleichbar}
+\item \raus{kann auch durch upgrades keine weiteren munitionsarten abschießen}
+\item \raus{bei level x: jeder erfolgreiche gegnertreffer erhöht seinen schaden in dieser runde}
+\item \raus{bei level y: bekommt kostenloses tarnupgrade, falls noch platz in upgrades vorhanden}
+\end{enumerate}
+
+\subsection{\raus{Citadella}}
+\begin{enumerate}
+\item \raus{nutzt airstrikes} \notiz{aber wozu dann das Fahrzeug?, stell ich ganz rechts auf die Karte, fertig}
+\item \raus{beschränkt auf max eine einheit pro spieler}
+\item \raus{sehr, sehr viel hp, regeneriert einen kleinen teil der hp jede runde}
+\item \raus{verbraucht beim fahren keinen treibstoff, aber AP; sehr langsam, nicht geländegängig}
+\item \raus{generiert geld}
+\item \raus{bei deren zerstörung hat der spieler eine festgelegte rundenzahl, um entweder das spiel zu gewinnen oder sich 
+citadella zu ersetzen}
+\item \raus{kann sich nicht in bunkern verbergen}
+\item \raus{hat eine eroberungsgeschwindigkeit von 0}
+\item \raus{der gegner sieht ihre hp}
+\item \raus{kann keine levels aufsteigen}
+\end{enumerate}
+
+\subsection{Sonstiges}
+\begin{enumerate}
+\item \notiz{Fahrzeuge bei levelup mehr Updateslots?}
+\end{enumerate}
+
+\section{Waffen}
+\begin{enumerate}
+\item \unwichtig{werden in 8 arten eingeteilt: geschoss, bautool, geländetool, streugewehr, rakete, airstrike, spezial und minen}
+\item \unwichtig{jede art hat speziefischen AP verbrauch beim abschuss}
+\end{enumerate}
+
+\subsection{Geschoss}
+\begin{enumerate}
+\item geringer schaden, geringe kosten, geringer AP verbrauch
+\item kleiner explosionsradius, gut für direckttreffer
+\item alle geschosse können bei einem level 1 waffenhändler erworben werden
+\item \ueberdenken{wird nicht durch wind beeinflusst}
+\end{enumerate}
+
+\subsection{Standardgeschoss}
+\begin{enumerate}
+\item billigste munition im spiel, eignet sich um scouts auszuschalten oder auf tarnung zu prüfen
+\end{enumerate}
+
+\subsection{Explosivgeschoss}
+\begin{enumerate}
+\item wesentlich mehr schaden als standardgeschoss, \unwichtig{kann gegen alle fahrzeugtypen verwendet werden}
+\item \ueberdenken{preis steigt mehrfach bez standardgeschoss}
+\end{enumerate}
+
+\subsection{\raus{Reinigungsgeschoss}}
+\begin{enumerate}
+\item \raus{verringert negative statuseffkte bei treffer eines freundlichen fahrzeugs}
+\item \raus{löscht feuer im geringen einschlagsradius}
+\end{enumerate}
+
+\subsection{Bautool}
+\begin{enumerate}
+\item die baupakete werden wie ganz normale waffen gekauft und in den rucksack gelagert\problem
+\item "abschuss" des pakets bewirkt bau des gebäudes\problem
+\item bauwagengebäude können nicht erobert oder aufgerüstet werden\problem
+\item bauwagengebäude hinterlassen keine überreste nach ihrer zerstörung
+\item das benutzen dieser waffenklasse gibt erfahrung
+\end{enumerate}
+
+\subsection{Bunker}
+\begin{enumerate}
+\item besitzt die funktionalität des neutralen bunkers, allerdings mit den oben benannten einschränkungen
+\item \unwichtig{verbesserte version hat mehr hp und eine hpregeneration pro runde}\problem
+\end{enumerate}
+
+\subsection{\raus{Dispencer}}
+\begin{enumerate}
+\item \raus{heilt alle freundlichen fahrzeuge im bestimmten umkreis ein wenig am ende der runde}
+\item \raus{verringert die dauer der negativen statusänderungen der freundlichen fahrzeuge am ende der runde}
+\item \raus{wirkungsumkreis durch halbkreis angedeutet}
+\item \raus{verbesserte version hat mehr heilkraft und verringert die statuseffekte schneller}
+\end{enumerate}
+
+\subsection{Sentrygun}
+\begin{enumerate}
+\item schießt je nach typ geschosse oder raketen
+\item hat keinen rucksack/upgradeslots/statusslots/menubalken
+\item man kann durch tastendruck wählen, ob man fahrzeuge oder sentrys verwaltet
+\item kann wie ein panzer ins focus genommen werden; kann schießen, aber nicht fahren
+\item kann nur standardgeschosse verwenden, kein munitionsverbrauch, kein AP verbrauch
+\item hat nur eine begrentzte schussanzahl pro runde
+\item verbesserte version hat deutlich mehr schuss pro runde
+\end{enumerate}
+
+\subsection{\raus{Geldgenerator}}
+\begin{enumerate}
+\item \raus{generiert geld am ende jeder runde}
+\item \raus{verbesserte version ist deutlich stabiler und generiert mehr geld}
+\end{enumerate}
+
+\subsection{Teleporter \notiz{/Tunnel/Tunnelnetzwerk}}
+\begin{enumerate}
+\item beim benutzen durch freundliches fahrzeug werden AP verbraucht und ein freundlicher teleporter ausgesucht, 
+aus dem das fahrzeug erscheinen soll
+\item nutzung sinnlos, wenn nur ein teleporter im besitz
+\notiz{teleport dauert 1 Runde}
+\item \unwichtig{verbesserte version teleportiert für weniger AP und hat mehr hp}\problem
+\end{enumerate}
+
+\subsection{Geländetool}
+\begin{enumerate}
+\item beim ausrüsten dieser waffenklasse wird das abfeuern zwischen normalen fahren und geländetoolnutzung unterscheiden
+\item alle geländetools verhalten sich bei ihrer nutzung wie treibstoff beim fahren
+\item fahrtrichtung wird nun durch die baurichtung vorgegebenm und nicht durch die karte
+\item fahrtrichtungen werden durch die rohrsteuerung gegeben
+\end{enumerate}
+
+\subsection{Brücke}
+\begin{enumerate}
+\item bei geländetoolnutzung: baut eine brücke beim fahren
+\item bau erfolgt in fahrtrichtung
+\end{enumerate}
+
+\subsection{Graben}
+\begin{enumerate}
+\item bei geländetoolnutzung: gräbt einen tunnel beim fahren
+\item graben erfolgt in fahrtrichtung
+\end{enumerate}
+
+\subsection{Streugewehr}
+\begin{enumerate}
+\item \unwichtig{viel schaden, mittlerer preis, kleiner AP verbrauch (> geschoss)}
+\item \ueberdenken{wird nicht durch wind beeinflusst}
+\notiz{eine art MG ist besser}
+\item \unwichtig{kein bonus bei direckttreffer}
+\item schaden und geländezerstörung verringert sich stark mit entfernung zum ziel\problem
+\item sehr kurzer projektiltimeout\problem
+\end{enumerate}
+
+\subsection{standard Streugewehr}
+
+\subsection{korrosives Streugewehr}
+\begin{enumerate}
+\item hat denselben schaden wie das standard, gegner bekommt den status korrosion dazu
+\item die stärke der korrosion und die anzahl der wirkrunden wird durch den schusschaden festgelegt
+\end{enumerate}
+
+\subsection{\raus{elektrisches Streugewehr}}
+\begin{enumerate}
+\item \raus{deutlich weniger schaden als standard, elektrisiert den gegner}
+\item \raus{die länge der elektrisierung wird durch den schaden festgelegt}
+\end{enumerate}
+
+\subsection{explosives Streugewehr}
+\begin{enumerate}
+\item wesentlich mehr schaden als standard
+\item etwas teuerer als standard
+\item \ueberdenken{rückstoßschaden beim abschuss}
+\end{enumerate}
+
+\section{Raketen}
+\begin{enumerate}
+\item viel schaden, hoher preis, mittlerer AP verbrauch
+\item haben einen großen effektradius, direckte trefer nicht nötig
+\item stärke der raketeneffekte wird durch den schützenlevel festgelegt
+\item es wird ein hohen waffenhändlerlevel gebrauch, um raketen einzukaufen
+\item große geländezerstörung
+\end{enumerate}
+
+\subsection{Standardrakete}
+\begin{enumerate}
+\item einzige rakete, die bei level 1 waffenhändler erhältlich ist
+\end{enumerate}
+
+\subsection{\raus{Cryorakete}}
+\begin{enumerate}
+\item \raus{kleiner schaden, mit den explosivgeschoss vergleichbar}
+\item \raus{friert fahrzeuge in wirkungsbereich ein}
+\end{enumerate}
+
+\subsection{\raus{Neutralisationsrakete}}
+\begin{enumerate}
+\item \raus{kein schaden}
+\item \raus{verringert negative statuseffekte, löscht feuer und heilt fahrzeuge in wirkungsbereich}
+\item \raus{wirkungsbereich größer als bei standard}
+\end{enumerate}
+
+\subsection{Säurerakete}
+\begin{enumerate}
+\item kein schaden
+\item sehr starker korrosionseffekt auf alle panzer im wirkungsbereich
+\end{enumerate}
+
+\subsection{Napalmrakete}
+\begin{enumerate}
+\item schaden und wirkungsbereich wie bei standard
+\item zündet gelände im wirkungsbereich an
+\end{enumerate}
+
+\subsection{Schockrakete}
+\begin{enumerate}
+\item schaden wie bei normaler rakete, größerer wirkungsradius
+\item fahrzeuge und gebäude in der reichweite werden elektrisiert
+\end{enumerate}
+
+\subsection{Airstrikes}
+\begin{enumerate}
+\item \unwichtig{hoher schaden, hoher preis, hoher AP verbrauch}
+\item raketenbündel, verhalten sich wie raketen
+\item anzahl durch schützenlevel determiniert
+\item abschuss durch citadella zählt als abschuss mit maximallevel
+\item es kann eine stelle auf der karte gewählt werden, in welche etwa die raketen einschlagen sollen
+\end{enumerate}
+
+\subsection{standard Airstrike}
+\subsection{\raus{neutralisationsairstrike}}
+\subsection{säureairstrike}
+\subsection{napalmairstrike}
+\subsection{schockairstrike}
+
+\subsection{Spezial}
+\begin{enumerate}
+\item \unwichtig{enorm viel schaden, hoher preis, hoher AP verbrauch} 
+\item \unwichtig{besonders starke waffen, die mit einem schlag kampfsituation verändern können}
+\item hoher waffenhändlerlevel notwendig, um diese kaufen zu können
+\item \unwichtig{sehr großer wirkungsbereich}
+\end{enumerate}
+
+\subsection{Nuke}
+\begin{enumerate}
+\item \unwichtig{BOOOM!}
+\item \unwichtig{wo ist das ganze land hin?}
+\item brennendes gelände im einschlagsbereich
+\end{enumerate}
+
+\subsection{\raus{Reparaturrakete}}
+\begin{enumerate}
+\item \raus{heilt alle freundlichen fahrzeuge im wirkradius komplett (citadella bekommt nur 25 Prozent heilung)}
+\item \raus{hebt alle negativen statuseffekte der freundlichen fahrzeuge auf}
+\item \raus{repariert bis zu einem kritischen schaden bei jedem fahrzeug}
+\item \raus{alle fahrzeuge im wirkungsbereich bekommen statusveränderung: regeneration}
+\item \raus{alle fahrzeuge im wirkungsbereich bekommen statusveränderung: ummunität zu negativen statuseffekten für 3 runden}
+\end{enumerate}
+
+\subsection{\raus{finger des todes}}
+\begin{enumerate}
+\item \raus{macht eine festgesetzte anzahl an schadenspunkten, die durch schützenlevel bestimmt ist}
+\item \raus{sucht fahrzeuge neben einschlagebereich, diese erhalten soviel schaden bis die entweder zerstört sind 
+oder der schaden ausgeht}
+\item \raus{falls nach zerstörung des fahrzeugs noch schaden übrig wird das nächste fahrzeug ausgesucht}
+\item \raus{citadella kann nicht als ziel ausgesucht werden}
+\end{enumerate}
+
+\subsection{EMP}
+\begin{enumerate}
+\item \ueberdenken{zerstört alle bauwagengebäude und minen im wirkungsbereich}
+\item \ueberdenken{alle
+ fahrzeuge in der reichweite werden für sehr viele runden elekrtrisiert}
+\end{enumerate}
+
+\subsection{Minen}
+\begin{enumerate}
+\item variabler schaden, variable kosten, kleiner AP verbrauch\problem
+\item \notiz{am besten als Waffe von Baufahrzeug oder/und Scout}
+\item sind waffen an sich, jedes fahrzeug kann sie benutzen
+\item werden beim drauffahren aktiviert; erkennen nicht, ob freund/feind
+\item werden nach rundenende des spielers, der sie gelegt hat, aktiviert
+\item können durch schaden entfernt werden
+\item allein die verwendung von denen bringt erfahrung (nach kosten)
+\item \unwichtig{kaum geländezerstörung}
+\item machen immer konstant viel schaden, außer das fahrzeug hat schutz vor schaden\problem
+\end{enumerate}
+
+\subsection{standard Mine}
+\begin{enumerate}
+\item \unwichtig{nicht viel schaden, trotzdem sehr ärgerlich für scouts (3 minen-1 scout)}
+\end{enumerate}
+
+\subsection{\raus{Mine}}
+\begin{enumerate}
+\item \raus{scout tot :)}
+\item \raus{explosionsradius einer rakete}
+\end{enumerate}
+
+\subsection{\raus{Freezemine}}
+\begin{enumerate}
+\item \raus{kein schaden}
+\item \raus{fahrzeug 2 runden gefroren}
+\end{enumerate}
+
+\subsection{\notiz{Elektromine}}
+
+\subsection{Napalmmine}
+\begin{enumerate}
+\item schaden von normaler mine, zündet gelände an
+\end{enumerate}
+
+\subsection{\raus{Napalmmine}}
+\begin{enumerate}
+\item \raus{siehe mine +, zündet gelände im sehr großen radius an}
+\end{enumerate}
+
+\section{Upgrades}
+\begin{enumerate}
+\item bis zu drei an einem fahrzeug auf einmal
+\item ausrüsten möglich, falls platz vorhanden
+\item unmöglich herunterzunehmen
+\item man kann nicht mehrere gleiche upgrades auf einmal haben
+\item können bei waffenhändler mit hohem level gekauft werden
+\end{enumerate}
+
+\subsection{Zielhilfe}
+\begin{enumerate}
+\item entlang der karte wird ein strahl gezeichnet, der vom panzerrohr ausgeht und dessen winkel hat
+\item \notiz{Zielhilfe mit beschränkter länge ist besser}
+\end{enumerate}
+
+\subsection{Zusatzplatinen}
+\begin{enumerate}
+\item empfangener schaden wird verringet \notiz{mehr HP besser}
+\end{enumerate}
+
+\subsection{Vorrat}
+\begin{enumerate}
+\item standardmunition wird beim schießen nicht verbraucht \notiz{mehr Rucksack?}
+\end{enumerate}
+
+\subsection{Tarnkit}
+\begin{enumerate}
+\item aktionen des fahrzeugs für gegner nicht sichtbar, während seinen zug sieht der gegner einen baum statt des fahrzeugs bei Aktion nächste Runde sichtbar (Panzer)
+\end{enumerate}
+
+\subsection{Mechaniker}
+\begin{enumerate}
+\item fahrzeug regeneriert einen anteil an gesundheit jedes rundenende
+\end{enumerate}
+
+\subsection{Commando}
+\begin{enumerate}
+\item besitz des fahrzeugs mit commando erhöht AP
+\end{enumerate}
+
+\subsection{\raus{quick revive}}
+\begin{enumerate}
+\item \raus{bei zerstörung des fahrzeugs wird das fahrzeug nicht zerstört, sondern heilt sich zu vollem hp, }
+\item \raus{quick revive wird zerstört}
+\end{enumerate}
+
+\section{Konsumierbares}
+\begin{enumerate}
+\item wirkt entweder sofort oder vorübergehend
+\item vorübergehende effekte werden als statusänderungen eingetragen, treffen nicht ein, 
+falls das fahrzeug schon 3 statusänderungen hat
+\item können bei waffenhändler erworben werden
+\end{enumerate}
+
+\subsection{Reparaturkit}
+\begin{enumerate}
+\item stellt gesundheit wieder her \notiz{am ende der Runde?}
+\end{enumerate}
+
+\subsection{\raus{invulncanteen \notiz{/ unverwundbar}}}
+\begin{enumerate}
+\item \raus{das fahrzeug ist diese runde unverwundbar}
+\item \raus{fahrzeug dennoch zerstört, falls es ins wasser fällt}
+\end{enumerate}
+
+\subsection{AP schub}
+\begin{enumerate}
+\item erhöht die AP für diese runde etwas
+\end{enumerate}
+
+\subsection{\raus{Teleport}}
+\begin{enumerate}
+\item \raus{es wird analog airstrike ein punkt auf der karte gewählt, dort wird das fahrzeug verlagert}
+\end{enumerate}
+
+\section{Statusänderungen}
+
+\subsection{korrosion}
+\begin{enumerate}
+\item macht am ende der runde schaden an fahrzeug
+\end{enumerate}
+
+\subsection{elektrisiert}
+\begin{enumerate}
+\item fahrzeug kann nicht rohr verstellen items verwenden oder waffen wechseln \notiz{fahren?}
+\end{enumerate}
+
+\subsection{gefroren}
+\begin{enumerate}
+\item kann nichts machen und bekommt mehr schaden
+\end{enumerate}
+
+\subsection{\notiz{brennend}}
+
+
+\section{Extraanforderungen}
+\subsection{gelände soll vielfältiger werden }
+\begin{enumerate}
+\item brennendes gelände (macht schaden pro \unwichtig{zeit} \notiz{Runde} wenn ein fahrzeug/gebäude in spielzug des besitzers drauf befindet)
+\item sumpf (erhöhter treibstoffverbrauch, langsamere bewegungsgeschwindigkeit)
+\item \unwichtig{silizium (treffer generiert splitter, die geld bringen)}
+
+\item \notiz{nach einem negativ Status eine gewisse Statussperre (also erst nach paar runden wieder möglich) für diesen}
+\end{enumerate}
+
+\section{weitere Ideen}
+\begin{enumerate}
+\item \notiz{woher kommt Treibstoff (kaufen, produzieren (Fabrik)) ?}
+\item \notiz{wenn Baufahrzeug an Bebäude/Baustelle vorbeifährt, Umriss des Gebäudes zeichnen}
+\item \notiz{airstrike nur in gewissem Umkreis des Panzers erlauben}
+\item \notiz{Taste für 'alle Gebaeudeumrisse zeichnen'}
+\item \notiz{maximal Fuel pro Panzer}
+\item \notiz{Tunnelmenge begrenzen}
+\item \notiz{erobern macht nach plan keinen Sinn}
+\item \notiz{garkeine Geländezerstörung}
+\item \notiz{erobern: 1 Runde am Gebäude (prüfen bei Beginn der eigenen Runde)}
+\item \notiz{Fahrzeug: maximale Reichweite pro Runde (Radius oder Sprit)}
+
+\item \notiz{Geschütztürme begrenzen (max) 20? 10?}
+\item \notiz{Bunker begrenzen 10? 5?}
+\item \notiz{Häuser credits generierung logarithmisch}
+\item \notiz{feuerschaden erfolgt über Runden}
+\end{enumerate}
+
+
+\end{document}
