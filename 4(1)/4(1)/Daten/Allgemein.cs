@@ -20,9 +20,9 @@
         private static Var<int> MOD_MaxGeschuetze = new Var<int>("MAXGESCHUETZE", 10, ref MaxGeschuetze);
         private static Var<int> MOD_MaxTunnel = new Var<int>("MAXTUNNEL", 5, ref MaxTunnel);
         private static Var<int> MOD_MinBesitzerPunkte = new Var<int>("MINBESITZERPUNKTE", 250, ref MinBesitzerPunkte);
-        private static Var<int> MOD_Minenverzögerung = new Var<int>("MINENVERZÖGERUNG", 60 * 60 * 5, ref Minenverzögerung);
+        private static Var<int> MOD_Minenverzögerung = new Var<int>("MINENVERZOEGERUNG", 60 * 60 * 5, ref Minenverzögerung);
         private static Var<float> MOD_TreibstoffPreis = new Var<float>("TREIBSTOFFPREIS", 0.1f, ref TreibstoffPreis);
-        private static Var<int> MOD_TunnelAPKosten = new Var<int>("TunnelAPKosten", 25, ref TunnelAPKosten);
+        private static Var<int> MOD_TunnelAPKosten = new Var<int>("TUNNELAPKOSTEN", 25, ref TunnelAPKosten);
 
         #endregion Privat
     }
