@@ -773,7 +773,7 @@ namespace _4_1_
             vehikleAngle[i] = TextLaden.LadeFloat(Liste, "vehikleAngle", vehikleAngle[i]);
             Zielpos[i] = TextLaden.LadeVector2(Liste, "Zielpos", Zielpos[i]);
 
-            Effekte[i] = EffectPacket.Laden(Text2, Content);
+           /// Effekte[i] = EffectPacket.Laden(Text2, Content);
 
             int id = KindofTank[i];
             Kollision[i] = new KollisionsObjekt(Texturen.panzerindex[i], Texturen.panzerindex[i].Width, Texturen.panzerindex[i].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true, Vector2.Zero);
@@ -783,7 +783,7 @@ namespace _4_1_
 
             Zerstörung[i] = ZerstörungsObjekt.Laden(Text2, altid == -1 ? null : Zerstörung[id]);
 
-            if (Rucksack[i] == null)
+            if (Rucksack[i] == null) // ?? macht das sinn ???
                 Rucksack[i] = Inventar.Laden(Text2, Content);
 
             /*
@@ -1099,7 +1099,7 @@ namespace _4_1_
                 data.AddRange(Effekte[i].Speichern());
                 data.AddRange(Kollision[i].Speichern());
                 data.AddRange(Zerstörung[i].Speichern());
-                data.AddRange(Rucksack[i].SpeicherIntText());
+                data.AddRange(Rucksack[i].Speichern());
                 data.Add("[/FAHRZEUG]");
             }
 
