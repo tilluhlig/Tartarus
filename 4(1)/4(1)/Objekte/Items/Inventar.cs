@@ -42,12 +42,12 @@ namespace _4_1_
         /// <summary>
         /// Das ist die Fachgröße für Upgrades und Konsumierbares
         /// </summary>
-        public int Fachgröße = 10;
+        public int Fachgroesse = 10;
 
         /// <summary>
         /// die maximale Anzahl an Fächern im Inventar
         /// </summary>
-        public int MaxFächer = 100;
+        public int MaxFaecher = 100;
 
         /// <summary>
         /// Ein Zeiger auf die Munition des Spielers bzw des Inventarbesitzers
@@ -68,7 +68,7 @@ namespace _4_1_
         /// <param name="_Treibstoff">initial Treibstoff</param>
         public Inventar(int _MaxFächer, List<int> _Munition, float _Treibstoff)
         {
-            MaxFächer = _MaxFächer;
+            MaxFaecher = _MaxFächer;
             if (_Munition != null)
             {
                 Munition = _Munition;
@@ -245,7 +245,7 @@ namespace _4_1_
         {
             int result = 0;
             for (int i = 0; i < Konsumierbares.Count; i++)
-                result += (int)(Math.Ceiling((double)Konsumierbares[i].Anzahl / Fachgröße));
+                result += (int)(Math.Ceiling((double)Konsumierbares[i].Anzahl / Fachgroesse));
             return result;
         }
 
@@ -259,18 +259,18 @@ namespace _4_1_
             for (int i = 0; i < Konsumierbares.Count; i++)
             {
                 int a = Konsumierbares[i].Anzahl;
-                int temp = (int)(Math.Ceiling((double)a / Fachgröße));
+                int temp = (int)(Math.Ceiling((double)a / Fachgroesse));
                 for (int b = 0; b < temp - 1; b++)
-                    list.Add(new Vector2(i, Fachgröße));
+                    list.Add(new Vector2(i, Fachgroesse));
 
                 if (a > 0)
                 {
-                    if (a % Fachgröße != 0)
+                    if (a % Fachgroesse != 0)
                     {
-                        list.Add(new Vector2(i, a % Fachgröße));
+                        list.Add(new Vector2(i, a % Fachgroesse));
                     }
                     else
-                        list.Add(new Vector2(i, Fachgröße));
+                        list.Add(new Vector2(i, Fachgroesse));
                 }
             }
             return list;
@@ -440,18 +440,18 @@ namespace _4_1_
             for (int i = 0; i < Upgrades.Count; i++)
             {
                 int a = Upgrades[i].Anzahl;
-                int temp = (int)(Math.Ceiling((double)a / Fachgröße));
+                int temp = (int)(Math.Ceiling((double)a / Fachgroesse));
                 for (int b = 0; b < temp - 1; b++)
-                    list.Add(new Vector2(i, Fachgröße));
+                    list.Add(new Vector2(i, Fachgroesse));
 
                 if (a > 0)
                 {
-                    if (a % Fachgröße != 0)
+                    if (a % Fachgroesse != 0)
                     {
-                        list.Add(new Vector2(i, a % Fachgröße));
+                        list.Add(new Vector2(i, a % Fachgroesse));
                     }
                     else
-                        list.Add(new Vector2(i, Fachgröße));
+                        list.Add(new Vector2(i, Fachgroesse));
                 }
             }
             return list;
@@ -485,7 +485,7 @@ namespace _4_1_
         {
             int result = 0;
             for (int i = 0; i < Upgrades.Count; i++)
-                result += (int)(Math.Ceiling((double)Upgrades[i].Anzahl / Fachgröße));
+                result += (int)(Math.Ceiling((double)Upgrades[i].Anzahl / Fachgroesse));
             return result;
         }
 
@@ -540,7 +540,7 @@ namespace _4_1_
                 for (int i = 0; i < Objekt.Anzahl; i++)
                 {
                     Upgrades[id].Erhöhen();
-                    if (GibAnzahlBelegterFächer() > MaxFächer)
+                    if (GibAnzahlBelegterFächer() > MaxFaecher)
                     {
                         Upgrades[id].Verringern();
                         Objekt.Anzahl -= i;
@@ -556,7 +556,7 @@ namespace _4_1_
                     for (int i = 0; i < Objekt.Anzahl; i++)
                     {
                         Konsumierbares[id].Erhöhen();
-                        if (GibAnzahlBelegterFächer() > MaxFächer)
+                        if (GibAnzahlBelegterFächer() > MaxFaecher)
                         {
                             Konsumierbares[id].Verringern();
                             Objekt.Anzahl -= i;
@@ -575,7 +575,7 @@ namespace _4_1_
                     if (a.Typ == 0)
                     {
                         Upgrades.Add(a);
-                        if (GibAnzahlBelegterFächer() > MaxFächer)
+                        if (GibAnzahlBelegterFächer() > MaxFaecher)
                         {
                             Upgrades.Remove(a);
                         }
@@ -584,7 +584,7 @@ namespace _4_1_
                         for (int i = 0; i < anz - 1; i++)
                         {
                             Upgrades[id].Erhöhen();
-                            if (GibAnzahlBelegterFächer() > MaxFächer)
+                            if (GibAnzahlBelegterFächer() > MaxFaecher)
                             {
                                 Upgrades[id].Verringern();
                                 Objekt.Anzahl -= i - 1;
@@ -597,7 +597,7 @@ namespace _4_1_
                         if (a.Typ == 1)
                         {
                             Konsumierbares.Add(a);
-                            if (GibAnzahlBelegterFächer() > MaxFächer)
+                            if (GibAnzahlBelegterFächer() > MaxFaecher)
                             {
                                 Konsumierbares.Remove(a);
                             }
@@ -606,7 +606,7 @@ namespace _4_1_
                             for (int i = 0; i < anz - 1; i++)
                             {
                                 Konsumierbares[id].Erhöhen();
-                                if (GibAnzahlBelegterFächer() > MaxFächer)
+                                if (GibAnzahlBelegterFächer() > MaxFaecher)
                                 {
                                     Konsumierbares[id].Verringern();
                                     Objekt.Anzahl -= i - 1;
@@ -633,7 +633,7 @@ namespace _4_1_
                 for (int i = 0; i < Objekt.Anzahl; i++)
                 {
                     Upgrades[id].Erhöhen();
-                    if (GibAnzahlBelegterFächer() > MaxFächer)
+                    if (GibAnzahlBelegterFächer() > MaxFaecher)
                     {
                         Upgrades[id].Verringern();
                         return Objekt.Anzahl - i;
@@ -648,7 +648,7 @@ namespace _4_1_
                     for (int i = 0; i < Objekt.Anzahl; i++)
                     {
                         Konsumierbares[id].Erhöhen();
-                        if (GibAnzahlBelegterFächer() > MaxFächer)
+                        if (GibAnzahlBelegterFächer() > MaxFaecher)
                         {
                             Konsumierbares[id].Verringern();
                             return Objekt.Anzahl - i;
@@ -666,7 +666,7 @@ namespace _4_1_
                     if (a.Typ == 0)
                     {
                         Upgrades.Add(a);
-                        if (GibAnzahlBelegterFächer() > MaxFächer)
+                        if (GibAnzahlBelegterFächer() > MaxFaecher)
                         {
                             Upgrades.Remove(a);
                             return 0;
@@ -676,7 +676,7 @@ namespace _4_1_
                         for (int i = 0; i < anz - 1; i++)
                         {
                             Upgrades[id].Erhöhen();
-                            if (GibAnzahlBelegterFächer() > MaxFächer)
+                            if (GibAnzahlBelegterFächer() > MaxFaecher)
                             {
                                 Upgrades[id].Verringern();
                                 return anz - (i + 1);
@@ -688,7 +688,7 @@ namespace _4_1_
                         if (a.Typ == 1)
                         {
                             Konsumierbares.Add(a);
-                            if (GibAnzahlBelegterFächer() > MaxFächer)
+                            if (GibAnzahlBelegterFächer() > MaxFaecher)
                             {
                                 Konsumierbares.Remove(a);
                                 return 0;
@@ -698,7 +698,7 @@ namespace _4_1_
                             for (int i = 0; i < anz - 1; i++)
                             {
                                 Konsumierbares[id].Erhöhen();
-                                if (GibAnzahlBelegterFächer() > MaxFächer)
+                                if (GibAnzahlBelegterFächer() > MaxFaecher)
                                 {
                                     Konsumierbares[id].Verringern();
                                     return anz - (i + 1);
@@ -795,7 +795,7 @@ namespace _4_1_
             for (int i = 0; i < Anzahl; i++)
             {
                 Munition[id]++;
-                if (GibAnzahlBelegterFächer() > MaxFächer)
+                if (GibAnzahlBelegterFächer() > MaxFaecher)
                 {
                     Munition[id]--;
                     return Anzahl - i;
@@ -852,8 +852,8 @@ namespace _4_1_
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
             temp.Treibstoff = TextLaden.LadeFloat(Liste, "Treibstoff", temp.Treibstoff);
-            temp.MaxFächer = TextLaden.LadeInt(Liste, "MaxFächer", temp.MaxFächer);
-            temp.Fachgröße = TextLaden.LadeInt(Liste, "Fachgröße", temp.Fachgröße);
+            temp.MaxFaecher = TextLaden.LadeInt(Liste, "MaxFaecher", temp.MaxFaecher);
+            temp.Fachgroesse = TextLaden.LadeInt(Liste, "Fachgroesse", temp.Fachgroesse);
 
             List<String> Text3 = TextLaden.ErmittleBereich(Text2, "KONSUMIERBARES");
             while (Text3.Count > 0)
@@ -872,13 +872,13 @@ namespace _4_1_
             return temp;
         }
 
-        public List<String> SpeicherIntText()
+        public List<String> Speichern()
         {
             List<String> data = new List<String>();
             data.Add("[INVENTAR]");
             data.Add("Treibstoff=" + Treibstoff);
-            data.Add("MaxFächer=" + MaxFächer.ToString());
-            data.Add("Fachgröße=" + Fachgröße.ToString());
+            data.Add("MaxFaecher=" + MaxFaecher.ToString());
+            data.Add("Fachgroeße=" + Fachgroesse.ToString());
 
             data.Add("[KONSUMIERBARES]");
             for (int i = 0; i < Konsumierbares.Count; i++)

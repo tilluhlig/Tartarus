@@ -244,7 +244,7 @@ namespace _4_1_
                 data.Add("id=" + id[i]);
                 data.Add("pos=" + pos[i]);
                 data.Add("verzögerung=" + verzögerung[i]);
-                data.AddRange(Rucksack[i].SpeicherIntText());
+                data.AddRange(Rucksack[i].Speichern());
                 data.Add("[/KISTE]");
             }
 

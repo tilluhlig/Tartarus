@@ -81,12 +81,12 @@ namespace _4_1_
         /// <summary>
         /// Fächerzahl im Inventar erhöhen
         /// </summary>
-        public int Fächer = 0;
+        public int Faecher = 0;
 
         /// <summary>
         /// Fächerzahl in Prozent im Inventar erhöhen
         /// </summary>
-        public int FächerProzent = 0;
+        public int FaecherProzent = 0;
 
         /// <summary>
         /// erhaltenen Feuerschaden verringern
@@ -180,7 +180,7 @@ namespace _4_1_
         /// <summary>
         /// Tarnfähigkeit
         /// </summary>
-        public int Tarnfähigkeit = 0;
+        public int Tarnfaehigkeit = 0;
 
         /// <summary>
         /// Zielhilfe
@@ -202,7 +202,7 @@ namespace _4_1_
         /// <param name="A">das Effektobjekt, dessen Eigenschaften übernommen werden sollen</param>
         public Effekt(Effekt A)
         {
-            init(A.Name, (String)A.Bild.Tag, A.Dauer, A.Sorte, A.HP, A.HPProzent, A.MaxHP, A.MaxHPProzent, A.Arbeitsbereich, A.ArbeitsbereichProzent, A.GeschwV, A.GeschwVProzent, A.GeschwR, A.GeschwRProzent, A.Schaden, A.SchadenProzent, A.FeuerResistenz, A.FeuerResistenzProzent, A.GiftResistenz, A.GiftResistenzProzent, A.Verteidigung, A.VerteidigungProzent, A.Eingefroren, A.Vergiftet, A.Elektrisiert, A.Tarnfähigkeit, A.Zielhilfe, A.Fächer, A.FächerProzent, A.VerbrauchProzent);
+            init(A.Name, (String)A.Bild.Tag, A.Dauer, A.Sorte, A.HP, A.HPProzent, A.MaxHP, A.MaxHPProzent, A.Arbeitsbereich, A.ArbeitsbereichProzent, A.GeschwV, A.GeschwVProzent, A.GeschwR, A.GeschwRProzent, A.Schaden, A.SchadenProzent, A.FeuerResistenz, A.FeuerResistenzProzent, A.GiftResistenz, A.GiftResistenzProzent, A.Verteidigung, A.VerteidigungProzent, A.Eingefroren, A.Vergiftet, A.Elektrisiert, A.Tarnfaehigkeit, A.Zielhilfe, A.Faecher, A.FaecherProzent, A.VerbrauchProzent);
         }
 
         /// <summary>
@@ -271,10 +271,10 @@ namespace _4_1_
             Eingefroren += Objekt.Eingefroren;
             Vergiftet += Objekt.Vergiftet;
             Elektrisiert += Objekt.Elektrisiert;
-            Tarnfähigkeit += Objekt.Tarnfähigkeit;
+            Tarnfaehigkeit += Objekt.Tarnfaehigkeit;
             Zielhilfe += Objekt.Zielhilfe;
-            Fächer += Objekt.Fächer;
-            FächerProzent += Objekt.FächerProzent;
+            Faecher += Objekt.Faecher;
+            FaecherProzent += Objekt.FaecherProzent;
             VerbrauchProzent += Objekt.VerbrauchProzent;
         }
 
@@ -356,10 +356,10 @@ namespace _4_1_
             temp.Eingefroren = TextLaden.LadeFloat(Liste, "Eingefroren", temp.Eingefroren);
             temp.Vergiftet = TextLaden.LadeFloat(Liste, "Vergiftet", temp.Vergiftet);
             temp.Elektrisiert = TextLaden.LadeFloat(Liste, "Elektrisiert", temp.Elektrisiert);
-            temp.Tarnfähigkeit = TextLaden.LadeInt(Liste, "Tarnfähigkeit", temp.Tarnfähigkeit);
+            temp.Tarnfaehigkeit = TextLaden.LadeInt(Liste, "Tarnfaehigkeit", temp.Tarnfaehigkeit);
             temp.Zielhilfe = TextLaden.LadeInt(Liste, "Zielhilfe", temp.Zielhilfe);
-            temp.Fächer = TextLaden.LadeInt(Liste, "Fächer", temp.Fächer);
-            temp.FächerProzent = TextLaden.LadeInt(Liste, "FächerProzent", temp.FächerProzent);
+            temp.Faecher = TextLaden.LadeInt(Liste, "Faecher", temp.Faecher);
+            temp.FaecherProzent = TextLaden.LadeInt(Liste, "FaecherProzent", temp.FaecherProzent);
             temp.VerbrauchProzent = TextLaden.LadeInt(Liste, "VerbrauchProzent", temp.VerbrauchProzent);
 
             String Typ = TextLaden.LadeString(Liste, "Bild", temp.Name);
@@ -402,10 +402,10 @@ namespace _4_1_
             if (Eingefroren != 0) data.Add("Eingefroren=" + Eingefroren.ToString());
             if (Vergiftet != 0) data.Add("Vergiftet=" + Vergiftet.ToString());
             if (Elektrisiert != 0) data.Add("Elektrisiert=" + Elektrisiert.ToString());
-            if (Tarnfähigkeit != 0) data.Add("Tarnfähigkeit=" + Tarnfähigkeit.ToString());
+            if (Tarnfaehigkeit != 0) data.Add("Tarnfaehigkeit=" + Tarnfaehigkeit.ToString());
             if (Zielhilfe != 0) data.Add("Zielhilfe=" + Zielhilfe.ToString());
-            if (Fächer != 0) data.Add("Fächer=" + Fächer.ToString());
-            if (FächerProzent != 0) data.Add("FächerProzent=" + FächerProzent.ToString());
+            if (Faecher != 0) data.Add("Faecher=" + Faecher.ToString());
+            if (FaecherProzent != 0) data.Add("FaecherProzent=" + FaecherProzent.ToString());
             if (VerbrauchProzent != 0) data.Add("VerbrauchProzent=" + VerbrauchProzent.ToString());
             data.Add("[/EFFEKT]");
 
@@ -439,10 +439,10 @@ namespace _4_1_
             Eingefroren -= Objekt.Eingefroren;
             Vergiftet -= Objekt.Vergiftet;
             Elektrisiert -= Objekt.Elektrisiert;
-            Tarnfähigkeit -= Objekt.Tarnfähigkeit;
+            Tarnfaehigkeit -= Objekt.Tarnfaehigkeit;
             Zielhilfe -= Objekt.Zielhilfe;
-            Fächer -= Objekt.Fächer;
-            FächerProzent -= Objekt.FächerProzent;
+            Faecher -= Objekt.Faecher;
+            FaecherProzent -= Objekt.FaecherProzent;
             VerbrauchProzent -= Objekt.VerbrauchProzent;
         }
 
@@ -507,10 +507,10 @@ namespace _4_1_
             Eingefroren = _Eingefroren;
             Vergiftet = _Vergiftet;
             Elektrisiert = _Elektrisiert;
-            Tarnfähigkeit = _Tarnfähigkeit;
+            Tarnfaehigkeit = _Tarnfähigkeit;
             Zielhilfe = _Zielhilfe;
-            Fächer = _Slots;
-            FächerProzent = _ProzentSlots;
+            Faecher = _Slots;
+            FaecherProzent = _ProzentSlots;
             VerbrauchProzent = _ProzentVerbrauch;
         }
 

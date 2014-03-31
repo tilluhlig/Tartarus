@@ -573,7 +573,7 @@ namespace _4_1_
                                 {
                                     int which = (int)upglist[selected - tre - mun].X;
                                     // Upgrade schicken
-                                    int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgröße : 1;
+                                    int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgroesse : 1;
                                     if (upglist[selected - tre - mun].Y < schritt) schritt = (int)upglist[selected - tre - mun].Y;
 
                                     Item temp = Inventar.Neu(Rucksack.Upgrades[which]);
@@ -588,7 +588,7 @@ namespace _4_1_
                                     {
                                         int which = (int)konlist[selected - tre - mun - upg].X;
                                         // Konsumitem schicken
-                                        int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgröße : 1;
+                                        int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgroesse : 1;
                                         if (konlist[selected - tre - mun - upg].Y < schritt) schritt = (int)konlist[selected - tre - mun - upg].Y;
                                         Item temp = Inventar.Neu(Rucksack.Konsumierbares[which]);
                                         int result = Rucksack.EntnehmenUpgrade(which, schritt);
@@ -670,7 +670,7 @@ namespace _4_1_
                                 {
                                     int which = (int)upglist[selected - tre - mun].X;
                                     // Upgrade schicken
-                                    int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgröße : 1;
+                                    int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgroesse : 1;
                                     if (upglist[selected - tre - mun].Y < schritt) schritt = (int)upglist[selected - tre - mun].Y;
 
                                     Item temp = Inventar.Neu(Tauschrucksack.Upgrades[which]);
@@ -694,7 +694,7 @@ namespace _4_1_
                                     {
                                         int which = (int)konlist[selected - tre - mun - upg].X;
                                         // Konsumitem schicken
-                                        int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgröße : 1;
+                                        int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgroesse : 1;
                                         if (konlist[selected - tre - mun - upg].Y < schritt) schritt = (int)konlist[selected - tre - mun - upg].Y;
 
                                         Item temp = Inventar.Neu(Tauschrucksack.Konsumierbares[which]);
