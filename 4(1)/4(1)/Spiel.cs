@@ -2141,8 +2141,21 @@ namespace _4_1_
         /// Erzeugt den Inhalt des Effektes aus einem String
         /// </summary>
         /// <param name="Text">der Text in dem der Effekt definiert ist</param>
-        public void LadeAusText(String Text)
+        public void LadeAusText(List<String> Text)
         {
+            Spiel temp = new Spiel();
+
+            List<String> Text2 = TextLaden.ErmittleBereich(Text, "SPIEL");
+
+            Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
+            temp.Width = TextLaden.LadeInt(Liste, "Breite", temp.Width); // korrekt?
+            temp.Height = TextLaden.LadeInt(Liste, "Hoehe", temp.Height); // korrekt?
+            temp.Schuesse = TextLaden.LadeInt(Liste, "Schuesse", temp.Schuesse);
+            temp.WindTimeout = TextLaden.LadeInt(Liste, "WindTimeout", temp.WindTimeout);
+            temp.Wind = TextLaden.LadeVector2(Liste, "Wind", temp.Wind);
+            temp.Timeout = TextLaden.LadeInt(Liste, "Timeout", temp.Timeout);
+            temp.CurrentMissile = TextLaden.LadeInt(Liste, "CurrentMissile", temp.CurrentMissile);
+            temp.CurrentPlayer = TextLaden.LadeInt(Liste, "CurrentPlayer", temp.CurrentPlayer);
         }
 
         /// <summary>
@@ -2154,15 +2167,14 @@ namespace _4_1_
             List<String> list = new List<String>();
             // Kartendaten speichern
             list.Add("[SPIEL]");
-            list.Add(Spielfeld.Length.ToString());
-            list.Add((600).ToString());
-            list.Add(Schuesse.ToString());
-            list.Add(WindTimeout.ToString());
-            list.Add(Wind.X.ToString());
-            list.Add(Wind.Y.ToString());
-            list.Add(Timeout.ToString());
-            list.Add(CurrentMissile.ToString());
-            list.Add(CurrentPlayer.ToString());
+            list.Add("Breite="+Spielfeld.Length.ToString());
+            list.Add("Hoehe="+(600).ToString());
+            list.Add("Schuesse="+Schuesse.ToString());
+            list.Add("WindTimeout="+WindTimeout.ToString());
+            list.Add("Wind="+Wind.ToString());
+            list.Add("Timeout="+Timeout.ToString());
+            list.Add("CurrentMissile="+CurrentMissile.ToString());
+            list.Add("CurrentPlayer="+CurrentPlayer.ToString());
 
             // Haeuser speichern
             {
