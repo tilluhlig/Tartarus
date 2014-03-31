@@ -635,5 +635,203 @@ namespace _4_1_
                         }
             }
         }
+
+        /// <summary>
+        /// Speichert die Variable als Zuweisung = Wert
+        /// </summary>
+        public String Save()
+        {
+            for (int i = 0; i < ALLE.Count; i++)
+                if (ALLE[i].Name == Name)
+                {
+                    return Name + " = " + Wert.ToString();
+                }
+
+            for (int i = 0; i < ALLE2.Count; i++)
+                if (ALLE2[i].Name == Name)
+                {
+                    return Name + " = " + Wert.ToString();
+                }
+
+            for (int i = 0; i < ALLE3.Count; i++)
+                if (ALLE3[i].Name == Name)
+                {
+                    return Name + " = " + Wert.ToString();
+                }
+
+            for (int i = 0; i < ALLE4.Count; i++)
+                if (ALLE4[i].Name == Name)
+                {
+                    return Name + " = " + Wert.ToString();
+                }
+
+           for (int i = 0; i < ALLE5.Count; i++)
+                if (ALLE5[i].Name == Name)
+                {
+                    String result = "";
+                    for (int b = 0; b < ALLE5[i].Wert.Length; b++)
+                        result += ALLE5[i].Name + "[" + b.ToString() + "] = " + ALLE5[i].Wert[b]+ (b<ALLE5[i].Wert.Length-1 ? "\n" : "");
+                        return result;
+                }
+
+            for (int i = 0; i < ALLE6.Count; i++)
+                if (ALLE6[i].Name == Name)
+                {
+                    String result = "";
+                    for (int b = 0; b < ALLE6[i].Wert.Length; b++)
+                        result += ALLE6[i].Name + "[" + b.ToString() + "] = " + ALLE6[i].Wert[b] + (b < ALLE6[i].Wert.Length - 1 ? "\n" : "");
+                    return result;
+                }
+
+            for (int i = 0; i < ALLE7.Count; i++)
+                if (ALLE7[i].Name == Name)
+                {
+                    String result = "";
+                    for (int b = 0; b < ALLE7[i].Wert.Length; b++)
+                        result += ALLE7[i].Name + "[" + b.ToString() + "] = " + ALLE7[i].Wert[b] + (b < ALLE7[i].Wert.Length - 1 ? "\n" : "");
+                    return result;
+                }
+
+            for (int i = 0; i < ALLE8.Count; i++)
+                if (ALLE8[i].Name == Name)
+                {
+                    String result = "";
+                    for (int b = 0; b < ALLE8[i].Wert.Length; b++)
+                        result += ALLE8[i].Name + "[" + b.ToString() + "] = " + ALLE8[i].Wert[b] + (b < ALLE8[i].Wert.Length - 1 ? "\n" : "");
+                    return result;
+                }
+
+           return "";
+
+            /*// neu laden
+            if (Wert.GetType() == typeof(Int32) || Wert.GetType() == typeof(bool) || Wert.GetType() == typeof(String) || Wert.GetType() == typeof(float))
+            {
+                for (int i = 0; i < Data.list.Count; i++)
+                {
+                    String[] data = Data.list[i].Split('=');
+                    if (data[0].Trim().ToUpper() == Name)
+                    {
+                        if (Wert.GetType() == typeof(Int32))
+                        {
+                            Wert = (T)(object)(Convert.ToInt32(data[1].Trim()));
+                        }
+                        else
+                            if (Wert.GetType() == typeof(Keys))
+                            {
+                                System.Windows.Forms.KeysConverter qq = new System.Windows.Forms.KeysConverter();
+                                Wert = (T)(object)(qq.ConvertFromString(data[1].Trim()));
+                                String q = Wert.ToString();
+                            }
+                            else
+                                if (Wert.GetType() == typeof(bool))
+                                {
+                                    try
+                                    {
+                                        Wert = (T)(object)(Convert.ToBoolean(data[1].Trim()));
+                                    }
+                                    catch (FormatException) { }
+                                }
+                                else
+                                    if (Wert.GetType() == typeof(String))
+                                    {
+                                        Wert = (T)(object)data[1].Trim();
+                                    }
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                if (Wert.GetType() == typeof(Int32[]))
+                {
+                    for (int i = 0; i < ((Int32[])(object)Wert).Count(); i++)
+                    {
+                        ((Int32[])(object)Wert)[i] = ((Int32[])(object)oldWert)[i];
+
+                        String search = Name + "[" + i.ToString() + "]";
+                        for (int b = 0; b < Data.list.Count; b++)
+                        {
+                            String[] data = Data.list[b].Split('=');
+                            if (data[0].Trim().ToUpper() == search)
+                            {
+                                ((Int32[])(object)Wert)[i] = (Convert.ToInt32(data[1].Trim()));
+                            }
+                        }
+                    }
+                }
+                else
+                    if (Wert.GetType() == typeof(bool[]))
+                    {
+                        for (int i = 0; i < ((bool[])(object)Wert).Count(); i++)
+                        {
+                            ((bool[])(object)Wert)[i] = ((bool[])(object)oldWert)[i];
+
+                            String search = Name + "[" + i.ToString() + "]";
+                            for (int b = 0; b < Data.list.Count; b++)
+                            {
+                                String[] data = Data.list[b].Split('=');
+                                if (data[0].Trim().ToUpper() == search)
+                                {
+                                    ((bool[])(object)Wert)[i] = (Convert.ToBoolean(data[1].Trim()));
+                                }
+                            }
+                        }
+                    }
+                    else
+                        if (Wert.GetType() == typeof(String[]))
+                        {
+                            for (int i = 0; i < ((String[])(object)Wert).Count(); i++)
+                            {
+                                ((String[])(object)Wert)[i] = ((String[])(object)oldWert)[i];
+
+                                String search = Name + "[" + i.ToString() + "]";
+                                for (int b = 0; b < Data.list.Count; b++)
+                                {
+                                    String[] data = Data.list[b].Split('=');
+                                    if (data[0].Trim().ToUpper() == search)
+                                    {
+                                        ((String[])(object)Wert)[i] = data[1].Trim();
+                                    }
+                                }
+                            }
+                        }
+                        else
+                            if (Wert.GetType() == typeof(float[]))
+                            {
+                                for (int i = 0; i < ((float[])(object)Wert).Count(); i++)
+                                {
+                                    ((float[])(object)Wert)[i] = ((float[])(object)oldWert)[i];
+
+                                    String search = Name + "[" + i.ToString() + "]";
+                                    for (int b = 0; b < Data.list.Count; b++)
+                                    {
+                                        String[] data = Data.list[b].Split('=');
+                                        if (data[0].Trim().ToUpper() == search)
+                                        {
+                                            ((float[])(object)Wert)[i] = (float)Convert.ToDouble(data[1].Trim());
+                                        }
+                                    }
+                                }
+                            }
+            }
+
+            unsafe
+            {
+                if (LinkB != null)
+                {
+                    *LinkB = (bool)(object)Wert;
+                }
+                else
+                    if (LinkI != null)
+                    {
+                        *LinkI = (int)(object)Wert;
+                    }
+                    else
+                        if (LinkF != null)
+                        {
+                            *LinkF = (float)(object)Wert;
+                        }
+            }*/
+        }
     }
 }

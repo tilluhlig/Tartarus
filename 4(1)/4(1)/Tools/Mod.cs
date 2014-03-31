@@ -12,6 +12,7 @@
 // <summary></summary>
 // ***********************************************************************
 using System;
+using System.IO;
 
 namespace _4_1_
 {
@@ -140,9 +141,9 @@ namespace _4_1_
         public static Var<bool> ORTSSCHILD_VISIBLE = new Var<bool>("ORTSSCHILD_VISIBLE", true);
 
         /// <summary>
-        /// Loads the specified datei.
+        /// Lädt die Mod-Variablen aus der angegebenen Datei (Variable=Wert)
         /// </summary>
-        /// <param name="Datei">The datei.</param>
+        /// <param name="Datei">Die Datei, aus der die Daten geladen werden sollen</param>
         public static void LadeModVariablen(String Datei)
         {
             // Angrabbeln (Trick 17)
@@ -163,6 +164,28 @@ namespace _4_1_
 #if DEBUG
                 Game1.DEBUG_AKTIV.Wert=true;
 #endif
+        }
+
+        /// <summary>
+        /// Speichert die Mod-Variablen in die angegebene Datei (Variable=Wert)
+        /// </summary>
+        /// <param name="Datei">Die Datei, in welche die Daten gespeichert werden sollen</param>
+        public static void SpeichereModVariablen(String Datei)
+        {
+            StreamWriter file = new StreamWriter(Datei, false);
+
+            // Speichern
+            for (int i = 0; i < Var<String>.ALLE.Count; i++) file.WriteLine(Var<String>.ALLE[i].Save());
+            for (int i = 0; i < Var<int>.ALLE2.Count; i++) file.WriteLine(Var<int>.ALLE2[i].Save());
+            for (int i = 0; i < Var<bool>.ALLE3.Count; i++) file.WriteLine(Var<bool>.ALLE3[i].Save());
+            for (int i = 0; i < Var<float>.ALLE4.Count; i++) file.WriteLine(Var<float>.ALLE4[i].Save());
+
+            for (int i = 0; i < Var<String[]>.ALLE5.Count; i++) file.WriteLine(Var<String[]>.ALLE5[i].Save());
+            for (int i = 0; i < Var<int[]>.ALLE6.Count; i++) file.WriteLine(Var<int[]>.ALLE6[i].Save());
+            for (int i = 0; i < Var<bool[]>.ALLE7.Count; i++) file.WriteLine(Var<bool[]>.ALLE7[i].Save());
+            for (int i = 0; i < Var<float[]>.ALLE8.Count; i++) file.WriteLine(Var<float[]>.ALLE8[i].Save());
+
+            file.Close();
         }
     }
 }

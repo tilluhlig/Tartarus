@@ -2386,6 +2386,12 @@ namespace _4_1_
             {
                 if (keybState != Keyboard.GetState())
                 {
+                    if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.K))
+                    {
+                        Mod.SpeichereModVariablen("Mod.dat");
+                        Meldungen.addMessage("Mod-Variablen gespeichert...");
+                    }
+                    else
                     if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.L))
                     {
                         //  Vector2 pos = Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
