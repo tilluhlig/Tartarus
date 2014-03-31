@@ -2066,6 +2066,7 @@ namespace _4_1_
                                 else
                                     if (Editor.Textfeldtyp == 3)
                                     {
+                                        Spiel2.players[Editor.TextfeldSpieler].LadenFahrzeug(Editor.Textfelder.Text, Editor.TextfeldID, Content);
                                     }
                                     else
                                         if (Editor.Textfeldtyp == 2)
@@ -2394,6 +2395,7 @@ namespace _4_1_
                         int id = tmp.CurrentTank;
                         Spiel2.players[Spiel2.CurrentPlayer].Minen.Add(new Mine((int)tmp.pos[id].X, (int)tmp.pos[id].Y,1));*/
                         Spiel2.next_player();
+                        Meldungen.addMessage("Spieler gewechselt...");
                         //  Optimierung.Optimiere_Bäume();
                         //   Optimierung.Optimiere_Häuser();
                     }
@@ -2419,6 +2421,7 @@ namespace _4_1_
 
                             MapWriter.Generieren(Spiel2);
                             MapWriter.Speichern("Spiel.txt");
+                            Meldungen.addMessage("Speichern...");
                         }
                 }
 
