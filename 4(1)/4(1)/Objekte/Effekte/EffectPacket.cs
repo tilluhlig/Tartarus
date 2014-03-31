@@ -299,17 +299,17 @@ namespace _4_1_
 
             List<String> Text3 = TextLaden.ErmittleBereich(Text2, "STATUS");
             while (Text3.Count > 0)
-                temp.Status.Add(Effekt.Laden(Text3, Content));
+                temp.Status.Add(Effekt.Laden(Text3, Content, null));
 
             Text3 = TextLaden.ErmittleBereich(Text2, "UPGRADES");
             while (Text3.Count > 0)
-                temp.Upgrades.Add(Effekt.Laden(Text3, Content));
+                temp.Upgrades.Add(Effekt.Laden(Text3, Content, null));
 
             Text3 = TextLaden.ErmittleBereich(Text2, "KONSUMIERBARES");
             while (Text3.Count > 0)
-                temp.Konsumierbares.Add(Effekt.Laden(Text3, Content));
+                temp.Konsumierbares.Add(Effekt.Laden(Text3, Content, null));
 
-            temp.EffektSumme = Effekt.Laden(Text2, Content);
+            temp.EffektSumme = Effekt.Laden(Text2, Content, temp.EffektSumme);
 
             return temp;
         }

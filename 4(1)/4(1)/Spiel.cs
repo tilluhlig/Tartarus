@@ -2148,8 +2148,8 @@ namespace _4_1_
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "SPIEL");
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
-            temp.Width = TextLaden.LadeInt(Liste, "Breite", temp.Width); // korrekt?
-            temp.Height = TextLaden.LadeInt(Liste, "Hoehe", temp.Height); // korrekt?
+            temp.Width = TextLaden.LadeInt(Liste, "Width", temp.Width); // korrekt?
+            temp.Height = TextLaden.LadeInt(Liste, "Height", temp.Height); // korrekt?
             temp.Schuesse = TextLaden.LadeInt(Liste, "Schuesse", temp.Schuesse);
             temp.WindTimeout = TextLaden.LadeInt(Liste, "WindTimeout", temp.WindTimeout);
             temp.Wind = TextLaden.LadeVector2(Liste, "Wind", temp.Wind);
@@ -2167,8 +2167,8 @@ namespace _4_1_
             List<String> list = new List<String>();
             // Kartendaten speichern
             list.Add("[SPIEL]");
-            list.Add("Breite="+Spielfeld.Length.ToString());
-            list.Add("Hoehe="+(600).ToString());
+            list.Add("Width=" + Width.ToString());
+            list.Add("Height=" + Height.ToString());
             list.Add("Schuesse="+Schuesse.ToString());
             list.Add("WindTimeout="+WindTimeout.ToString());
             list.Add("Wind="+Wind.ToString());

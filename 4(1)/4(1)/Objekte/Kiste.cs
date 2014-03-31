@@ -218,6 +218,7 @@ namespace _4_1_
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "KISTE");
 
+            int altid = i;
             if (i == -1)
             {
                 AddKiste(Vector2.Zero, null);
@@ -230,8 +231,8 @@ namespace _4_1_
             pos[i] = TextLaden.LadeVector2(Liste, "pos", pos[i]);
             verzögerung[i] = TextLaden.LadeInt(Liste, "verzögerung", verzögerung[i]);
 
-            if (Rucksack[i] == null)
-                Rucksack[i] = Inventar.Laden(Text2, Content);
+          //  if (Rucksack[i] == null)
+            Rucksack[i] = Inventar.Laden(Text2, Content, altid == -1 ? new Inventar() : Rucksack[i]);
         }
 
         public List<String> Speichern()

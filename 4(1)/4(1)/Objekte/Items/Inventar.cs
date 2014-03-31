@@ -68,6 +68,10 @@ namespace _4_1_
         /// <param name="_Treibstoff">initial Treibstoff</param>
         public Inventar(int _MaxFächer, List<int> _Munition, float _Treibstoff)
         {
+            InventarInit(_MaxFächer, _Munition, _Treibstoff);
+        }
+        private void InventarInit(int _MaxFächer, List<int> _Munition, float _Treibstoff)
+        {
             MaxFaecher = _MaxFächer;
             if (_Munition != null)
             {
@@ -84,7 +88,7 @@ namespace _4_1_
         }
 
         public Inventar()
-        { }
+        { InventarInit(0, null, 0); }
 
         /// <summary>
         /// Erstellt neuen Speicher anhand eines existierenden Items (kopiert das Item)
@@ -844,11 +848,12 @@ namespace _4_1_
         }
 
         // TODO ausfüllen
-        public static Inventar Laden(List<String> Text, ContentManager Content)
+        public static Inventar Laden(List<String> Text, ContentManager Content, Inventar Default)
         {
             Inventar temp = new Inventar();
 
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "INVENTAR");
+            if (Text2.Count == 0) return Default;
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
             temp.Treibstoff = TextLaden.LadeFloat(Liste, "Treibstoff", temp.Treibstoff);
