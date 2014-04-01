@@ -1202,8 +1202,22 @@ namespace _4_1_
         /// Erzeugt den Inhalt des Effektes aus einem String
         /// </summary>
         /// <param name="Text">der Text in dem der Effekt definiert ist</param>
-        public void LadeAusText(List<String> Text)
+        public List<UInt16>[] Laden(List<String> Text)
         {
+            List<String> Text2 = TextLaden.ErmittleBereich(Text, "KARTE");
+            if (Text2.Count == 0) return null;
+
+            List<UInt16>[] temp = new List<UInt16>[Text2.Count];
+
+                        for (int b = 0; b < Text2.Count; b++)
+            {
+                String[] q = Text2[b].Split('-');
+                for (int i = 0; i < q.Length; i++)
+                    temp[b].Add(Convert.ToUInt16(q[i]));
+            }
+
+                        return temp;
+            
         }
 
         /// <summary>

@@ -170,9 +170,9 @@ namespace _4_1_
         /// Speichert die Mod-Variablen in die angegebene Datei (Variable=Wert)
         /// </summary>
         /// <param name="Datei">Die Datei, in welche die Daten gespeichert werden sollen</param>
-        public static void SpeichereModVariablen(String Datei)
+        public static void SpeichereModVariablen(String Datei, bool Append)
         {
-            StreamWriter file = new StreamWriter(Datei, false);
+            StreamWriter file = new StreamWriter(Datei, Append);
 
             // Speichern
             for (int i = 0; i < Var<String>.ALLE.Count; i++) file.WriteLine(Var<String>.ALLE[i].Save());

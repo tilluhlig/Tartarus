@@ -43,7 +43,7 @@ namespace _4_1_
                 datei.WriteLine(list[i]);
             datei.Close();
 
-            //Kompression.Kompression.Komprimiere(Path.ChangeExtension(Datei, ".dat"), Datei);
+            Kompression.Kompression.Komprimiere(Path.ChangeExtension(Datei, ".dat"),  Datei);
             // if (File.Exists(Path.ChangeExtension(Datei, ".dat"))) File.Delete(Path.ChangeExtension(Datei, ".dat"));
 
             list.Clear();

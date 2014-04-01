@@ -2388,7 +2388,7 @@ namespace _4_1_
                 {
                     if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.K))
                     {
-                        Mod.SpeichereModVariablen("Mod.dat");
+                        Mod.SpeichereModVariablen("Mod.dat",false);
                         Meldungen.addMessage("Mod-Variablen gespeichert...");
                     }
                     else
@@ -2426,7 +2426,7 @@ namespace _4_1_
                                   Hauptfenster.Tausch.SpielAktiv = false;*/
 
                             MapWriter.Generieren(Spiel2);
-                            MapWriter.Speichern("Spiel.txt");
+                            MapWriter.Speichern("Spiel.sav");
                             Meldungen.addMessage("Speichern...");
                         }
                 }
