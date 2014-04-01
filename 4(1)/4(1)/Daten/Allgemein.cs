@@ -1,7 +1,11 @@
 ﻿namespace _4_1_
 {
+    // Last Modified On : 01.04.14 by Anton
     public static class Allgemein
     {
+        /// <summary>
+        /// beinhaltet allgemeine Angaben zu globalen Kartenkonstanten
+        /// </summary>
         public static int MaxBesitzerPunkte;
         public static int MaxBunker;
         public static int MaxFahrzeug;
@@ -13,7 +17,9 @@
         public static int TunnelAPKosten;
 
         #region Privat
-
+        /// <summary>
+        /// erlaubt die Modifikation der Konstanten von Datei aus
+        /// </summary>
         private static Var<int> MOD_MaxBesitzerPunkte = new Var<int>("MAXBESITZERPUNKTE", 1000, ref MaxBesitzerPunkte);
         private static Var<int> MOD_MaxBunker = new Var<int>("MAXBUNKER", 5, ref MaxBunker);
         private static Var<int> MOD_MaxFahrzeug = new Var<int>("MAXFAHRZEUG", 20, ref MaxFahrzeug);
