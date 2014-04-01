@@ -40,6 +40,10 @@ namespace _4_1_
             form.timer3.Enabled = true;
             bool fehler = false;
 
+#if DEBUG
+            game.Run();
+#else
+          
             try
             {
                 game.Run();
@@ -107,7 +111,9 @@ namespace _4_1_
                     }
                 }
             }
+#endif
         }
+           
     }
 
 #endif
