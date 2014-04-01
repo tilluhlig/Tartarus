@@ -662,11 +662,11 @@ namespace _4_1_
                         {
                             float specialscale = 0.75f;
                             //
-                            Vector2 pos = new Vector2(xPos, yPos) + new Vector2(+(Spiel2.Haeuser.Bild[i].Width / 2) - (Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Width * 0.75f * Gebäudedaten.SKALIERUNG.Wert[id]) / 2, -Texturen.haus[id].Height / 2);
+                            Vector2 pos = new Vector2(xPos, yPos) + new Vector2(+(Spiel2.Haeuser.Bild[i].Width * Gebäudedaten.SKALIERUNG.Wert[id] / 2) - (Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Width * 0.75f * Optimierung.Skalierung(0.25f)) / 2, -Texturen.haus[id].Height * Gebäudedaten.SKALIERUNG.Wert[id] / 2);
 
-                            Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)pos.X - 1, (int)pos.Y - 1, (int)(Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Width * specialscale * Gebäudedaten.SKALIERUNG.Wert[id] + 2), (int)(Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Height * specialscale * Gebäudedaten.SKALIERUNG.Wert[id] + 2)), Spiel2.players[Spiel2.Haeuser.Besitzer[i]].Farbe, 0.3f);
+                            Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)pos.X - 1, (int)pos.Y - 1, (int)(Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Width * specialscale * Optimierung.Skalierung(0.25f) + 2), (int)(Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Height * specialscale * Optimierung.Skalierung(0.25f) + 2)), Spiel2.players[Spiel2.Haeuser.Besitzer[i]].Farbe, 0.3f);
 
-                            spriteBatch.Draw(Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]], pos, null, Color.White, 0, Vector2.Zero, Gebäudedaten.SKALIERUNG.Wert[id] * specialscale, SpriteEffects.None, 1);
+                            spriteBatch.Draw(Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]], pos, null, Color.White, 0, Vector2.Zero, Optimierung.Skalierung(0.25f) * specialscale, SpriteEffects.None, 1);
                         }
 
                 spriteBatch.End();
