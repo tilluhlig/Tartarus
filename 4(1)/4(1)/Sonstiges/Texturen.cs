@@ -962,6 +962,7 @@ namespace _4_1_
                 Game1.spriteBatch.Draw(haus[i], rect, Color.White);
                 Game1.spriteBatch.End();
                 Game1.device.SetRenderTarget(null);
+                rt.Tag = haus[i].Tag;
                 haus[i] = rt;
 #endif
                 Gebäudedaten.SKALIERUNG.Wert[i] = 1.0f;
@@ -976,6 +977,7 @@ namespace _4_1_
             Game1.spriteBatch.Draw(tunnel, rect2, Color.White);
             Game1.spriteBatch.End();
             Game1.device.SetRenderTarget(null);
+            rt2.Tag = tunnel.Tag;
             tunnel = rt2;
 #endif
             Tunnel.SKALIERUNG = 1.0f;
@@ -998,6 +1000,7 @@ namespace _4_1_
                 Game1.spriteBatch.Draw(panzerindex[i], rect, Color.White);
                 Game1.spriteBatch.End();
                 Game1.device.SetRenderTarget(null);
+                rt.Tag = panzerindex[i].Tag;
                 panzerindex[i] = rt;
 
                 rt = new RenderTarget2D(Game1.device, (int)(panzerindexreifen[i].Width * Fahrzeugdaten.SCALEP.Wert[i]), (int)(panzerindexreifen[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
@@ -1008,6 +1011,7 @@ namespace _4_1_
                 Game1.spriteBatch.Draw(panzerindexreifen[i], rect, Color.White);
                 Game1.spriteBatch.End();
                 Game1.device.SetRenderTarget(null);
+                rt.Tag = panzerindexreifen[i].Tag;
                 panzerindexreifen[i] = rt;
 
                 rt = new RenderTarget2D(Game1.device, (int)(panzerruine[i].Width * Fahrzeugdaten.SCALEP.Wert[i]), (int)(panzerruine[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
@@ -1018,6 +1022,7 @@ namespace _4_1_
                 Game1.spriteBatch.Draw(panzerruine[i], rect, Color.White);
                 Game1.spriteBatch.End();
                 Game1.device.SetRenderTarget(null);
+                rt.Tag = panzerruine[i].Tag;
                 panzerruine[i] = rt;
 #endif
                 Fahrzeugdaten.SCALEP.Wert[i] = 1.0f;
@@ -1094,6 +1099,7 @@ namespace _4_1_
                 Game1.spriteBatch.Draw(baum[i], rect, Color.White);
                 Game1.spriteBatch.End();
                 Game1.device.SetRenderTarget(null);
+                rt.Tag = baum[i].Tag;
                 baum[i] = rt;
 #endif
                 Baumdata.SKALIERUNG.Wert[i] = 1.0f;
