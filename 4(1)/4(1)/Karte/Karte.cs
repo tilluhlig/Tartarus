@@ -42,32 +42,32 @@ namespace _4_1_
         private static Var<bool> MOD_KARTE_SYMMETRISCH = new Var<bool>("KARTE_SYMMETRISCH", false, ref KARTE_SYMMETRISCH);
 
         /// <summary>
-        /// The rand
+        /// Der interne Zufallszahlengenerator
         /// </summary>
         private Random rand = new Random();
 
         /// <summary>
-        /// Struct ParticleData
+        /// Enthält Sammlung von Werten von einen Partikel
         /// </summary>
         public struct ParticleData
         {
             /// <summary>
-            /// The birth time
+            /// wann Partikel erschaffen wurde
             /// </summary>
             public float BirthTime;
 
             /// <summary>
-            /// The max age
+            /// nach welcher Dauer muss der Partikel entfernt werden
             /// </summary>
             public float MaxAge;
 
             /// <summary>
-            /// The orginal position
+            /// wo wurde der Partikel erschaffen
             /// </summary>
             public Vector2 OrginalPosition;
 
             /// <summary>
-            /// The accelaration
+            /// Beschleunigung des Partikels (x- und y Richtung)
             /// </summary>
             public Vector2 Accelaration;
 
