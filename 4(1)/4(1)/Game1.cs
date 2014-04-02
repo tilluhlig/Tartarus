@@ -182,6 +182,7 @@ namespace _4_1_
         public Game1(IntPtr drawSurface) // selbsterklärend
         {
             // Erstelle Spiel
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
            // graphics.IsFullScreen = true;  // schaltet fullsceen an
@@ -189,6 +190,9 @@ namespace _4_1_
 
             this.graphics.PreferredBackBufferWidth = Hauptfenster.Tausch.screenwidth;
             this.graphics.PreferredBackBufferHeight = Hauptfenster.Tausch.screenheight;
+            this.graphics.SynchronizeWithVerticalRetrace = true;
+            this.graphics.PreferMultiSampling = true;
+            
 
            // this.graphics.PreferredBackBufferWidth = 1366;
            // this.graphics.PreferredBackBufferHeight = 768;
@@ -1394,14 +1398,29 @@ namespace _4_1_
             // GraphicsDevice.Clear(Color.White);
             //graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
             GraphicsDevice.Clear(ClearOptions.Target, Microsoft.Xna.Framework.Color.Blue, 1.0F, 0);
-            RasterizerState rs = new RasterizerState();
-            rs.CullMode = CullMode.None;
-            device.RasterizerState = rs;
+
+            SamplerState sampler = new SamplerState();
+            sampler.MaxAnisotropy = 4;
+            sampler.Filter = TextureFilter.Anisotropic;
+            sampler.MaxMipLevel = 0;
+            sampler.MipMapLevelOfDetailBias = 0;
+            sampler.AddressU = TextureAddressMode.Clamp;
+            sampler.AddressV = TextureAddressMode.Clamp; 
+            sampler.AddressW = TextureAddressMode.Clamp;
+            //sampler = null;
+
+            RasterizerState rasterize = new RasterizerState();
+            rasterize.CullMode = CullMode.None;
+            rasterize.FillMode = FillMode.Solid;
+            rasterize.MultiSampleAntiAlias = true;
+            device.RasterizerState = rasterize;
+           // rasterize = null;
 
             Vector3 screenScalingFactor;
 
             float horScaling = (float)device.PresentationParameters.BackBufferWidth / baseScreenSize.X;
             float verScaling = (float)device.PresentationParameters.BackBufferHeight / baseScreenSize.Y;
+            /// device.PresentationParameters.PresentationInterval = PresentInterval.Two;
             screenScalingFactor = new Vector3(horScaling, verScaling, 1);
 
             Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
@@ -1441,9 +1460,8 @@ namespace _4_1_
                             break;
                         }
                 }
-
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,sampler,null,rasterize);
             Texturen.effect.CurrentTechnique.Passes[0].Apply();
             DrawSceneryBackground();
             spriteBatch.End();
@@ -1454,7 +1472,7 @@ namespace _4_1_
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
-                null, null, null, null, globalTransformation);
+                sampler, null, rasterize, null, globalTransformation);
             if (Spiel.SMOKE.Wert) DrawSmoke(gameTime);
             spriteBatch.End();
 
@@ -1472,7 +1490,7 @@ namespace _4_1_
 
             Nutzloses.ZeichneNutzloses(gameTime, spriteBatch, Spiel2);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,sampler,null,rasterize);
             Texturen.effect.CurrentTechnique.Passes[0].Apply();
             Vordergrund.ZeichneVordergrund();
             spriteBatch.End();
@@ -1609,7 +1627,7 @@ namespace _4_1_
 
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
-                 null, null, null, null, globalTransformation);
+                 sampler, null, rasterize, null, globalTransformation);
             if (Spiel.EXPLOSION.Wert) DrawExplosion();
             // if (Spiel.SMOKE.Wert) DrawSmoke(gameTime);
 
@@ -1645,9 +1663,9 @@ namespace _4_1_
                 reduzierung2++;
             }*/
 
-            //  GraphicsDevice.Present();
+             //GraphicsDevice.Present();
 
-            // base.Draw(gameTime);
+             base.Draw(gameTime);
             // GraphicsDevice.Present();
         }
 
@@ -1782,7 +1800,7 @@ namespace _4_1_
                 // Spielermenu.CurrentPlayerID = Spiel2.CurrentPlayer;
                 // Spielermenu.CurrentTankID = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
             }
-            base.Update(gameTime);
+           // base.Update(gameTime);
         }
 
         /// <summary>
