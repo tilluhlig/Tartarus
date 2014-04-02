@@ -87,14 +87,12 @@ namespace _4_1_
         public static Var<int[]> KANNHANDELN = new Var<int[]>("KANNHANDELN", new int[] { 1, 1, 1, 1, 0, 0 });
 
         /// <summary>
-        /// ???
-        /// The ARBEITSBEREICH
+        /// Gibt an, wie weit der Fahrzeugtyp maximal in der Runde nach rechts/links fahren kann
         /// </summary>
         public static Var<int[]> ARBEITSBEREICH = new Var<int[]>("ARBEITSBEREICH", new int[] { 1000, 1000, 1000, 1000, 0, 0 });
 
         /// <summary>
-        /// ???
-        /// The FAHRM
+        /// Gibt an, wo bei den Fahrzeug die Mitte ist
         /// </summary>
         public static Var<int[]> FAHRM = new Var<int[]>("FAHRM", new int[] { 32, 34, 32, 32, 32, 32 });
 
@@ -203,14 +201,12 @@ namespace _4_1_
         public static Var<int[]> EXPTOLVUP5 = new Var<int[]>("EXPTOLVUP5", new int[] { 100, 100, 100 });
 
         /// <summary>
-        /// ???
-        /// The VOLUMES
+        /// Die Lautstärke (Motor) je Fahrzeugtyp
         /// </summary>
         public static Var<float[]> VOLUMES = new Var<float[]>("VOLUMES", new float[] { 0.3f, 0.6f, 0.4f, 0.7f, 0f, 0f });
 
         /// <summary>
-        /// ???
-        /// The SINKSOUND
+        /// Id des Blubb-Sounds, der benutz wird, ween das fahrzeug ins Wasser fällt
         /// </summary>
         public static Var<int[]> SINKSOUND = new Var<int[]>("SINKSOUND", new int[] { 0, 0, 1, 1, 0, 0 });
 
@@ -225,14 +221,14 @@ namespace _4_1_
         public static Var<int[]> PREIS = new Var<int[]>("PREIS", new int[] { 1000, 1000, 1000, 1000, 0, 0 });
 
         /// <summary>
-        /// Frage: Soll hier nicht als _Name "KANNGEBAUTWERDEN" stehen?
+        /// Frage: Soll hier nicht als _Name "KANNGEBAUTWERDEN" statt "PREIS" stehen?
         /// ???
         /// Stellt fest, welche Fahrzeuge in einer Fabrik angeferigt werden können
         /// </summary>
-        public static Var<int[]> KANNGEBAUTWERDEN = new Var<int[]>("PREIS", new int[] { 1, 1, 1, 1, 0, 0 });
+        public static Var<int[]> KANNGEBAUTWERDEN = new Var<int[]>("KANNGEBAUTWERDEN", new int[] { 1, 1, 1, 1, 0, 0 });
 
         /// <summary>
-        /// The shootable
+        /// Beinhaltet die verschießbare Munition (alle Fahrzeuge, alle Munitionsarten)
         /// </summary>
         public static int[,] Shootable = new int[MAXHP.Wert.Count(), SHOOTABLE0.Wert.Count()]; // Abfeuerbare Waffen
 
@@ -250,7 +246,7 @@ namespace _4_1_
                                             };
 
         /// <summary>
-        /// ???
+        /// Diese Items bekommt man zusätzlich zum normalen Inventar (mit dem Anteil von 0 bis 100%)
         /// </summary>
         public static int[,] VariabelInventar = {
                     /*Artillerie          */  { 000000000, 00000000000002, 00000000000000001, 0000000000, 000000000000, 0000000000, 000000000, 00000010, 000000010, 00000, 000000, 0000000, 00000000, 00000000, 00000000, 000000, 000000, 00000000, 000000000, 0000, 0, 0},
@@ -261,7 +257,6 @@ namespace _4_1_
                     /*Geschütz2           */  { 000000000, 00000000000000, 00000000000000000, 0000000000, 000000000000, 0000000000, 000000000, 00000000, 000000000, 00000, 000000, 0000000, 00000000, 00000000, 00000000, 000000, 000000, 00000000, 000000000, 0000, 0, 0}
                                             };
         /// <summary>
-        /// ???
         /// Enthält, was das Fahrzeug an Items pro Runde bekommt
         /// </summary>
         public static int[,] RundenInventar = {
@@ -274,7 +269,8 @@ namespace _4_1_
                                             };
 
         /// <summary>
-        /// The messpunkte
+        /// ???
+        /// Die Maske des Fahrzeugs zur Schadensbestimmung (pro Fahrzeugtyp)
         /// </summary>
         public static Vector2[][] Messpunkte = new Vector2[MAXHP.Wert.Count()][];
 
@@ -289,14 +285,15 @@ namespace _4_1_
         public static int[] ExpRewarded = new int[MAXHP.Wert.Count()];
 
         /// <summary>
-        /// Reset_s the tankdata.
+        /// Setzt die Tankdata zurück
+        /// Ist leer
         /// </summary>
         public static void Reset_Tankdata()
         {
         }
 
         /// <summary>
-        /// Lade_s the tankdata.
+        /// Ladet Shootable und ExpToLvUp mit Werten aus korrespondierenden modifizierbaren Variablen
         /// </summary>
         public static void LadePanzerdaten()
         {
