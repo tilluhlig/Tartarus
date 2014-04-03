@@ -24,32 +24,32 @@ namespace _4_1_
         #region FahrzeugIDs
 
         /// <summary>
-        /// ARTILLERIE ID ist 0
+        /// ARTILLERIE ID
         /// </summary>
         public static int ARTILLERIE = 0;
 
         /// <summary>
-        /// PANZER ID ist 1
+        /// PANZER ID
         /// </summary>
         public static int PANZER = 1;
 
         /// <summary>
-        /// BAUFAHRZEUG ID ist 2
+        /// BAUFAHRZEUG ID
         /// </summary>
         public static int BAUFAHRZEUG = 2;
 
         /// <summary>
-        /// SCOUT ID ist 3
+        /// SCOUT ID
         /// </summary>
         public static int SCOUT = 3;
 
         /// <summary>
-        /// RAKETEN-GESCHÜTZ ID ist 4
+        /// RAKETEN-GESCHÜTZ ID
         /// </summary>
         public static int GESCHÜTZ = 4;
 
         /// <summary>
-        /// MG-GESCHÜTZ ID ist 5
+        /// MG-GESCHÜTZ ID
         /// </summary>
         public static int GESCHÜTZ2 = 5;
 
