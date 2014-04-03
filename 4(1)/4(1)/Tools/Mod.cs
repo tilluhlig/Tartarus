@@ -17,126 +17,126 @@ using System.IO;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Mod
+    /// Diese Klasse verwaltet einige MOD-Variablen und zusätzliche Funktionen für MOD-Variablen
     /// </summary>
     public static class Mod
     {
         /// <summary>
-        /// The ACTIO n_ BUTTO n_ VISIBLE
+        /// MOD-Variable, ob das Aktionspunktefeld angezeigt wird
         /// </summary>
         public static Var<bool> ACTION_BUTTON_VISIBLE = new Var<bool>("ACTION_BUTTON_VISIBLE", false);
 
-        // aktuelle MunitionButton (links oben)
         /// <summary>
-        /// The AKTUELL e_ MUNITIO n_ BUTTO n_ VISIBLE
+        /// MOD-Variable, aktuelle MunitionButton (links oben)
         /// </summary>
         public static Var<bool> AKTUELLE_MUNITION_BUTTON_VISIBLE = new Var<bool>("AKTUELLE_MUNITION_BUTTON_VISIBLE", false);
 
         /// <summary>
-        /// The AKTUELL e_ MUNITIO n_ BUTTO n_ X
+        /// MOD-Variable, die X Position des aktuelle MunitionButton (links oben)
         /// </summary>
         public static Var<int> AKTUELLE_MUNITION_BUTTON_X = new Var<int>("AKTUELLE_MUNITION_BUTTON_X", 10);
 
         /// <summary>
-        /// The AKTUELL e_ MUNITIO n_ BUTTO n_ Y
+        /// MOD-Variable, die Y Position des aktuelle MunitionButton (links oben)
         /// </summary>
         public static Var<int> AKTUELLE_MUNITION_BUTTON_Y = new Var<int>("AKTUELLE_MUNITION_BUTTON_Y", 10);
 
         /// <summary>
-        /// The AKTUELLE r_ O n_ TAN k_ VISIBLE
+        /// MOD-Variable, ob extra markiert werden soll, welches Fahrzeug auf dem Spielfeld
+        /// aktuell ausgewählt ist
         /// </summary>
         public static Var<bool> AKTUELLER_ON_TANK_VISIBLE = new Var<bool>("AKTUELLER_ON_TANK_VISIBLE", false);
 
-        // Panzer zeichnungen
         /// <summary>
-        /// The COOLDOW n_ O n_ TAN k_ VISIBLE
+        /// MOD-Variable, ob auf dem Fahrzeug ein Zähler für eine eventuelle Nutzung von Sperrzeiten angezeigt werden soll
         /// </summary>
         public static Var<bool> COOLDOWN_ON_TANK_VISIBLE = new Var<bool>("COOLDOWN_ON_TANK_VISIBLE", false);
 
         /// <summary>
-        /// The EINGABEZEIL e_ VISIBLE
+        /// MOD-Variable, ob die Eingabezeile verfügbar ist
         /// </summary>
         public static Var<bool> EINGABEZEILE_VISIBLE = new Var<bool>("EINGABEZEILE_VISIBLE", false);
 
         /// <summary>
-        /// The FREI e_ KARTENBEWEGUNG
+        /// MOD-Variable, ob die "Freie-Kartenbewegung" nutzbar ist
         /// </summary>
         public static Var<bool> FREIE_KARTENBEWEGUNG = new Var<bool>("FREIE_KARTENBEWEGUNG", false);
 
-        // Fuel / Aktionspunkte (oben rechts)
         /// <summary>
-        /// The FUE l_ BUTTO n_ VISIBLE
+        /// MOD-Variable, ob der Fuel / Aktionspunkte Button (oben rechts) angezeigt werden soll
         /// </summary>
         public static Var<bool> FUEL_BUTTON_VISIBLE = new Var<bool>("FUEL_BUTTON_VISIBLE", false);
 
         /// <summary>
-        /// The HAEUSER_FAHNE_VISIBLE
+        /// MOD-Variable, ob auf Gebäuden die Fahnen in Farbe des Besitzers angezeigt werden soll
         /// </summary>
         public static Var<bool> HAEUSER_FAHNE_VISIBLE = new Var<bool>("HAEUSER_FAHNE_VISIBLE", false);
 
         /// <summary>
-        /// The LEBENSLINI e_ O n_ TAN k_ VISIBLE
+        /// MOD-Variable, ob die Lebenspunkte über einem Fahrzeug als Lebenslinie angezeigt werden soll
         /// </summary>
         public static Var<bool> LEBENSLINIE_ON_TANK_VISIBLE = new Var<bool>("LEBENSLINIE_ON_TANK_VISIBLE", false);
 
         /// <summary>
-        /// The LEIST e_ AKTUEL l_ VISIBLE
+        /// MOD-Variable, ob in der Leiste, die zeigt, welche Fahrzeuge man besitzt, extra angezeigt werden soll,
+        /// welches aktuell ausgewählt ist
         /// </summary>
         public static Var<bool> LEISTE_AKTUELL_VISIBLE = new Var<bool>("LEISTE_AKTUELL_VISIBLE", false);
 
-        // Fahrzeugleiste (unten links)
         /// <summary>
-        /// The LEIST e_ BUTTO n_ VISIBLE
+        /// MOD-Variable, ob in der Leiste, die zeigt, welche Fahrzeuge man besitzt, angezeigt werden soll
         /// </summary>
         public static Var<bool> LEISTE_BUTTON_VISIBLE = new Var<bool>("LEISTE_BUTTON_VISIBLE", false);
 
         /// <summary>
-        /// The LEIST e_ LEBENSLINI e_ VISIBLE
+        /// MOD-Variable, ob in der Leiste, die zeigt, welche Fahrzeuge man besitzt, die Lebenslinie der Fahrzeuge
+        /// sichtbar sein soll
         /// </summary>
         public static Var<bool> LEISTE_LEBENSLINIE_VISIBLE = new Var<bool>("LEISTE_LEBENSLINIE_VISIBLE", false);
 
         /// <summary>
-        /// The LEIST e_ TAN k_ VISIBLE
+        /// MOD-Variable, ob in der Leiste, die zeigt, welche Fahrzeuge man besitzt, die Art der Fahrzeuge gezeigt werden soll
         /// </summary>
         public static Var<bool> LEISTE_TANK_VISIBLE = new Var<bool>("LEISTE_TANK_VISIBLE", false);
 
         /// <summary>
-        /// The LEIST e_ TAN k_ VISIBLE
+        /// MOD-Variable, ob über Fahrzeugen der Name des Fahrzeugs sichtbar sein soll
         /// </summary>
         public static Var<bool> NAME_TANK_VISIBLE = new Var<bool>("NAME_TANK_VISIBLE", true);
 
         /// <summary>
-        /// The MINIMA p_ VISIBLE
+        /// MOD-Variable, ob die Minimap sichtbar sein soll
         /// </summary>
         public static Var<bool> MINIMAP_VISIBLE = new Var<bool>("MINIMAP_VISIBLE", false);
 
         /// <summary>
-        /// The MISSIL e_ STRIC h_ VISIBLE
+        /// MOD-Variable, ob für Geschosse, welche sich ausserhalb des sichtbaren Bereichs befinden, an der Oberseite
+        /// des Bildschirms ein Strich gezeichnet werden soll, der die aktuelle Y Koordinate des Geschosses darstellt.
         /// </summary>
         public static Var<bool> MISSILE_STRICH_VISIBLE = new Var<bool>("MISSILE_STRICH_VISIBLE", false);
 
         /// <summary>
-        /// The ONLIN e_ ESCAP e_ VISIBLE
+        /// MOD-Variable, ob die Spieldaten an den Server geschickt werden sollen und die Runde dabei beendet werden kann
         /// </summary>
         public static Var<bool> ONLINE_ESCAPE_VISIBLE = new Var<bool>("ONLINE_ESCAPE_VISIBLE", false);
 
         /// <summary>
-        /// The PAUSEMEN u_ VISIBLE
+        /// MOD-Variable, ob das Pausemenü nutzbar ist
         /// </summary>
         public static Var<bool> PAUSEMENU_VISIBLE = new Var<bool>("PAUSEMENU_VISIBLE", false);
 
         /// <summary>
-        /// The SAV e_ O n_ EXIT
+        /// MOD-Variable, ob beim verlassen des Spiels automatisch gespeichert werden soll
         /// </summary>
         public static Var<bool> SAVE_ON_EXIT = new Var<bool>("SAVE_ON_EXIT", false);
 
         /// <summary>
-        /// The SPIELERMEN u_ VISIBLE
+        /// MOD-Variable, ob das Spielermenü nutzbar ist
         /// </summary>
         public static Var<bool> SPIELERMENU_VISIBLE = new Var<bool>("SPIELERMENU_VISIBLE", false);
 
         /// <summary>
-        /// The SPIELERMEN u_ VISIBLE
+        /// MOD-Variable, ob über Orten deren Name angezeigt werden soll
         /// </summary>
         public static Var<bool> ORTSSCHILD_VISIBLE = new Var<bool>("ORTSSCHILD_VISIBLE", true);
 
@@ -170,6 +170,7 @@ namespace _4_1_
         /// Speichert die Mod-Variablen in die angegebene Datei (Variable=Wert)
         /// </summary>
         /// <param name="Datei">Die Datei, in welche die Daten gespeichert werden sollen</param>
+        /// /// <param name="Append">Sollen die Daten an eine mögliche bestehende Datei angehängt werden?</param>
         public static void SpeichereModVariablen(String Datei, bool Append)
         {
             StreamWriter file = new StreamWriter(Datei, Append);
