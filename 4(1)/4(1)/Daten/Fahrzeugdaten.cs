@@ -81,8 +81,7 @@ namespace _4_1_
         public static Var<float[]> SCALER = new Var<float[]>("SCALER", new float[] { 0.25f, 0.19f, 0.32f, 0.11f, 0.45f, 0.45f });
 
         /// <summary>
-        /// ???
-        /// Stellt fest, ob dieses Fahrzeug/Geschütz mit anderen Fahrzeugen Items tauschen kann
+        /// Stellt fest, ob dieses Fahrzeug/Geschütz mit anderen Fahrzeugen/Geschützen/Händlern Items tauschen kann
         /// </summary>
         public static Var<int[]> KANNHANDELN = new Var<int[]>("KANNHANDELN", new int[] { 1, 1, 1, 1, 0, 0 });
 
@@ -103,7 +102,6 @@ namespace _4_1_
 
         /// <summary>
         /// ???
-        /// The FALLW
         /// </summary>
         public static Var<float[]> FALLW = new Var<float[]>("FALLW", new float[] { 0.03f, 0.03f, 0.025f, 0.25f, 0.25f, 0.25f });
 
@@ -122,45 +120,38 @@ namespace _4_1_
         /// </summary>
         public static Var<float[]> VERBRAUCH = new Var<float[]>("VERBRAUCH", new float[] { 2.625f, 2.4375f, 0f, 1.875f, 0f, 0f });
 
-        // Artillerie
         /// <summary>
         /// Enthält, welche Muntionsklassen von der ARTILLERIE verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE0 = new Var<int[]>("SHOOTABLE0", new int[] { 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 });
 
-        // Panzer
         /// <summary>
         /// Enthält, welche Muntionsklassen von den PANZER verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE1 = new Var<int[]>("SHOOTABLE1", new int[] { 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 });
 
-        // Baufahrzeug
         /// <summary>
         /// Enthält, welche Muntionsklassen von dem BAUFAHRZEUG verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE2 = new Var<int[]>("SHOOTABLE2", new int[] { 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 });
 
-        // Scout
         /// <summary>
         /// Enthält, welche Muntionsklassen von dem SCOUT verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE3 = new Var<int[]>("SHOOTABLE3", new int[] { 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 });
 
-        // Geschütz
         /// <summary>
         /// Enthält, welche Muntionsklassen von dem RAKETEN-GESCHÜTZ verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE4 = new Var<int[]>("SHOOTABLE4", new int[] { 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
 
-        // Geschütz2
         /// <summary>
         /// Enthält, welche Muntionsklassen von dem MG-GESCHÜTZ verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE5 = new Var<int[]>("SHOOTABLE5", new int[] { 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
 
         /// <summary>
-        /// ???
-        /// Enthält, welche Geländesteigung (in %) das Fahrzeug erklimmen kann
+        /// Enthält, welche Geländesteigung (in Grad) das Fahrzeug erklimmen kann
         /// </summary>
         public static Var<int[]> WINKEL = new Var<int[]>("WINKEL", new int[] { 040, 040, 050, 070, 0, 0 });
 
@@ -221,8 +212,6 @@ namespace _4_1_
         public static Var<int[]> PREIS = new Var<int[]>("PREIS", new int[] { 1000, 1000, 1000, 1000, 0, 0 });
 
         /// <summary>
-        /// Frage: Soll hier nicht als _Name "KANNGEBAUTWERDEN" statt "PREIS" stehen?
-        /// ???
         /// Stellt fest, welche Fahrzeuge in einer Fabrik angeferigt werden können
         /// </summary>
         public static Var<int[]> KANNGEBAUTWERDEN = new Var<int[]>("KANNGEBAUTWERDEN", new int[] { 1, 1, 1, 1, 0, 0 });
@@ -230,7 +219,7 @@ namespace _4_1_
         /// <summary>
         /// Beinhaltet die verschießbare Munition (alle Fahrzeuge, alle Munitionsarten)
         /// </summary>
-        public static int[,] Shootable = new int[MAXHP.Wert.Count(), SHOOTABLE0.Wert.Count()]; // Abfeuerbare Waffen
+        public static int[,] Shootable = new int[MAXHP.Wert.Count(), SHOOTABLE0.Wert.Count()];
 
         /// <summary>
         /// Enthält den "default" Inventar je Fahrzeug
@@ -269,8 +258,8 @@ namespace _4_1_
                                             };
 
         /// <summary>
-        /// ???
-        /// Die Maske des Fahrzeugs zur Schadensbestimmung (pro Fahrzeugtyp)
+        /// Die Maske des Fahrzeugs zur Schadensbestimmung (pro Fahrzeugtyp), wird in nicht genutzter Fahrlogik verwendet
+        /// (! keine Verwendung)
         /// </summary>
         public static Vector2[][] Messpunkte = new Vector2[MAXHP.Wert.Count()][];
 
