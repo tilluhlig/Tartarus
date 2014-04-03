@@ -43,8 +43,6 @@ namespace _4_1_
         /// </summary>
         public Effekt EffektSumme = new Effekt(); // Ist die aufaddierung aller Effekte in diesem Packet
 
-        // Effekte anwenden
-
         /// <summary>
         /// Gets the eingefroren.
         /// </summary>

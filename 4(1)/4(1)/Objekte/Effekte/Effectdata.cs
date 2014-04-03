@@ -15,26 +15,24 @@
 namespace _4_1_
 {
     /// <summary>
-    /// Class Effectdata
+    /// diese Klasse enthält Definitionen von Effekten
     /// </summary>
     public static class Effectdata
     {
-        // hier werden Effekte definiert
-
         #region Status
 
         /// <summary>
-        /// The EINGEFROREN
+        /// Eingefroren
         /// </summary>
         public static Effekt EINGEFROREN = new Effekt("Eingefroren", "Textures\\leer", 3, 1, 0, 0, 0, 0, 0, 0, 0, -200, 0, -200, 0, 0, 0, 200, 0, 0, 0, 20, 1, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
-        /// The VERGIFTED
+        /// Vergiftet
         /// </summary>
         public static Effekt VERGIFTED = new Effekt("Vergifted", "Textures\\leer", 3, 1, 0, 0, 0, 0, 0, 0, 0, 100, 0, 100, 0, 0, 0, 0, 0, 87, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
-        /// The ELEKTRISIERT
+        /// Elektrisiert
         /// </summary>
         public static Effekt ELEKTRISIERT = new Effekt("Elektrisiert", "Textures\\leer", 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 
@@ -43,82 +41,82 @@ namespace _4_1_
         #region Upgrades
 
         /// <summary>
-        /// The verteidiung1
+        /// Erhöht Verteidigung
         /// </summary>
         public static Effekt Verteidiung1 = new Effekt("Verteidigung", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, -10, 0, -10, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
-        /// The verteidiung2
+        /// Erhöht Verteidigung
         /// </summary>
         public static Effekt Verteidiung2 = new Effekt("Verteidigung", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, -20, 0, -20, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
-        /// The verteidiung3
+        /// Erhöht Verteidigung
         /// </summary>
         public static Effekt Verteidiung3 = new Effekt("Verteidigung", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, -40, 0, -40, 0, 0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
-        /// The tarn
+        /// Tarnt das Objekt, Unsichtbar
         /// </summary>
         public static Effekt Tarn = new Effekt("Tarn", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
 
         /// <summary>
-        /// The ziel1
+        /// Zielhilfe
         /// </summary>
         public static Effekt Ziel1 = new Effekt("Ziel", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 500, 0, 0, 0);
 
         /// <summary>
-        /// The ziel2
+        /// Zielhilfe
         /// </summary>
         public static Effekt Ziel2 = new Effekt("Ziel", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1000, 0, 0, 0);
 
         /// <summary>
-        /// The ziel3
+        /// Zielhilfe
         /// </summary>
         public static Effekt Ziel3 = new Effekt("Ziel", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1500, 0, 0, 0);
 
         /// <summary>
-        /// The lager1
+        /// Erhöht die Inventargröße, Slotanzahl
         /// </summary>
         public static Effekt Lager1 = new Effekt("Lager", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0);
 
         /// <summary>
-        /// The lager2
+        /// Erhöht die Inventargröße, Slotanzahl
         /// </summary>
         public static Effekt Lager2 = new Effekt("Lager", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 0);
 
         /// <summary>
-        /// The lager3
+        /// Erhöht die Inventargröße, Slotanzahl
         /// </summary>
         public static Effekt Lager3 = new Effekt("Lager", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0);
 
         /// <summary>
-        /// The arbeitsbereich1
+        /// Vergrößert den Arbeitsbereich
         /// </summary>
         public static Effekt Arbeitsbereich1 = new Effekt("Arbeitsbereich", "Textures\\leer", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
-        /// The arbeitsbereich2
+        /// Vergrößert den Arbeitsbereich
         /// </summary>
         public static Effekt Arbeitsbereich2 = new Effekt("Arbeitsbereich", "Textures\\leer", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
-        /// The arbeitsbereich3
+        /// Vergrößert den Arbeitsbereich
         /// </summary>
         public static Effekt Arbeitsbereich3 = new Effekt("Arbeitsbereich", "Textures\\leer", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
-        /// The verbrauch1
+        /// Verringert den Treibstoffverbrauch
         /// </summary>
         public static Effekt Verbrauch1 = new Effekt("Verbrauch", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10);
 
         /// <summary>
-        /// The verbrauch2
+        /// Verringert den Treibstoffverbrauch
         /// </summary>
         public static Effekt Verbrauch2 = new Effekt("Verbrauch", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -20);
 
         /// <summary>
-        /// The verbrauch3
+        /// Verringert den Treibstoffverbrauch
         /// </summary>
         public static Effekt Verbrauch3 = new Effekt("Verbrauch", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -30);
 
@@ -127,7 +125,7 @@ namespace _4_1_
         #region Konsumierbares
 
         /// <summary>
-        /// The heilen
+        /// Heilt einige hp
         /// </summary>
         public static Effekt Heilen = new Effekt("Heilen", "Textures\\leer", 3, 0, 1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 

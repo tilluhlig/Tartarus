@@ -45,11 +45,6 @@ namespace _4_1_
         public static bool BUNKER_ZERSTOERUNG;
 
         /// <summary>
-        /// Maximale Lebenspunkte eines Bunkers
-        /// </summary>
-        // public static int MaximaleLebenspunkte = 0;
-
-        /// <summary>
         /// Der Besitzer des Bunkers. Wer ist aktuell im Bunker?
         /// </summary>
         public List<int> Besitzer = new List<int>();
@@ -60,7 +55,7 @@ namespace _4_1_
         public List<KollisionsObjekt> Kollision = new List<KollisionsObjekt>();
 
         /// <summary>
-        /// The destruction
+        /// Das Zerstörungsobjekt des Bunkers
         /// </summary>
         public List<ZerstörungsObjekt> Zerstörung = new List<ZerstörungsObjekt>();
 
@@ -69,6 +64,9 @@ namespace _4_1_
         /// </summary>
         public List<int> Lebenspunkte = new List<int>();
 
+        /// <summary>
+        /// Die maximalen Lebenspunkte
+        /// </summary>
         public List<int> MaximaleLebenspunkte = new List<int>();
 
         /// <summary>
@@ -225,6 +223,11 @@ namespace _4_1_
             return true;
         }
 
+        /// <summary>
+        /// Erzeugt ein Bunkerobjekt aus Text
+        /// </summary>
+        /// <param name="Text">der Text aus dem das Objekt erstellt wird</param>
+        /// <param name="id">ID des Bunkers, optional, -1 = neu erstellen</param>
         public void Laden(List<String> Text, int id)
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "BUNKER");
@@ -247,6 +250,10 @@ namespace _4_1_
             LadeZerstörungsobjekt(id);
         }
 
+        /// <summary>
+        /// Erzeugt Text aus allen Bunker Objekten
+        /// </summary>
+        /// <returns>die Textdarstellung des Bunkers</returns>
         public List<String> Speichern()
         {
             List<String> data = new List<String>();
@@ -263,6 +270,11 @@ namespace _4_1_
             return data;
         }
 
+        /// <summary>
+        /// Erzeugt Text aus einem Objekt, speziell für den Editor
+        /// </summary>
+        /// <param name="id">ID des Bunkers</param>
+        /// <returns>die Textdarstellung des Bunkers</returns>
         public List<String> EditorSpeichern(int i)
         {
             List<String> data = new List<String>();
