@@ -27,19 +27,32 @@ using XColor = Microsoft.Xna.Framework.Color;
 
 namespace _4_1_
 {
-    // Beinhaltet Funktionen die auf Karten angewendet werden koennen
     /// <summary>
-    /// Class Karte
+    /// Beinhaltet Funktionen die auf Karten angewendet werden koennen
     /// </summary>
     public class Karte
     {
+        /// <summary>
+        /// Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
+        /// </summary>
         public static bool STAEDTE_UND_DOERFER;
 
+        /// <summary>
+        /// MOD-Variable, Gibt an, ob die Karte symmetrisch aufgebaut werden soll
+        /// </summary>
         public static bool KARTE_SYMMETRISCH;
 
+        #region Privat
+        /// <summary>
+        /// MOD-Variable, Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
+        /// </summary>
         private static Var<bool> MOD_STAEDTE_UND_DOERFER = new Var<bool>("STAEDTE_UND_DOERFER", false, ref STAEDTE_UND_DOERFER);
 
+        /// <summary>
+        /// Mod-Variable, Gibt an, ob die Karte symmetrisch aufgebaut werden soll
+        /// </summary>
         private static Var<bool> MOD_KARTE_SYMMETRISCH = new Var<bool>("KARTE_SYMMETRISCH", false, ref KARTE_SYMMETRISCH);
+        #endregion
 
         /// <summary>
         /// Der interne Zufallszahlengenerator
@@ -72,22 +85,22 @@ namespace _4_1_
             public Vector2 Accelaration;
 
             /// <summary>
-            /// The direction
+            /// Die Bewegungsrichtung des Partikels
             /// </summary>
             public Vector2 Direction;
 
             /// <summary>
-            /// The position
+            /// Die Position des Partikels
             /// </summary>
             public Vector2 Position;
 
             /// <summary>
-            /// The scaling
+            /// Die Skalierung des Partikels
             /// </summary>
             public float Scaling;
 
             /// <summary>
-            /// The mod color
+            /// ??? 
             /// </summary>
             public Microsoft.Xna.Framework.Color ModColor;
 
@@ -97,9 +110,9 @@ namespace _4_1_
             public bool set;
 
             /// <summary>
-            /// The art
+            /// enthält die munitionsart ID, 0 bis ...
             /// </summary>
-            public int art; // enthält die munitionsart   0 bis ...
+            public int art; 
 
             /// <summary>
             /// The alive
