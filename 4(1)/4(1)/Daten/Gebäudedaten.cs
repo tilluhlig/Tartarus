@@ -15,7 +15,8 @@
 namespace _4_1_
 {
     /// <summary>
-    /// Class Hausdata
+    /// diese Klasse wird für allgemeine Gebäudedaten bzw. den Daten zur Erstellung
+    /// von Dörfern und Städten genutzt
     /// </summary>
     public static class Gebäudedaten
     {
@@ -31,7 +32,7 @@ namespace _4_1_
         public static int FABRIK = 16;
 
         /// <summary>
-        /// Die ID des WAFFENHÄNDLER
+        /// Die ID des WAFFENHÄNDLERs
         /// </summary>
         public static int WAFFENHÄNDLER = 17;
 
