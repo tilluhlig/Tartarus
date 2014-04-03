@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Effect
+    /// Diese Klasse verwaltet Effekte
     /// </summary>
     public class Effekt
     {

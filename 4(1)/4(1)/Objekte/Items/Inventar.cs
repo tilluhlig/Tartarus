@@ -59,7 +59,6 @@ namespace _4_1_
         /// </summary>
         public float Treibstoff;
 
-        // Konstruktor
         /// <summary>
         /// Der Konstruktor des Inventars
         /// </summary>
@@ -70,6 +69,13 @@ namespace _4_1_
         {
             InventarInit(_MaxFächer, _Munition, _Treibstoff);
         }
+
+        /// <summary>
+        /// Initialisierungsfunktion, wird vom Konstruktor aufgerufen
+        /// </summary>
+        /// <param name="_MaxFächer">maximale Anzahl an Fächern</param>
+        /// <param name="_Munition">Ein zeiger auf eine Munitionsliste</param>
+        /// <param name="_Treibstoff">initial Treibstoff</param>
         private void InventarInit(int _MaxFächer, List<int> _Munition, float _Treibstoff)
         {
             MaxFaecher = _MaxFächer;
@@ -87,8 +93,13 @@ namespace _4_1_
             Treibstoff = _Treibstoff;
         }
 
+        /// <summary>
+        /// Der Konstruktor
+        /// </summary>
         public Inventar()
-        { InventarInit(0, null, 0); }
+        { 
+            InventarInit(0, null, 0);
+        }
 
         /// <summary>
         /// Erstellt neuen Speicher anhand eines existierenden Items (kopiert das Item)
@@ -778,6 +789,13 @@ namespace _4_1_
             return 0;
         }
 
+        /// <summary>
+        /// Entfernt Treibstoff aus dem Inventar
+        /// </summary>
+        /// <param name="Anzahl">Menge an zu entfernendem Treibstoff</param>
+        /// <returns>
+        /// Anzahl des Treibstoffs der nicht entfernt werden konnte
+        /// </returns>
         public float EntnehmenTreibstoff(float Anzahl)
         {
             // Treibstoff entnehmen
@@ -848,6 +866,15 @@ namespace _4_1_
         }
 
         // TODO ausfüllen
+        /// <summary>
+        /// Erstellt ein Inventarobjekt aus Text
+        /// </summary>
+        /// <param name="Text">der Text, der das Objekt darstellt</param>
+        /// <param name="Content">einen ContentManager</param>
+        /// <param name="Default">falls im Text kein Inventar gefunden wird, wird dieses genommen</param>
+        /// <returns>
+        /// Das aus dem Text erstellte Inventar
+        /// </returns>
         public static Inventar Laden(List<String> Text, ContentManager Content, Inventar Default)
         {
             Inventar temp = new Inventar();
@@ -877,6 +904,12 @@ namespace _4_1_
             return temp;
         }
 
+        /// <summary>
+        /// Speichert ein Inventarobjekt in Text
+        /// </summary>
+        /// <returns>
+        /// Eine Textdarstellung des Inventars
+        /// </returns>
         public List<String> Speichern()
         {
             List<String> data = new List<String>();

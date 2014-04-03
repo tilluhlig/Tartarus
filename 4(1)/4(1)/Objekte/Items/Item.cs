@@ -64,6 +64,9 @@ namespace _4_1_
             Typ = _Typ;
         }
 
+        /// <summary>
+        ///Konstruktor
+        /// </summary>
         public Item()
         {
         }
