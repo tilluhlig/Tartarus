@@ -27,6 +27,7 @@ namespace _4_1_
         public static int KISTE = 5;
         public static int BUNKER = 6;
         public static int FAHRZEUG = 7;
+        public static int GESCHUETZ = 8;
         #endregion
 
         /// <summary>
