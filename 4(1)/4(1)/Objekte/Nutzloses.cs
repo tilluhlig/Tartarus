@@ -21,56 +21,57 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Trash
+    /// diese Klasse verwaltet Objekte, die lediglich zerstört werden können,
+    /// jedoch keine weitere Funktionalität aufweisen
     /// </summary>
     public static class Nutzloses
     {
         #region Privat
 
         /// <summary>
-        /// The bild
+        /// die Texturen der Objekte
         /// </summary>
         private static List<Texture2D> Bild = new List<Texture2D>();
 
         /// <summary>
-        /// The collision
+        /// die Kollisionsobjekte der Objekte
         /// </summary>
         private static List<KollisionsObjekt> Kollision = new List<KollisionsObjekt>();
 
         /// <summary>
-        /// The pixel
+        /// die Anzahl der Pixel, die noch vorhanden sind
         /// </summary>
         private static List<int> Pixel = new List<int>();
 
         /// <summary>
-        /// The pos
+        /// die Position des Objekts
         /// </summary>
         private static List<Vector2> Position = new List<Vector2>();
 
         /// <summary>
-        /// The size
+        /// die Skalierung der Textur
         /// </summary>
         private static List<float> Skalierung = new List<float>();
 
         /// <summary>
-        /// The overreach
+        /// Gibt an, ob die Textur gespiegeld sein soll
         /// </summary>
         private static List<bool> Gespiegelt = new List<bool>();
 
         /// <summary>
-        /// The angle
+        /// die Rotationswinkel der Objekte
         /// </summary>
         private static List<float> Winkel = new List<float>();
 
         /// <summary>
-        /// The destruction
+        /// die Zerstörungsobjekte
         /// </summary>
         private static List<ZerstörungsObjekt> Zerstörung = new List<ZerstörungsObjekt>();
 
         #endregion Privat
 
         /// <summary>
-        /// Clears this instance.
+        /// entfernt alle Nutzlosen Objekte
         /// </summary>
         public static void AlleEntfernen()
         {
@@ -85,11 +86,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the trash.
+        /// Zeichnet alle Nutzlosen Objekte
         /// </summary>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="spriteBatch">The sprite batch.</param>
-        /// <param name="Spiel2">The spiel2.</param>
+        /// <param name="gameTime">ein Zeitstempel</param>
+        /// <param name="spriteBatch">eine Zeichenoberfläche</param>
+        /// <param name="Spiel2">ein Spielobjekt</param>
         public static void ZeichneNutzloses(GameTime gameTime, SpriteBatch spriteBatch, Spiel Spiel2)
         {
             if (Spiel2 == null) return;
@@ -117,9 +118,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Deletes the specified i.
+        /// Entfernt ein bestimmtes Objekt
         /// </summary>
-        /// <param name="i">The i.</param>
+        /// <param name="i">die ID des zu entfernenden Objekts</param>
         public static void Entfernen(int i)
         {
             Bild.RemoveAt(i);
@@ -133,34 +134,34 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gibs the anzahl.
+        /// Gibt die Anzahl an nutzlosen Objekten im Spiel zurück
         /// </summary>
-        /// <returns>System.Int32.</returns>
+        /// <returns>die Anzahl der nutzlosen Objekte</returns>
         public static int GibAnzahl()
         {
             return Position.Count;
         }
 
         /// <summary>
-        /// Gibs the position.
+        /// die Position eines bestimmten Objekts
         /// </summary>
-        /// <param name="ID">The ID.</param>
-        /// <returns>Vector2.</returns>
+        /// <param name="ID">die ID des Objekts, dessen Position abgefragt wird</param>
+        /// <returns>die Position des entsprechenden Objekts</returns>
         public static Vector2 GibPosition(int ID)
         {
             return Position[ID];
         }
 
         /// <summary>
-        /// Adds the specified _ bild.
+        /// Fügt ein neues nutzloes Objekt ins Spiel ein
         /// </summary>
-        /// <param name="_Bild">The _ bild.</param>
-        /// <param name="_Position">The _pos.</param>
-        /// <param name="_Winkel">The _ angle.</param>
-        /// <param name="_Gespiegelt">if set to <c>true</c> [_overreach].</param>
-        /// <param name="_Skalierung">Size of the _.</param>
-        /// <param name="_Kollision">if set to <c>true</c> [_collision].</param>
-        /// <param name="_Zerstörung">if set to <c>true</c> [_destruction].</param>
+        /// <param name="_Bild">die Textur</param>
+        /// <param name="_Position">die Position</param>
+        /// <param name="_Winkel">der Rotationswinkel</param>
+        /// <param name="_Gespiegelt">true = gespiegelt, false = nicht gespiegelt</param>
+        /// <param name="_Skalierung">Skalierung der Textur</param>
+        /// <param name="_Kollision">true = Objekt kann Kollision auslösen, false = keine Kollisionen möglich</param>
+        /// <param name="_Zerstörung">true = kann Zerstört werden, false = keine Zerstörung</param>
         public static void Hinzufügen(Texture2D _Bild, Vector2 _Position, float _Winkel, bool _Gespiegelt, float _Skalierung, bool _Kollision, bool _Zerstörung)
         {
             Position.Add(_Position);
@@ -189,11 +190,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Determines whether the specified i is collision.
+        /// Prüft ob das angegebene Objekt kollidiert
         /// </summary>
-        /// <param name="i">The i.</param>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <returns><c>true</c> if the specified i is collision; otherwise, <c>false</c>.</returns>
+        /// <param name="i">die ID des zu prüfenden Objekts</param>
+        /// <param name="Incoming_Position">die Position, welche auf Kollision geprüft werden soll</param>
+        /// <returns>true = es gab eine Kollision, false = es gab keine Kollision</returns>
         public static bool PrüfeObKollision(int i, Vector2 Incoming_Position)
         {
             if (Kollision[i] == null) return false;
@@ -201,12 +202,12 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Determines whether the specified i is explode.
+        /// wendet eine Explosion auf ein bestimmtes nutzloses Objekt an
         /// </summary>
-        /// <param name="i">The i.</param>
-        /// <param name="Explosion">The explosion.</param>
-        /// <param name="Energie">The energie.</param>
-        /// <returns>System.Int32.</returns>
+        /// <param name="i">die ID des Objekts</param>
+        /// <param name="Explosion">die Position einer Explosion</param>
+        /// <param name="Energie">der Explosionsradius</param>
+        /// <returns>die Anzahl der getroffenen Pixel</returns>
         public static int PrüfeObZerstörung(int i, Vector2 Explosion, int Energie)
         {
             if (Zerstörung[i] == null) return 0;
@@ -224,7 +225,12 @@ namespace _4_1_
             return z;
         }
 
-        // TODO ausfüllen
+        /// <summary>
+        /// erstellt ein nutzloses Objekt aus Text
+        /// </summary>
+        /// <param name="Content">ein Content Manager</param>
+        /// <param name="Text">der Text, aus dem das Objekt erstellt werden soll</param>
+        /// <param name="id">die ID des Objekts, id=1 neu erstellen</param>
         public static void Laden(ContentManager Content, List<String> Text, int id)
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "NUTZLOSES");
@@ -271,6 +277,10 @@ namespace _4_1_
             Pixel[id] = ((int)(Help.GetPixelAnzahl(Bild[id])));
         }
 
+        /// <summary>
+        /// Wandelt ein Objekt in Text um
+        /// </summary>
+        /// <returns>der Text, welcher das Objekt darstellt</returns>
         public static List<String> Speichern()
         {
             List<String> data = new List<String>();
@@ -291,6 +301,10 @@ namespace _4_1_
             return data;
         }
 
+        /// <summary>
+        /// Wandelt ein Objekt in Text um (speziell für den Editor)
+        /// </summary>
+        /// <returns>der Text, welcher das Objekt darstellt</returns>
         public static List<String> EditorSpeichern(int id)
         {
             List<String> data = new List<String>();
