@@ -21,77 +21,67 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Mine
+    /// diese Klasse verwaltet Minen
     /// </summary>
     public class Mine
     {
         /// <summary>
-        /// The anz
-        /// </summary>
-        //public static int Anzahl = 0;
-
-        /// <summary>
-        /// The bild
+        /// die möglichen Texturen der Minen
         /// </summary>
         public static Texture2D[] Bild = new Texture2D[5];
 
         /// <summary>
-        /// The collision
+        /// ein Kollisionsobjekt, wird von allen Mineninstanzen genutzt
         /// </summary>
         public static KollisionsObjekt Kollision;
 
         /// <summary>
-        /// The destruction
+        /// ein Zerstörungsobjekt, wird von allen Mineninstanzen genutzt
         /// </summary>
         public static ZerstörungsObjekt Zerstörung;
 
         /// <summary>
-        /// The aktiv
+        /// nicht aktive Minen, werden in der Berechnung nicht betrachtet
         /// </summary>
         public bool Aktiv = true;
 
         /// <summary>
-        /// The art
-        /// </summary>
-        //public int Art = 5;
-
-        /// <summary>
-        /// The energie
+        /// der Energiewert der Mine, je nach Art
         /// </summary>
         public int Energie = 100;
 
         /// <summary>
-        /// The id
+        /// die ID der Mine
         /// </summary>
         public int ID = 0;
 
         /// <summary>
-        /// The pos
+        /// die Position der Mine
         /// </summary>
         public Vector2 Position = Vector2.Zero;
 
         /// <summary>
-        /// The radius anzeige
+        /// der Anzeigeradius, der nach dem Setzen der Mine sichtbar ist
         /// </summary>
         public int RadiusAnzeige = 60 * 10;
 
         /// <summary>
-        /// The scale
+        /// die Skalierung der Textur
         /// </summary>
         public float Skalierung = 1.0f;
 
         /// <summary>
-        /// The typ
+        /// die Art/Sorte/Typ der Mine
         /// </summary>
         public int Typ = 0;
 
         /// <summary>
-        /// The verzögerung
+        /// die Explosionsverzögerung
         /// </summary>
         public int Verzoegerung = 0;
 
         /// <summary>
-        /// The waffenart
+        /// die Waffenart ID
         /// </summary>
         public int Waffenart = 11;
 
@@ -101,13 +91,13 @@ namespace _4_1_
 
 #if DEBUG
         /// <summary>
-        /// The sc
+        /// die Skalierung der Textur
         /// </summary>
         private static float sc = 0.05f;
 #else
 
         /// <summary>
-        /// The sc
+        /// die Skalierung der Textur
         /// </summary>
         private static float sc = 1f;
 
@@ -116,19 +106,20 @@ namespace _4_1_
         #endregion DEBUG
 
         /// <summary>
-        /// The mode
+        /// damit die Mine blinkt, wird ständig die Textur gewechselt, dafür dient dieser Zähler
         /// </summary>
         private int mode = 0;
 
         #endregion Privat
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Mine"/> class.
+        /// der Minen Konstruktor
         /// </summary>
-        /// <param name="_x">The _x.</param>
-        /// <param name="_y">The _y.</param>
-        /// <param name="_Typ">The _ typ.</param>
-        /// <param name="_Waffenart">The _ waffenart.</param>
+        /// <param name="_x">die X-Position</param>
+        /// <param name="_y">die Y-Position</param>
+        /// <param name="_Typ">die Sorte</param>
+        /// <param name="_Waffenart">die Waffenart ID</param>
+        /// <param name="_ID">die ID der Mine</param>
         public Mine(int _x, int _y, int _Typ, int _Waffenart, int _ID)
         {
             Waffenart = _Waffenart;
@@ -140,9 +131,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Inits the specified content.
+        /// Initialisiert die Daten der Minenklasssen
         /// </summary>
-        /// <param name="Content">The content.</param>
+        /// <param name="Content">der ContentManager</param>
         public static void Initialisierung(ContentManager Content)
         {
             for (int i = 0; i < Bild.Count(); i++) Bild[i] = Content.Load<Texture2D>("Textures\\Mine" + i.ToString());
@@ -151,9 +142,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gets the bild.
+        /// ermittelt das Bild, welches verwendet werden soll (fürs Blinken)
         /// </summary>
-        /// <returns>Texture2D.</returns>
+        /// <returns>git die zu verwendende Textur zurück</returns>
         public Texture2D ErmittleBild()
         {
             Texture2D res;
@@ -170,10 +161,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Determines whether the specified incoming_ position is collision.
+        /// Prüft, ob es eine Kollision mit der Mine gab
         /// </summary>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <returns><c>true</c> if the specified incoming_ position is collision; otherwise, <c>false</c>.</returns>
+        /// <param name="Incoming_Position">die absolute zu prüfende Position</param>
+        /// <returns>true = es gab einen Treffer, false = kein Treffer</returns>
         public bool PrüfeObKollision(Vector2 Incoming_Position)
         {
             if (Kollision == null) return false;
@@ -181,10 +172,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Determines whether the specified explosion is explode.
+        /// Wendet eine Explosion auf die Mine an
         /// </summary>
-        /// <param name="Explosion">The explosion.</param>
-        /// <param name="Energie">The energie.</param>
+        /// <param name="Explosion">die Position der Explosion</param>
+        /// <param name="Energie">der Explosionsradius</param>
+        /// <returns>die Anzahl der getroffenen Pixel</returns>
         public int PrüfeObZerstörung(Vector2 Explosion, int Energie)
         {
             if (Zerstörung == null) return 0;
@@ -196,12 +188,12 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Explosions the specified spielfeld.
+        /// zündet eine Mine
         /// </summary>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="Spiel2">The spiel2.</param>
-        /// <returns>List{Vector3}.</returns>
+        /// <param name="Spielfeld">das Spielfeld</param>
+        /// <param name="gameTime">ein Zeitstempel</param>
+        /// <param name="Spiel2">ein Spielobjekt</param>
+        /// <returns>eine Liste mit Daten zur Neuberechnung der Kartenoberfläche</returns>
         public List<Vector3> ZündeMine(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2)
         {
             // Mine zünden
@@ -233,6 +225,13 @@ namespace _4_1_
             return list;
         }
 
+        /// <summary>
+        /// Erstellt ein Minenobjekt aus Text
+        /// </summary>
+        /// <param name="Text">der Text, welcher das Objekt darstellt</param>
+        /// <param name="Objekt">dieses Objekt wird als Grundlage genutzt (ansonsten null)</param>
+        /// <param name="_ID">die ID des Objekts, welches erzeugt werden soll</param>
+        /// <returns>ein Minenobjekt</returns>
         public static Mine Laden(List<String> Text, Mine Objekt, int _ID)
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "MINE");
@@ -255,6 +254,10 @@ namespace _4_1_
             return temp;
         }
 
+        /// <summary>
+        /// wandelt ein Objekt in Text um
+        /// </summary>
+        /// <returns>der Text, welcher das Objekt darstellt</returns>
         public List<String> Speichern()
         {
             List<String> data = new List<String>();
@@ -273,6 +276,10 @@ namespace _4_1_
             return data;
         }
 
+        /// <summary>
+        /// wandelt ein Objekt in Text um (speziell für Editor)
+        /// </summary>
+        /// <returns>der Text, welcher das Objekt darstellt</returns>
         public List<String> EditorSpeichern()
         {
             List<String> data = new List<String>();
