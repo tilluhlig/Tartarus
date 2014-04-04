@@ -6,7 +6,7 @@
 // Created          : 07-20-2013
 //
 // Last Modified By : Till
-// Last Modified On : 05-24-2013
+// Last Modified On : 04-04-2013
 // ***********************************************************************
 // <copyright file="Tunnel.cs">
 //     Copyright (c) . All rights reserved.
@@ -21,12 +21,12 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Tunnel
+    /// Diese Klasse verwaltet Tunnelanlagen
     /// </summary>
     public class Tunnel
     {
         /// <summary>
-        /// The maxhp
+        /// die maximale Anzahl an Lebenspunkten, die ein Tunnel haben kann
         /// </summary>
         public static float Maxhp = 5000;
 
@@ -51,63 +51,44 @@ namespace _4_1_
         #endregion DEBUG
 
         /// <summary>
-        /// The TUNNE l_ SCALE
+        /// MOD-Variable, die skalierung der Tunneltextur
         /// </summary>
         public static Var<float> TUNNEL_SCALE = new Var<float>("TUNNEL_SCALE", Optimierung.Skalierung(0.4f), ref SKALIERUNG);
 
         /// <summary>
-        /// The bild
+        /// die Textur des Tunnels
         /// </summary>
         public Texture2D Bild;
 
         /// <summary>
-        /// The bild2
-        /// </summary>
-        //  public Texture2D Bild2;
-
-        /// <summary>
-        /// The collision
+        /// das Kollisionsobjekt des Tunnels
         /// </summary>
         public KollisionsObjekt Kollision;
 
         /// <summary>
-        /// The collision2
-        /// </summary>
-        //  public KollisionsObjekt Kollision2;
-
-        /// <summary>
-        /// The hp
+        /// die aktuellen Lebenspunkte des Tunnels
         /// </summary>
         public float Lebenspunkte;
 
         /// <summary>
-        /// The pos
+        /// die aboslute Position des Tunnels (von der Mitte des Tunnels ausgehend)
         /// </summary>
         public Vector2 Position;
 
         /// <summary>
-        /// The destruction
+        /// das Zerstörungsobjekt des Tunnels
         /// </summary>
         public ZerstörungsObjekt Zerstörung;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tunnel"/> class.
+        /// der Konstruktur
         /// </summary>
-        /// <param name="_pos">The _pos.</param>
+        /// <param name="_pos">die Position des Tunnels</param>
         public Tunnel(Vector2 _pos)
         {
             Position = _pos;
             Lebenspunkte = Maxhp;
             AktualisiereTunnelSchaden(0);
-            //Color[] temp = new Color[Texturen.tunnel.Width * Texturen.tunnel.Height];
-            /*Texturen.tunnel.GetData(temp);
-            Bild = new Texture2D(Game1.device, Texturen.tunnel.Width, Texturen.tunnel.Height);
-            Bild.SetData(temp);*/
-
-            /*Color[] temp2 = new Color[Texturen.tunnel.Width * Texturen.tunnel.Height];
-            Texturen.tunnel.GetData(temp2);
-            Bild2 = new Texture2D(Game1.device, Texturen.tunnel.Width, Texturen.tunnel.Height);
-            Bild2.SetData(temp2);*/
             Bild = Texturen.tunnel;
 
             Lade();
@@ -115,7 +96,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Lades the tunnel data.
+        /// initialisiert die Daten für die Tunnelklasse
         /// </summary>
         public static void LadeTunnelDaten()
         {
@@ -123,10 +104,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Updates the tunnel schaden.
+        /// Wendet Schadenspunkte auf den Tunnel an
         /// </summary>
-        /// <param name="recievedDamage">The recieved damage.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        /// <param name="recievedDamage">der Schaden, der dem Tunnel zugerechnet werden soll</param>
+        /// <returns>true = Tunnel hat noch mehr als 0 Lebenspunkte, false = Tunnel ist zerstört</returns>
         public bool AktualisiereTunnelSchaden(int recievedDamage)
         {
             Lebenspunkte -= recievedDamage;
@@ -139,16 +120,15 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Loads this instance.
+        /// Lädt das Kollisionsobjekt neu
         /// </summary>
-        public void Lade() // neu
+        public void Lade()
         {
             Kollision = new KollisionsObjekt(Bild, Bild.Width, Bild.Height, SKALIERUNG, false, false, false, new Vector2(0, 0));
-            // Kollision2 = new KollisionsObjekt(Bild, Bild.Width, Bild.Height, SKALIERUNG, false, false, false, new Vector2(0, 0));
         }
 
         /// <summary>
-        /// Load2s this instance.
+        /// Lädt das Zerstörungsobjekt neu
         /// </summary>
         public void Lade2()
         {
@@ -156,10 +136,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Determines whether the specified incoming_ position is collision.
+        /// Prüft, ob der Tunnel getroffen wurde
         /// </summary>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <returns><c>true</c> if the specified incoming_ position is collision; otherwise, <c>false</c>.</returns>
+        /// <param name="Incoming_Position">die absolute Position, die geprüft werden soll</param>
+        /// <returns>true = getroffen, false = nicht getroffen</returns>
         public bool PrüfeObKollision(Vector2 Incoming_Position)
         {
             if (Kollision == null) return false;
@@ -167,21 +147,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Determines whether the specified incoming_ position is collision2.
+        /// Berechnet die Zerstörung des Tunnels 
         /// </summary>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <returns><c>true</c> if the specified incoming_ position is collision2; otherwise, <c>false</c>.</returns>
-        /* public bool PrüfeObKollision2(Vector2 Incoming_Position)
-         {
-             if (Kollision2 == null) return false;
-             return Kollision2.collision(Incoming_Position, Position);
-         }*/
-
-        /// <summary>
-        /// Determines whether the specified explosion is explode.
-        /// </summary>
-        /// <param name="Explosion">The explosion.</param>
-        /// <param name="Energie">The energie.</param>
+        /// <param name="Explosion">die Position der Explosion</param>
+        /// <param name="Energie">die Explosionsstärke (Radius)</param>
+        /// <returns>die Anzahl getroffener Pixel</returns>
         public int PrüfeObZerstörung(Vector2 Explosion, int Energie)
         {
             if (Zerstörung == null) return 0;
@@ -193,7 +163,12 @@ namespace _4_1_
             return Zerstörung.BerechneZerstörung(tmp, Explosion, Energie, Position);
         }
 
-        public static void ZeichneTunnel(SpriteBatch spriteBatch, Spiel Spiel2) // Zeichnet die Tunnel
+        /// <summary>
+        /// Zeichnet alle Tunnelanlagen
+        /// </summary>
+        /// <param name="spriteBatch">eine Zeichenfläche</param>
+        /// <param name="Spiel2">das Spielobjekt, welches genutzt wird</param>
+        public static void ZeichneTunnel(SpriteBatch spriteBatch, Spiel Spiel2)
         {
             if (Spiel2 == null) return;
 
@@ -255,6 +230,12 @@ namespace _4_1_
                 }
         }
 
+        /// <summary>
+        /// Erstellt ein Tunnelobjekt aus Text
+        /// </summary>
+        /// <param name="Text">der Text, aus dem das Objekt erzeugt werden soll</param>
+        /// <param name="Objekt">dieses Tunnelobjekt soll als Grundlage genommen werden</param>
+        /// <returns>das erstellte Tunnelobjekt</returns>
         public static Tunnel Laden(List<String> Text, Tunnel Objekt)
         {
             Tunnel temp = Objekt;
@@ -279,6 +260,10 @@ namespace _4_1_
             return temp;
         }
 
+        /// <summary>
+        /// Wandelt ein Tunnelobjekt in Text um
+        /// </summary>
+        /// <returns>die Textdarstellung des Objekts</returns>
         public List<String> Speichern()
         {
             List<String> data = new List<String>();
@@ -293,6 +278,10 @@ namespace _4_1_
             return data;
         }
 
+        /// <summary>
+        /// Wandelt ein Tunnelobjekt in Text um (speziell für den Editor)
+        /// </summary>
+        /// <returns>die Textdarstellung des Objekts</returns>
         public List<String> EditorSpeichern()
         {
             List<String> data = new List<String>();
