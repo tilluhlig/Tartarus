@@ -21,27 +21,22 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    ///     Class Kiste
+    /// diese Klasse verwaltet Kisten
     /// </summary>
     public class Kiste
     {
         /// <summary>
-        ///     The anz
-        /// </summary>
-        // public static int anz = 0;
-
-        /// <summary>
-        ///     The bild
+        /// die Kisten Textur
         /// </summary>
         public static Texture2D Bild;
 
         /// <summary>
-        ///     The collision
+        /// ein Kollisionsobjekt für die Textur
         /// </summary>
         public static KollisionsObjekt Kollision;
 
         /// <summary>
-        ///     The destruction
+        /// ein Zerstörungsobjekt für die Textur
         /// </summary>
         public static ZerstörungsObjekt Zerstörung;
 
@@ -66,32 +61,32 @@ namespace _4_1_
         #endregion DEBUG
 
         /// <summary>
-        ///     The rucksack
+        /// die Inventare der Kisten
         /// </summary>
         public List<Inventar> Rucksack = new List<Inventar>();
 
         /// <summary>
-        ///     The aktiv
+        /// bestimmt, ob die Kiste in die Berechnungen einbezogen werden soll (true = mit berechnet, false = inaktiv)
         /// </summary>
         public List<bool> aktiv = new List<bool>();
 
         /// <summary>
-        ///     The id
+        /// die IDs der Kisten
         /// </summary>
         public List<int> id = new List<int>();
 
         /// <summary>
-        ///     The pos
+        /// die Position der Kiste
         /// </summary>
         public List<Vector2> pos = new List<Vector2>();
 
         /// <summary>
-        ///     The verzögerung
+        /// eine Explosionsverzögerung
         /// </summary>
         public List<int> verzögerung = new List<int>();
 
         /// <summary>
-        ///     Inits the specified content.
+        /// initalisiert die Kistenklasse
         /// </summary>
         /// <param name="Content">The content.</param>
         public static void init(ContentManager Content)
@@ -102,11 +97,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Adds the kiste.
+        /// fügt eine Kiste hinzu
         /// </summary>
-        /// <param name="_x">The _x.</param>
-        /// <param name="_y">The _y.</param>
-        /// <param name="_Inventar">The _ inventar.</param>
+        /// <param name="_x">die X-Koordinate</param>
+        /// <param name="_y">die Y-Koordinate</param>
+        /// <param name="_Inventar">das Inventar der Kiste</param>
         public void AddKiste(int _x, int _y, Inventar _Inventar)
         {
             Rucksack.Add(_Inventar);
@@ -118,10 +113,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Adds the kiste.
+        /// fügt eine Kiste hinzu
         /// </summary>
-        /// <param name="_pos">The _pos.</param>
-        /// <param name="_Inventar">The _ inventar.</param>
+        /// <param name="_pos">die Position der Kiste</param>
+        /// <param name="_Inventar">das Inventar der Kiste</param>
         public void AddKiste(Vector2 _pos, Inventar _Inventar)
         {
             Rucksack.Add(_Inventar);
@@ -133,9 +128,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Deletes the kiste.
+        /// entfernt eine Kiste
         /// </summary>
-        /// <param name="id2">The id2.</param>
+        /// <param name="id2">die id der Kiste</param>
         public void DeleteKiste(int id2)
         {
             Rucksack.RemoveAt(id2);
@@ -146,13 +141,13 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Explosions the specified id.
+        /// lässt eine Kiste explodieren
         /// </summary>
-        /// <param name="id">The id.</param>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="Spiel2">The spiel2.</param>
-        /// <returns>List{Vector3}.</returns>
+        /// <param name="id">die ID der Kiste</param>
+        /// <param name="Spielfeld">ein Spielfeld</param>
+        /// <param name="gameTime">ein Zeitstempel</param>
+        /// <param name="Spiel2">ein Spielobjekt</param>
+        /// <returns>gibt Daten zur Neuberechnung der Kartenoberfläche zurück</returns>
         public List<Vector3> Explosion(int id, List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2)
         {
             // Mine zünden
@@ -186,11 +181,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Determines whether the specified id is collision.
+        /// Prüft, ob eine bestimmte Kiste mit einer Position kollidiert
         /// </summary>
-        /// <param name="id">The id.</param>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <returns><c>true</c> if the specified id is collision; otherwise, <c>false</c>.</returns>
+        /// <param name="id">die ID der Kiste</param>
+        /// <param name="Incoming_Position">die Position, die auf Kollision geprüft werden soll</param>
+        /// <returns>true = es gab eine Kollision, false = keine Kollision</returns>
         public bool IsCollision(int id, Vector2 Incoming_Position)
         {
             if (Kollision == null) return false;
@@ -198,11 +193,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Determines whether the specified id is explode.
+        /// berechnet die Explosionsschäden an einer Kiste
         /// </summary>
-        /// <param name="id">The id.</param>
-        /// <param name="Explosion">The explosion.</param>
-        /// <param name="Energie">The energie.</param>
+        /// <param name="id">die ID der Kiste</param>
+        /// <param name="Explosion">die Position der Explosion</param>
+        /// <param name="Energie">der Explosionsradius / die Stärke der Explosion</param>
         public int IsExplode(int id, Vector2 Explosion, int Energie)
         {
             if (Zerstörung == null) return 0;
@@ -213,7 +208,12 @@ namespace _4_1_
             return Zerstörung.BerechneZerstörung(tmp, Explosion, Energie, pos[id]);
         }
 
-        // TODO ausfüllen
+        /// <summary>
+        /// erstellt ein Kistenobjekt aus Text
+        /// </summary>
+        /// <param name="Text">der Text, aus dem das Objekt erzeugt werden soll</param>
+        /// <param name="i">die ID der Kiste/param>
+        /// <param name="Content">ein Content Manager</param>
         public void Laden(List<String> Text, int i, ContentManager Content)
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "KISTE");
@@ -235,6 +235,10 @@ namespace _4_1_
             Rucksack[i] = Inventar.Laden(Text2, Content, altid == -1 ? new Inventar() : Rucksack[i]);
         }
 
+        /// <summary>
+        /// wandelt alle Kisten in Text um
+        /// </summary>
+        /// <returns>die Textdarstellung der Kistenobjekte</returns>
         public List<String> Speichern()
         {
             List<String> data = new List<String>();
@@ -252,6 +256,11 @@ namespace _4_1_
             return data;
         }
 
+        /// <summary>
+        /// wandelt eine Kiste in Text um (speziell für Editor)
+        /// </summary>
+        /// <param name="i">die ID der Kiste</param>
+        /// <returns>die Textdarstellung des Kistenobjekts</returns>
         public List<String> EditorSpeichern(int i)
         {
             List<String> data = new List<String>();
