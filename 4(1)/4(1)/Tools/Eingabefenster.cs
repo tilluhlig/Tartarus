@@ -21,43 +21,43 @@ using Microsoft.Xna.Framework.Input;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Eingabefenster
+    /// diese Klasse verwaltet das Eingabefenster, welches für spezielle Befehle geöffnet werden kann
     /// </summary>
     public static class Eingabefenster
     {
         /// <summary>
-        /// The eingabe
+        /// das Textfeld der Eingabe
         /// </summary>
         public static Textfeld Eingabe = null;
 
-        // public static TextBox Eingabe = new TextBox(new Vector2(500, 200), "", 30, 10, 5, 2, Color.Gray, Texturen.font3);
         /// <summary>
-        /// The befehle
+        /// eine Liste der möglichen Befehle
         /// </summary>
         public static List<String> Befehle = new List<String>();
 
         /// <summary>
-        /// The history
+        /// eine Liste der bisherigen Eingaben
         /// </summary>
         public static List<String> History = new List<String>();
 
         /// <summary>
-        /// The able
+        /// diese Liste enthält Befehle, die als "mögliche" Befehle angezeigt werden
+        /// Bsp.: es wird "#Mi" eingegeben, so zeigt die Eingabezeile sowas wie "#Mine" als möglichen Befehl an
         /// </summary>
         public static List<String> able = new List<String>();
 
         /// <summary>
-        /// The hist
+        /// die aktuelle Position in der History, zum bewegen in der History
         /// </summary>
         public static int hist = 0;
 
         /// <summary>
-        /// The first
+        /// wurde diese Klasse zum ersten mal aufgerufen, zur Initialisierung
         /// </summary>
         public static bool ErsterAufruf = true;
 
         /// <summary>
-        /// Inits this instance.
+        /// initialisiert die Klasse
         /// </summary>
         public static void Initialisieren()
         {
@@ -91,9 +91,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        /// zeichnet das Eingabefenster auf dem Bildschirm
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch.</param>
+        /// <param name="spriteBatch">eine Zeichenfläche</param>
         public static void ZeichneEingabefenster(SpriteBatch spriteBatch)
         {
             if (Eingabe.Sichtbar)
@@ -145,10 +145,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Keyboards the keys.
+        /// verwaltet für das Eingabefenster die Tastatureingaben
         /// </summary>
-        /// <param name="keybState">State of the keyb.</param>
-        /// <param name="keybState2">The keyb state2.</param>
+        /// <param name="keybState">der letzte Zustand der Tastatur</param>
+        /// <param name="keybState2">der neue zustand der Tastatur</param>
         public static void KeyboardKeys(KeyboardState keybState, KeyboardState keybState2)
         {
             if (ErsterAufruf)

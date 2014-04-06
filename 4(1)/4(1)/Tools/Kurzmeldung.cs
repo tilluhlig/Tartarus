@@ -18,32 +18,33 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Kurzmeldung
+    /// die Klasse verwaltet Kurzmeldungen, auf dem Bildschirm für eine bestimmte Zeit
+    /// angezeigt werden
     /// </summary>
     public static class Kurzmeldung
     {
         /// <summary>
-        /// The content
+        /// der Inhalt der Kurzmeldung / der Text
         /// </summary>
         private static List<string> Inhalt = new List<string>();
 
         /// <summary>
-        /// The has existed
+        /// wielange die Kurzmeldung angezeigt werden soll, bevor sie verschwindet
         /// </summary>
         private static List<int> Lebenszeit = new List<int>();
 
         /// <summary>
-        /// The pos
+        /// die Position der Kurzmeldung
         /// </summary>
         private static List<Vector2> Position = new List<Vector2>();
 
         /// <summary>
-        /// The text color
+        /// die Farbe des Textes
         /// </summary>
         private static List<Color> Textfarbe = new List<Color>();
 
         /// <summary>
-        /// Updates this instance.
+        /// Aktualisiert die Lebenszeit, Farbe und Position aller Kurzmeldungen
         /// </summary>
         public static void Aktualisieren()
         {
@@ -62,11 +63,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Adds the specified _content.
+        /// fügt eine Kurzmeldung ein
         /// </summary>
-        /// <param name="_content">The _content.</param>
-        /// <param name="_pos">The _pos.</param>
-        /// <param name="_textColor">Color of the _text.</param>
+        /// <param name="_content">der Text</param>
+        /// <param name="_pos">die Position</param>
+        /// <param name="_textColor">die Farbe</param>
         public static void Hinzufügen(string _content, Vector2 _pos, Color _textColor)
         {
             Inhalt.Add(_content);
@@ -75,6 +76,13 @@ namespace _4_1_
             Lebenszeit.Add(0);
         }
 
+        /// <summary>
+        /// fügt eine Kurzmeldung ein
+        /// </summary>
+        /// <param name="_content">der Text</param>
+        /// <param name="_pos">die Position</param>
+        /// <param name="_textColor">die Farbe</param>
+        /// <param name="initlebenszeit">die initale Lebenszeit</param>
         public static void Hinzufügen(string _content, Vector2 _pos, Color _textColor, int initlebenszeit)
         {
             Inhalt.Add(_content);
@@ -98,9 +106,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Deletes the specified i.
+        /// entfernt eine bestimmte Kurzmeldung
         /// </summary>
-        /// <param name="i">The i.</param>
+        /// <param name="i">die ID</param>
         private static void Entfernen(int i)
         {
             Inhalt.RemoveAt(i);
