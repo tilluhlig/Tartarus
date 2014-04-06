@@ -19,61 +19,63 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Materialien
+    /// diese Klasse ermöglicht die Definition von Materialien
     /// </summary>
     public class Materialien
     {
         /// <summary>
-        /// The bild
+        /// die Textrur des Materials
         /// </summary>
         public Texture2D Bild;
 
         /// <summary>
-        /// The blur
+        /// ob der Rand des Materials abgedunkelt werden soll (beispielsweise zur Luft hin)
         /// </summary>
         public bool Abdunkeln = true;
 
         /// <summary>
-        /// The C bild
+        /// die Textur des Materials als Array von Farbwerten (Farbe=false)
         /// </summary>
         public Color[] CBild;
 
         /// <summary>
-        /// The C farbe
+        /// wenn das Material lediglich als Farbe angegeben wird (Farbe=true), wird diese Farbe genutzt
         /// </summary>
         public Color CFarbe = Color.Transparent;
 
         /// <summary>
-        /// The collision
+        /// ob dieses Material Kollisionen auslöst
         /// </summary>
         public bool Kollision = true;
 
         /// <summary>
-        /// The farbe
+        /// ob es als Farbwert definiert wird
+        /// Farbe=true, nutzt CFarbe
+        /// Farbe=false, nutzt CBild
         /// </summary>
         public bool Farbe = false;
 
         /// <summary>
-        /// The folge ID
+        /// die ID des Materials welches nach Zerstörung dieses Materials gesetzt werden soll
         /// </summary>
         public int FolgeID = 0;
 
         /// <summary>
-        /// The scale
+        /// die Skalierung der Materialtextur
         /// </summary>
         public float Skalierung = 1.0f;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Materialien"/> class.
+        /// der Konstruktur, zur erzeugung eines neuen Materials
         /// </summary>
-        /// <param name="Content">The content.</param>
-        /// <param name="Bilddatei">The bilddatei.</param>
-        /// <param name="_Farbe">if set to <c>true</c> [_ farbe].</param>
-        /// <param name="_CFarbe">The _ C farbe.</param>
-        /// <param name="_FolgeID">The _ folge ID.</param>
-        /// <param name="_Skalierung">The _scale.</param>
-        /// <param name="_Abdunkeln">if set to <c>true</c> [_blur].</param>
-        /// <param name="_Kollision">if set to <c>true</c> [_collision].</param>
+        /// <param name="Content">ein ContentManager</param>
+        /// <param name="Bilddatei">der Name der Bilddatei</param>
+        /// <param name="_Farbe">ob der _CFarbe oder die Bilddatei die Textur liefern soll</param>
+        /// <param name="_CFarbe">ein Farbwert als Textur</param>
+        /// <param name="_FolgeID">die Folgetextur (nach entfernung dieser)</param>
+        /// <param name="_Skalierung">die Skalierung der Textur (bei nutzung der Bilddatei als Textur)</param>
+        /// <param name="_Abdunkeln">ob der Rand des Materials zur Luft abgedunkelt werden soll</param>
+        /// <param name="_Kollision">ob das Material eine Kollision auslösen kann</param>
         public Materialien(ContentManager Content, String Bilddatei, bool _Farbe, Color _CFarbe, int _FolgeID, float _Skalierung, bool _Abdunkeln, bool _Kollision)
         {
             if (!_Farbe)
