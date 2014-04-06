@@ -20,35 +20,63 @@ namespace _4_1_
     /// </summary>
     public class Notizen
     {
+        /// <summary>
+        /// die Textur für die Markierung auf dem Bildschirm
+        /// </summary>
         private static Texture2D fahne;
-        private static SpriteFont font;
-        public static KollisionsObjekt Kollision;
-        private int maxPixelInZeile = 300;
-        public List<Vector2> pos = new List<Vector2>();
-        public int selected = -1;
-        public List<Textbereich> Textfelder = new List<Textbereich>();
 
-        //private int cursor = 0;
-        //private List<List<string>> Text = new List<List<string>>();
-        //private List<String> originalText = new List<String>();
+        /// <summary>
+        /// die Schriftart für alle Notizen
+        /// </summary>
+        private static SpriteFont font;
+
+        /// <summary>
+        /// ein Kollisionsobjekt für alle Notizen
+        /// </summary>
+        public static KollisionsObjekt Kollision;
+
+        /// <summary>
+        /// die maximale Pixelbreite
+        /// </summary>
+        private int maxPixelInZeile = 300;
+
+        /// <summary>
+        /// die Positionen der Notizen
+        /// </summary>
+        public List<Vector2> pos = new List<Vector2>();
+
+        /// <summary>
+        /// die ausgewählte Notiz
+        /// </summary>
+        public int selected = -1;
+
+        /// <summary>
+        /// die Textfelder der Notizen
+        /// </summary>
+        public List<Textbereich> Textfelder = new List<Textbereich>();
 
         #region DEBUG
 
 #if DEBUG
+        /// <summary>
+        /// die Skalierung der Bildschirmmarkierung
+        /// </summary>
         private static float scale = 0.125f;
 
 #else
+        /// <summary>
+        /// die Skalierung der Bildschirmmarkierung
+        /// </summary>
         private static float scale = 1f;
 #endif
 
         #endregion DEBUG
 
-        // TODO ausfüllen
         /// <summary>
-        /// Erzeugt den Inhalt des Effektes aus einem String
+        /// Erzeugt den Inhalt einer Notiz aus Text
         /// </summary>
-        /// <param name="Text">der Text in dem der Effekt definiert ist</param>
-        public void LadeAusText(String Text)
+        /// <param name="Text">der Text in dem die Notiz definiert ist</param>
+        public void LadeAusText(List<String> Text)
         {
         }
 
@@ -74,7 +102,10 @@ namespace _4_1_
             return data;
         }
 
-        public Notizen(GraphicsDevice graphicsDevice)
+        /// <summary>
+        /// der Konstruktor für eine Notizsammlung
+        /// </summary>
+        public Notizen()
         {
             // hier steht nichts
         }
@@ -82,7 +113,7 @@ namespace _4_1_
         /// <summary>
         /// ladet den Basisbestand rein
         /// </summary>
-        public static void LoadContent(GraphicsDevice graphicsDevice, ContentManager Content, int maxY)
+        public static void LoadContent()
         {
             font = Texturen.font4;
             fahne = Texturen.Notizmarkierung;
@@ -92,6 +123,10 @@ namespace _4_1_
         /// <summary>
         /// fügt eine Notiz in die Liste ein
         /// </summary>
+        /// <param name="graphicsDevice">ein GraphicsDevice</param>
+        /// <param name="pos">die Position der Notiz</param>
+        /// <param name="Content">der Inhalt</param>
+        /// <param name="Content2">ein ContentManager</param>
         public void AddNotiz(GraphicsDevice graphicsDevice, Vector2 pos, string Content, ContentManager Content2)
         {
             int place = insert(this.pos, pos.X);
@@ -104,14 +139,21 @@ namespace _4_1_
             Textfelder[place].originalText = Content;
         }
 
+        /// <summary>
+        /// entfernt eine Notiz
+        /// </summary>
+        /// <param name="id">die ID der Notiz</param>
         public void delNotiz(int id)
         {
             selected = -1;
-            // Text.RemoveAt(id);
             Textfelder.RemoveAt(id);
             pos.RemoveAt(id);
         }
 
+        /// <summary>
+        /// bearbeitet weiterhin gedrückte Tasten
+        /// </summary>
+        /// <param name="keybState">ein Tastaturzustand</param>
         public void TastenEingabe(KeyboardState keybState)
         {
             if (selected != -1 && selected < Textfelder.Count)
@@ -120,6 +162,11 @@ namespace _4_1_
             }
         }
 
+        /// <summary>
+        /// bearbeitet Tastatureingaben
+        /// </summary>
+        /// <param name="sender">ein Auslöser</param>
+        /// <param name="e">ein Tastaurevent</param>
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (selected != -1 && selected < Textfelder.Count)
@@ -128,6 +175,14 @@ namespace _4_1_
             }
         }
 
+        /// <summary>
+        /// Zeichnet alle Notizen auf dem Bildschirm
+        /// </summary>
+        /// <param name="spriteBatch">ein Tastaurevent</param>
+        /// <param name="graphicsDevice">ein Tastaurevent</param>
+        /// <param name="Fenster">ein Tastaurevent</param>
+        /// <param name="found">ob die Maus auf dem Bildschirm bereits über etwas ist</param>
+        /// <returns>ob sich die Maus über einem gefundenen Objekt auf dem Bildschirm befindet</returns>
         public bool Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Vector2 Fenster, bool found)
         {
             for (int i = 0; i < pos.Count; i++)
@@ -182,8 +237,17 @@ namespace _4_1_
             return found;
         }
 
+        /// <summary>
+        /// ob der Schreibmodus für die Notiz aktiv ist
+        /// </summary>
         public bool schreibend = false;
 
+        /// <summary>
+        /// Überprüft das Klicken auf den Schreibbereich
+        /// </summary>
+        /// <param name="Fenster">die Verschiebung auf dem Spielfeld (das Fenster)</param>
+        /// <param name="graphicsDevice">ein Graphics Device</param>
+        /// <returns>ob auf das Schreibfeld der Notiz geklickt wurde</returns>
         public bool Notizbereich_klick(Vector2 Fenster, GraphicsDevice graphicsDevice)
         {
             if (selected <= -1) { schreibend = false; return false; }
@@ -214,6 +278,13 @@ namespace _4_1_
             return false;
         }
 
+        /// <summary>
+        /// bearbeitet das anklicken der Notizmarkierung
+        /// </summary>
+        /// <param name="Fenster">die Verschiebung auf dem Spielfeld (das Fenster)</param>
+        /// <param name="graphicsDevice">ein Graphics Device</param>
+        /// <param name="oldmouseState">der Mauszustand</param>
+        /// <returns>ob sich die Maus über einem gefundenen Objekt auf dem Bildschirm befindet</returns>
         public bool MouseKeys(Vector2 Fenster, GraphicsDevice graphicsDevice, MouseState oldmouseState)
         {
             KleinesMenu.MouseKeys(graphicsDevice, this, oldmouseState);
@@ -259,6 +330,14 @@ namespace _4_1_
             return false;
         }
 
+        /// <summary>
+        /// ordner einer bestimmten X-Position, einem Index der Notizen zu, sodass
+        /// die Notiz eine kleinere X-Position hat.
+        /// wird genutzt, um alle Notizen nach aufsteigendem X Wert zu sortieren
+        /// </summary>
+        /// <param name="item">eine Liste von Positionen</param>
+        /// <param name="value">eine X Position</param>
+        /// <returns>der Index des Elements, hinter dem wir das neue platzieren können</returns>
         private int insert(List<Vector2> item, float value)
         {
             for (int i = 0; i < item.Count; i++)
