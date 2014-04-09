@@ -381,8 +381,8 @@ namespace _4_1_
                     Vector2 maße2 = Help.AufBereichVerkleinern(Texturen.waffenbilder[me], 75, 50);
                     spriteBatch.Draw(Texturen.waffenbilder[me], new Rectangle((int)(temp2.X), (int)(temp2.Y), (int)maße2.X, (int)maße2.Y), Color.White);
 
-                    Vector2 maße = Help.AufBereichVerkleinern(Texturen.missle[me], Bildbreite, Bildhoehe);
-                    spriteBatch.Draw(Texturen.missle[me], new Rectangle((int)(temp2.X + Bildbreite / 2 + (Bildbreite / 2 - maße.X) / 2), (int)(temp2.Y + (Bildhoehe - maße.Y) / 2), (int)maße.X, (int)maße.Y), Color.White);
+                    Vector2 maße = Help.AufBereichVerkleinern(Texturen.missle[me], 75, Bildhoehe);
+                    spriteBatch.Draw(Texturen.missle[me], new Rectangle((int)(temp2.X + Bildbreite -75/2 - maße.X/2), (int)(temp2.Y+Bildhoehe/2-maße.Y/2), (int)maße.X, (int)maße.Y), Color.White);
                     lastchosen = 4;
                     lastchosenid = me;
                 }
