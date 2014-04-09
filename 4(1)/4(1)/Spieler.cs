@@ -156,7 +156,7 @@ namespace _4_1_
 
         public List<String> Namen = new List<String>();
 
-        public Notizen Notiz = new Notizen(Game1.device);
+        public Notizen Notiz = new Notizen();
 
         /// <summary>
         /// The oldpos

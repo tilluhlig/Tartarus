@@ -1258,7 +1258,7 @@ namespace _4_1_
             Texturen.Load(Content);
             Sounds.Load(Content);
             Karte.Lade_Materialien(Content);
-            Notizen.LoadContent(GraphicsDevice, Content, 400);
+            Notizen.LoadContent();
 
             Meldungen = new Chatbox(new Vector2(15, 60));
 
@@ -1913,6 +1913,7 @@ namespace _4_1_
                 line = new Texture2D(GraphicsDevice, 1, 1);
                 line.SetData<Color>(new Color[] { Color.Yellow });
             }
+
             int summe = 0;
             int maxsumme = 1000;
 
@@ -3392,7 +3393,7 @@ namespace _4_1_
 
             if (Editor.visible && Spiel2 != null && Hauptfenster.Tausch.SpielAktiv)
             {
-                Editor.MouseKeys(spriteBatch, device, mouseState, Spiel2, screenWidth);
+                Editor.MouseKeys(spriteBatch, device, mouseState, Spiel2);
             }
 
             if (!Editor.visible && Spiel2 != null && Hauptfenster.Tausch.SpielAktiv)

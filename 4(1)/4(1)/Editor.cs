@@ -7,48 +7,140 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _4_1_
 {
+    /// <summary>
+    /// Diese Klasse verwaltet den Editor
+    /// </summary>
     public static class Editor
     {
+        /// <summary>
+        /// ob der Editor sichtbar ist, bzw ob wir uns im Editor befinden
+        /// </summary>
         public static bool visible = false;
+
+        /// <summary>
+        /// regelt, ob ein Gitternetz auf dem Bildschirm angezeigt werden soll (true = ja, false = nein)
+        /// </summary>
         public static bool Gitter = false;
+
+        /// <summary>
+        /// ob es der erste Zugirff auf die Editorklasse ist
+        /// </summary>
         private static bool first = true;
 
-        private static ComboBox2 Opt;
+        /// <summary>
+        /// Zur Auswahl verschiedener Optionen (beispielsweise das Anzeigen des Gitternetzes)
+        /// </summary>
+        private static ComboBox2 Optionen;
 
+        /// <summary>
+        /// das Eingabefenster zum Ändern der Eigenschaften ausgwählter Objekte
+        /// </summary>
         public static Textbereich Textfelder;
-        public static int Textfeldtyp = 0;
-        public static int TextfeldSpieler = 0;
-        public static int TextfeldID = 0;
-        private static int chosenplayer = -1;
 
-        // Objektmodus
+        /// <summary>
+        /// das Objekt, welches im Textfeld dargestellt wird, hat einen bestimmten Typ/Sorte
+        /// </summary>
+        public static int Textfeldtyp = 0;
+
+        /// <summary>
+        /// das Objekt, welches im Textfeld dargestellt wird, gehört einem bestimmten Spieler
+        /// </summary>
+        public static int TextfeldSpieler = 0;
+
+        /// <summary>
+        /// das Objekt, welches im Textfeld dargestellt wird, hat eine exakte ID (was auch immer es ist)
+        /// </summary>
+        public static int TextfeldID = 0;
+
+        /// <summary>
+        /// der gewählte Spieler
+        /// </summary>
+        private static int GewaehlterSpieler = -1;
+
+        #region Objektmodus
+        /// <summary>
+        /// die Auswahlliste für nutzlose Objekte
+        /// </summary>
         private static ComboBox2 NutzlosesCombo;
 
+        /// <summary>
+        /// die Auswahlliste für Gebäude/Häuser
+        /// </summary>
         private static ComboBox2 Häuser;
-        private static ComboBox2 TunnelCombo;
-        private static ComboBox2 Fahrzeuge;
-        private static ComboBox2 Waffen;
 
-        // Kartenmalmodus
+        /// <summary>
+        /// die Auswahlliste für Tunnel
+        /// </summary>
+        private static ComboBox2 TunnelCombo;
+
+        /// <summary>
+        /// die Auswahlliste für Fahrzeuge
+        /// </summary>
+        private static ComboBox2 Fahrzeuge;
+
+        /// <summary>
+        /// die Auswahlliste für Fahrzeuge
+        /// </summary>
+        private static ComboBox2 Waffen;
+        #endregion
+
+        #region Kartenmalmodus
+
+        /// <summary>
+        /// die Auswahlliste für die Pinselform
+        /// </summary>
         private static ComboBox2 Pinselform;
 
+        /// <summary>
+        /// die Auswahlliste für die Pinselfarbe / Materialsorte
+        /// </summary>
         private static ComboBox2 Pinselfarbe;
+
+        /// <summary>
+        /// die Auswahlliste für die Pinseldicke
+        /// </summary>
         private static ComboBox2 Pinseldicke;
 
-        private static int Pinselform2 = 0;
-        private static int Pinselfarbe2 = 1;
-        private static int Pinseldicke2 = 0;
+        /// <summary>
+        /// die gewählte Pinselform
+        /// </summary>
+        private static int GewaehltePinselform = 0;
 
+        /// <summary>
+        /// die gewählte Pinselfarbe / Materialsorte
+        /// </summary>
+        private static int GewaehltePinselfarbe = 1;
+
+        /// <summary>
+        /// die gewählte Pinseldicke
+        /// </summary>
+        private static int GewaehltePinseldicke = 0;
+        #endregion
+
+        /// <summary>
+        /// bestimmt, welche der Auswahllisten, ausgwählt wurde
+        /// </summary>
         private static int lastchosen = -1;
+
+        /// <summary>
+        /// bestimmt, welches Item der Auswahllisten gewählt wurde
+        /// </summary>
         private static int lastchosenid = -1;
 
-        private static bool Zeichenmodus = false; // false = Karte, true = Objekte
+        /// <summary>
+        /// lässt den Editor zwischen Zeichenmodus und Objektmodus wechseln
+        /// false = Zeichenmodus, true = Objektmodus
+        /// </summary>
+        private static bool Zeichenmodus = false;
 
+        /// <summary>
+        /// macht den Editor sichtbar
+        /// </summary>
         public static void show(int Fensterbreite)
         {
             visible = true;
             // Optionen.show(new Vector2(Fensterbreite - 100 -25, 0), 0);
-            Opt.show();
+            Optionen.show();
             NutzlosesCombo.show();
             Häuser.show();
             TunnelCombo.show();
@@ -59,11 +151,14 @@ namespace _4_1_
             Pinseldicke.show();
         }
 
+        /// <summary>
+        /// macht den Editor unsichtbar
+        /// </summary>
         public static void hide()
         {
             visible = false;
             // Optionen.hide();
-            Opt.hide();
+            Optionen.hide();
             NutzlosesCombo.hide();
             Häuser.hide();
             TunnelCombo.hide();
@@ -74,6 +169,9 @@ namespace _4_1_
             Pinseldicke.hide();
         }
 
+        /// <summary>
+        /// zeichnet den Editor auf dem Bidlschirm
+        /// </summary>
         public static void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Vector2 Fenster, int Fensterbreite, int Fensterhoehe, ContentManager Content, Spiel Spiel2)
         {
             #region Init
@@ -99,7 +197,7 @@ namespace _4_1_
                 //  List<String> list = new List<String>();
                 // list.Add("Gitternetz aus");
                 // Optionen = new Minimenu(list, Texturen.font4, graphicsDevice, 100, Color.SteelBlue, Color.Black, Color.Goldenrod);
-                Opt = new ComboBox2("Optionen", new String[] { "Gitternetz aus" }, 100, graphicsDevice, new Vector2(Fensterbreite - 100 - 25, 0), Color.Goldenrod, Color.Black, Color.Red, Color.LightGoldenrodYellow, Color.Black, Color.Red);
+                Optionen = new ComboBox2("Optionen", new String[] { "Gitternetz aus" }, 100, graphicsDevice, new Vector2(Fensterbreite - 100 - 25, 0), Color.Goldenrod, Color.Black, Color.Red, Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 String[] data = new String[Texturen.baum.Length + Texturen.panzerruine.Length];
                 i = 0;
@@ -145,12 +243,12 @@ namespace _4_1_
             {
                 if (Gitter)
                 {
-                    Opt.Optionen.Inhalt[0] = "Gitternetz aus";
+                    Optionen.Optionen.Inhalt[0] = "Gitternetz aus";
                 }
                 else
-                    Opt.Optionen.Inhalt[0] = "Gitternetz an ";
+                    Optionen.Optionen.Inhalt[0] = "Gitternetz an ";
 
-                Opt.Draw(spriteBatch, graphicsDevice, Vector2.Zero);
+                Optionen.Draw(spriteBatch, graphicsDevice, Vector2.Zero);
                 NutzlosesCombo.Draw(spriteBatch, graphicsDevice, Vector2.Zero);
                 Häuser.Draw(spriteBatch, graphicsDevice, Vector2.Zero);
                 TunnelCombo.Draw(spriteBatch, graphicsDevice, Vector2.Zero);
@@ -190,7 +288,7 @@ namespace _4_1_
             float scale = Optimierung.Skalierung(0.25f);
             for (int i = 0; i <= Spiel2.players.Length; i++)
             {
-                if (i - 1 == chosenplayer)
+                if (i - 1 == GewaehlterSpieler)
                 {
                     Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)(15 + i * Texturen.LeeresFeld.Width * scale), 15, (int)(Texturen.LeeresFeld.Width * scale), (int)(Texturen.LeeresFeld.Height * scale)), Color.Green, 0.7f);
                 }
@@ -294,28 +392,28 @@ namespace _4_1_
                 {
                     // Vector2 maße = Help.AufBereichVerkleinern(Texturen.panzerbutton[me], Bildbreite, Bildhoehe);
                     //spriteBatch.Draw(Texturen.panzerbutton[me], new Rectangle((int)(temp2.X + (Bildbreite - maße.X) / 2), (int)(temp2.Y + (Bildhoehe - maße.Y) / 2), (int)maße.X, (int)maße.Y), Color.White);
-                    Vector2 pos = new Vector2((int)(temp2.X + Bildbreite / 2 - Texturen.font.MeasureString(Pinseldicke2.ToString()).X / 2), (int)(temp2.Y + Bildhoehe - Texturen.font.MeasureString(Pinseldicke2.ToString()).Y));
-                    spriteBatch.DrawString(Texturen.font, ((Pinseldicke2 + 1) * 10).ToString(), pos, Color.Black);
-                    if (Pinselform2 == 0)
+                    Vector2 pos = new Vector2((int)(temp2.X + Bildbreite / 2 - Texturen.font.MeasureString(GewaehltePinseldicke.ToString()).X / 2), (int)(temp2.Y + Bildhoehe - Texturen.font.MeasureString(GewaehltePinseldicke.ToString()).Y));
+                    spriteBatch.DrawString(Texturen.font, ((GewaehltePinseldicke + 1) * 10).ToString(), pos, Color.Black);
+                    if (GewaehltePinselform == 0)
                     {
                         spriteBatch.Draw(Texturen.kreis, new Rectangle((int)(temp2.X + Bildbreite - 25), (int)(temp2.Y + Bildhoehe - 25), 20, 20), Color.Black);
                     }
                     else
-                        if (Pinselform2 == 1)
+                        if (GewaehltePinselform == 1)
                         {
                             Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)(temp2.X + Bildbreite - 25), (int)(temp2.Y + Bildhoehe - 25), 20, 20), Color.Black, 1.0f);
                         }
 
                     if (Pinselfarbe.Optionen.over == -1)
                     {
-                        if (Karte.Material[Pinselfarbe2].Farbe)
+                        if (Karte.Material[GewaehltePinselfarbe].Farbe)
                         {
-                            Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)(temp2.X + Bildbreite / 2 - 25), (int)(temp2.Y), 50, 50), Karte.Material[Pinselfarbe2].CFarbe, 1.0f);
+                            Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)(temp2.X + Bildbreite / 2 - 25), (int)(temp2.Y), 50, 50), Karte.Material[GewaehltePinselfarbe].CFarbe, 1.0f);
                         }
                         else
                         {
-                            Vector2 maße = Help.AufBereichVerkleinern(Karte.Material[Pinselfarbe2].Bild, 50, 50);
-                            spriteBatch.Draw(Karte.Material[Pinselfarbe2].Bild, new Rectangle((int)(temp2.X + Bildbreite / 2 - 25 + (50 - maße.X) / 2), (int)(temp2.Y), (int)maße.X, (int)maße.Y), Color.White);
+                            Vector2 maße = Help.AufBereichVerkleinern(Karte.Material[GewaehltePinselfarbe].Bild, 50, 50);
+                            spriteBatch.Draw(Karte.Material[GewaehltePinselfarbe].Bild, new Rectangle((int)(temp2.X + Bildbreite / 2 - 25 + (50 - maße.X) / 2), (int)(temp2.Y), (int)maße.X, (int)maße.Y), Color.White);
                         }
                     }
                     else
@@ -336,12 +434,19 @@ namespace _4_1_
             return;
         }
 
+        /// <summary>
+        /// legt fest, ob etwas angeklickt wurde
+        /// </summary>
         private static bool geklickt = false;
 
         public static int mouseover = -1;
         public static int mouseoverid = -1;
         public static int mouseoverid2 = -1;
 
+        /// <summary>
+        /// prüft, ob sich der Mauszeiger über einem auswählbaren Objekt befindet
+        /// </summary>
+        /// <param name="Spiel2">ein Spielobjekt</param>
         public static void MouseKeys2(Spiel Spiel2)
         {
             bool found = false;
@@ -456,7 +561,14 @@ namespace _4_1_
             if (found == false) { mouseover = -1; }
         }
 
-        public static void MouseKeys(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, MouseState oldmouseState, Spiel Spiel2, int Fensterbreite)
+        /// <summary>
+        /// behandelt Mauszeigeraktionen (klicken)
+        /// </summary>
+        /// <param name="spriteBatch">eine Zeichenfläche</param>
+        /// <param name="graphicsDevice">eine Graphics Device</param>
+        /// <param name="oldmouseState">ein vorheriger Mauszustand</param>
+        /// <param name="Spiel2">ein Spielobjekt</param>
+        public static void MouseKeys(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, MouseState oldmouseState, Spiel Spiel2)
         {
             if (!visible) return;
             if (first) return;
@@ -526,8 +638,8 @@ namespace _4_1_
 
             if (Zeichenmodus)
             {
-                if (Opt.Optionen.sichtbar)
-                    switch (Opt.Optionen.Interact(Vector2.Zero, false, oldmouseState))
+                if (Optionen.Optionen.sichtbar)
+                    switch (Optionen.Optionen.Interact(Vector2.Zero, false, oldmouseState))
                     {
                         case 0:
                             {
@@ -549,7 +661,7 @@ namespace _4_1_
                         default: break;
                     }
 
-                Opt.MouseKeys(graphicsDevice, Vector2.Zero, oldmouseState);
+                Optionen.MouseKeys(graphicsDevice, Vector2.Zero, oldmouseState);
 
                 NutzlosesCombo.Optionen.Interact(Vector2.Zero, false, oldmouseState);
                 Häuser.Optionen.Interact(Vector2.Zero, false, oldmouseState);
@@ -563,7 +675,7 @@ namespace _4_1_
                 Fahrzeuge.MouseKeys(graphicsDevice, Vector2.Zero, oldmouseState);
                 Waffen.MouseKeys(graphicsDevice, Vector2.Zero, oldmouseState);
 
-                if (Opt.Titel.over == -1 && NutzlosesCombo.Titel.over == -1 && Häuser.Titel.over == -1 && TunnelCombo.Titel.over == -1 && Fahrzeuge.Titel.over == -1 && Waffen.Titel.over == -1 && Opt.Optionen.over == -1 && NutzlosesCombo.Optionen.over == -1 && Häuser.Optionen.over == -1 && TunnelCombo.Optionen.over == -1 && Fahrzeuge.Optionen.over == -1 && Waffen.Optionen.over == -1)
+                if (Optionen.Titel.over == -1 && NutzlosesCombo.Titel.over == -1 && Häuser.Titel.over == -1 && TunnelCombo.Titel.over == -1 && Fahrzeuge.Titel.over == -1 && Waffen.Titel.over == -1 && Optionen.Optionen.over == -1 && NutzlosesCombo.Optionen.over == -1 && Häuser.Optionen.over == -1 && TunnelCombo.Optionen.over == -1 && Fahrzeuge.Optionen.over == -1 && Waffen.Optionen.over == -1)
                     MouseKeys2(Spiel2);
             }
             else
@@ -574,19 +686,19 @@ namespace _4_1_
                     if (Pinselform.Optionen.sichtbar)
                     {
                         int q = Pinselform.Optionen.Interact(Vector2.Zero, false, oldmouseState);
-                        if (q != -1) Pinselform2 = q;
+                        if (q != -1) GewaehltePinselform = q;
                     }
 
                     if (Pinseldicke.Optionen.sichtbar)
                     {
                         int q = Pinseldicke.Optionen.Interact(Vector2.Zero, false, oldmouseState);
-                        if (q != -1) Pinseldicke2 = q;
+                        if (q != -1) GewaehltePinseldicke = q;
                     }
 
                     if (Pinselfarbe.Optionen.sichtbar)
                     {
                         int q = Pinselfarbe.Optionen.Interact(Vector2.Zero, false, oldmouseState);
-                        if (q != -1) Pinselfarbe2 = q;
+                        if (q != -1) GewaehltePinselfarbe = q;
                     }
 
                     Pinselfarbe.Optionen.Interact(Vector2.Zero, false, oldmouseState);
@@ -609,7 +721,7 @@ namespace _4_1_
                     Vector2 maus = Help.GetMousePos();
                     if (maus.X >= temp.X && maus.Y >= temp.Y && maus.X <= temp.X + Texturen.LeeresFeld.Width * scale && maus.Y <= temp.Y + Texturen.LeeresFeld.Height * scale)
                     {
-                        chosenplayer = i - 1;
+                        GewaehlterSpieler = i - 1;
                         if (i > 0) Hauptfenster.Tausch.CurrentPlayer = i - 1;
 
                         geklickt = true;
@@ -645,7 +757,7 @@ namespace _4_1_
                 geklickt = false;
             }
 
-            if (!geklickt && Zeichenmodus && Opt.Titel.over == -1 && NutzlosesCombo.Titel.over == -1 && Häuser.Titel.over == -1 && TunnelCombo.Titel.over == -1 && Fahrzeuge.Titel.over == -1 && Waffen.Titel.over == -1 && Opt.Optionen.over == -1 && NutzlosesCombo.Optionen.over == -1 && Häuser.Optionen.over == -1 && TunnelCombo.Optionen.over == -1 && Fahrzeuge.Optionen.over == -1 && Waffen.Optionen.over == -1)
+            if (!geklickt && Zeichenmodus && Optionen.Titel.over == -1 && NutzlosesCombo.Titel.over == -1 && Häuser.Titel.over == -1 && TunnelCombo.Titel.over == -1 && Fahrzeuge.Titel.over == -1 && Waffen.Titel.over == -1 && Optionen.Optionen.over == -1 && NutzlosesCombo.Optionen.over == -1 && Häuser.Optionen.over == -1 && TunnelCombo.Optionen.over == -1 && Fahrzeuge.Optionen.over == -1 && Waffen.Optionen.over == -1)
             {
                 if (!Textfelder.visible && Help.GetMouseState().LeftButton != oldmouseState.LeftButton && Help.GetMouseState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                 {
@@ -653,19 +765,19 @@ namespace _4_1_
                     if (lastchosen == 0)
                     {
                         Vector2 Pos2 = Pos - new Vector2(Texturen.haus[lastchosenid].Width / 2 * Gebäudedaten.SKALIERUNG.Wert[lastchosenid], 0);
-                        Spiel2.Haeuser.Add(new Vector2(Pos2.X, Kartenformat.BottomOf(Pos2)), -9999, lastchosenid, chosenplayer);
+                        Spiel2.Haeuser.Add(new Vector2(Pos2.X, Kartenformat.BottomOf(Pos2)), -9999, lastchosenid, GewaehlterSpieler);
                     }
                     else
                         if (lastchosen == 1)
                         {
                             Vector2 Pos2 = Pos - new Vector2(Texturen.tunnel.Width / 2 * Tunnel.TUNNEL_SCALE.Wert);
                             if (Spiel2.PrüfeTunnelbau(Pos))
-                                Spiel2.AddTunnel(chosenplayer, new Vector2(Pos2.X, Kartenformat.BottomOf(Pos2)));
+                                Spiel2.AddTunnel(GewaehlterSpieler, new Vector2(Pos2.X, Kartenformat.BottomOf(Pos2)));
                         }
                         else
                             if (lastchosen == 2)
                             {
-                                Spiel2.AddPanzer(chosenplayer, lastchosenid, 0, false, new Vector2(Pos.X, Kartenformat.BottomOf(Pos)));
+                                Spiel2.AddPanzer(GewaehlterSpieler, lastchosenid, 0, false, new Vector2(Pos.X, Kartenformat.BottomOf(Pos)));
                             }
                             else
                                 if (lastchosen == 3)
@@ -687,26 +799,26 @@ namespace _4_1_
                                     if (lastchosen == 4)
                                     {
                                         if (Waffendaten.Verschiessbar[lastchosenid] > 0 && Waffendaten.Verschiessbar[lastchosenid] != 5)
-                                            if (chosenplayer >= 0)
+                                            if (GewaehlterSpieler >= 0)
                                             {
                                                 if (Waffendaten.Verschiessbar[lastchosenid] == 4)
                                                 {
-                                                    Spiel2.AddRakete(chosenplayer, Pos, Vector2.Zero, 300 * 4, lastchosenid, -1);
+                                                    Spiel2.AddRakete(GewaehlterSpieler, Pos, Vector2.Zero, 300 * 4, lastchosenid, -1);
                                                 }
                                                 else
                                                     if (Waffendaten.Verschiessbar[lastchosenid] == 2)
                                                     {
-                                                        Spiel2.Airstrike(Pos, chosenplayer);
+                                                        Spiel2.Airstrike(Pos, GewaehlterSpieler);
                                                     }
                                                     else
                                                         if (Waffendaten.Verschiessbar[lastchosenid] == 3)
                                                         {
                                                             Vector2 Pos2 = Pos - new Vector2(Texturen.tunnel.Width / 2 * Tunnel.TUNNEL_SCALE.Wert);
 
-                                                            Spiel2.players[chosenplayer].Minen.Add(new Mine((int)Pos2.X, (int)Kartenformat.BottomOf(Pos2), (int)(Waffendaten.Daten2[lastchosenid].Z), lastchosenid, Spiel2.players[chosenplayer].Minen.Count));
+                                                            Spiel2.players[GewaehlterSpieler].Minen.Add(new Mine((int)Pos2.X, (int)Kartenformat.BottomOf(Pos2), (int)(Waffendaten.Daten2[lastchosenid].Z), lastchosenid, Spiel2.players[GewaehlterSpieler].Minen.Count));
                                                         }
                                                         else
-                                                            Spiel2.AddRakete(chosenplayer, Pos, Vector2.Zero, 300 * 4, lastchosenid, -1);
+                                                            Spiel2.AddRakete(GewaehlterSpieler, Pos, Vector2.Zero, 300 * 4, lastchosenid, -1);
                                             }
                                     }
                 }
@@ -719,17 +831,17 @@ namespace _4_1_
                         Vector2 Pos = Help.GetMousePos() + Spiel2.Fenster;
                         Pos = new Vector2((int)Pos.X, (int)Pos.Y);
                         List<Vector3> list = new List<Vector3>();
-                        int dicke = (Pinseldicke2 + 1) * 10;
+                        int dicke = (GewaehltePinseldicke + 1) * 10;
 
-                        if (Pinselform2 == 1)
+                        if (GewaehltePinselform == 1)
                         {
                             for (int i = -dicke; i < dicke; i++)
                             {
-                                list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Pos.Y - dicke), (int)(Pos.Y + dicke), Pinselfarbe2));
+                                list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Pos.Y - dicke), (int)(Pos.Y + dicke), GewaehltePinselfarbe));
                             }
                         }
                         else
-                            if (Pinselform2 == 0)
+                            if (GewaehltePinselform == 0)
                             {
                                 int width = dicke;
                                 int aa = (int)((double)Math.Log((((width) - 0) * Math.PI), Math.E) * Math.Sqrt(width));
@@ -744,7 +856,7 @@ namespace _4_1_
 
                                     int add2 = (int)(Pos.Y + add);
                                     if (add2 > Game1.screenHeight) add2 = Game1.screenHeight;
-                                    list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Pos.Y - add), (int)(add2), Pinselfarbe2));
+                                    list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Pos.Y - add), (int)(add2), GewaehltePinselfarbe));
                                     //list.Add(new Vector3((int)(Pos.X + i), (int)(Pos.Y - add), (int)(add2)));
                                 }
                             }
@@ -756,9 +868,9 @@ namespace _4_1_
                         {
                             Vector2 Pos = Help.GetMousePos() + Spiel2.Fenster;
                             List<Vector3> list = new List<Vector3>();
-                            int dicke = (Pinseldicke2 + 1) * 10;
+                            int dicke = (GewaehltePinseldicke + 1) * 10;
 
-                            if (Pinselform2 == 1)
+                            if (GewaehltePinselform == 1)
                             {
                                 for (int i = -dicke; i < dicke; i++)
                                 {
@@ -766,7 +878,7 @@ namespace _4_1_
                                 }
                             }
                             else
-                                if (Pinselform2 == 0)
+                                if (GewaehltePinselform == 0)
                                 {
                                     int width = dicke;
                                     int aa = (int)((double)Math.Log((((width) - 0) * Math.PI), Math.E) * Math.Sqrt(width));
