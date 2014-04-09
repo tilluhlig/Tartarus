@@ -865,7 +865,6 @@ namespace _4_1_
             return true;
         }
 
-        // TODO ausfüllen
         /// <summary>
         /// Erstellt ein Inventarobjekt aus Text
         /// </summary>

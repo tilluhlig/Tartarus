@@ -287,6 +287,7 @@ namespace _4_1_
             List<String> data = new List<String>();
             data.Add("[TUNNEL]");
             data.Add("Lebenspunkte=" + Lebenspunkte);
+            data.Add("Position=" + Position);
             data.Add("[/TUNNEL]");
             return data;
         }

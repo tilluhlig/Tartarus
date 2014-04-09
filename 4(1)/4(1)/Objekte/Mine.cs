@@ -127,7 +127,6 @@ namespace _4_1_
             Position = new Vector2(_x, _y);
             Skalierung = sc;
             ID = _ID;
-            // Anzahl++;
         }
 
         /// <summary>
@@ -242,9 +241,7 @@ namespace _4_1_
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
             temp.ID = _ID;
             temp.Position = TextLaden.LadeVector2(Liste, "Position", temp.Position);
-            // temp.Art = TextLaden.LadeInt(Liste, "Art", temp.Art);
             temp.Energie = TextLaden.LadeInt(Liste, "Energie", temp.Energie);
-
             temp.RadiusAnzeige = TextLaden.LadeInt(Liste, "RadiusAnzeige", temp.RadiusAnzeige);
             temp.Skalierung = TextLaden.LadeFloat(Liste, "Skalierung", temp.Skalierung);
             temp.Aktiv = TextLaden.LadeBool(Liste, "Aktiv", temp.Aktiv);
@@ -263,7 +260,6 @@ namespace _4_1_
             List<String> data = new List<String>();
             data.Add("[MINE]");
             data.Add("Position=" + Position);
-            //  data.Add("Art=" + Art);
             data.Add("Energie=" + Energie);
             data.Add("RadiusAnzeige=" + RadiusAnzeige);
             data.Add("Skalierung=" + Skalierung);

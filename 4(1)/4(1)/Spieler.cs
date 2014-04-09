@@ -745,7 +745,6 @@ namespace _4_1_
             return -1;
         }
 
-        // TODO ausfüllen
         public void LadenFahrzeug(List<String> Text, int i, ContentManager Content)
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "FAHRZEUG");
@@ -1103,7 +1102,7 @@ namespace _4_1_
                 data.Add("[/FAHRZEUG]");
             }
 
-            data.AddRange(Notiz.SpeicherIntText());
+            data.AddRange(Notiz.Speichern());
 
             for (int i = 0; i < Minen.Count; i++)
             {

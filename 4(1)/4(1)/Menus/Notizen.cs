@@ -76,28 +76,34 @@ namespace _4_1_
         /// Erzeugt den Inhalt einer Notiz aus Text
         /// </summary>
         /// <param name="Text">der Text in dem die Notiz definiert ist</param>
-        public void LadeAusText(List<String> Text)
+        public void Laden(List<String> Text, int i, GraphicsDevice graphicsDevice,ContentManager Content2)
         {
+            List<String> Text2 = TextLaden.ErmittleBereich(Text, "NOTIZ");
+
+            int altid = i;
+            if (i == -1)
+            {
+                AddNotiz(graphicsDevice, Vector2.Zero, "", Content2);
+                i = pos.Count - 1;
+            }
+
+            Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text);
+            Textfelder[i].originalText = TextLaden.LadeString(Liste, "originalText", Textfelder[i].originalText);
         }
 
         /// <summary>
         /// Wandelt den Effekt zum Speichern in einen Text um
         /// </summary>
         /// <returns>Gibt den zu speichernden Text zurück</returns>
-        public List<String> SpeicherIntText()
+        public List<String> Speichern()
         {
             List<String> data = new List<String>();
-            data.Add("[NOTIZEN]");
-            data.Add("maxPixelInZeile=" + maxPixelInZeile);
-            data.Add("selected=" + selected);
-            // data.Add("cursor=" + cursor);
             for (int i = 0; i < Textfelder.Count; i++)
             {
                 data.Add("[NOTIZ]");
                 data.Add("originalText=" + Textfelder[i].originalText);
                 data.Add("[/NOTIZ]");
             }
-            data.Add("[/NOTIZEN]");
 
             return data;
         }

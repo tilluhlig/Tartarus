@@ -112,7 +112,7 @@ namespace _4_1_
             /// <summary>
             /// enthält die munitionsart ID, 0 bis ...
             /// </summary>
-            public int art; 
+            public int art;
 
             /// <summary>
             /// The alive
@@ -1222,15 +1222,15 @@ namespace _4_1_
 
             List<UInt16>[] temp = new List<UInt16>[Text2.Count];
 
-                        for (int b = 0; b < Text2.Count; b++)
+            for (int b = 0; b < Text2.Count; b++)
             {
                 String[] q = Text2[b].Split('-');
                 for (int i = 0; i < q.Length; i++)
                     temp[b].Add(Convert.ToUInt16(q[i]));
             }
 
-                        return temp;
-            
+            return temp;
+
         }
 
         /// <summary>
