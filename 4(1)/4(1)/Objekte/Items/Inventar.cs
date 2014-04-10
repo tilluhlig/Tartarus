@@ -870,16 +870,17 @@ namespace _4_1_
         /// </summary>
         /// <param name="Text">der Text, der das Objekt darstellt</param>
         /// <param name="Content">einen ContentManager</param>
-        /// <param name="Default">falls im Text kein Inventar gefunden wird, wird dieses genommen</param>
+        /// <param name="Objekt">falls im Text kein Inventar gefunden wird, wird dieses genommen</param>
         /// <returns>
         /// Das aus dem Text erstellte Inventar
         /// </returns>
-        public static Inventar Laden(List<String> Text, ContentManager Content, Inventar Default)
+        public static Inventar Laden(List<String> Text, ContentManager Content, Inventar Objekt)
         {
-            Inventar temp = new Inventar();
+            Inventar temp = Objekt;
+            if (temp == null) temp = new Inventar();
 
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "INVENTAR");
-            if (Text2.Count == 0) return Default;
+            if (Text2.Count == 0) return temp;
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
             temp.Treibstoff = TextLaden.LadeFloat(Liste, "Treibstoff", temp.Treibstoff);
@@ -888,11 +889,11 @@ namespace _4_1_
 
             List<String> Text3 = TextLaden.ErmittleBereich(Text2, "KONSUMIERBARES");
             while (Text3.Count > 0)
-                temp.Konsumierbares.Add(Item.Laden(Text3, Content));
+                temp.Konsumierbares.Add(Item.Laden(Text3, Content,null));
 
             Text3 = TextLaden.ErmittleBereich(Text2, "UPGRADES");
             while (Text3.Count > 0)
-                temp.Upgrades.Add(Item.Laden(Text3, Content));
+                temp.Upgrades.Add(Item.Laden(Text3, Content, null));
 
             Text3 = TextLaden.ErmittleBereich(Text2, "MUNITION");
             List<int> q = new List<int>();

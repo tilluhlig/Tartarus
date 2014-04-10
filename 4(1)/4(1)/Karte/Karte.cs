@@ -1224,6 +1224,7 @@ namespace _4_1_
 
             for (int b = 0; b < Text2.Count; b++)
             {
+                temp[b] = new List<UInt16>();
                 String[] q = Text2[b].Split('-');
                 for (int i = 0; i < q.Length; i++)
                     temp[b].Add(Convert.ToUInt16(q[i]));
@@ -1240,7 +1241,7 @@ namespace _4_1_
         public List<String> Speichern(List<UInt16>[] Spielfeld)
         {
             List<String> data = new List<String>();
-            data.Add("[Karte]");
+            data.Add("[KARTE]");
             for (int i = 0; i < Spielfeld.Length; i++)
             {
                 String add = "";
@@ -1256,7 +1257,7 @@ namespace _4_1_
                 data.Add(add);
             }
 
-            data.Add("[/Karte]");
+            data.Add("[/KARTE]");
 
             return data;
         }

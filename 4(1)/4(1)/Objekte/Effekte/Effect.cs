@@ -324,12 +324,13 @@ namespace _4_1_
         /// Erzeugt den Inhalt des Effektes aus einem Text
         /// </summary>
         /// <param name="Text">der Text in dem der Effekt definiert ist</param>
-        public static Effekt Laden(List<String> Text, ContentManager Content, Effekt Default)
+        public static Effekt Laden(List<String> Text, ContentManager Content, Effekt Objekt)
         {
-            Effekt temp = new Effekt();
+            Effekt temp = Objekt;
+            if (temp==null) temp = new Effekt();
 
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "EFFEKT");
-            if (Text2.Count == 0) return Default;
+            if (Text2.Count == 0) return temp;
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
             temp.Name = TextLaden.LadeString(Liste, "Name", temp.Name);

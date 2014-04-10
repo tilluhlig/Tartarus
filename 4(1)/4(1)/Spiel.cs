@@ -2141,9 +2141,9 @@ namespace _4_1_
         /// Erzeugt den Inhalt des Effektes aus einem String
         /// </summary>
         /// <param name="Text">der Text in dem der Effekt definiert ist</param>
-        public void LadeAusText(List<String> Text)
+        public Spiel Laden(List<String> Text)
         {
-            Spiel temp = new Spiel();
+            Spiel temp = this;
 
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "SPIEL");
 
@@ -2156,6 +2156,39 @@ namespace _4_1_
             temp.Timeout = TextLaden.LadeInt(Liste, "Timeout", temp.Timeout);
             temp.CurrentMissile = TextLaden.LadeInt(Liste, "CurrentMissile", temp.CurrentMissile);
             temp.CurrentPlayer = TextLaden.LadeInt(Liste, "CurrentPlayer", temp.CurrentPlayer);
+
+            Spielfeld = Karte.Laden(Text2);
+            Help.Spielfeld = Spielfeld;
+
+            int anz = Text2.Count;
+            do
+            {
+                anz = Text2.Count;
+                Haeuser.Laden(Text2, -1);
+            } while (anz != Text2.Count);
+
+            anz = Text2.Count;
+            do
+            {
+                anz = Text2.Count;
+                Nutzloses.Laden(Game1.ContentAll, Text2, -1);
+            } while (anz != Text2.Count);
+
+            /*int i = 0;
+            for (; i < Missile.Count(); i++)
+                {
+                     Waffen temp2 = Waffen.Laden(Text2,i);
+                     if (temp2 == null) break;
+                     Missile[i] = temp2;
+                }*/
+
+           /* for (; i < Missile.Count(); i++)
+                {
+                    Missile[i] = new Waffen();
+                Missile[i].ID = i;
+            }*/
+
+            return this;
         }
 
         /// <summary>
@@ -2182,22 +2215,22 @@ namespace _4_1_
             }
 
             // Bunker speichern
-            {
+            /*{
                 list.AddRange(Bunker.Speichern());
             }
-
+            */
             // Nutzloses speichern
             {
                 list.AddRange(Nutzloses.Speichern());
             }
 
             // Kisten speichern
-            {
+           /* {
                 list.AddRange(Kisten.Speichern());
-            }
+            }*/
 
             // Spieler speichern
-            {
+           /* {
                 for (int i = 0; i < players.Count(); i++)
                 {
                     players[i].id = i;
@@ -2211,7 +2244,7 @@ namespace _4_1_
                 {
                     list.AddRange(Missile[i].Speichern());
                 }
-            }
+            }*/
 
             // Karte speichern
             {

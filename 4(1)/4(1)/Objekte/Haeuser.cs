@@ -600,7 +600,7 @@ namespace _4_1_
                 }
                 spriteBatch.End();
 
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 // Häuser malen
                 spriteBatch.Draw(Spiel2.Haeuser.Bild[i], new Vector2(xPos, yPos), null, Color.White, 0, new Vector2(0, Texturen.haus[id].Height), Gebäudedaten.SKALIERUNG.Wert[id], SpriteEffects.None, 1);

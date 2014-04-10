@@ -356,7 +356,7 @@ namespace _4_1_
             {
                 int id2 = Kindof;
                 Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle, new Vector2((overreach ? Texturen.RohrPos[KindofTank[b]].X : -Texturen.RohrPos[KindofTank[b]].X), Texturen.RohrPos[KindofTank[b]].Y) * faktor);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, r, Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
                 spriteBatch.End();
@@ -373,8 +373,8 @@ namespace _4_1_
                 }
             }
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            Texturen.effect.CurrentTechnique.Passes[0].Apply();
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
+            //Texturen.effect.CurrentTechnique.Passes[0].Apply();
             for (int i = 0; i < Texturen.Radpositionen[KindofTank[b]].Count(); i++)
             {
                 Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle, new Vector2((overreach ? Texturen.Radpositionen[KindofTank[b]][i].X : -Texturen.Radpositionen[KindofTank[b]][i].X), Texturen.Radpositionen[KindofTank[b]][i].Y) * faktor);
@@ -387,7 +387,7 @@ namespace _4_1_
                 new Vector2(Texturen.panzerindex[Kindof].Width / 2, Texturen.panzerindex[Kindof].Height), scaleP, overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
 
             spriteBatch.End();
-            spriteBatch.Begin();
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
             if (Mod.AKTUELLER_ON_TANK_VISIBLE.Wert)
             {
                 if (iscurrent)
@@ -405,7 +405,7 @@ namespace _4_1_
             {
                 int id2 = Kindof;
                 Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle, new Vector2((overreach ? Texturen.RohrPos[Kindof].X * faktor : -Texturen.RohrPos[Kindof].X * faktor), Texturen.RohrPos[Kindof].Y * faktor));
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, r, Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
                 spriteBatch.End();

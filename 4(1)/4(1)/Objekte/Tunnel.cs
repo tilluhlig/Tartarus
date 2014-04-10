@@ -190,7 +190,7 @@ namespace _4_1_
                     }
                     else
                     {
-                        spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                        spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                         Texturen.effect.CurrentTechnique.Passes[0].Apply();
                         spriteBatch.Draw(tunnel[b].Bild, new Vector2(xPos, yPos), null, Color.White, 0, new Vector2(0, Texturen.tunnel.Height), Tunnel.SKALIERUNG, SpriteEffects.None, 1);
                         spriteBatch.End();

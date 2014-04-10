@@ -80,12 +80,13 @@ namespace _4_1_
             temp.Spiegelbar = TextLaden.LadeBool(Liste, "Spiegelbar", temp.Spiegelbar);
             temp.Zentriert = TextLaden.LadeBool(Liste, "Zentriert", temp.Zentriert);
 
-            Text2 = TextLaden.ErmittleBereich(Text, "MASK");
+            Text2 = TextLaden.ErmittleBereich(Text2, "MASK");
             if (Text2.Count == 0) return temp;
 
             temp.Bild = new List<int>[temp.BildBreite];
             for (int b = 0; b < temp.BildBreite; b++)
             {
+                temp.Bild[b] = new List<int>();
                 String[] q = Text2[b].Split('-');
                 for (int i = 0; i < q.Length; i++)
                     temp.Bild[b].Add(Convert.ToInt32(q[i]));

@@ -66,6 +66,7 @@ namespace _4_1_
                     if (Text[i].Substring(0, 2) == "[/")
                     {
                         found--;
+                        continue;
                     }
                     else
                         if (Text[i].Substring(0, 1) == "[")

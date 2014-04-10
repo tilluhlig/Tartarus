@@ -195,8 +195,9 @@ namespace _4_1_
         /// Erzeugt den Inhalt der Waffe aus einem String
         /// </summary>
         /// <param name="Text">der Text in dem der Effekt definiert ist</param>
-        public void LadeAusText(String Text)
+        public static Waffen Laden(List<String> Text, int id)
         {
+            return null;
         }
 
         /// <summary>
