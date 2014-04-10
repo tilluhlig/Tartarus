@@ -43,6 +43,11 @@ namespace _4_1_.Kompression
             outStream.Close();
         }
 
+        /// <summary>
+        /// Komprimiert eine Datei
+        /// </summary>
+        /// <param name="Input">Eingabedatei</param>
+        /// <param name="Output">Ausgabedatei</param>
         public static void Komprimiere(String Input, String Output)
         {
             ReaderStream.ReaderStream dat = new ReaderStream.ReaderStream(Input);
