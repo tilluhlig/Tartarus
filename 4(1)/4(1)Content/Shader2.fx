@@ -70,7 +70,7 @@ float4 PS_COLOR(float2 texCoord: TEXCOORD0) : COLOR
 	return outputColor;
    }
    else
-   if (modus==4){
+  /* if (modus==4){
 	float4 pixelColor = color;
 
 float3 scene = pixelColor * ImageTone;
@@ -90,6 +90,14 @@ float4 farbe = float4(lerp(muted, sepia, Toning), pixelColor.a);
 
 return farbe;
 
+   }
+   else*/
+   if (modus==5){
+	  // color.rgb = lerp(color.rgb, float3(1, 0, 0));
+	float4 Color = tex2D(firstSampler, texCoord.xy);   
+	  Color.r = sin(texCoord.x);
+	  return Color;
+ 
    }
 
 

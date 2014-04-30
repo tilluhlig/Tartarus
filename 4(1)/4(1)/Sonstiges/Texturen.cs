@@ -426,7 +426,7 @@ namespace _4_1_
         {
             Bilddateien.Clear();
 
-            effect = Content.Load<Effect>("Shader");
+            effect = Content.Load<Effect>("Shader2");
 
             #region Panzerwerte
 

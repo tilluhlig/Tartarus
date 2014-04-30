@@ -118,8 +118,8 @@
       <Name>Quellen</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="Shader.fx">
-      <Name>Shader</Name>
+    <Compile Include="Shader2.fx">
+      <Name>Shader2</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
@@ -1162,6 +1162,13 @@
       <Name>a4</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Wave.fx">
+      <Name>Wave</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

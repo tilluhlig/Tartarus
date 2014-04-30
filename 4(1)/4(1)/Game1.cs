@@ -205,6 +205,8 @@ namespace _4_1_
 
         public static List<string> Ladebildschirmtexte = null;
 
+        public static SpriteSortMode SpriteMode = SpriteSortMode.Immediate;
+
         /// <summary>
         /// Hiermit wird der Text beim Laden eines Vorgangs angezeigt
         /// </summary>
@@ -287,7 +289,7 @@ namespace _4_1_
             {
                 Hauptfenster.Tausch.SpielLaden = false;
                 MapReader MapReader = new MapReader();
-                MapReader.LoadMap(this, Hauptfenster.Tausch.Map, Hauptfenster.Tausch.Data, ref Spiel2, new Vector2(screenWidth, screenHeight));
+              ///  MapReader.LoadMap(this, Hauptfenster.Tausch.Map, Hauptfenster.Tausch.Data, ref Spiel2, new Vector2(screenWidth, screenHeight));
                 if (Spiel2 != null)
                 {
                     Help.Spielfeld = Spiel2.Spielfeld;
@@ -486,7 +488,7 @@ namespace _4_1_
                   else
                   {*/
 
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 if (check == -1 || check != Spiel2.CurrentPlayer)
                 {
@@ -1366,7 +1368,7 @@ namespace _4_1_
             if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
             Eingabefenster.Eingabe.Anzeigen();
             Matrix globalTransformation = Matrix.CreateScale(0);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation);
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend, null, null, null, null, globalTransformation);
             if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.Draw(spriteBatch, Texturen.font3, null, null, null, 0.5f);
             spriteBatch.Draw(Texturen.mausZeiger, new Vector2(mouseState.X, mouseState.Y), null, Color.Orange, 0,
               new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
@@ -1399,21 +1401,21 @@ namespace _4_1_
             //graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
             GraphicsDevice.Clear(ClearOptions.Target, Microsoft.Xna.Framework.Color.Blue, 1.0F, 0);
 
-            SamplerState sampler = new SamplerState();
+            /*SamplerState sampler = new SamplerState();
             sampler.MaxAnisotropy = 4;
             sampler.Filter = TextureFilter.Anisotropic;
             sampler.MaxMipLevel = 0;
             sampler.MipMapLevelOfDetailBias = 0;
             sampler.AddressU = TextureAddressMode.Clamp;
             sampler.AddressV = TextureAddressMode.Clamp; 
-            sampler.AddressW = TextureAddressMode.Clamp;
+            sampler.AddressW = TextureAddressMode.Clamp;*/
             //sampler = null;
 
-            RasterizerState rasterize = new RasterizerState();
+         /*   RasterizerState rasterize = new RasterizerState();
             rasterize.CullMode = CullMode.None;
             rasterize.FillMode = FillMode.Solid;
             rasterize.MultiSampleAntiAlias = true;
-            device.RasterizerState = rasterize;
+            device.RasterizerState = rasterize;*/
            // rasterize = null;
 
             Vector3 screenScalingFactor;
@@ -1429,7 +1431,7 @@ namespace _4_1_
 
             //  spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation); //SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation
 
-            spriteBatch.Begin(); //SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend, null, null, null, null, globalTransformation); //
 
             /* if (Spiel2.SpielerAktiv() > 1 && !Spiel2.paused)
              {*/
@@ -1461,18 +1463,19 @@ namespace _4_1_
                         }
                 }
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,sampler,null,rasterize);
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
             Texturen.effect.CurrentTechnique.Passes[0].Apply();
             DrawSceneryBackground();
+
             spriteBatch.End();
-            spriteBatch.Begin();
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
 
             if (Mod.ORTSSCHILD_VISIBLE.Wert) DrawOrtsschilder();
             Meldungen.Draw(spriteBatch, Texturen.font2);
 
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
-                sampler, null, rasterize, null, globalTransformation);
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.Additive,
+               null, null, null, null, globalTransformation);
             if (Spiel.SMOKE.Wert) DrawSmoke(gameTime);
             spriteBatch.End();
 
@@ -1484,17 +1487,18 @@ namespace _4_1_
             // spriteBatch.End();
             Tunnel.ZeichneTunnel(spriteBatch, Spiel2);
 
-            spriteBatch.Begin();
+
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
             DrawMinenKreis();
-            spriteBatch.End();
+             spriteBatch.End();
 
             Nutzloses.ZeichneNutzloses(gameTime, spriteBatch, Spiel2);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,sampler,null,rasterize);
+             spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend, null, null, null);
             Texturen.effect.CurrentTechnique.Passes[0].Apply();
             Vordergrund.ZeichneVordergrund();
-            spriteBatch.End();
-            spriteBatch.Begin();
+             spriteBatch.End();
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
 
             // Hinweistext
             float scale5 = Optimierung.Skalierung(0.25f) * 0.8f; // TODO wurde geändert von 0.2f
@@ -1509,13 +1513,13 @@ namespace _4_1_
             spriteBatch.End();
             mouseover = DrawPlayers(overnotiz ? true : false);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
             if (Spieler.WAFFEN_COOLDOWN.Wert && Mod.COOLDOWN_ON_TANK_VISIBLE.Wert) DrawPlayersCooldown();
             spriteBatch.End();
 
             if (Bunker.BUNKER) DrawBunker();
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
 
             DrawKisten();
             DrawMinen();
@@ -1626,14 +1630,14 @@ namespace _4_1_
             Editor.Draw(spriteBatch, GraphicsDevice, Spiel2.Fenster, screenWidth, screenHeight, Content, Spiel2);
 
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive,
-                 sampler, null, rasterize, null, globalTransformation);
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.Additive,
+                 null, null, null, null, globalTransformation);
             if (Spiel.EXPLOSION.Wert) DrawExplosion();
             // if (Spiel.SMOKE.Wert) DrawSmoke(gameTime);
 
             spriteBatch.End();
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
             if (Mod.MINIMAP_VISIBLE.Wert && Hauptfenster.Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimap();
             if (Mod.MINIMAP_VISIBLE.Wert && Hauptfenster.Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimapDot();
 
@@ -2448,6 +2452,30 @@ namespace _4_1_
                             MapWriter.Speichern("Spiel.sav");
                             Meldungen.addMessage("Speichern...");
                         }
+                        else
+                            if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F8))
+                            {
+                                /*  MapReader MapReader = new MapReader();
+                                  MapReader.LoadMap(this, "Content\\Games\\temp\\Map.dat", "Content\\Games\\temp\\Data.dat", ref Spiel2, new Vector2(screenWidth, screenHeight));
+                                  if (Spiel2 != null)
+                                  {
+                                      Help.Spielfeld = Spiel2.Spielfeld;
+                                      Spiel2.Width = screenWidth;
+                                      Spiel2.Height = screenHeight;
+                                      //// vordergrund = Farbwahl(Texturen.tilltexture);
+                                      water = Farbwahl(Texturen.wasser);
+                                      Foreground.CreateForeground();
+                                      Fog.CreateFog();
+                                      createKasten();
+                                      Hauptfenster.Tausch.SpielAktiv = true;
+                                  }
+                                  else
+                                      Hauptfenster.Tausch.SpielAktiv = false;*/
+
+                                MapReader.Laden(this,"Spiel.dat");
+                                Meldungen.addMessage("Geladen...");
+                            }
+
                 }
 
                 if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F11))
