@@ -1187,7 +1187,8 @@ namespace _4_1_
             }
 
             float xx = Spiel2.Wind.X;
-            if (xx < 1) xx = 1;
+            if (xx < 1 && xx>0) xx = 1;
+            if (xx > -1 && xx < 0) xx = -1;
 
             WolkenPos.X += xx * 1.5f;
         }
