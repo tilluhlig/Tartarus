@@ -125,7 +125,6 @@ namespace _4_1_
         /// </summary>
         private int wait = 0;
 
-       
         /// <summary>
         /// Maus einschalten oder abschalten
         /// </summary>
@@ -185,22 +184,21 @@ namespace _4_1_
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-           // graphics.IsFullScreen = true;  // schaltet fullsceen an
+            // graphics.IsFullScreen = true;  // schaltet fullsceen an
             ContentAll = Content;
 
             this.graphics.PreferredBackBufferWidth = Hauptfenster.Tausch.screenwidth;
             this.graphics.PreferredBackBufferHeight = Hauptfenster.Tausch.screenheight;
             this.graphics.SynchronizeWithVerticalRetrace = true;
             this.graphics.PreferMultiSampling = true;
-            
 
-           // this.graphics.PreferredBackBufferWidth = 1366;
-           // this.graphics.PreferredBackBufferHeight = 768;
+            // this.graphics.PreferredBackBufferWidth = 1366;
+            // this.graphics.PreferredBackBufferHeight = 768;
             this.drawSurface = drawSurface;
-           
+
             graphics.PreparingDeviceSettings += new EventHandler<PreparingDeviceSettingsEventArgs>(graphics_PreparingDeviceSettings);
             System.Windows.Forms.Control.FromHandle((this.Window.Handle)).VisibleChanged += new EventHandler(Game1_VisibleChanged);
-          // this.graphics.IsFullScreen = true;  // schaltet fullsceen an
+            // this.graphics.IsFullScreen = true;  // schaltet fullsceen an
         }
 
         public static List<string> Ladebildschirmtexte = null;
@@ -289,7 +287,7 @@ namespace _4_1_
             {
                 Hauptfenster.Tausch.SpielLaden = false;
                 MapReader MapReader = new MapReader();
-              ///  MapReader.LoadMap(this, Hauptfenster.Tausch.Map, Hauptfenster.Tausch.Data, ref Spiel2, new Vector2(screenWidth, screenHeight));
+                ///  MapReader.LoadMap(this, Hauptfenster.Tausch.Map, Hauptfenster.Tausch.Data, ref Spiel2, new Vector2(screenWidth, screenHeight));
                 if (Spiel2 != null)
                 {
                     Help.Spielfeld = Spiel2.Spielfeld;
@@ -399,7 +397,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Airstrikes
         /// </summary>
-        public void DrawAirstrike() 
+        public void DrawAirstrike()
         {
             if (Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon == 5)
             {
@@ -440,7 +438,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Bunker
         /// </summary>
-        public void DrawBunker() 
+        public void DrawBunker()
         {
             if (Spiel2 == null) return;
 
@@ -533,7 +531,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Explosionen
         /// </summary>
-        public void DrawExplosion() 
+        public void DrawExplosion()
         {
             for (int i = 0; i < Spiel2.Karte.particleListExp.Count; i++)
             {
@@ -548,7 +546,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Kisten
         /// </summary>
-        public void DrawKisten() 
+        public void DrawKisten()
         {
             if (Spiel2 == null) return;
 
@@ -733,7 +731,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Minen
         /// </summary>
-        public void DrawMinen() 
+        public void DrawMinen()
         {
             if (Spiel2 == null) return;
 
@@ -760,7 +758,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Minekreisen
         /// </summary>
-        public void DrawMinenKreis() 
+        public void DrawMinenKreis()
         {
             if (Spiel2 == null) return;
 
@@ -793,7 +791,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Minimap
         /// </summary>
-        public void DrawMinimap() 
+        public void DrawMinimap()
         {
             if (Spiel2 == null) return;
             int screenWidth2 = screenWidth * 4;
@@ -834,7 +832,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Minimap Punkte, also die markierungen, wo sich ein Fahrzeug befindet
         /// </summary>
-        public void DrawMinimapDot() 
+        public void DrawMinimapDot()
         {
             if (Spiel2 == null) return;
             if (Spiel2.CurrentPlayer == -1) return;
@@ -859,7 +857,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet die Raketen
         /// </summary>
-        public void DrawMissle() 
+        public void DrawMissle()
         {
             if (Spiel2 == null) return;
             for (int i = 0; i < Spiel2.Missile.Length; i++)
@@ -936,7 +934,7 @@ namespace _4_1_
         /// </summary>
         /// <param name="found">if set to <c>true</c> [found].</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-        public bool DrawPlayers(bool found) 
+        public bool DrawPlayers(bool found)
         {
             if (Spiel2 == null || Spiel2.players[0].pos.Count == 0) return false;
 
@@ -1122,20 +1120,76 @@ namespace _4_1_
             }
         }
 
+        private Vector2 WolkenPos = Vector2.Zero;
+
         /// <summary>
         /// Zeichnet den Hintergrund
         /// </summary>
-        public void DrawSceneryBackground() 
+        public void DrawSceneryBackground()
         {
             if (Spiel2 == null) return;
-            screen = new Rectangle(0, 0, screenWidth, screenHeight);
             if (Spiel2.Fenster.X < 0) Spiel2.Fenster.X = 0;
             if (Spiel2.Fenster.Y < 0) Spiel2.Fenster.Y = 0;
-            int x = (int)Spiel2.Fenster.X;
-            int y = (int)Spiel2.Fenster.Y;
-            Rectangle a = new Rectangle(0, 0, screenWidth, screenHeight);
-            spriteBatch.Draw(Texturen.activeBackground, screen, Color.White);
-            //DrawRectangle(a, Color.Black);
+
+            // die geschwindigkeit, mit der sich das Hintergrundbild bewegt (im Vergleich zur Kartenbewegung)
+            // bewegungsFaktor > 1 -> Bewegt sich entgegen der Kartenbewegung
+            // bewegungsFaktor <= 1 -> Bewegt sich mit der Kartebewegung
+            float bewegungsFaktor = .1f;
+
+            int ww = screenWidth;
+
+            int x = (int)((float)Spiel2.Fenster.X * bewegungsFaktor) % ww - screenWidth;
+            int y = (int)((float)Spiel2.Fenster.Y * bewegungsFaktor) % screenHeight;
+
+            while (x < screenWidth)
+            {
+                Rectangle a = new Rectangle(x, y, ww, screenHeight);
+                spriteBatch.Draw(Texturen.activeBackground, a, Color.White);
+                x += ww;
+            }
+
+            spriteBatch.End();
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
+            float bewegungsFaktor2 = .05f;
+
+            int x2 = (int)((float)Spiel2.Fenster.X * bewegungsFaktor2) % ww - screenWidth;
+            int y2 = (int)((float)Spiel2.Fenster.Y * bewegungsFaktor2 - screenHeight * .75f) % screenHeight;
+
+            int oldx2 = x2;
+            while (y2 < screenHeight)
+            {
+                while (x2 < screenWidth)
+                {
+                    Rectangle a = new Rectangle(x2, y2, ww, screenHeight);
+                    spriteBatch.Draw(Texturen.activeBackground, a, Color.White * .5f);
+                    x2 += ww;
+                }
+                y2 += screenHeight;
+                x2 = oldx2;
+            }
+
+            float bewegungsFaktor3 = .075f;
+
+            int x3 = (int)((float)(Spiel2.Fenster.X + WolkenPos.X) * bewegungsFaktor3) % ww - screenWidth;
+            int y3 = (int)((float)(Spiel2.Fenster.Y + WolkenPos.Y) * bewegungsFaktor3 - screenHeight * .3f) % screenHeight - screenHeight;
+
+            int oldx3 = x3;
+            while (y3 < screenHeight)
+            {
+                while (x3 < screenWidth)
+                {
+                    Rectangle a = new Rectangle(x3, y3, ww, screenHeight);
+                    spriteBatch.Draw(Texturen.activeBackground, a, Color.White * .5f);
+                    x3 += ww;
+                }
+                y3 += screenHeight;
+                x3 = oldx3;
+            }
+
+            float xx = Spiel2.Wind.X;
+            if (xx < 1) xx = 1;
+
+            WolkenPos.X += xx * 1.5f;
         }
 
         /// <summary>
@@ -1169,7 +1223,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet den Spielstatustext
         /// </summary>
-        public void DrawText() 
+        public void DrawText()
         {
             if (Spiel2 == null) return;
             if (Spiel2.CurrentPlayer == -1) return;
@@ -1185,7 +1239,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet den Spielendetext
         /// </summary>
-        public void DrawTextEnd() 
+        public void DrawTextEnd()
         {
             if (Editor.visible) return;
             if (Spiel2 == null) return;
@@ -1200,7 +1254,7 @@ namespace _4_1_
         /// <summary>
         /// Zeichnet den Wind
         /// </summary>
-        public void DrawWind() 
+        public void DrawWind()
         {
             bool flip = false;
             int anteil;
@@ -1407,16 +1461,16 @@ namespace _4_1_
             sampler.MaxMipLevel = 0;
             sampler.MipMapLevelOfDetailBias = 0;
             sampler.AddressU = TextureAddressMode.Clamp;
-            sampler.AddressV = TextureAddressMode.Clamp; 
+            sampler.AddressV = TextureAddressMode.Clamp;
             sampler.AddressW = TextureAddressMode.Clamp;*/
             //sampler = null;
 
-         /*   RasterizerState rasterize = new RasterizerState();
-            rasterize.CullMode = CullMode.None;
-            rasterize.FillMode = FillMode.Solid;
-            rasterize.MultiSampleAntiAlias = true;
-            device.RasterizerState = rasterize;*/
-           // rasterize = null;
+            /*   RasterizerState rasterize = new RasterizerState();
+               rasterize.CullMode = CullMode.None;
+               rasterize.FillMode = FillMode.Solid;
+               rasterize.MultiSampleAntiAlias = true;
+               device.RasterizerState = rasterize;*/
+            // rasterize = null;
 
             Vector3 screenScalingFactor;
 
@@ -1468,6 +1522,7 @@ namespace _4_1_
             DrawSceneryBackground();
 
             spriteBatch.End();
+
             spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
 
             if (Mod.ORTSSCHILD_VISIBLE.Wert) DrawOrtsschilder();
@@ -1487,17 +1542,16 @@ namespace _4_1_
             // spriteBatch.End();
             Tunnel.ZeichneTunnel(spriteBatch, Spiel2);
 
-
             spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
             DrawMinenKreis();
-             spriteBatch.End();
+            spriteBatch.End();
 
             Nutzloses.ZeichneNutzloses(gameTime, spriteBatch, Spiel2);
 
-             spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend, null, null, null);
+            spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend, null, null, null);
             Texturen.effect.CurrentTechnique.Passes[0].Apply();
             Vordergrund.ZeichneVordergrund();
-             spriteBatch.End();
+            spriteBatch.End();
             spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
 
             // Hinweistext
@@ -1667,9 +1721,9 @@ namespace _4_1_
                 reduzierung2++;
             }*/
 
-             //GraphicsDevice.Present();
+            //GraphicsDevice.Present();
 
-             base.Draw(gameTime);
+            base.Draw(gameTime);
             // GraphicsDevice.Present();
         }
 
@@ -1705,7 +1759,7 @@ namespace _4_1_
         /// Ruft alle check..  Methoden auf
         /// </summary>
         /// <param name="gameTime">Time passed since the last call to Update.</param>
-        protected override void Update(GameTime gameTime) 
+        protected override void Update(GameTime gameTime)
         {
             /* if (reduzierung % 3 != 0)
              {
@@ -1804,7 +1858,7 @@ namespace _4_1_
                 // Spielermenu.CurrentPlayerID = Spiel2.CurrentPlayer;
                 // Spielermenu.CurrentTankID = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
             }
-           // base.Update(gameTime);
+            // base.Update(gameTime);
         }
 
         /// <summary>
@@ -2032,7 +2086,7 @@ namespace _4_1_
         /// <summary>
         /// Tastaturabfragen werden hier bearbeitet
         /// </summary>
-        private void KeyboardKeys() 
+        private void KeyboardKeys()
         {
             // Eingabe.KeyboardKeys(keybState);
             if (Spiel2 == null) return;
@@ -2411,49 +2465,25 @@ namespace _4_1_
                 {
                     if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.K))
                     {
-                        Mod.SpeichereModVariablen("Mod.dat",false);
+                        Mod.SpeichereModVariablen("Mod.dat", false);
                         Meldungen.addMessage("Mod-Variablen gespeichert...");
                     }
                     else
-                    if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.L))
-                    {
-                        //  Vector2 pos = Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
-                        //Foreground.Update_CreateForeground(Feuer.Generieren((int) (pos.X-50),(int) (pos.X+50),(int)pos.X,(int)pos.Y,5));
-
-                        /*Spieler tmp = Spiel2.players[Spiel2.CurrentPlayer];
-                        int id = tmp.CurrentTank;
-                        Spiel2.players[Spiel2.CurrentPlayer].Minen.Add(new Mine((int)tmp.pos[id].X, (int)tmp.pos[id].Y,1));*/
-                        Spiel2.next_player();
-                        Meldungen.addMessage("Spieler gewechselt...");
-                        //  Optimierung.Optimiere_Bäume();
-                        //   Optimierung.Optimiere_Häuser();
-                    }
-                    else
-                        if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F12))
+                        if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.L))
                         {
-                            /*  MapReader MapReader = new MapReader();
-                              MapReader.LoadMap(this, "Content\\Games\\temp\\Map.dat", "Content\\Games\\temp\\Data.dat", ref Spiel2, new Vector2(screenWidth, screenHeight));
-                              if (Spiel2 != null)
-                              {
-                                  Help.Spielfeld = Spiel2.Spielfeld;
-                                  Spiel2.Width = screenWidth;
-                                  Spiel2.Height = screenHeight;
-                                  //// vordergrund = Farbwahl(Texturen.tilltexture);
-                                  water = Farbwahl(Texturen.wasser);
-                                  Foreground.CreateForeground();
-                                  Fog.CreateFog();
-                                  createKasten();
-                                  Hauptfenster.Tausch.SpielAktiv = true;
-                              }
-                              else
-                                  Hauptfenster.Tausch.SpielAktiv = false;*/
+                            //  Vector2 pos = Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
+                            //Foreground.Update_CreateForeground(Feuer.Generieren((int) (pos.X-50),(int) (pos.X+50),(int)pos.X,(int)pos.Y,5));
 
-                            MapWriter.Generieren(Spiel2);
-                            MapWriter.Speichern("Spiel.sav");
-                            Meldungen.addMessage("Speichern...");
+                            /*Spieler tmp = Spiel2.players[Spiel2.CurrentPlayer];
+                            int id = tmp.CurrentTank;
+                            Spiel2.players[Spiel2.CurrentPlayer].Minen.Add(new Mine((int)tmp.pos[id].X, (int)tmp.pos[id].Y,1));*/
+                            Spiel2.next_player();
+                            Meldungen.addMessage("Spieler gewechselt...");
+                            //  Optimierung.Optimiere_Bäume();
+                            //   Optimierung.Optimiere_Häuser();
                         }
                         else
-                            if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F8))
+                            if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F12))
                             {
                                 /*  MapReader MapReader = new MapReader();
                                   MapReader.LoadMap(this, "Content\\Games\\temp\\Map.dat", "Content\\Games\\temp\\Data.dat", ref Spiel2, new Vector2(screenWidth, screenHeight));
@@ -2472,10 +2502,33 @@ namespace _4_1_
                                   else
                                       Hauptfenster.Tausch.SpielAktiv = false;*/
 
-                                MapReader.Laden(this,"Spiel.dat");
-                                Meldungen.addMessage("Geladen...");
+                                MapWriter.Generieren(Spiel2);
+                                MapWriter.Speichern("Spiel.sav");
+                                Meldungen.addMessage("Speichern...");
                             }
+                            else
+                                if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F8))
+                                {
+                                    /*  MapReader MapReader = new MapReader();
+                                      MapReader.LoadMap(this, "Content\\Games\\temp\\Map.dat", "Content\\Games\\temp\\Data.dat", ref Spiel2, new Vector2(screenWidth, screenHeight));
+                                      if (Spiel2 != null)
+                                      {
+                                          Help.Spielfeld = Spiel2.Spielfeld;
+                                          Spiel2.Width = screenWidth;
+                                          Spiel2.Height = screenHeight;
+                                          //// vordergrund = Farbwahl(Texturen.tilltexture);
+                                          water = Farbwahl(Texturen.wasser);
+                                          Foreground.CreateForeground();
+                                          Fog.CreateFog();
+                                          createKasten();
+                                          Hauptfenster.Tausch.SpielAktiv = true;
+                                      }
+                                      else
+                                          Hauptfenster.Tausch.SpielAktiv = false;*/
 
+                                    MapReader.Laden(this, "Spiel.dat");
+                                    Meldungen.addMessage("Geladen...");
+                                }
                 }
 
                 if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F11))
