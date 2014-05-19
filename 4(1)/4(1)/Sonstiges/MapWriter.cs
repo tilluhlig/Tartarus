@@ -18,24 +18,20 @@ using System.IO;
 namespace _4_1_
 {
     /// <summary>
-    /// Class MapWriter
+    /// Diese Klasse dient dem serialisieren und speichern eines Spielobjektes
     /// </summary>
     public static class MapWriter
     {
         /// <summary>
-        /// The convert
-        /// </summary>
-        public static bool Convert = false;
-
-        /// <summary>
-        /// The list
+        /// in dieser Liste wird nach dem serialisieren des Spielobjektes, die Textdarstellung des Objektes zum Auslösen
+        /// des Speichervorganges abgelegt
         /// </summary>
         public static List<String> list = new List<String>();
 
         /// <summary>
-        /// Speicherns the specified datei.
+        /// Speichert die zuvor generierten Speicherdaten in eine Datei
         /// </summary>
-        /// <param name="Datei">The datei.</param>
+        /// <param name="Datei">der Pfad+Name der Zieldatei</param>
         public static void Speichern(String Datei)
         {
             StreamWriter datei = new StreamWriter(Path.ChangeExtension(Datei, ".dat"));
@@ -50,10 +46,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Generierens the specified spielfeld.
+        /// Wandelt ein Spielobjekt in Text um
         /// </summary>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <returns>List{String}.</returns>
+        /// <param name="Spielfeld">das zu serialisierende Spielobjekt</param>
+        /// <returns>gibt die Textdarstellung zurück</returns>
         public static List<String> Generieren(Spiel Spielfeld)
         {
             list.Clear();

@@ -333,7 +333,6 @@ namespace _4_1_
                     Help.angrabbel_funktion();
 
                     HTTP.HTTP.Dir(Pfad);
-                    MapWriter.Convert = false;
                     MapWriter.Generieren(Spiel2);
                     Replay.Generieren(false);
                     MapWriter.Speichern(Pfad + "Map.dat");
@@ -2210,7 +2209,6 @@ namespace _4_1_
                         Pfad = "Content\\Games\\temp\\";
 
                     HTTP.HTTP.Dir(Pfad);
-                    MapWriter.Convert = false;
                     MapWriter.Generieren(Spiel2);
                     MapWriter.Speichern(Pfad + "Map.dat");
                     Replay.End(Spiel2.players);
@@ -2574,7 +2572,6 @@ namespace _4_1_
                     Pfad = "Content\\Games\\temp\\";
 
                 HTTP.HTTP.Dir(Pfad);
-                MapWriter.Convert = false;
                 MapWriter.Generieren(Spiel2);
                 MapWriter.Speichern(Pfad + "Map.dat");
                 Replay.End(Spiel2.players);
@@ -2642,7 +2639,6 @@ namespace _4_1_
                     Pfad = "Content\\Games\\temp\\";
 
                 HTTP.HTTP.Dir(Pfad);
-                MapWriter.Convert = false;
                 MapWriter.Generieren(Spiel2);
                 MapWriter.Speichern(Pfad + "Map.dat");
                 Replay.End(Spiel2.players);
