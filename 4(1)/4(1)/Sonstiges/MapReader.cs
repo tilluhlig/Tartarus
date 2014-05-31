@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class MapReader
+    /// diese Klasse dient dem Laden von gespeicherten Spielen
     /// </summary>
     public class MapReader
     {
