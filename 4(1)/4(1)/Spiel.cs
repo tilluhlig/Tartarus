@@ -495,6 +495,10 @@ namespace _4_1_
             players[Spieler].LadeZerstörungsObjekt(b);
 
             players[Spieler].Rucksack[b].Hinzufügen(Inventar.Neu(Itemdata.Verteidiung1));
+            players[Spieler].Rucksack[b].Hinzufügen(Inventar.Neu(Itemdata.Verbrauch1));
+            players[Spieler].Rucksack[b].Hinzufügen(Inventar.Neu(Itemdata.Ziel1));
+            players[Spieler].Rucksack[b].Hinzufügen(Inventar.Neu(Itemdata.Lager1));
+            players[Spieler].Rucksack[b].Hinzufügen(Inventar.Neu(Itemdata.Arbeitsbereich1));
             players[Spieler].Rucksack[b].Hinzufügen(Inventar.Neu(Itemdata.Heilen));
         }
 

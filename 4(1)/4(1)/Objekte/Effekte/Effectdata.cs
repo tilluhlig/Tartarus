@@ -24,17 +24,17 @@ namespace _4_1_
         /// <summary>
         /// Eingefroren
         /// </summary>
-        public static Effekt EINGEFROREN = new Effekt("Eingefroren", "Textures\\leer", 3, 1, 0, 0, 0, 0, 0, 0, 0, -200, 0, -200, 0, 0, 0, 200, 0, 0, 0, 20, 1, 0, 0, 0, 0, 0, 0, 0);
+        public static Effekt EINGEFROREN = new Effekt("Eingefroren", "Textures\\Effekte\\Eingefroren", 3, 1, 0, 0, 0, 0, 0, 0, 0, -200, 0, -200, 0, 0, 0, 200, 0, 0, 0, 20, 1, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
         /// Vergiftet
         /// </summary>
-        public static Effekt VERGIFTED = new Effekt("Vergifted", "Textures\\leer", 3, 1, 0, 0, 0, 0, 0, 0, 0, 100, 0, 100, 0, 0, 0, 0, 0, 87, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+        public static Effekt VERGIFTED = new Effekt("Vergifted", "Textures\\Effekte\\Vergiftet", 3, 1, 0, 0, 0, 0, 0, 0, 0, 100, 0, 100, 0, 0, 0, 0, 0, 87, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
         /// Elektrisiert
         /// </summary>
-        public static Effekt ELEKTRISIERT = new Effekt("Elektrisiert", "Textures\\leer", 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+        public static Effekt ELEKTRISIERT = new Effekt("Elektrisiert", "Textures\\Effekte\\Elektrisiert", 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 
         #endregion Status
 
@@ -93,17 +93,17 @@ namespace _4_1_
         /// <summary>
         /// Vergrößert den Arbeitsbereich
         /// </summary>
-        public static Effekt Arbeitsbereich1 = new Effekt("Arbeitsbereich", "Textures\\leer", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        public static Effekt Arbeitsbereich1 = new Effekt("Arbeitsbereich", "Textures\\Effekte\\Arbeitsbereich_I", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
         /// Vergrößert den Arbeitsbereich
         /// </summary>
-        public static Effekt Arbeitsbereich2 = new Effekt("Arbeitsbereich", "Textures\\leer", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        public static Effekt Arbeitsbereich2 = new Effekt("Arbeitsbereich", "Textures\\Effekte\\Arbeitsbereich_II", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
         /// Vergrößert den Arbeitsbereich
         /// </summary>
-        public static Effekt Arbeitsbereich3 = new Effekt("Arbeitsbereich", "Textures\\leer", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        public static Effekt Arbeitsbereich3 = new Effekt("Arbeitsbereich", "Textures\\Effekte\\Arbeitsbereich_III", -1, 2, 0, 0, 0, 0, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
         /// <summary>
         /// Verringert den Treibstoffverbrauch
