@@ -189,34 +189,40 @@ namespace _4_1_
         private static void Skaliere(String Datei, String Extension, float Skalierung, bool Richtung)
         {
             string[] list = Environment.CurrentDirectory.Split('\\');
-            String Path = "";
-            for (int b = 0; b < list.Count() - 4; b++) Path = Path + list[b] + "\\";
+            String Path2 = "";
+            for (int b = 0; b < list.Count() - 4; b++) Path2 = Path2 + list[b] + "\\";
 
             // Backup Ordner erstellen
-            if (!Directory.Exists(Path + "4(1)Content\\Backup\\Textures"))
+            if (!Directory.Exists(Path2 + "4(1)Content\\Backup\\Textures"))
             {
-                Directory.CreateDirectory(Path + "4(1)Content\\Backup\\Textures");
+                Directory.CreateDirectory(Path2 + "4(1)Content\\Backup\\Textures");
             }
 
             if (Richtung == false)
             {
-                if (File.Exists(Path + "4(1)Content\\Backup\\Textures\\" + Datei + Extension))
+                if (File.Exists(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension))
                 {
-                    File.Copy(Path + "4(1)Content\\Backup\\Textures\\" + Datei + Extension, Path + "4(1)Content\\Textures\\" + Datei + Extension, true);
+                    if (!Directory.Exists(Path.GetDirectoryName(Path2 + "4(1)Content\\Textures\\" + Datei + Extension)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(Path2 + "4(1)Content\\Textures\\" + Datei + Extension));
+
+                    File.Copy(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension, Path2 + "4(1)Content\\Textures\\" + Datei + Extension, true);
                 }
             }
             else
                 if (Richtung == true)
                 {
                     // Datei sichern
-                    if (!File.Exists(Path + "4(1)Content\\Backup\\Textures\\" + Datei + Extension))
+                    if (!File.Exists(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension))
                     {
-                        File.Copy(Path + "4(1)Content\\Textures\\" + Datei + Extension, Path + "4(1)Content\\Backup\\Textures\\" + Datei + Extension, true);
+                        if (!Directory.Exists(Path.GetDirectoryName(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension)))
+                            Directory.CreateDirectory(Path.GetDirectoryName(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension));
+
+                        File.Copy(Path2 + "4(1)Content\\Textures\\" + Datei + Extension, Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension, true);
                     }
 
                     // Skalieren
                     String SkalierungS = Convert.ToString((float)((float)Skalierung * 100)).Replace(',', '.');
-                    String zo = "\"" + Path + "4(1)Content\\Backup\\Textures\\" + Datei + Extension + "\" -resize " + SkalierungS + "% \"" + Path + "4(1)Content\\Textures\\" + Datei + Extension + "\"";
+                    String zo = "\"" + Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension + "\" -resize " + SkalierungS + "% \"" + Path2 + "4(1)Content\\Textures\\" + Datei + Extension + "\"";
                     System.Diagnostics.Process Prozess = System.Diagnostics.Process.Start("..\\..\\..\\..\\ImageMagick\\convert.exe", zo);
                     //do
                     //{

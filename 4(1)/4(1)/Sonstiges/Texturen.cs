@@ -708,6 +708,26 @@ namespace _4_1_
 
             #endregion Schriften
 
+            Bilddateien.Add("Effekte\\Heilen", 0.25f);
+            Bilddateien.Add("Effekte\\Arbeitsbereich_I", 0.25f);
+            Bilddateien.Add("Effekte\\Arbeitsbereich_II", 0.25f);
+            Bilddateien.Add("Effekte\\Arbeitsbereich_III", 0.25f);
+            Bilddateien.Add("Effekte\\Eingefroren", 0.25f);
+            Bilddateien.Add("Effekte\\Elektrisiert", 0.25f);
+            Bilddateien.Add("Effekte\\Lager_I", 0.25f);
+            Bilddateien.Add("Effekte\\Lager_II", 0.25f);
+            Bilddateien.Add("Effekte\\Lager_III", 0.25f);
+            Bilddateien.Add("Effekte\\Schild_I", 0.25f);
+            Bilddateien.Add("Effekte\\Schild_II", 0.25f);
+            Bilddateien.Add("Effekte\\Schild_III", 0.25f);
+            Bilddateien.Add("Effekte\\Verbrauch_I", 0.25f);
+            Bilddateien.Add("Effekte\\Verbrauch_II", 0.25f);
+            Bilddateien.Add("Effekte\\Verbrauch_III", 0.25f);
+            Bilddateien.Add("Effekte\\Vergiftet", 0.25f);
+            Bilddateien.Add("Effekte\\Zielen_I", 0.25f);
+            Bilddateien.Add("Effekte\\Zielen_II", 0.25f);
+            Bilddateien.Add("Effekte\\Zielen_III", 0.25f);
+
             Bilddateien.Add("Mine0", 0.05f);
             missle[0] = Content.Load<Texture2D>("Textures\\missle");
             missle[1] = Content.Load<Texture2D>("Textures\\bigmissle");
