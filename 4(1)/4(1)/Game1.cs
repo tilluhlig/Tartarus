@@ -627,6 +627,7 @@ namespace _4_1_
                         if (Spiel.ACTION_POINTS.Wert && Spiel2.players[Spiel2.CurrentPlayer].ActionPoints < Waffendaten.APKosten[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon]) qq = Color.Red;
                         if (Spiel.MUNITION.Wert && Spiel2.players[Spiel2.CurrentPlayer].Munition[tank][id] < 1) qq = Color.Red;
 
+                        spriteBatch.Draw(Texturen.LeeresFeld, new Vector2(Mod.AKTUELLE_MUNITION_BUTTON_X.Wert, Mod.AKTUELLE_MUNITION_BUTTON_Y.Wert), null, qq, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1); // haus.Width / 2
                         spriteBatch.Draw(Texturen.waffenbilder[id], new Vector2(Mod.AKTUELLE_MUNITION_BUTTON_X.Wert, Mod.AKTUELLE_MUNITION_BUTTON_Y.Wert), null, qq, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1); // haus.Width / 2
 
                         // Akctionskosten
@@ -670,6 +671,7 @@ namespace _4_1_
 
                         if (Mod.LEISTE_BUTTON_VISIBLE.Wert)
                         {
+                            spriteBatch.Draw(Texturen.LeeresFeld, new Vector2(5 + ((float)Texturen.LeeresFeld.Width * scale) * i, screenHeight - (float)Texturen.LeeresFeld.Height * scale - 5), null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                             spriteBatch.Draw(Texturen.panzerbutton[current.KindofTank[b]], new Vector2(5 + ((float)Texturen.LeeresFeld.Width * scale) * i, screenHeight - (float)Texturen.LeeresFeld.Height * scale - 5), null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
 
                             Color r = Spiel2.players[Spiel2.CurrentPlayer].Farbe;
@@ -1186,7 +1188,7 @@ namespace _4_1_
             }
 
             float xx = Spiel2.Wind.X;
-            if (xx < 1 && xx>0) xx = 1;
+            if (xx < 1 && xx > 0) xx = 1;
             if (xx > -1 && xx < 0) xx = -1;
 
             WolkenPos.X += xx * 1.5f;

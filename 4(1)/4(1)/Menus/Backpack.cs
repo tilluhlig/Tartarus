@@ -143,14 +143,21 @@ namespace _4_1_
                 {
                     if (clickselected == i + scrolled * length)
                     {
+                        spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                         spriteBatch.Draw(Texturen.fuel, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                         spriteBatch.Draw(Texturen.rahmen, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                     }
                     else
                         if (selected == i + scrolled * length)
+                        {
+                            spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.Red * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                             spriteBatch.Draw(Texturen.fuel, buttonPos[i], null, Color.Red * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                        }
                         else
+                        {
+                            spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                             spriteBatch.Draw(Texturen.fuel, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                        }
 
                     Help.DrawString(spriteBatch, Texturen.font2, Math.Floor(Rucksack.GibTreibstoff() < 0 ? 0 : Rucksack.GibTreibstoff()).ToString(), buttonPos[i] + aux, Color.Gold * Transparenz, Color.Black * Transparenz);
                 }
@@ -174,14 +181,21 @@ namespace _4_1_
                         {
                             if (clickselected == i + scrolled * length)
                             {
+                                spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                 spriteBatch.Draw(Rucksack.Upgrades[(int)upglist[i + scrolled * length - mun - tre].X].Effekt.Bild, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                 spriteBatch.Draw(Texturen.rahmen, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                             }
                             else
                                 if (selected == i + scrolled * length)
+                                {
+                                    spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.Red * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                     spriteBatch.Draw(Rucksack.Upgrades[(int)upglist[i + scrolled * length - mun - tre].X].Effekt.Bild, buttonPos[i], null, Color.Red * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                                }
                                 else
+                                {
+                                    spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                     spriteBatch.Draw(Rucksack.Upgrades[(int)upglist[i + scrolled * length - mun - tre].X].Effekt.Bild, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                                }
                             Help.DrawString(spriteBatch, Texturen.font2, upglist[i + scrolled * length - mun - tre].Y.ToString(), buttonPos[i] + aux, Color.Gold * Transparenz, Color.Black * Transparenz);
                         }
                         else//es ist konsumierbar
@@ -190,14 +204,22 @@ namespace _4_1_
                             {
                                 if (clickselected == i + scrolled * length)
                                 {
+                                    spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                     spriteBatch.Draw(Rucksack.Konsumierbares[(int)konlist[i + scrolled * length - mun - upg - tre].X].Effekt.Bild, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                     spriteBatch.Draw(Texturen.rahmen, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                 }
                                 else
                                     if (selected == i + scrolled * length)
+                                    {
+                                        spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.Red * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                         spriteBatch.Draw(Rucksack.Konsumierbares[(int)konlist[i + scrolled * length - mun - upg - tre].X].Effekt.Bild, buttonPos[i], null, Color.Red * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                                    }
                                     else
+                                    {
+                                        spriteBatch.Draw(Texturen.LeeresFeld, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                                         spriteBatch.Draw(Rucksack.Konsumierbares[(int)konlist[i + scrolled * length - mun - upg - tre].X].Effekt.Bild, buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                                    }
+
                                 Help.DrawString(spriteBatch, Texturen.font2, konlist[i + scrolled * length - mun - upg - tre].Y.ToString(), buttonPos[i] + aux, Color.Gold * Transparenz, Color.Black * Transparenz);
                             }
                         }

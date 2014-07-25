@@ -43,6 +43,7 @@ namespace _4_1_
         public static bool KARTE_SYMMETRISCH;
 
         #region Privat
+
         /// <summary>
         /// MOD-Variable, Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
         /// </summary>
@@ -52,7 +53,8 @@ namespace _4_1_
         /// Mod-Variable, Gibt an, ob die Karte symmetrisch aufgebaut werden soll
         /// </summary>
         private static Var<bool> MOD_KARTE_SYMMETRISCH = new Var<bool>("KARTE_SYMMETRISCH", false, ref KARTE_SYMMETRISCH);
-        #endregion
+
+        #endregion Privat
 
         /// <summary>
         /// Der interne Zufallszahlengenerator
@@ -100,7 +102,7 @@ namespace _4_1_
             public float Scaling;
 
             /// <summary>
-            /// ??? 
+            /// ???
             /// </summary>
             public Microsoft.Xna.Framework.Color ModColor;
 
@@ -1231,7 +1233,6 @@ namespace _4_1_
             }
 
             return temp;
-
         }
 
         /// <summary>

@@ -835,7 +835,6 @@ namespace _4_1_
                             }
                             temp = res[res.Count - 1] + " ";
                         }
-
                         else
                         {
                             // if (temp[temp.Length - 1] == ' ') temp = temp.Substring(0, temp.Length - 1);

@@ -222,11 +222,11 @@ namespace _4_1_
 
                     // Skalieren
                     String SkalierungS = Convert.ToString((float)((float)Skalierung * 100)).Replace(',', '.');
-                    String zo = "\"" + Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension + "\" -resize " + SkalierungS + "% \"" + Path2 + "4(1)Content\\Textures\\" + Datei + Extension + "\"";
+                    String zo = "\"" + Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension + "\" -resize " + SkalierungS + "% -quiet \"" + Path2 + "4(1)Content\\Textures\\" + Datei + Extension + "\"";
                     System.Diagnostics.Process Prozess = System.Diagnostics.Process.Start("..\\..\\..\\..\\ImageMagick\\convert.exe", zo);
                     //do
                     //{
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(25);
                     // } while (!Prozess.HasExited);
                 }
         }

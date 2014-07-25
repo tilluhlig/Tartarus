@@ -162,7 +162,7 @@ namespace _4_1_
             for (int i = 0; i < Var<float[]>.ALLE8.Count; i++) Var<float[]>.ALLE8[i].Load();
 
 #if DEBUG
-                Game1.DEBUG_AKTIV.Wert=true;
+            Game1.DEBUG_AKTIV.Wert = true;
 #endif
         }
 

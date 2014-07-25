@@ -202,7 +202,7 @@ namespace _4_1_
         public static Var<int[]> SINKSOUND = new Var<int[]>("SINKSOUND", new int[] { 0, 0, 1, 1, 0, 0 });
 
         /// <summary>
-        /// Enthält, wieviel Erfahrung für die Zerstörung des Fahrzeugtyps zusteht 
+        /// Enthält, wieviel Erfahrung für die Zerstörung des Fahrzeugtyps zusteht
         /// </summary>
         public static Var<int[]> EXPREWARDED = new Var<int[]>("EXPREWARDED", new int[] { 80, 90, 70, 60, 60, 60 });
 
@@ -245,6 +245,7 @@ namespace _4_1_
                     /*Geschütz            */  { 000000000, 00000000000000, 00000000000000000, 0000000000, 000000000000, 0000000000, 000000000, 00000000, 000000000, 00000, 000000, 0000000, 00000000, 00000000, 00000000, 000000, 000000, 00000000, 000000000, 0000, 0, 0},
                     /*Geschütz2           */  { 000000000, 00000000000000, 00000000000000000, 0000000000, 000000000000, 0000000000, 000000000, 00000000, 000000000, 00000, 000000, 0000000, 00000000, 00000000, 00000000, 000000, 000000, 00000000, 000000000, 0000, 0, 0}
                                             };
+
         /// <summary>
         /// Enthält, was das Fahrzeug an Items pro Runde bekommt
         /// </summary>

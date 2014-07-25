@@ -14,9 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace _4_1_
 {
@@ -86,11 +83,10 @@ namespace _4_1_
             Hauptfenster.Program.Formular.label31.Show();
             Hauptfenster.Program.Formular.label31.BringToFront();
             Hauptfenster.Tausch.SpielAktiv = false;
-            
 
             // Reset
-           // Karte.Reset_Materialien();
-           // Fahrzeugdaten.Reset_Tankdata();
+            // Karte.Reset_Materialien();
+            // Fahrzeugdaten.Reset_Tankdata();
 
             Game1.LadeText("    Tastatur...    ");
             //if (!File.Exists(Map)) { Spielfeld = null; return; }
@@ -112,14 +108,12 @@ namespace _4_1_
             for (; !datei.EndOfStream; ) Data.Add(datei.ReadLine());
             datei.Close();
 
-
-
-           // Game1.Spiel2 = null;
+            // Game1.Spiel2 = null;
             Game1.Ladebildschirmtexte = null;
 
             // Reset
-           // Karte.Reset_Materialien();
-           // Fahrzeugdaten.Reset_Tankdata();
+            // Karte.Reset_Materialien();
+            // Fahrzeugdaten.Reset_Tankdata();
 
             Game1.LadeText("    Spiel erstellen...    ");
             // Spiel erstellen
@@ -133,7 +127,7 @@ namespace _4_1_
             Game1.Spiel2.Height = Game1.screenHeight;
             //Hauptfenster.Program.Formular.progressBar1.Value = 90;
 
-           Game1.LadeText("    Umgebung...    ");
+            Game1.LadeText("    Umgebung...    ");
             //// vordergrund = Farbwahl(Texturen.tilltexture);
             //water = Game1.Farbwahl(Texturen.wasser);
             Vordergrund.ErstelleVordergrund();
@@ -156,12 +150,12 @@ namespace _4_1_
            Eingabefenster.ZeichneEingabefenster(Game1.spriteBatch);
            Game1.spriteBatch.End();*/
             Eingabefenster.Eingabe.Verstecken();
-           if (Mod.SPIELERMENU_VISIBLE.Wert) Game1.Spielermenu.hide();
-           Hauptfenster.Program.Formular.progressBar1.Value = 100;
-           Hauptfenster.Program.Formular.progressBar1.Hide();
-           Hauptfenster.Program.Formular.label31.Hide();
+            if (Mod.SPIELERMENU_VISIBLE.Wert) Game1.Spielermenu.hide();
+            Hauptfenster.Program.Formular.progressBar1.Value = 100;
+            Hauptfenster.Program.Formular.progressBar1.Hide();
+            Hauptfenster.Program.Formular.label31.Hide();
 
-           // Sounds.Lademusik.StopSound(0);
+            // Sounds.Lademusik.StopSound(0);
 
             //Game1.Spiel2 = new Spiel();
             Game1.Ladebildschirmtexte = null;

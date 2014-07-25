@@ -280,7 +280,6 @@ namespace _4_1_
                                     }
                                 }
                             }
-
                             else
                                 if (keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
                                 {

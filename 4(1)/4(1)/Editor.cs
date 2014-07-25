@@ -58,6 +58,7 @@ namespace _4_1_
         private static int GewaehlterSpieler = -1;
 
         #region Objektmodus
+
         /// <summary>
         /// die Auswahlliste für nutzlose Objekte
         /// </summary>
@@ -82,7 +83,8 @@ namespace _4_1_
         /// die Auswahlliste für Fahrzeuge
         /// </summary>
         private static ComboBox2 Waffen;
-        #endregion
+
+        #endregion Objektmodus
 
         #region Kartenmalmodus
 
@@ -115,7 +117,8 @@ namespace _4_1_
         /// die gewählte Pinseldicke
         /// </summary>
         private static int GewaehltePinseldicke = 0;
-        #endregion
+
+        #endregion Kartenmalmodus
 
         /// <summary>
         /// bestimmt, welche der Auswahllisten, ausgwählt wurde
@@ -382,7 +385,7 @@ namespace _4_1_
                     spriteBatch.Draw(Texturen.waffenbilder[me], new Rectangle((int)(temp2.X), (int)(temp2.Y), (int)maße2.X, (int)maße2.Y), Color.White);
 
                     Vector2 maße = Help.AufBereichVerkleinern(Texturen.missle[me], 75, Bildhoehe);
-                    spriteBatch.Draw(Texturen.missle[me], new Rectangle((int)(temp2.X + Bildbreite -75/2 - maße.X/2), (int)(temp2.Y+Bildhoehe/2-maße.Y/2), (int)maße.X, (int)maße.Y), Color.White);
+                    spriteBatch.Draw(Texturen.missle[me], new Rectangle((int)(temp2.X + Bildbreite - 75 / 2 - maße.X / 2), (int)(temp2.Y + Bildhoehe / 2 - maße.Y / 2), (int)maße.X, (int)maße.Y), Color.White);
                     lastchosen = 4;
                     lastchosenid = me;
                 }

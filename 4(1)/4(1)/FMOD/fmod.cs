@@ -480,13 +480,13 @@ namespace FMOD
         <br>
         FMOD_SPEAKERMODE_SRS5_1_MATRIX<br>
         ------------------------------------------------------<br>
-		This mode is for mono, stereo, 5.1 and 7.1 speaker arrangements, as it is backwards and forwards compatible with
-		stereo, but to get a surround effect a SRS 5.1, Prologic or Prologic 2 hardware decoder / amplifier is needed.<br>
-		Pan behavior is the same as FMOD_SPEAKERMODE_5POINT1.<br>
-		<br>
-		If this function is called the numoutputchannels setting in System::setSoftwareFormat is overwritten.<br>
-		<br>
-		Output rate must be 44100, 48000 or 96000 for this to work otherwise FMOD_ERR_OUTPUT_INIT will be returned.<br>
+        This mode is for mono, stereo, 5.1 and 7.1 speaker arrangements, as it is backwards and forwards compatible with
+        stereo, but to get a surround effect a SRS 5.1, Prologic or Prologic 2 hardware decoder / amplifier is needed.<br>
+        Pan behavior is the same as FMOD_SPEAKERMODE_5POINT1.<br>
+        <br>
+        If this function is called the numoutputchannels setting in System::setSoftwareFormat is overwritten.<br>
+        <br>
+        Output rate must be 44100, 48000 or 96000 for this to work otherwise FMOD_ERR_OUTPUT_INIT will be returned.<br>
 
         FMOD_SPEAKERMODE_MYEARS<br>
         ------------------------------------------------------<br>

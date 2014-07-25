@@ -74,7 +74,6 @@ namespace _4_1_
                             Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Bäume(false).ToString());
                             return true;
                         }
-
                         else
 
                             // "TEXTUREN_RELEASE_HAEUSER"
@@ -91,7 +90,6 @@ namespace _4_1_
                                     Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Häuser(false).ToString());
                                     return true;
                                 }
-
                                 else
 
                                     // "TEXTUREN_RELEASE_FAHRZEUGE"
@@ -108,7 +106,6 @@ namespace _4_1_
                                             Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Fahrzeuge(false).ToString());
                                             return true;
                                         }
-
                                         else
 
                                             // "TEXTUREN_RELEASE_KISTEN"
@@ -125,7 +122,6 @@ namespace _4_1_
                                                     Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Kisten(false).ToString());
                                                     return true;
                                                 }
-
                                                 else
 
                                                     // "TEXTUREN_RELEASE_TUNNEL"
@@ -142,7 +138,6 @@ namespace _4_1_
                                                             Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Tunnel(false).ToString());
                                                             return true;
                                                         }
-
                                                         else
 
                                                             // "TEXTUREN_RELEASE_WAFFEN"
@@ -159,7 +154,6 @@ namespace _4_1_
                                                                     Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Waffen(false).ToString());
                                                                     return true;
                                                                 }
-
                                                                 else
 
                                                                     // "TEXTUREN_RELEASE_SONSTIGE"

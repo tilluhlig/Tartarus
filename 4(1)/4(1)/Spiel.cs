@@ -2186,11 +2186,11 @@ namespace _4_1_
                      Missile[i] = temp2;
                 }*/
 
-           /* for (; i < Missile.Count(); i++)
-                {
-                    Missile[i] = new Waffen();
-                Missile[i].ID = i;
-            }*/
+            /* for (; i < Missile.Count(); i++)
+                 {
+                     Missile[i] = new Waffen();
+                 Missile[i].ID = i;
+             }*/
 
             return this;
         }
@@ -2206,12 +2206,12 @@ namespace _4_1_
             list.Add("[SPIEL]");
             list.Add("Width=" + Width.ToString());
             list.Add("Height=" + Height.ToString());
-            list.Add("Schuesse="+Schuesse.ToString());
-            list.Add("WindTimeout="+WindTimeout.ToString());
-            list.Add("Wind="+Wind.ToString());
-            list.Add("Timeout="+Timeout.ToString());
-            list.Add("CurrentMissile="+CurrentMissile.ToString());
-            list.Add("CurrentPlayer="+CurrentPlayer.ToString());
+            list.Add("Schuesse=" + Schuesse.ToString());
+            list.Add("WindTimeout=" + WindTimeout.ToString());
+            list.Add("Wind=" + Wind.ToString());
+            list.Add("Timeout=" + Timeout.ToString());
+            list.Add("CurrentMissile=" + CurrentMissile.ToString());
+            list.Add("CurrentPlayer=" + CurrentPlayer.ToString());
 
             // Haeuser speichern
             {
@@ -2229,26 +2229,26 @@ namespace _4_1_
             }
 
             // Kisten speichern
-           /* {
-                list.AddRange(Kisten.Speichern());
-            }*/
+            /* {
+                 list.AddRange(Kisten.Speichern());
+             }*/
 
             // Spieler speichern
-           /* {
-                for (int i = 0; i < players.Count(); i++)
-                {
-                    players[i].id = i;
-                    list.AddRange(players[i].Speichern());
-                }
-            }
+            /* {
+                 for (int i = 0; i < players.Count(); i++)
+                 {
+                     players[i].id = i;
+                     list.AddRange(players[i].Speichern());
+                 }
+             }
 
-            // Waffen speichern
-            {
-                for (int i = 0; i < Missile.Count(); i++)
-                {
-                    list.AddRange(Missile[i].Speichern());
-                }
-            }*/
+             // Waffen speichern
+             {
+                 for (int i = 0; i < Missile.Count(); i++)
+                 {
+                     list.AddRange(Missile[i].Speichern());
+                 }
+             }*/
 
             // Karte speichern
             {

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-
 namespace _4_1_
 {
 #if WINDOWS || XBOX || LINUX
@@ -43,7 +39,7 @@ namespace _4_1_
 #if DEBUG
             game.Run();
 #else
-          
+
             try
             {
                 game.Run();
@@ -112,7 +108,6 @@ namespace _4_1_
             }
 #endif
         }
-           
     }
 
 #endif

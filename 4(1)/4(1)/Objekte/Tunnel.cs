@@ -147,7 +147,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Berechnet die Zerstörung des Tunnels 
+        /// Berechnet die Zerstörung des Tunnels
         /// </summary>
         /// <param name="Explosion">die Position der Explosion</param>
         /// <param name="Energie">die Explosionsstärke (Radius)</param>

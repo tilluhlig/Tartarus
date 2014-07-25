@@ -665,13 +665,13 @@ namespace _4_1_
                     return Name + " = " + Wert.ToString();
                 }
 
-           for (int i = 0; i < ALLE5.Count; i++)
+            for (int i = 0; i < ALLE5.Count; i++)
                 if (ALLE5[i].Name == Name)
                 {
                     String result = "";
                     for (int b = 0; b < ALLE5[i].Wert.Length; b++)
-                        result += ALLE5[i].Name + "[" + b.ToString() + "] = " + ALLE5[i].Wert[b]+ (b<ALLE5[i].Wert.Length-1 ? "\n" : "");
-                        return result;
+                        result += ALLE5[i].Name + "[" + b.ToString() + "] = " + ALLE5[i].Wert[b] + (b < ALLE5[i].Wert.Length - 1 ? "\n" : "");
+                    return result;
                 }
 
             for (int i = 0; i < ALLE6.Count; i++)
@@ -701,7 +701,7 @@ namespace _4_1_
                     return result;
                 }
 
-           return "";
+            return "";
 
             /*// neu laden
             if (Wert.GetType() == typeof(Int32) || Wert.GetType() == typeof(bool) || Wert.GetType() == typeof(String) || Wert.GetType() == typeof(float))

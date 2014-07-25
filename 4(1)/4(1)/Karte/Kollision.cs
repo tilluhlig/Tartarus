@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-
+﻿using Microsoft.Xna.Framework;
 
 namespace _4_1_
 {
@@ -14,11 +7,12 @@ namespace _4_1_
     /// </summary>
     public class Kollision
     {
-
         /// <summary>
         /// das sind die IDs der möglichen Kollisionsarten
         /// </summary>
+
         #region Kollisionsarten
+
         public static int GELAENDE = 0;
         public static int HAUS = 1;
         public static int FABRIK = 2;
@@ -28,7 +22,8 @@ namespace _4_1_
         public static int BUNKER = 6;
         public static int FAHRZEUG = 7;
         public static int GESCHUETZ = 8;
-        #endregion
+
+        #endregion Kollisionsarten
 
         /// <summary>
         /// die Position der Kollision
@@ -72,15 +67,14 @@ namespace _4_1_
         public bool Zerstoerbar = true;
 
         /// <summary>
-        /// einfacher Konstruktor 
+        /// einfacher Konstruktor
         /// </summary>
         public Kollision()
         {
-
         }
 
         /// <summary>
-        /// umfangreicher Konstruktor 
+        /// umfangreicher Konstruktor
         /// </summary>
         /// <param name="_Position">die Position der Kollision</param>
         /// <param name="_Art">die Art der Kollision, welche Obergruppe wurde getroffen</param>
@@ -105,7 +99,8 @@ namespace _4_1_
         /// </summary>
         /// <param name="_Position">die Position, welche auf eine Kollision geprüft werden soll</param>
         /// <returns>ein Kollisionsobjekt, welches beschreibt, ob es an dieser Stelle einen Treffer gab</returns>
-        public static Kollision pruefen(Vector2 Position){
+        public static Kollision pruefen(Vector2 Position)
+        {
             return new Kollision(Position, 0, 0, 0, -1, false, true);
         }
     }

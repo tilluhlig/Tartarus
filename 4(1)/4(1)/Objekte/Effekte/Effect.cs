@@ -28,17 +28,17 @@ namespace _4_1_
         /// <summary>
         /// Eine zugehörige Textur (Buttonbild)
         /// </summary>
-        public Texture2D Bild=null;
+        public Texture2D Bild = null;
 
         /// <summary>
         /// Wirkungsdauer, nach wievielen Runden löst sicher der Effekt im Effektpacket auf
         /// </summary>
-        public int Dauer =0;
+        public int Dauer = 0;
 
         /// <summary>
         /// Ein eindeutiger Bezeichner für den Effekt
         /// </summary>
-        public String Name ="";
+        public String Name = "";
 
         /// <summary>
         /// 0==Konsumierbar, 1==Status, 2==Upgrade
@@ -327,7 +327,7 @@ namespace _4_1_
         public static Effekt Laden(List<String> Text, ContentManager Content, Effekt Objekt)
         {
             Effekt temp = Objekt;
-            if (temp==null) temp = new Effekt();
+            if (temp == null) temp = new Effekt();
 
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "EFFEKT");
             if (Text2.Count == 0) return temp;

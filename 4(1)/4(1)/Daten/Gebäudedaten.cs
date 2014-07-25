@@ -50,6 +50,7 @@ namespace _4_1_
         /// Positionskorrektur der Fahne des Gebäudes (X-Richtung)
         /// </summary>                                                                 0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17
         public static Var<int[]> POSITIONX = new Var<int[]>("POSITIONX", new int[] { -04, +00, +00, -99, +00, +00, +19, -02, -01, +00, +00, -03, -99, -99, -99, -99, -03, +00 });
+
         /// <summary>
         /// Positionskorrektur der Fahne des Gebäudes (Y-Richtung)
         /// </summary>

@@ -90,10 +90,12 @@ namespace _4_1_
         #region DEBUG
 
 #if DEBUG
+
         /// <summary>
         /// die Skalierung der Textur
         /// </summary>
         private static float sc = 0.05f;
+
 #else
 
         /// <summary>

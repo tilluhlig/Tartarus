@@ -141,7 +141,7 @@ namespace _4_1_
             temp.Typ = TextLaden.LadeInt(Liste, "Typ", temp.Typ);
             temp.Anzahl = TextLaden.LadeInt(Liste, "Anzahl", temp.Anzahl);
 
-            temp.Effekt = Effekt.Laden(Text2, Content,null);
+            temp.Effekt = Effekt.Laden(Text2, Content, null);
 
             return temp;
         }

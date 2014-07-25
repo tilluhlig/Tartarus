@@ -58,6 +58,7 @@ namespace _4_1_
         #region DEBUG
 
 #if DEBUG
+
         /// <summary>
         /// die Skalierung der Bildschirmmarkierung
         /// </summary>
@@ -76,7 +77,7 @@ namespace _4_1_
         /// Erzeugt den Inhalt einer Notiz aus Text
         /// </summary>
         /// <param name="Text">der Text in dem die Notiz definiert ist</param>
-        public void Laden(List<String> Text, int i, GraphicsDevice graphicsDevice,ContentManager Content2)
+        public void Laden(List<String> Text, int i, GraphicsDevice graphicsDevice, ContentManager Content2)
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "NOTIZ");
 

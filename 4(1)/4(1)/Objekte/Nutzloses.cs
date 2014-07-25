@@ -103,10 +103,10 @@ namespace _4_1_
 
                 if (xPos + Nutzloses.Bild[i].Width * scale / 2 < 0 || xPos - Nutzloses.Bild[i].Width * scale / 2 > Game1.screenWidth) continue;
 
-                 spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
+                spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 spriteBatch.Draw(Nutzloses.Bild[i], new Vector2(xPos - (Nutzloses.Bild[i].Width * scale) / 2, yPos - Nutzloses.Bild[i].Height * scale), null, Color.White, Nutzloses.Winkel[i], new Vector2(0, 0), scale, Nutzloses.Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
-                 spriteBatch.End();
+                spriteBatch.End();
 
                 if (Editor.visible && Editor.mouseover == 2 && Editor.mouseoverid == i)
                 {

@@ -51,6 +51,7 @@
         public static int TunnelAPKosten;
 
         #region Privat
+
         /// <summary>
         /// MOD-Variable, maximale Anzahl BesitzerPunkten, die man bei der Eroberung eines Gebäudes erreichen kann
         /// umso mehr "Besitz" man an einem Gebäude hat, umso länger dauert die Eroberung durch einen fremden Spieler

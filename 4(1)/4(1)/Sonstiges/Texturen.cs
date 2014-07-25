@@ -1064,7 +1064,7 @@ namespace _4_1_
                     Game1.device.SetRenderTarget(null);
                     panzerrohrindex[i] = rt;
 #endif
-                Fahrzeugdaten.SCALER.Wert[i] = 1.0f;
+                    Fahrzeugdaten.SCALER.Wert[i] = 1.0f;
 #if DEBUG
                 }
 #endif

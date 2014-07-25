@@ -97,7 +97,7 @@ namespace _4_1_
         /// Der Konstruktor
         /// </summary>
         public Inventar()
-        { 
+        {
             InventarInit(0, null, 0);
         }
 
@@ -889,7 +889,7 @@ namespace _4_1_
 
             List<String> Text3 = TextLaden.ErmittleBereich(Text2, "KONSUMIERBARES");
             while (Text3.Count > 0)
-                temp.Konsumierbares.Add(Item.Laden(Text3, Content,null));
+                temp.Konsumierbares.Add(Item.Laden(Text3, Content, null));
 
             Text3 = TextLaden.ErmittleBereich(Text2, "UPGRADES");
             while (Text3.Count > 0)

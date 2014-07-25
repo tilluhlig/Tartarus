@@ -231,7 +231,7 @@ namespace _4_1_
             pos[i] = TextLaden.LadeVector2(Liste, "pos", pos[i]);
             verzögerung[i] = TextLaden.LadeInt(Liste, "verzögerung", verzögerung[i]);
 
-          //  if (Rucksack[i] == null)
+            //  if (Rucksack[i] == null)
             Rucksack[i] = Inventar.Laden(Text2, Content, altid == -1 ? new Inventar() : Rucksack[i]);
         }
 
