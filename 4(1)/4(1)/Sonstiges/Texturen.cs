@@ -727,6 +727,7 @@ namespace _4_1_
             Bilddateien.Add("Effekte\\Zielen_I", 0.25f);
             Bilddateien.Add("Effekte\\Zielen_II", 0.25f);
             Bilddateien.Add("Effekte\\Zielen_III", 0.25f);
+            Bilddateien.Add("Effekte\\Tarn", 0.25f);
 
             Bilddateien.Add("Mine0", 0.05f);
             missle[0] = Content.Load<Texture2D>("Textures\\missle");

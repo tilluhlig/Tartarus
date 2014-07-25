@@ -226,7 +226,7 @@ namespace _4_1_
                     System.Diagnostics.Process Prozess = System.Diagnostics.Process.Start("..\\..\\..\\..\\ImageMagick\\convert.exe", zo);
                     //do
                     //{
-                    System.Threading.Thread.Sleep(300);
+                    System.Threading.Thread.Sleep(100);
                     // } while (!Prozess.HasExited);
                 }
         }

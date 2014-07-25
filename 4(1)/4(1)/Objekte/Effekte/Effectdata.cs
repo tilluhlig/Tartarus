@@ -58,7 +58,7 @@ namespace _4_1_
         /// <summary>
         /// Tarnt das Objekt, Unsichtbar
         /// </summary>
-        public static Effekt Tarn = new Effekt("Tarn", "Textures\\leer", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+        public static Effekt Tarn = new Effekt("Tarn", "Textures\\Effekte\\Tarn", -1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
 
         /// <summary>
         /// Zielhilfe
