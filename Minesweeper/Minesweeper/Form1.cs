@@ -347,6 +347,7 @@ namespace Minesweeper
                             ShowTetris();
                             button1_Click(null, null);
                         }
+            button1.Focus();
         }
 
         private void button5_Click(object sender, EventArgs e)
