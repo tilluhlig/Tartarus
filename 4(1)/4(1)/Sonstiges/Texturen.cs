@@ -939,7 +939,6 @@ namespace _4_1_
         /// </summary>
         public static void HaeuserSkalierung()
         {
-            return;
             /*  if (Gebäudedaten.oldscale == null)
               {
                   Gebäudedaten.oldscale = new float[Gebäudedaten.SKALIERUNG.Count()];
@@ -1077,7 +1076,6 @@ namespace _4_1_
         /// </summary>
         public static void BaeumeSkalierung()
         {
-            return;
             /* if (Baumdata.oldscale == null)
              {
                  Baumdata.oldscale = new float[Baumdata.SKALIERUNG.Count()];

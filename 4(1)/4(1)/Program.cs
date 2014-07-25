@@ -90,7 +90,6 @@ namespace _4_1_
                         Pfad = "Content\\Games\\" + HTTP.HTTP.gameid + "\\";
 
                         HTTP.HTTP.Dir(Pfad);
-                        MapWriter.Convert = false;
                         MapWriter.Generieren(Game1.Spiel2);
                         MapWriter.Speichern(Pfad + "Map.dat");
                         Replay.End(Game1.Spiel2.players);
