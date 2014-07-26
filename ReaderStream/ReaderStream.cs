@@ -7,10 +7,49 @@ namespace ReaderStream
 {
     public class ReaderStream
     {
+        #region Fields
+
+        /// <summary>
+        ///     Gibt an, ob das ende der datei erreicht wurde, true = ende erreicht
+        /// </summary>
+        public bool EndOfStream = false;
+
+        /// <summary>
+        ///     Ignoriert nächstes zu lesendes Zeichen
+        /// </summary>
+        private bool IgnoriereNächstesZeichen;
+
+        /// <summary>
+        ///     Das Lesegerät
+        /// </summary>
+        private BinaryReader Lesegerät;
+
+        /// <summary>
+        ///     Die Leseposition in der Datei
+        /// </summary>
+        private int Leseposition;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        ///     Konstruktor für einen neuen StreamReader
+        /// </summary>
+        /// <param name="Datei">The datei.</param>
+        public ReaderStream(String Datei)
+        {
+            Lesegerät = new BinaryReader(File.Open(Datei, FileMode.Open, FileAccess.Read));
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
         public static String HASH(String Datei)
         {
-            ReaderStream daten = new ReaderStream(Datei);
-            MemoryStream a = new MemoryStream();
+            var daten = new ReaderStream(Datei);
+            var a = new MemoryStream();
 
             int pos = 0;
             while (!daten.EndOfStream && pos < 1024)
@@ -28,7 +67,7 @@ namespace ReaderStream
         }
 
         /// <summary>
-        /// HASHs the specified daten.
+        ///     HASHs the specified daten.
         /// </summary>
         /// <param name="Daten">The daten.</param>
         /// <returns>String.</returns>
@@ -40,7 +79,7 @@ namespace ReaderStream
             for (int i = 0; i < g.Length; i++)
             {
                 int a = g[i];
-                q = q + a.ToString();
+                q = q + a;
             }
 
             //String q = new string(g);
@@ -48,36 +87,7 @@ namespace ReaderStream
         }
 
         /// <summary>
-        /// Das Lesegerät
-        /// </summary>
-        private BinaryReader Lesegerät = null;
-
-        /// <summary>
-        /// Gibt an, ob das ende der datei erreicht wurde, true = ende erreicht
-        /// </summary>
-        public bool EndOfStream = false;
-
-        /// <summary>
-        /// Die Leseposition in der Datei
-        /// </summary>
-        private int Leseposition = 0;
-
-        /// <summary>
-        /// Ignoriert nächstes zu lesendes Zeichen
-        /// </summary>
-        private bool IgnoriereNächstesZeichen = false;
-
-        /// <summary>
-        /// Konstruktor für einen neuen StreamReader
-        /// </summary>
-        /// <param name="Datei">The datei.</param>
-        public ReaderStream(String Datei)
-        {
-            Lesegerät = new BinaryReader(File.Open(Datei, FileMode.Open, System.IO.FileAccess.Read));
-        }
-
-        /// <summary>
-        /// Schließt den Stream und gibt den Speicher frei
+        ///     Schließt den Stream und gibt den Speicher frei
         /// </summary>
         public void Close()
         {
@@ -103,7 +113,7 @@ namespace ReaderStream
         }
 
         /// <summary>
-        /// Liest die nächste Zeile aus dem Stream
+        ///     Liest die nächste Zeile aus dem Stream
         /// </summary>
         /// <returns></returns>
         public String ReadLine()
@@ -122,7 +132,7 @@ namespace ReaderStream
 
                 if (q != '\n' && q != '\r')
                 {
-                    data = data + (char)q;
+                    data = data + (char) q;
                 }
                 else
                 {
@@ -136,5 +146,7 @@ namespace ReaderStream
             EndOfStream = true;
             return data;
         }
+
+        #endregion Methods
     }
 }

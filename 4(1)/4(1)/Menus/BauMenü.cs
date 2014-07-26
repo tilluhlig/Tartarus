@@ -8,23 +8,29 @@ namespace _4_1_
 {
     public static class BauMenü
     {
+        #region Fields
+
+        public static int HausID = -1;
+
+        public static Haus Hausliste = null;
+
         /// <summary>
-        /// The visible
+        ///     The visible
         /// </summary>
         public static bool visible = false;
 
-        public static Haus Hausliste = null;
-        public static int HausID = -1;
-
         /// <summary>
-        /// The own pos
+        ///     The own pos
         /// </summary>
         //  public static Vector2 Position = Vector2.Zero;
+        private static SpriteFont Schrift;
 
-        private static SpriteFont Schrift = null;
+        #endregion Fields
+
+        #region Methods
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         /// <param name="font">The font.</param>
@@ -39,7 +45,9 @@ namespace _4_1_
             float scale = Optimierung.Skalierung(0.25f);
 
             int typ = Hausliste.HausTyp[HausID];
-            Vector2 Position = Hausliste.Position[HausID] + new Vector2(Hausliste.Bild[HausID].Width / 2, -Hausliste.Bild[HausID].Height - Texturen.LeeresFeld.Width * scale - 15);
+            Vector2 Position = Hausliste.Position[HausID] +
+                               new Vector2(Hausliste.Bild[HausID].Width/2,
+                                   -Hausliste.Bild[HausID].Height - Texturen.LeeresFeld.Width*scale - 15);
             if (Position.Y < 10) Position.Y = 10;
 
             int anz = 1;
@@ -52,14 +60,18 @@ namespace _4_1_
                 }
             }
 
-            Position.X -= (((float)Texturen.LeeresFeld.Width * scale + 10) * anz) / 2;
+            Position.X -= ((Texturen.LeeresFeld.Width*scale + 10)*anz)/2;
 
             if (-1 == Hausliste.Produktion[HausID])
             {
-                spriteBatch.Draw(Texturen.LeeresFeld, Position + new Vector2(((float)Texturen.LeeresFeld.Width * scale + 10) * (0), 0) - Fenster, null, Color.Yellow * 5f, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+                spriteBatch.Draw(Texturen.LeeresFeld,
+                    Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(0), 0) - Fenster, null,
+                    Color.Yellow*5f, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
             }
             else
-                spriteBatch.Draw(Texturen.LeeresFeld, Position + new Vector2(((float)Texturen.LeeresFeld.Width * scale + 10) * (0), 0) - Fenster, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+                spriteBatch.Draw(Texturen.LeeresFeld,
+                    Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(0), 0) - Fenster, null, Color.White,
+                    0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
 
             for (int i = 0; i < Fahrzeugdaten.KANNGEBAUTWERDEN.Wert.Length; i++)
             {
@@ -67,21 +79,29 @@ namespace _4_1_
                 {
                     if (i == Hausliste.Produktion[HausID])
                     {
-                        spriteBatch.Draw(Texturen.panzerbutton[i], Position + new Vector2(((float)Texturen.LeeresFeld.Width * scale + 10) * (i + 1), 0) - Fenster, null, Color.Yellow * 5f, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+                        spriteBatch.Draw(Texturen.panzerbutton[i],
+                            Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(i + 1), 0) - Fenster, null,
+                            Color.Yellow*5f, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+                    }
+                    else if (Spiel2.players[Spiel2.CurrentPlayer].Credits >= Fahrzeugdaten.PREIS.Wert[i] ||
+                             (Hausliste.Produktion[HausID] > -1 &&
+                              Spiel2.players[Spiel2.CurrentPlayer].Credits +
+                              Fahrzeugdaten.PREIS.Wert[Hausliste.Produktion[HausID]] >= Fahrzeugdaten.PREIS.Wert[i]))
+                    {
+                        spriteBatch.Draw(Texturen.panzerbutton[i],
+                            Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(i + 1), 0) - Fenster,
+                            null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                     }
                     else
-                        if (Spiel2.players[Spiel2.CurrentPlayer].Credits >= Fahrzeugdaten.PREIS.Wert[i] || (Hausliste.Produktion[HausID] > -1 && Spiel2.players[Spiel2.CurrentPlayer].Credits + Fahrzeugdaten.PREIS.Wert[Hausliste.Produktion[HausID]] >= Fahrzeugdaten.PREIS.Wert[i]))
-                        {
-                            spriteBatch.Draw(Texturen.panzerbutton[i], Position + new Vector2(((float)Texturen.LeeresFeld.Width * scale + 10) * (i + 1), 0) - Fenster, null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
-                        }
-                        else
-                            spriteBatch.Draw(Texturen.panzerbutton[i], Position + new Vector2(((float)Texturen.LeeresFeld.Width * scale + 10) * (i + 1), 0) - Fenster, null, Color.Red, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+                        spriteBatch.Draw(Texturen.panzerbutton[i],
+                            Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(i + 1), 0) - Fenster,
+                            null, Color.Red, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                 }
             }
         }
 
         /// <summary>
-        /// Hides this instance.
+        ///     Hides this instance.
         /// </summary>
         public static void hide()
         {
@@ -89,7 +109,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Loads the content.
+        ///     Loads the content.
         /// </summary>
         /// <param name="Content">The content.</param>
         public static void LoadContent(ContentManager Content)
@@ -97,7 +117,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Mouses the keys.
+        ///     Mouses the keys.
         /// </summary>
         /// <param name="mouseState">State of the mouse.</param>
         /// <param name="Rucksack">The rucksack.</param>
@@ -109,10 +129,12 @@ namespace _4_1_
             float scale = Optimierung.Skalierung(0.25f);
 
             int typ = Hausliste.HausTyp[HausID];
-            Vector2 Position = Hausliste.Position[HausID] + new Vector2(Hausliste.Bild[HausID].Width / 2, -Hausliste.Bild[HausID].Height - Texturen.LeeresFeld.Width * scale - 15);
+            Vector2 Position = Hausliste.Position[HausID] +
+                               new Vector2(Hausliste.Bild[HausID].Width/2,
+                                   -Hausliste.Bild[HausID].Height - Texturen.LeeresFeld.Width*scale - 15);
             if (Position.Y < 10) Position.Y = 10;
 
-            List<int> Data = new List<int>();
+            var Data = new List<int>();
             int anz = 1;
             Data.Add(-1);
 
@@ -125,22 +147,28 @@ namespace _4_1_
                 }
             }
 
-            Position.X -= (((float)Texturen.LeeresFeld.Width * scale + 10) * anz) / 2;
+            Position.X -= ((Texturen.LeeresFeld.Width*scale + 10)*anz)/2;
 
             // wurde etwas angeklickt???
             bool found = false;
             for (int i = 0; i < anz; i++)
             {
-                Vector2 Pos = Position + new Vector2(((float)Texturen.LeeresFeld.Width * scale + 10) * (i), 0) - Fenster;
+                Vector2 Pos = Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(i), 0) - Fenster;
 
-                if (i == 0 || Spiel2.players[Spiel2.CurrentPlayer].Credits >= Fahrzeugdaten.PREIS.Wert[Data[i]] || (Hausliste.Produktion[HausID] > -1 && Spiel2.players[Spiel2.CurrentPlayer].Credits + Fahrzeugdaten.PREIS.Wert[Hausliste.Produktion[HausID]] >= Fahrzeugdaten.PREIS.Wert[Data[i]]))
-                    if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+                if (i == 0 || Spiel2.players[Spiel2.CurrentPlayer].Credits >= Fahrzeugdaten.PREIS.Wert[Data[i]] ||
+                    (Hausliste.Produktion[HausID] > -1 &&
+                     Spiel2.players[Spiel2.CurrentPlayer].Credits +
+                     Fahrzeugdaten.PREIS.Wert[Hausliste.Produktion[HausID]] >= Fahrzeugdaten.PREIS.Wert[Data[i]]))
+                    if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (mouseState.X >= Pos.X && mouseState.Y >= Pos.Y && mouseState.X <= Pos.X + Texturen.LeeresFeld.Width * scale + 10 && mouseState.Y <= Pos.Y + Texturen.LeeresFeld.Height * scale)
+                        if (mouseState.X >= Pos.X && mouseState.Y >= Pos.Y &&
+                            mouseState.X <= Pos.X + Texturen.LeeresFeld.Width*scale + 10 &&
+                            mouseState.Y <= Pos.Y + Texturen.LeeresFeld.Height*scale)
                         {
                             if (Hausliste.Produktion[HausID] > -1)
                             {
-                                Spiel2.players[Spiel2.CurrentPlayer].Credits += Fahrzeugdaten.PREIS.Wert[Hausliste.Produktion[HausID]];
+                                Spiel2.players[Spiel2.CurrentPlayer].Credits +=
+                                    Fahrzeugdaten.PREIS.Wert[Hausliste.Produktion[HausID]];
                             }
 
                             Hausliste.Produktion[HausID] = Data[i];
@@ -153,8 +181,10 @@ namespace _4_1_
                     }
             }
 
-            if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
-                if (!found && !Hausliste.IsCollision2(HausID, new Vector2(mouseState.X + Spiel2.Fenster.X, mouseState.Y + Spiel2.Fenster.Y)))
+            if (mouseState.LeftButton == ButtonState.Pressed)
+                if (!found &&
+                    !Hausliste.IsCollision2(HausID,
+                        new Vector2(mouseState.X + Spiel2.Fenster.X, mouseState.Y + Spiel2.Fenster.Y)))
                 {
                     visible = false;
                 }
@@ -163,11 +193,13 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Shows this instance.
+        ///     Shows this instance.
         /// </summary>
         public static void show()
         {
             visible = true;
         }
+
+        #endregion Methods
     }
 }

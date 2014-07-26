@@ -11,47 +11,55 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Hauptfenster
 {
     /// <summary>
-    /// Class FormState
+    ///     Class FormState
     /// </summary>
     public static class FormState
     {
-        /// <summary>
-        /// The win state
-        /// </summary>
-        private static FormWindowState winState;
+        #region Fields
 
         /// <summary>
-        /// The BRD style
+        ///     The back color
+        /// </summary>
+        private static Color BackColor;
+
+        /// <summary>
+        ///     The bounds
+        /// </summary>
+        private static Rectangle bounds;
+
+        /// <summary>
+        ///     The BRD style
         /// </summary>
         private static FormBorderStyle brdStyle;
 
         /// <summary>
-        /// The top most
+        ///     The is maximized
+        /// </summary>
+        private static bool IsMaximized;
+
+        /// <summary>
+        ///     The top most
         /// </summary>
         private static bool topMost;
 
         /// <summary>
-        /// The bounds
+        ///     The win state
         /// </summary>
-        private static System.Drawing.Rectangle bounds;
+        private static FormWindowState winState;
+
+        #endregion Fields
+
+        #region Methods
 
         /// <summary>
-        /// The back color
-        /// </summary>
-        private static System.Drawing.Color BackColor;
-
-        /// <summary>
-        /// The is maximized
-        /// </summary>
-        private static bool IsMaximized = false;
-
-        /// <summary>
-        /// Maximizes the specified target form.
+        ///     Maximizes the specified target form.
         /// </summary>
         /// <param name="targetForm">The target form.</param>
         /// <param name="fullscreen">if set to <c>true</c> [fullscreen].</param>
@@ -61,7 +69,7 @@ namespace Hauptfenster
             {
                 IsMaximized = true;
                 Save(targetForm);
-                targetForm.BackColor = System.Drawing.Color.Black;
+                targetForm.BackColor = Color.Black;
                 if (fullscreen) targetForm.WindowState = FormWindowState.Maximized;
                 if (fullscreen) targetForm.FormBorderStyle = FormBorderStyle.None;
                 if (fullscreen) targetForm.TopMost = true;
@@ -70,20 +78,7 @@ namespace Hauptfenster
         }
 
         /// <summary>
-        /// Saves the specified target form.
-        /// </summary>
-        /// <param name="targetForm">The target form.</param>
-        public static void Save(Form targetForm)
-        {
-            winState = targetForm.WindowState;
-            brdStyle = targetForm.FormBorderStyle;
-            topMost = targetForm.TopMost;
-            bounds = targetForm.Bounds;
-            BackColor = targetForm.BackColor;
-        }
-
-        /// <summary>
-        /// Restores the specified target form.
+        ///     Restores the specified target form.
         /// </summary>
         /// <param name="targetForm">The target form.</param>
         public static void Restore(Form targetForm)
@@ -95,5 +90,20 @@ namespace Hauptfenster
             IsMaximized = false;
             targetForm.BackColor = BackColor;
         }
+
+        /// <summary>
+        ///     Saves the specified target form.
+        /// </summary>
+        /// <param name="targetForm">The target form.</param>
+        public static void Save(Form targetForm)
+        {
+            winState = targetForm.WindowState;
+            brdStyle = targetForm.FormBorderStyle;
+            topMost = targetForm.TopMost;
+            bounds = targetForm.Bounds;
+            BackColor = targetForm.BackColor;
+        }
+
+        #endregion Methods
     }
 }

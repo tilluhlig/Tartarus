@@ -15,91 +15,89 @@
 namespace _4_1_
 {
     /// <summary>
-    /// hier werden Items definiert (Konsum und Upgrades)
+    ///     hier werden Items definiert (Konsum und Upgrades)
     /// </summary>
     internal class Itemdata
     {
-        // Hier werden neue Items definiert und mit Effekten verbunden
-
         #region Upgrades
 
         /// <summary>
-        /// Arbeitsbereichupgrade I
+        ///     Arbeitsbereichupgrade I
         /// </summary>
         public static Item Arbeitsbereich1 = new Item("Arbeitsbereich I", 1000, Effectdata.Arbeitsbereich1, 1, 0);
 
         /// <summary>
-        /// Arbeitsbereichupgrade II
+        ///     Arbeitsbereichupgrade II
         /// </summary>
         public static Item Arbeitsbereich2 = new Item("Arbeitsbereich II", 1000, Effectdata.Arbeitsbereich2, 1, 0);
 
         /// <summary>
-        /// Arbeitsbereichupgrade III
+        ///     Arbeitsbereichupgrade III
         /// </summary>
         public static Item Arbeitsbereich3 = new Item("Arbeitsbereich III", 1000, Effectdata.Arbeitsbereich3, 1, 0);
 
         /// <summary>
-        /// Inventar Vergrößerung I
+        ///     Inventar Vergrößerung I
         /// </summary>
         public static Item Lager1 = new Item("Lager I", 1000, Effectdata.Lager1, 1, 0);
 
         /// <summary>
-        /// Inventar Vergrößerung II
+        ///     Inventar Vergrößerung II
         /// </summary>
         public static Item Lager2 = new Item("Lager II", 1000, Effectdata.Lager2, 1, 0);
 
         /// <summary>
-        /// Inventar Vergrößerung III
+        ///     Inventar Vergrößerung III
         /// </summary>
         public static Item Lager3 = new Item("Lager III", 1000, Effectdata.Lager3, 1, 0);
 
         /// <summary>
-        /// The tarn
+        ///     The tarn
         /// </summary>
         public static Item Tarn = new Item("Tarn", 1000, Effectdata.Tarn, 1, 0);
 
         /// <summary>
-        /// Treibstoffverbrauch I
+        ///     Treibstoffverbrauch I
         /// </summary>
         public static Item Verbrauch1 = new Item("Verbrauch I", 1000, Effectdata.Verbrauch1, 1, 0);
 
         /// <summary>
-        /// Treibstoffverbrauch II
+        ///     Treibstoffverbrauch II
         /// </summary>
         public static Item Verbrauch2 = new Item("Verbrauch II", 1000, Effectdata.Verbrauch2, 1, 0);
 
         /// <summary>
-        /// Treibstoffverbrauch III
+        ///     Treibstoffverbrauch III
         /// </summary>
         public static Item Verbrauch3 = new Item("Verbrauch III", 1000, Effectdata.Verbrauch3, 1, 0);
 
         /// <summary>
-        /// Verteidigungswerte I
+        ///     Verteidigungswerte I
         /// </summary>
         public static Item Verteidiung1 = new Item("Verteidigung I", 1000, Effectdata.Verteidiung1, 1, 0);
 
         /// <summary>
-        /// Verteidigungswerte II
+        ///     Verteidigungswerte II
         /// </summary>
         public static Item Verteidiung2 = new Item("Verteidigung II", 1000, Effectdata.Verteidiung2, 1, 0);
 
         /// <summary>
-        /// Verteidigungswerte III
+        ///     Verteidigungswerte III
         /// </summary>
         public static Item Verteidiung3 = new Item("Verteidigung III", 1000, Effectdata.Verteidiung3, 1, 0);
 
         /// <summary>
-        /// Zielhilfe I
+        ///     Zielhilfe I
         /// </summary>
         public static Item Ziel1 = new Item("Ziel I", 1000, Effectdata.Ziel1, 1, 0);
 
         /// <summary>
-        /// Zielhilfe II
+        ///     Zielhilfe II
         /// </summary>
         public static Item Ziel2 = new Item("Ziel II", 1000, Effectdata.Ziel2, 1, 0);
 
         /// <summary>
-        /// Zielhilfe III
+        ///     Zielhilfe III
         /// </summary>
         public static Item Ziel3 = new Item("Ziel III", 1000, Effectdata.Ziel3, 1, 0);
 
@@ -108,24 +106,30 @@ namespace _4_1_
         #region listen
 
         /// <summary>
-        /// Die Liste der Konsumitems
+        ///     Die Liste der Konsumitems
         /// </summary>
         public static Item[] Konsumierbares = { Heilen };
 
         /// <summary>
-        /// Die Liste der Upgrades
+        ///     Die Liste der Upgrades
         /// </summary>
-        public static Item[] Upgrades = { Verteidiung1, Verteidiung2, Verteidiung3, Tarn, Ziel1, Ziel2, Ziel3, Lager1, Lager2, Lager3, Arbeitsbereich1, Arbeitsbereich2, Arbeitsbereich3, Verbrauch1, Verbrauch2, Verbrauch3 };
+        public static Item[] Upgrades =
+        {
+            Verteidiung1, Verteidiung2, Verteidiung3, Tarn, Ziel1, Ziel2, Ziel3, Lager1,
+            Lager2, Lager3, Arbeitsbereich1, Arbeitsbereich2, Arbeitsbereich3, Verbrauch1, Verbrauch2, Verbrauch3
+        };
 
         #endregion listen
 
         #region Konsumierbares
 
         /// <summary>
-        /// Lebenspunkte regenerieren
+        ///     Lebenspunkte regenerieren
         /// </summary>
         public static Item Heilen = new Item("Heilen", 1000, Effectdata.Heilen, 1, 1);
 
         #endregion Konsumierbares
+
+        // Hier werden neue Items definiert und mit Effekten verbunden
     }
 }

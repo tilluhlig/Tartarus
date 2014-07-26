@@ -11,32 +11,41 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using Microsoft.Xna.Framework;
 
 namespace _4_1_
 {
     /// <summary>
-    /// Diese Klasse verwaltet gesonderte Befehle, die per "String" aufgerufen werden
+    ///     Diese Klasse verwaltet gesonderte Befehle, die per "String" aufgerufen werden
     /// </summary>
     public static class SpezialBefehle
     {
-        /// <summary>
-        /// Die Bezeichner der Befehle, wird in "Eingabefenster.cs" genutzt, um Befehle anzubieten
-        /// </summary>
-        public static String[] Befehle = { "TEXTUREN_RELEASE_ALLE", "TEXTUREN_DEBUG_ALLE",
-                                           "TEXTUREN_RELEASE_BAEUME", "TEXTUREN_DEBUG_BAEUME",
-                                           "TEXTUREN_RELEASE_HAEUSER", "TEXTUREN_DEBUG_HAEUSER",
-                                           "TEXTUREN_RELEASE_FAHRZEUGE", "TEXTUREN_DEBUG_FAHRZEUGE",
-                                           "TEXTUREN_RELEASE_KISTEN", "TEXTUREN_DEBUG_KISTEN",
-                                           "TEXTUREN_RELEASE_TUNNEL", "TEXTUREN_DEBUG_TUNNEL",
-                                           "TEXTUREN_RELEASE_WAFFEN", "TEXTUREN_DEBUG_WAFFEN",
-                                           "TEXTUREN_RELEASE_SONSTIGE", "TEXTUREN_DEBUG_SONSTIGE",
-                                         "SCHNEE","FEHLER"
-                                         };
+        #region Fields
 
         /// <summary>
-        /// Diese Methode Prüft, ob der übergebene Text ein spezieller Befehl ist
+        ///     Die Bezeichner der Befehle, wird in "Eingabefenster.cs" genutzt, um Befehle anzubieten
+        /// </summary>
+        public static String[] Befehle =
+        {
+            "TEXTUREN_RELEASE_ALLE", "TEXTUREN_DEBUG_ALLE",
+            "TEXTUREN_RELEASE_BAEUME", "TEXTUREN_DEBUG_BAEUME",
+            "TEXTUREN_RELEASE_HAEUSER", "TEXTUREN_DEBUG_HAEUSER",
+            "TEXTUREN_RELEASE_FAHRZEUGE", "TEXTUREN_DEBUG_FAHRZEUGE",
+            "TEXTUREN_RELEASE_KISTEN", "TEXTUREN_DEBUG_KISTEN",
+            "TEXTUREN_RELEASE_TUNNEL", "TEXTUREN_DEBUG_TUNNEL",
+            "TEXTUREN_RELEASE_WAFFEN", "TEXTUREN_DEBUG_WAFFEN",
+            "TEXTUREN_RELEASE_SONSTIGE", "TEXTUREN_DEBUG_SONSTIGE",
+            "SCHNEE", "FEHLER"
+        };
+
+        #endregion Fields
+
+        #region Methods
+
+        /// <summary>
+        ///     Diese Methode Prüft, ob der übergebene Text ein spezieller Befehl ist
         /// </summary>
         /// <param name="Text">Der zu prüfende Text</param>
         /// <returns>Gibt zurück, ob es ein Befehl ist:  true = ja, false = nein</returns>
@@ -87,7 +96,8 @@ namespace _4_1_
                                 // "TEXTUREN_DEBUG_HAEUSER"
                                 if (Text == Befehle[5])
                                 {
-                                    Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Häuser(false).ToString());
+                                    Game1.Meldungen.addMessage("Bilder: " +
+                                                               Optimierung.Optimiere_Häuser(false).ToString());
                                     return true;
                                 }
                                 else
@@ -95,7 +105,8 @@ namespace _4_1_
                                     // "TEXTUREN_RELEASE_FAHRZEUGE"
                                     if (Text == Befehle[6])
                                     {
-                                        Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Fahrzeuge(true).ToString());
+                                        Game1.Meldungen.addMessage("Bilder: " +
+                                                                   Optimierung.Optimiere_Fahrzeuge(true).ToString());
                                         return true;
                                     }
                                     else
@@ -103,7 +114,8 @@ namespace _4_1_
                                         // "TEXTUREN_DEBUG_FAHRZEUGE"
                                         if (Text == Befehle[7])
                                         {
-                                            Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Fahrzeuge(false).ToString());
+                                            Game1.Meldungen.addMessage("Bilder: " +
+                                                                       Optimierung.Optimiere_Fahrzeuge(false).ToString());
                                             return true;
                                         }
                                         else
@@ -111,7 +123,8 @@ namespace _4_1_
                                             // "TEXTUREN_RELEASE_KISTEN"
                                             if (Text == Befehle[8])
                                             {
-                                                Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Kisten(true).ToString());
+                                                Game1.Meldungen.addMessage("Bilder: " +
+                                                                           Optimierung.Optimiere_Kisten(true).ToString());
                                                 return true;
                                             }
                                             else
@@ -119,7 +132,9 @@ namespace _4_1_
                                                 // "TEXTUREN_DEBUG_KISTEN"
                                                 if (Text == Befehle[9])
                                                 {
-                                                    Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Kisten(false).ToString());
+                                                    Game1.Meldungen.addMessage("Bilder: " +
+                                                                               Optimierung.Optimiere_Kisten(false)
+                                                                                   .ToString());
                                                     return true;
                                                 }
                                                 else
@@ -127,7 +142,9 @@ namespace _4_1_
                                                     // "TEXTUREN_RELEASE_TUNNEL"
                                                     if (Text == Befehle[10])
                                                     {
-                                                        Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Tunnel(true).ToString());
+                                                        Game1.Meldungen.addMessage("Bilder: " +
+                                                                                   Optimierung.Optimiere_Tunnel(true)
+                                                                                       .ToString());
                                                         return true;
                                                     }
                                                     else
@@ -135,7 +152,9 @@ namespace _4_1_
                                                         // "TEXTUREN_DEBUG_TUNNEL"
                                                         if (Text == Befehle[11])
                                                         {
-                                                            Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Tunnel(false).ToString());
+                                                            Game1.Meldungen.addMessage("Bilder: " +
+                                                                                       Optimierung.Optimiere_Tunnel(
+                                                                                           false).ToString());
                                                             return true;
                                                         }
                                                         else
@@ -143,7 +162,9 @@ namespace _4_1_
                                                             // "TEXTUREN_RELEASE_WAFFEN"
                                                             if (Text == Befehle[12])
                                                             {
-                                                                Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Waffen(true).ToString());
+                                                                Game1.Meldungen.addMessage("Bilder: " +
+                                                                                           Optimierung.Optimiere_Waffen(
+                                                                                               true).ToString());
                                                                 return true;
                                                             }
                                                             else
@@ -151,7 +172,10 @@ namespace _4_1_
                                                                 // "TEXTUREN_DEBUG_WAFFEN"
                                                                 if (Text == Befehle[13])
                                                                 {
-                                                                    Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Waffen(false).ToString());
+                                                                    Game1.Meldungen.addMessage("Bilder: " +
+                                                                                               Optimierung
+                                                                                                   .Optimiere_Waffen(
+                                                                                                       false).ToString());
                                                                     return true;
                                                                 }
                                                                 else
@@ -159,7 +183,10 @@ namespace _4_1_
                                                                     // "TEXTUREN_RELEASE_SONSTIGE"
                                                                     if (Text == Befehle[14])
                                                                     {
-                                                                        Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Sonstige(true).ToString());
+                                                                        Game1.Meldungen.addMessage("Bilder: " +
+                                                                                                   Optimierung
+                                                                                                       .Optimiere_Sonstige
+                                                                                                       (true).ToString());
                                                                         return true;
                                                                     }
                                                                     else
@@ -167,7 +194,11 @@ namespace _4_1_
                                                                         // "TEXTUREN_DEBUG_SONSTIGE"
                                                                         if (Text == Befehle[15])
                                                                         {
-                                                                            Game1.Meldungen.addMessage("Bilder: " + Optimierung.Optimiere_Sonstige(false).ToString());
+                                                                            Game1.Meldungen.addMessage("Bilder: " +
+                                                                                                       Optimierung
+                                                                                                           .Optimiere_Sonstige
+                                                                                                           (false)
+                                                                                                           .ToString());
                                                                             return true;
                                                                         }
                                                                         else
@@ -179,8 +210,18 @@ namespace _4_1_
                                                                                 {
                                                                                     // for (int b = 0; b < 100; b++)
                                                                                     // {
-                                                                                    Vector2 Pos = Game1.Spiel2.Fenster + new Vector2(Help.rnd.Next(0, Game1.screenWidth), -Help.rnd.Next(0, Game1.screenHeight)); //- Help.rnd.Next(0,1000
-                                                                                    Game1.Spiel2.AddRakete(0, Pos, Vector2.Zero, 300 * 4, Waffendaten.mg, 0);
+                                                                                    Vector2 Pos = Game1.Spiel2.Fenster +
+                                                                                                  new Vector2(
+                                                                                                      Help.rnd.Next(0,
+                                                                                                          Game1
+                                                                                                              .screenWidth),
+                                                                                                      -Help.rnd.Next(0,
+                                                                                                          Game1
+                                                                                                              .screenHeight));
+                                                                                    //- Help.rnd.Next(0,1000
+                                                                                    Game1.Spiel2.AddRakete(0, Pos,
+                                                                                        Vector2.Zero, 300 * 4,
+                                                                                        Waffendaten.mg, 0);
                                                                                     // }
                                                                                 }
                                                                                 return true;
@@ -197,5 +238,7 @@ namespace _4_1_
 
             return false;
         }
+
+        #endregion Methods
     }
 }

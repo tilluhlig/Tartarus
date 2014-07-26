@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,23 +19,41 @@ using System.IO;
 namespace _4_1_
 {
     /// <summary>
-    /// Diese Klasse dient dem serialisieren und speichern eines Spielobjektes
+    ///     Diese Klasse dient dem serialisieren und speichern eines Spielobjektes
     /// </summary>
     public static class MapWriter
     {
+        #region Fields
+
         /// <summary>
-        /// in dieser Liste wird nach dem serialisieren des Spielobjektes, die Textdarstellung des Objektes zum Auslösen
-        /// des Speichervorganges abgelegt
+        ///     in dieser Liste wird nach dem serialisieren des Spielobjektes, die Textdarstellung des Objektes zum Auslösen
+        ///     des Speichervorganges abgelegt
         /// </summary>
         public static List<String> list = new List<String>();
 
+        #endregion Fields
+
+        #region Methods
+
         /// <summary>
-        /// Speichert die zuvor generierten Speicherdaten in eine Datei
+        ///     Wandelt ein Spielobjekt in Text um
+        /// </summary>
+        /// <param name="Spielfeld">das zu serialisierende Spielobjekt</param>
+        /// <returns>gibt die Textdarstellung zurück</returns>
+        public static List<String> Generieren(Spiel Spielfeld)
+        {
+            list.Clear();
+            list.AddRange(Spielfeld.Speichern());
+            return list;
+        }
+
+        /// <summary>
+        ///     Speichert die zuvor generierten Speicherdaten in eine Datei
         /// </summary>
         /// <param name="Datei">der Pfad+Name der Zieldatei</param>
         public static void Speichern(String Datei)
         {
-            StreamWriter datei = new StreamWriter(Path.ChangeExtension(Datei, ".dat"));
+            var datei = new StreamWriter(Path.ChangeExtension(Datei, ".dat"));
             for (int i = 0; i < list.Count; i++)
                 datei.WriteLine(list[i]);
             datei.Close();
@@ -45,16 +64,6 @@ namespace _4_1_
             list.Clear();
         }
 
-        /// <summary>
-        /// Wandelt ein Spielobjekt in Text um
-        /// </summary>
-        /// <param name="Spielfeld">das zu serialisierende Spielobjekt</param>
-        /// <returns>gibt die Textdarstellung zurück</returns>
-        public static List<String> Generieren(Spiel Spielfeld)
-        {
-            list.Clear();
-            list.AddRange(Spielfeld.Speichern());
-            return list;
-        }
+        #endregion Methods
     }
 }

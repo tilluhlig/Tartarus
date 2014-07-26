@@ -25,10 +25,14 @@ namespace _4_1_
     /// </summary>
     public class Tunnel
     {
+        #region Fields
+
         /// <summary>
         /// die maximale Anzahl an Lebenspunkten, die ein Tunnel haben kann
         /// </summary>
         public static float Maxhp = 5000;
+
+        #endregion Fields
 
         #region DEBUG
 
@@ -96,71 +100,41 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Erstellt ein Tunnelobjekt aus Text
+        /// </summary>
+        /// <param name="Text">der Text, aus dem das Objekt erzeugt werden soll</param>
+        /// <param name="Objekt">dieses Tunnelobjekt soll als Grundlage genommen werden</param>
+        /// <returns>das erstellte Tunnelobjekt</returns>
+        public static Tunnel Laden(List<String> Text, Tunnel Objekt)
+        {
+            Tunnel temp = Objekt;
+            if (temp == null) temp = new Tunnel(Vector2.Zero);
+            temp.Bild = Texturen.tunnel;
+
+            List<String> Text2 = TextLaden.ErmittleBereich(Text, "TUNNEL");
+
+            Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
+            temp.Lebenspunkte = TextLaden.LadeFloat(Liste, "Lebenspunkte", temp.Lebenspunkte);
+            temp.Position = TextLaden.LadeVector2(Liste, "Position", temp.Position);
+
+            if (temp.Kollision == null || temp.Zerstörung == null)
+            {
+                temp.Kollision = new KollisionsObjekt(temp.Bild, temp.Bild.Width, temp.Bild.Height, SKALIERUNG, false, false, false, new Vector2(0, 0));
+                temp.Zerstörung = new ZerstörungsObjekt(temp.Bild.Width, temp.Bild.Height, SKALIERUNG, false, false, false);
+
+                temp.Kollision = KollisionsObjekt.Laden(Text, temp.Kollision);
+                temp.Zerstörung = ZerstörungsObjekt.Laden(Text, temp.Zerstörung);
+            }
+
+            return temp;
+        }
+
+        /// <summary>
         /// initialisiert die Daten für die Tunnelklasse
         /// </summary>
         public static void LadeTunnelDaten()
         {
             SKALIERUNG = TUNNEL_SCALE.Wert;
-        }
-
-        /// <summary>
-        /// Wendet Schadenspunkte auf den Tunnel an
-        /// </summary>
-        /// <param name="recievedDamage">der Schaden, der dem Tunnel zugerechnet werden soll</param>
-        /// <returns>true = Tunnel hat noch mehr als 0 Lebenspunkte, false = Tunnel ist zerstört</returns>
-        public bool AktualisiereTunnelSchaden(int recievedDamage)
-        {
-            Lebenspunkte -= recievedDamage;
-            if (Lebenspunkte <= 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Lädt das Kollisionsobjekt neu
-        /// </summary>
-        public void Lade()
-        {
-            Kollision = new KollisionsObjekt(Bild, Bild.Width, Bild.Height, SKALIERUNG, false, false, false, new Vector2(0, 0));
-        }
-
-        /// <summary>
-        /// Lädt das Zerstörungsobjekt neu
-        /// </summary>
-        public void Lade2()
-        {
-            Zerstörung = new ZerstörungsObjekt(Bild.Width, Bild.Height, SKALIERUNG, false, false, false);
-        }
-
-        /// <summary>
-        /// Prüft, ob der Tunnel getroffen wurde
-        /// </summary>
-        /// <param name="Incoming_Position">die absolute Position, die geprüft werden soll</param>
-        /// <returns>true = getroffen, false = nicht getroffen</returns>
-        public bool PrüfeObKollision(Vector2 Incoming_Position)
-        {
-            if (Kollision == null) return false;
-            return Kollision.collision(Incoming_Position, Position);
-        }
-
-        /// <summary>
-        /// Berechnet die Zerstörung des Tunnels
-        /// </summary>
-        /// <param name="Explosion">die Position der Explosion</param>
-        /// <param name="Energie">die Explosionsstärke (Radius)</param>
-        /// <returns>die Anzahl getroffener Pixel</returns>
-        public int PrüfeObZerstörung(Vector2 Explosion, int Energie)
-        {
-            if (Zerstörung == null) return 0;
-            Color[] temp = new Color[Bild.Width * Bild.Height];
-            Bild.GetData(temp);
-            Texture2D tmp = new Texture2D(Bild.GraphicsDevice, Bild.Width, Bild.Height);
-            tmp.SetData(temp);
-
-            return Zerstörung.BerechneZerstörung(tmp, Explosion, Energie, Position);
         }
 
         /// <summary>
@@ -231,33 +205,77 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Erstellt ein Tunnelobjekt aus Text
+        /// Wendet Schadenspunkte auf den Tunnel an
         /// </summary>
-        /// <param name="Text">der Text, aus dem das Objekt erzeugt werden soll</param>
-        /// <param name="Objekt">dieses Tunnelobjekt soll als Grundlage genommen werden</param>
-        /// <returns>das erstellte Tunnelobjekt</returns>
-        public static Tunnel Laden(List<String> Text, Tunnel Objekt)
+        /// <param name="recievedDamage">der Schaden, der dem Tunnel zugerechnet werden soll</param>
+        /// <returns>true = Tunnel hat noch mehr als 0 Lebenspunkte, false = Tunnel ist zerstört</returns>
+        public bool AktualisiereTunnelSchaden(int recievedDamage)
         {
-            Tunnel temp = Objekt;
-            if (temp == null) temp = new Tunnel(Vector2.Zero);
-            temp.Bild = Texturen.tunnel;
-
-            List<String> Text2 = TextLaden.ErmittleBereich(Text, "TUNNEL");
-
-            Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
-            temp.Lebenspunkte = TextLaden.LadeFloat(Liste, "Lebenspunkte", temp.Lebenspunkte);
-            temp.Position = TextLaden.LadeVector2(Liste, "Position", temp.Position);
-
-            if (temp.Kollision == null || temp.Zerstörung == null)
+            Lebenspunkte -= recievedDamage;
+            if (Lebenspunkte <= 0)
             {
-                temp.Kollision = new KollisionsObjekt(temp.Bild, temp.Bild.Width, temp.Bild.Height, SKALIERUNG, false, false, false, new Vector2(0, 0));
-                temp.Zerstörung = new ZerstörungsObjekt(temp.Bild.Width, temp.Bild.Height, SKALIERUNG, false, false, false);
-
-                temp.Kollision = KollisionsObjekt.Laden(Text, temp.Kollision);
-                temp.Zerstörung = ZerstörungsObjekt.Laden(Text, temp.Zerstörung);
+                return false;
             }
 
-            return temp;
+            return true;
+        }
+
+        /// <summary>
+        /// Wandelt ein Tunnelobjekt in Text um (speziell für den Editor)
+        /// </summary>
+        /// <returns>die Textdarstellung des Objekts</returns>
+        public List<String> EditorSpeichern()
+        {
+            List<String> data = new List<String>();
+            data.Add("[TUNNEL]");
+            data.Add("Lebenspunkte=" + Lebenspunkte);
+            data.Add("Position=" + Position);
+            data.Add("[/TUNNEL]");
+            return data;
+        }
+
+        /// <summary>
+        /// Lädt das Kollisionsobjekt neu
+        /// </summary>
+        public void Lade()
+        {
+            Kollision = new KollisionsObjekt(Bild, Bild.Width, Bild.Height, SKALIERUNG, false, false, false, new Vector2(0, 0));
+        }
+
+        /// <summary>
+        /// Lädt das Zerstörungsobjekt neu
+        /// </summary>
+        public void Lade2()
+        {
+            Zerstörung = new ZerstörungsObjekt(Bild.Width, Bild.Height, SKALIERUNG, false, false, false);
+        }
+
+        /// <summary>
+        /// Prüft, ob der Tunnel getroffen wurde
+        /// </summary>
+        /// <param name="Incoming_Position">die absolute Position, die geprüft werden soll</param>
+        /// <returns>true = getroffen, false = nicht getroffen</returns>
+        public bool PrüfeObKollision(Vector2 Incoming_Position)
+        {
+            if (Kollision == null) return false;
+            return Kollision.collision(Incoming_Position, Position);
+        }
+
+        /// <summary>
+        /// Berechnet die Zerstörung des Tunnels
+        /// </summary>
+        /// <param name="Explosion">die Position der Explosion</param>
+        /// <param name="Energie">die Explosionsstärke (Radius)</param>
+        /// <returns>die Anzahl getroffener Pixel</returns>
+        public int PrüfeObZerstörung(Vector2 Explosion, int Energie)
+        {
+            if (Zerstörung == null) return 0;
+            Color[] temp = new Color[Bild.Width * Bild.Height];
+            Bild.GetData(temp);
+            Texture2D tmp = new Texture2D(Bild.GraphicsDevice, Bild.Width, Bild.Height);
+            tmp.SetData(temp);
+
+            return Zerstörung.BerechneZerstörung(tmp, Explosion, Energie, Position);
         }
 
         /// <summary>
@@ -275,20 +293,6 @@ namespace _4_1_
             data.AddRange(Zerstörung.Speichern());
             data.Add("[/TUNNEL]");
 
-            return data;
-        }
-
-        /// <summary>
-        /// Wandelt ein Tunnelobjekt in Text um (speziell für den Editor)
-        /// </summary>
-        /// <returns>die Textdarstellung des Objekts</returns>
-        public List<String> EditorSpeichern()
-        {
-            List<String> data = new List<String>();
-            data.Add("[TUNNEL]");
-            data.Add("Lebenspunkte=" + Lebenspunkte);
-            data.Add("Position=" + Position);
-            data.Add("[/TUNNEL]");
             return data;
         }
     }

@@ -11,22 +11,29 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _4_1_
 {
     /// <summary>
-    /// Class Fog
+    ///     Class Fog
     /// </summary>
     public static class Fog
     {
+        #region Fields
+
         /// <summary>
-        /// The endnebel
+        ///     The endnebel
         /// </summary>
         public static Texture2D[] endnebel = new Texture2D[2];
 
+        #endregion Fields
+
+        #region Methods
+
         /// <summary>
-        /// Creates the fog.
+        ///     Creates the fog.
         /// </summary>
         public static void CreateFog() // Ersetzen
         {
@@ -50,7 +57,49 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Generates the scenery fog.
+        ///     Draws the scenery fog.
+        /// </summary>
+        public static void DrawSceneryFog() // Zeichnet den Nebel (Karte)
+        {
+/*
+            if (Spiel2 == null) return;
+            Vector3 screenScalingFactor;
+
+            float horScaling = (float)device.PresentationParameters.BackBufferWidth / baseScreenSize.X;
+            float verScaling = (float)device.PresentationParameters.BackBufferHeight / baseScreenSize.Y;
+            screenScalingFactor = new Vector3(horScaling, verScaling, 1);
+            Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
+            int zz = 0;
+            for (int i = 0; i < Spiel2.foreground.Length; i++)
+            {
+                if (Spiel2.Fenster.X > (i + 1) * 2048 || Spiel2.Fenster.X + screenWidth < i * 2048) continue;
+                if ((int)Spiel2.Fenster.X + screenWidth < i * 2048) continue;
+                int x = (int)Spiel2.Fenster.X - i * 2048;
+                int y = (int)Spiel2.Fenster.Y;
+
+                Rectangle a;
+                if (x < 0)
+                {
+                    //continue;
+                    x = (i * 2048 - (int)Spiel2.Fenster.X);
+                    screen = new Rectangle((int)0, 0, screenWidth, screenHeight);
+                    a = new Rectangle(0, y, screenWidth, screenHeight);
+                    spriteBatch.Draw(endnebel[zz], screen, a, Color.White * 0.8f, 0.0f, new Vector2(-x, 0), SpriteEffects.None, 1);
+                }
+                else
+                {
+                    //continue;
+                    int l = 2048 - x; if (l > screenWidth) l = screenWidth; if (l < 0) l = 0;
+                    screen = new Rectangle((int)0, 0, l, screenHeight);
+                    a = new Rectangle(x, y, l, screenHeight);
+                    spriteBatch.Draw(endnebel[zz], screen, a, Color.White * 0.8f, 0.0f, new Vector2(0, 0), SpriteEffects.None, 1);
+                }
+                zz++;
+            }*/
+        }
+
+        /// <summary>
+        ///     Generates the scenery fog.
         /// </summary>
         public static void GenerateSceneryFog() // Zeichnet den Nebel (Karte)
         {
@@ -101,45 +150,6 @@ namespace _4_1_
             }*/
         }
 
-        /// <summary>
-        /// Draws the scenery fog.
-        /// </summary>
-        public static void DrawSceneryFog() // Zeichnet den Nebel (Karte)
-        {/*
-            if (Spiel2 == null) return;
-            Vector3 screenScalingFactor;
-
-            float horScaling = (float)device.PresentationParameters.BackBufferWidth / baseScreenSize.X;
-            float verScaling = (float)device.PresentationParameters.BackBufferHeight / baseScreenSize.Y;
-            screenScalingFactor = new Vector3(horScaling, verScaling, 1);
-            Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
-            int zz = 0;
-            for (int i = 0; i < Spiel2.foreground.Length; i++)
-            {
-                if (Spiel2.Fenster.X > (i + 1) * 2048 || Spiel2.Fenster.X + screenWidth < i * 2048) continue;
-                if ((int)Spiel2.Fenster.X + screenWidth < i * 2048) continue;
-                int x = (int)Spiel2.Fenster.X - i * 2048;
-                int y = (int)Spiel2.Fenster.Y;
-
-                Rectangle a;
-                if (x < 0)
-                {
-                    //continue;
-                    x = (i * 2048 - (int)Spiel2.Fenster.X);
-                    screen = new Rectangle((int)0, 0, screenWidth, screenHeight);
-                    a = new Rectangle(0, y, screenWidth, screenHeight);
-                    spriteBatch.Draw(endnebel[zz], screen, a, Color.White * 0.8f, 0.0f, new Vector2(-x, 0), SpriteEffects.None, 1);
-                }
-                else
-                {
-                    //continue;
-                    int l = 2048 - x; if (l > screenWidth) l = screenWidth; if (l < 0) l = 0;
-                    screen = new Rectangle((int)0, 0, l, screenHeight);
-                    a = new Rectangle(x, y, l, screenHeight);
-                    spriteBatch.Draw(endnebel[zz], screen, a, Color.White * 0.8f, 0.0f, new Vector2(0, 0), SpriteEffects.None, 1);
-                }
-                zz++;
-            }*/
-        }
+        #endregion Methods
     }
 }

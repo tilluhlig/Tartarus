@@ -1,15 +1,19 @@
 ﻿using System;
 using System.IO;
+using SevenZip;
+using SevenZip.Compression.LZMA;
 
 namespace _4_1_.Kompression
 {
     /// <summary>
-    /// Klasse nutzt LZMA Kompression
+    ///     Klasse nutzt LZMA Kompression
     /// </summary>
     public static class Kompression
     {
+        #region Methods
+
         /// <summary>
-        /// Dekomprimiert Stream
+        ///     Dekomprimiert Stream
         /// </summary>
         /// <param name="Input">Eingabestream</param>
         /// <param name="Output">Ausgabedatei</param>
@@ -22,10 +26,10 @@ namespace _4_1_.Kompression
             string outputName = Output;
             outStream = new FileStream(outputName, FileMode.Create, FileAccess.Write);
 
-            byte[] properties = new byte[5];
+            var properties = new byte[5];
             if (inStream.Read(properties, 0, 5) != 5)
                 throw (new Exception("input .lzma is too short"));
-            SevenZip.Compression.LZMA.Decoder decoder = new SevenZip.Compression.LZMA.Decoder();
+            var decoder = new Decoder();
             decoder.SetDecoderProperties(properties);
 
             long outSize = 0;
@@ -34,7 +38,7 @@ namespace _4_1_.Kompression
                 int v = inStream.ReadByte();
                 if (v < 0)
                     throw (new Exception("Can't Read 1"));
-                outSize |= ((long)(byte)v) << (8 * i);
+                outSize |= ((long) (byte) v) << (8*i);
             }
             long compressedSize = inStream.Length - inStream.Position;
 
@@ -44,14 +48,14 @@ namespace _4_1_.Kompression
         }
 
         /// <summary>
-        /// Komprimiert eine Datei
+        ///     Komprimiert eine Datei
         /// </summary>
         /// <param name="Input">Eingabedatei</param>
         /// <param name="Output">Ausgabedatei</param>
         public static void Komprimiere(String Input, String Output)
         {
-            ReaderStream.ReaderStream dat = new ReaderStream.ReaderStream(Input);
-            MemoryStream datei = new MemoryStream();
+            var dat = new ReaderStream.ReaderStream(Input);
+            var datei = new MemoryStream();
             while (!dat.EndOfStream)
                 datei.WriteByte(dat.ReadByte());
 
@@ -63,7 +67,7 @@ namespace _4_1_.Kompression
         }
 
         /// <summary>
-        /// Komprimiert einen Stream
+        ///     Komprimiert einen Stream
         /// </summary>
         /// <param name="Input">Eingabestream</param>
         /// <param name="Output">Ausgabedatei</param>
@@ -86,32 +90,32 @@ namespace _4_1_.Kompression
             Int32 algorithm = 2;
             Int32 numFastBytes = 128;
 
-            SevenZip.CoderPropID[] propIDs =
-				{
-					SevenZip.CoderPropID.DictionarySize,
-					SevenZip.CoderPropID.PosStateBits,
-					SevenZip.CoderPropID.LitContextBits,
-					SevenZip.CoderPropID.LitPosBits,
-					SevenZip.CoderPropID.Algorithm,
-					SevenZip.CoderPropID.NumFastBytes,
-					SevenZip.CoderPropID.MatchFinder,
-					SevenZip.CoderPropID.EndMarker
-				};
+            CoderPropID[] propIDs =
+            {
+                CoderPropID.DictionarySize,
+                CoderPropID.PosStateBits,
+                CoderPropID.LitContextBits,
+                CoderPropID.LitPosBits,
+                CoderPropID.Algorithm,
+                CoderPropID.NumFastBytes,
+                CoderPropID.MatchFinder,
+                CoderPropID.EndMarker
+            };
 
             string mf = "bt4";
             object[] properties =
-				{
-					(Int32)(dictionary),
-					(Int32)(posStateBits),
-					(Int32)(litContextBits),
-					(Int32)(litPosBits),
-					(Int32)(algorithm),
-					(Int32)(numFastBytes),
-					mf,
-					false
-				};
+            {
+                dictionary,
+                posStateBits,
+                litContextBits,
+                litPosBits,
+                algorithm,
+                numFastBytes,
+                mf,
+                false
+            };
 
-            SevenZip.Compression.LZMA.Encoder encoder = new SevenZip.Compression.LZMA.Encoder();
+            var encoder = new Encoder();
             encoder.SetCoderProperties(propIDs, properties);
             encoder.WriteCoderProperties(outStream);
             Int64 fileSize;
@@ -119,11 +123,13 @@ namespace _4_1_.Kompression
             fileSize = inStream.Length;
 
             for (int i = 0; i < 8; i++)
-                outStream.WriteByte((Byte)(fileSize >> (8 * i)));
+                outStream.WriteByte((Byte) (fileSize >> (8*i)));
 
             encoder.Code(inStream, outStream, -1, -1, null);
 
             outStream.Close();
         }
+
+        #endregion Methods
     }
 }

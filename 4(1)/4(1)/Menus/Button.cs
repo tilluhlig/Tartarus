@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -18,67 +19,73 @@ using Microsoft.Xna.Framework.Input;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Button
+    ///     Class Button
     /// </summary>
     public class Button
     {
+        #region Fields
+
         /// <summary>
-        /// The button box
+        ///     The button
+        /// </summary>
+        private readonly Texture2D button;
+
+        /// <summary>
+        ///     The description
+        /// </summary>
+        private readonly string description;
+
+        /// <summary>
+        ///     The description2
+        /// </summary>
+        private readonly string description2 = "";
+
+        /// <summary>
+        ///     The font
+        /// </summary>
+        private readonly SpriteFont font;
+
+        /// <summary>
+        ///     The string pos
+        /// </summary>
+        private readonly Vector2 stringPos;
+
+        /// <summary>
+        ///     The string pos2
+        /// </summary>
+        private readonly Vector2 stringPos2 = Vector2.Zero;
+
+        /// <summary>
+        ///     The zwei strings
+        /// </summary>
+        private readonly bool zweiStrings;
+
+        /// <summary>
+        ///     The button box
         /// </summary>
         public BoundingBox ButtonBox;
 
         /// <summary>
-        /// The own pos
+        ///     The own pos
         /// </summary>
         public Vector2 ownPos;
 
         /// <summary>
-        /// The selected
+        ///     The selected
         /// </summary>
         public bool selected;
 
         /// <summary>
-        /// The button
-        /// </summary>
-        private Texture2D button;
-
-        /// <summary>
-        /// The description
-        /// </summary>
-        private string description;
-
-        /// <summary>
-        /// The description2
-        /// </summary>
-        private string description2 = "";
-
-        /// <summary>
-        /// The font
-        /// </summary>
-        private SpriteFont font;
-
-        /// <summary>
-        /// The string pos
-        /// </summary>
-        private Vector2 stringPos;
-
-        /// <summary>
-        /// The string pos2
-        /// </summary>
-        private Vector2 stringPos2 = Vector2.Zero;
-
-        /// <summary>
-        /// The visible
+        ///     The visible
         /// </summary>
         private bool visible;
 
-        /// <summary>
-        /// The zwei strings
-        /// </summary>
-        private bool zweiStrings = false;
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Button"/> class.
+        ///     Initializes a new instance of the <see cref="Button" /> class.
         /// </summary>
         /// <param name="button">The button.</param>
         /// <param name="pos">The pos.</param>
@@ -88,15 +95,18 @@ namespace _4_1_
         {
             this.button = button;
             this.description = description;
-            this.ownPos = pos;
+            ownPos = pos;
             this.font = font;
 
-            ButtonBox = new BoundingBox(new Vector3(pos, 0), new Vector3(pos.X + button.Width, pos.Y + button.Height - 10, 0));
-            stringPos = pos + new Vector2((button.Width - font.MeasureString(description).X) / 2, (button.Height - font.MeasureString(description).Y) / 2);
+            ButtonBox = new BoundingBox(new Vector3(pos, 0),
+                new Vector3(pos.X + button.Width, pos.Y + button.Height - 10, 0));
+            stringPos = pos +
+                        new Vector2((button.Width - font.MeasureString(description).X)/2,
+                            (button.Height - font.MeasureString(description).Y)/2);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Button"/> class.
+        ///     Initializes a new instance of the <see cref="Button" /> class.
         /// </summary>
         /// <param name="button">The button.</param>
         /// <param name="pos">The pos.</param>
@@ -106,20 +116,27 @@ namespace _4_1_
         public Button(Texture2D button, Vector2 pos, string description1, string description2, SpriteFont font)
         {
             this.button = button;
-            this.description = description1;
+            description = description1;
             this.description2 = description2;
-            this.ownPos = pos;
+            ownPos = pos;
             this.font = font;
 
-            ButtonBox = new BoundingBox(new Vector3(pos, 0), new Vector3(pos.X + button.Width, pos.Y + button.Height - 10, 0));
-            stringPos = pos + new Vector2((button.Width - font.MeasureString(description).X) / 2, button.Height / 2 - font.MeasureString(description).Y);
-            stringPos2 = pos + new Vector2((button.Width - font.MeasureString(description2).X) / 2, button.Height / 2);
+            ButtonBox = new BoundingBox(new Vector3(pos, 0),
+                new Vector3(pos.X + button.Width, pos.Y + button.Height - 10, 0));
+            stringPos = pos +
+                        new Vector2((button.Width - font.MeasureString(description).X)/2,
+                            button.Height/2 - font.MeasureString(description).Y);
+            stringPos2 = pos + new Vector2((button.Width - font.MeasureString(description2).X)/2, button.Height/2);
 
             zweiStrings = true;
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         /// <param name="Cselected">The cselected.</param>
@@ -154,7 +171,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Hides this instance.
+        ///     Hides this instance.
         /// </summary>
         public void hide()
         {
@@ -162,12 +179,14 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Mouses the keys.
+        ///     Mouses the keys.
         /// </summary>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
         public bool MouseKeys()
-        {//gibt true zurück, wenn gedrückt
-            if (ButtonBox.Contains(new Vector3(Help.GetMouseState().X, Help.GetMouseState().Y, 0)) == ContainmentType.Contains)
+        {
+//gibt true zurück, wenn gedrückt
+            if (ButtonBox.Contains(new Vector3(Help.GetMouseState().X, Help.GetMouseState().Y, 0)) ==
+                ContainmentType.Contains)
             {
                 selected = true;
                 if (Help.GetMouseState().LeftButton == ButtonState.Pressed)
@@ -181,11 +200,13 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Shows this instance.
+        ///     Shows this instance.
         /// </summary>
         public void show()
         {
             visible = true;
         }
+
+        #endregion Methods
     }
 }

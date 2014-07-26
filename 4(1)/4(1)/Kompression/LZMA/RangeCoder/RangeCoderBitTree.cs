@@ -2,15 +2,48 @@ using System;
 
 namespace SevenZip.Compression.RangeCoder
 {
-    internal struct BitTreeEncoder
+    internal struct BitTreeDecoder
     {
-        private BitEncoder[] Models;
-        private int NumBitLevels;
+        #region Fields
 
-        public BitTreeEncoder(int numBitLevels)
+        private readonly BitDecoder[] Models;
+        private readonly int NumBitLevels;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public BitTreeDecoder(int numBitLevels)
         {
             NumBitLevels = numBitLevels;
-            Models = new BitEncoder[1 << numBitLevels];
+            Models = new BitDecoder[1 << numBitLevels];
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
+        public static uint ReverseDecode(BitDecoder[] Models, UInt32 startIndex,
+            Decoder rangeDecoder, int NumBitLevels)
+        {
+            uint m = 1;
+            uint symbol = 0;
+            for (int bitIndex = 0; bitIndex < NumBitLevels; bitIndex++)
+            {
+                uint bit = Models[startIndex + m].Decode(rangeDecoder);
+                m <<= 1;
+                m += bit;
+                symbol |= (bit << bitIndex);
+            }
+            return symbol;
+        }
+
+        public uint Decode(Decoder rangeDecoder)
+        {
+            uint m = 1;
+            for (int bitIndex = NumBitLevels; bitIndex > 0; bitIndex--)
+                m = (m << 1) + Models[m].Decode(rangeDecoder);
+            return m - ((uint)1 << NumBitLevels);
         }
 
         public void Init()
@@ -19,56 +52,55 @@ namespace SevenZip.Compression.RangeCoder
                 Models[i].Init();
         }
 
-        public void Encode(Encoder rangeEncoder, UInt32 symbol)
+        public uint ReverseDecode(Decoder rangeDecoder)
         {
-            UInt32 m = 1;
-            for (int bitIndex = NumBitLevels; bitIndex > 0; )
+            uint m = 1;
+            uint symbol = 0;
+            for (int bitIndex = 0; bitIndex < NumBitLevels; bitIndex++)
             {
-                bitIndex--;
-                UInt32 bit = (symbol >> bitIndex) & 1;
-                Models[m].Encode(rangeEncoder, bit);
-                m = (m << 1) | bit;
+                uint bit = Models[m].Decode(rangeDecoder);
+                m <<= 1;
+                m += bit;
+                symbol |= (bit << bitIndex);
             }
+            return symbol;
         }
 
-        public void ReverseEncode(Encoder rangeEncoder, UInt32 symbol)
+        #endregion Methods
+    }
+
+    internal struct BitTreeEncoder
+    {
+        #region Fields
+
+        private readonly BitEncoder[] Models;
+        private readonly int NumBitLevels;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public BitTreeEncoder(int numBitLevels)
+        {
+            NumBitLevels = numBitLevels;
+            Models = new BitEncoder[1 << numBitLevels];
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
+        public static void ReverseEncode(BitEncoder[] Models, UInt32 startIndex,
+            Encoder rangeEncoder, int NumBitLevels, UInt32 symbol)
         {
             UInt32 m = 1;
-            for (UInt32 i = 0; i < NumBitLevels; i++)
+            for (int i = 0; i < NumBitLevels; i++)
             {
                 UInt32 bit = symbol & 1;
-                Models[m].Encode(rangeEncoder, bit);
+                Models[startIndex + m].Encode(rangeEncoder, bit);
                 m = (m << 1) | bit;
                 symbol >>= 1;
             }
-        }
-
-        public UInt32 GetPrice(UInt32 symbol)
-        {
-            UInt32 price = 0;
-            UInt32 m = 1;
-            for (int bitIndex = NumBitLevels; bitIndex > 0; )
-            {
-                bitIndex--;
-                UInt32 bit = (symbol >> bitIndex) & 1;
-                price += Models[m].GetPrice(bit);
-                m = (m << 1) + bit;
-            }
-            return price;
-        }
-
-        public UInt32 ReverseGetPrice(UInt32 symbol)
-        {
-            UInt32 price = 0;
-            UInt32 m = 1;
-            for (int i = NumBitLevels; i > 0; i--)
-            {
-                UInt32 bit = symbol & 1;
-                symbol >>= 1;
-                price += Models[m].GetPrice(bit);
-                m = (m << 1) | bit;
-            }
-            return price;
         }
 
         public static UInt32 ReverseGetPrice(BitEncoder[] Models, UInt32 startIndex,
@@ -86,29 +118,30 @@ namespace SevenZip.Compression.RangeCoder
             return price;
         }
 
-        public static void ReverseEncode(BitEncoder[] Models, UInt32 startIndex,
-            Encoder rangeEncoder, int NumBitLevels, UInt32 symbol)
+        public void Encode(Encoder rangeEncoder, UInt32 symbol)
         {
             UInt32 m = 1;
-            for (int i = 0; i < NumBitLevels; i++)
+            for (int bitIndex = NumBitLevels; bitIndex > 0; )
             {
-                UInt32 bit = symbol & 1;
-                Models[startIndex + m].Encode(rangeEncoder, bit);
+                bitIndex--;
+                UInt32 bit = (symbol >> bitIndex) & 1;
+                Models[m].Encode(rangeEncoder, bit);
                 m = (m << 1) | bit;
-                symbol >>= 1;
             }
         }
-    }
 
-    internal struct BitTreeDecoder
-    {
-        private BitDecoder[] Models;
-        private int NumBitLevels;
-
-        public BitTreeDecoder(int numBitLevels)
+        public UInt32 GetPrice(UInt32 symbol)
         {
-            NumBitLevels = numBitLevels;
-            Models = new BitDecoder[1 << numBitLevels];
+            UInt32 price = 0;
+            UInt32 m = 1;
+            for (int bitIndex = NumBitLevels; bitIndex > 0; )
+            {
+                bitIndex--;
+                UInt32 bit = (symbol >> bitIndex) & 1;
+                price += Models[m].GetPrice(bit);
+                m = (m << 1) + bit;
+            }
+            return price;
         }
 
         public void Init()
@@ -117,41 +150,32 @@ namespace SevenZip.Compression.RangeCoder
                 Models[i].Init();
         }
 
-        public uint Decode(RangeCoder.Decoder rangeDecoder)
+        public void ReverseEncode(Encoder rangeEncoder, UInt32 symbol)
         {
-            uint m = 1;
-            for (int bitIndex = NumBitLevels; bitIndex > 0; bitIndex--)
-                m = (m << 1) + Models[m].Decode(rangeDecoder);
-            return m - ((uint)1 << NumBitLevels);
+            UInt32 m = 1;
+            for (UInt32 i = 0; i < NumBitLevels; i++)
+            {
+                UInt32 bit = symbol & 1;
+                Models[m].Encode(rangeEncoder, bit);
+                m = (m << 1) | bit;
+                symbol >>= 1;
+            }
         }
 
-        public uint ReverseDecode(RangeCoder.Decoder rangeDecoder)
+        public UInt32 ReverseGetPrice(UInt32 symbol)
         {
-            uint m = 1;
-            uint symbol = 0;
-            for (int bitIndex = 0; bitIndex < NumBitLevels; bitIndex++)
+            UInt32 price = 0;
+            UInt32 m = 1;
+            for (int i = NumBitLevels; i > 0; i--)
             {
-                uint bit = Models[m].Decode(rangeDecoder);
-                m <<= 1;
-                m += bit;
-                symbol |= (bit << bitIndex);
+                UInt32 bit = symbol & 1;
+                symbol >>= 1;
+                price += Models[m].GetPrice(bit);
+                m = (m << 1) | bit;
             }
-            return symbol;
+            return price;
         }
 
-        public static uint ReverseDecode(BitDecoder[] Models, UInt32 startIndex,
-            RangeCoder.Decoder rangeDecoder, int NumBitLevels)
-        {
-            uint m = 1;
-            uint symbol = 0;
-            for (int bitIndex = 0; bitIndex < NumBitLevels; bitIndex++)
-            {
-                uint bit = Models[startIndex + m].Decode(rangeDecoder);
-                m <<= 1;
-                m += bit;
-                symbol |= (bit << bitIndex);
-            }
-            return symbol;
-        }
+        #endregion Methods
     }
 }

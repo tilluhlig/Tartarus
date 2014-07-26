@@ -6,10 +6,16 @@ namespace _4_1_
 {
     public class Fahrlogik_Object
     {
-        public List<Kollisionspunkt> Kollisionspunkte = new List<Kollisionspunkt>();
-        public Vector2 Gewicht;
+        #region Fields
+
         public Texture2D Bild;
+        public Vector2 Gewicht;
+        public List<Kollisionspunkt> Kollisionspunkte = new List<Kollisionspunkt>();
         public Motor Motoren;
+
+        #endregion Fields
+
+        #region Constructors
 
         public Fahrlogik_Object(float _Gewicht)
         {
@@ -17,6 +23,10 @@ namespace _4_1_
             Gewicht = new Vector2(0, _Gewicht);
             Motoren = new Motor(10000, 150, 1, 1.5f, 5);
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         public bool AnyCollision(float angle, Vector2 Bezugspunkt, bool overreach)
         {
@@ -30,7 +40,7 @@ namespace _4_1_
         public Vector2 GetBewegungsVektor(int rad, float angle, Vector2 Bezugspunkt, bool overreach)
         {
             // Schwerkraft (am Hang)
-            Vector2 Result = Vector2.Zero;//= Gewicht;
+            Vector2 Result = Vector2.Zero; //= Gewicht;
             /*  Result = Help.RotatePosition(Vector2.Zero, -angle, Result);
               Result.Y = Math.Abs(Result.X/5);
               Result.X = 0;
@@ -59,5 +69,7 @@ namespace _4_1_
 
             return Result;
         }
+
+        #endregion Methods
     }
 }

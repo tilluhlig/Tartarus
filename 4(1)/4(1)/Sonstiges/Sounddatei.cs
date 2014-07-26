@@ -7,15 +7,22 @@ namespace _4_1_
 {
     public class Sounddatei
     {
-        private byte[] byteArray;
-        private int count;
+        #region Fields
+
+        private readonly byte[] byteArray;
+        private readonly int count;
+        public bool IsLooped = false;
         public DynamicSoundEffectInstance dynamicSound;
         private int position;
 
+        #endregion Fields
+
+        #region Constructors
+
         public Sounddatei(String Datei)
         {
-            System.IO.Stream waveFileStream = TitleContainer.OpenStream(Datei);
-            BinaryReader reader = new BinaryReader(waveFileStream);
+            Stream waveFileStream = TitleContainer.OpenStream(Datei);
+            var reader = new BinaryReader(waveFileStream);
 
             int chunkID = reader.ReadInt32();
             int fileSize = reader.ReadInt32();
@@ -41,27 +48,32 @@ namespace _4_1_
 
             byteArray = reader.ReadBytes(dataSize);
 
-            dynamicSound = new DynamicSoundEffectInstance(sampleRate, (AudioChannels)channels);
+            dynamicSound = new DynamicSoundEffectInstance(sampleRate, (AudioChannels) channels);
             count = dynamicSound.GetSampleSizeInBytes(TimeSpan.FromMilliseconds(100));
-            dynamicSound.BufferNeeded += new EventHandler<EventArgs>(DynamicSound_BufferNeeded);
+            dynamicSound.BufferNeeded += DynamicSound_BufferNeeded;
             dynamicSound.IsLooped = false;
             // dynamicSound.IsLooped = true;
         }
 
-        public bool IsLooped = false;
+        #endregion Constructors
+
+        #region Properties
+
+        public SoundState State
+        {
+            get { return dynamicSound.State; }
+        }
 
         public float Volume
         {
-            get
-            {
-                return dynamicSound.Volume;
-            }
+            get { return dynamicSound.Volume; }
 
-            set
-            {
-                dynamicSound.Volume = value;
-            }
+            set { dynamicSound.Volume = value; }
         }
+
+        #endregion Properties
+
+        #region Methods
 
         public void Pause()
         {
@@ -78,14 +90,6 @@ namespace _4_1_
             dynamicSound.Resume();
         }
 
-        public SoundState State
-        {
-            get
-            {
-                return dynamicSound.State;
-            }
-        }
-
         public void Stop(bool sofort)
         {
             dynamicSound.Stop(sofort);
@@ -98,8 +102,8 @@ namespace _4_1_
 
         private void DynamicSound_BufferNeeded(object sender, EventArgs e)
         {
-            dynamicSound.SubmitBuffer(byteArray, position, count / 2);
-            dynamicSound.SubmitBuffer(byteArray, position + count / 2, count / 2);
+            dynamicSound.SubmitBuffer(byteArray, position, count/2);
+            dynamicSound.SubmitBuffer(byteArray, position + count/2, count/2);
 
             position += count;
             if (position + count > byteArray.Length)
@@ -107,5 +111,7 @@ namespace _4_1_
                 position = 0;
             }
         }
+
+        #endregion Methods
     }
 }

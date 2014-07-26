@@ -1,6 +1,4 @@
-﻿using System;
-
-// ***********************************************************************
+﻿// ***********************************************************************
 // Assembly         : 4(1)
 // Author           : Till
 // Created          : 07-20-2013
@@ -13,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -21,57 +20,59 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// diese Klasse verwaltet Objekte, die lediglich zerstört werden können,
-    /// jedoch keine weitere Funktionalität aufweisen
+    ///     diese Klasse verwaltet Objekte, die lediglich zerstört werden können,
+    ///     jedoch keine weitere Funktionalität aufweisen
     /// </summary>
     public static class Nutzloses
     {
         #region Privat
 
         /// <summary>
-        /// die Texturen der Objekte
+        ///     die Texturen der Objekte
         /// </summary>
-        private static List<Texture2D> Bild = new List<Texture2D>();
+        private static readonly List<Texture2D> Bild = new List<Texture2D>();
 
         /// <summary>
-        /// die Kollisionsobjekte der Objekte
+        ///     Gibt an, ob die Textur gespiegeld sein soll
         /// </summary>
-        private static List<KollisionsObjekt> Kollision = new List<KollisionsObjekt>();
+        private static readonly List<bool> Gespiegelt = new List<bool>();
 
         /// <summary>
-        /// die Anzahl der Pixel, die noch vorhanden sind
+        ///     die Kollisionsobjekte der Objekte
         /// </summary>
-        private static List<int> Pixel = new List<int>();
+        private static readonly List<KollisionsObjekt> Kollision = new List<KollisionsObjekt>();
 
         /// <summary>
-        /// die Position des Objekts
+        ///     die Anzahl der Pixel, die noch vorhanden sind
         /// </summary>
-        private static List<Vector2> Position = new List<Vector2>();
+        private static readonly List<int> Pixel = new List<int>();
 
         /// <summary>
-        /// die Skalierung der Textur
+        ///     die Position des Objekts
         /// </summary>
-        private static List<float> Skalierung = new List<float>();
+        private static readonly List<Vector2> Position = new List<Vector2>();
 
         /// <summary>
-        /// Gibt an, ob die Textur gespiegeld sein soll
+        ///     die Skalierung der Textur
         /// </summary>
-        private static List<bool> Gespiegelt = new List<bool>();
+        private static readonly List<float> Skalierung = new List<float>();
 
         /// <summary>
-        /// die Rotationswinkel der Objekte
+        ///     die Rotationswinkel der Objekte
         /// </summary>
-        private static List<float> Winkel = new List<float>();
+        private static readonly List<float> Winkel = new List<float>();
 
         /// <summary>
-        /// die Zerstörungsobjekte
+        ///     die Zerstörungsobjekte
         /// </summary>
-        private static List<ZerstörungsObjekt> Zerstörung = new List<ZerstörungsObjekt>();
+        private static readonly List<ZerstörungsObjekt> Zerstörung = new List<ZerstörungsObjekt>();
 
         #endregion Privat
 
+        #region Methods
+
         /// <summary>
-        /// entfernt alle Nutzlosen Objekte
+        ///     entfernt alle Nutzlosen Objekte
         /// </summary>
         public static void AlleEntfernen()
         {
@@ -86,39 +87,24 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Zeichnet alle Nutzlosen Objekte
+        ///     Wandelt ein Objekt in Text um (speziell für den Editor)
         /// </summary>
-        /// <param name="gameTime">ein Zeitstempel</param>
-        /// <param name="spriteBatch">eine Zeichenoberfläche</param>
-        /// <param name="Spiel2">ein Spielobjekt</param>
-        public static void ZeichneNutzloses(GameTime gameTime, SpriteBatch spriteBatch, Spiel Spiel2)
+        /// <returns>der Text, welcher das Objekt darstellt</returns>
+        public static List<String> EditorSpeichern(int id)
         {
-            if (Spiel2 == null) return;
-
-            for (int i = 0; i < Nutzloses.Position.Count; i++)
-            {
-                float scale = Nutzloses.Skalierung[i];
-                int xPos = (int)(Nutzloses.Position[i].X - Spiel2.Fenster.X);
-                int yPos = (int)(Nutzloses.Position[i].Y - Spiel2.Fenster.Y);
-
-                if (xPos + Nutzloses.Bild[i].Width * scale / 2 < 0 || xPos - Nutzloses.Bild[i].Width * scale / 2 > Game1.screenWidth) continue;
-
-                spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
-                Texturen.effect.CurrentTechnique.Passes[0].Apply();
-                spriteBatch.Draw(Nutzloses.Bild[i], new Vector2(xPos - (Nutzloses.Bild[i].Width * scale) / 2, yPos - Nutzloses.Bild[i].Height * scale), null, Color.White, Nutzloses.Winkel[i], new Vector2(0, 0), scale, Nutzloses.Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
-                spriteBatch.End();
-
-                if (Editor.visible && Editor.mouseover == 2 && Editor.mouseoverid == i)
-                {
-                    spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
-                    spriteBatch.Draw(Nutzloses.Bild[i], new Vector2(xPos - (Nutzloses.Bild[i].Width * scale) / 2, yPos - Nutzloses.Bild[i].Height * scale), null, Color.Blue, Nutzloses.Winkel[i], new Vector2(0, 0), scale, Nutzloses.Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
-                    spriteBatch.End();
-                }
-            }
+            var data = new List<String>();
+            data.Add("[NUTZLOSES]");
+            data.Add("Bild=" + Bild[id].Tag);
+            data.Add("Position=" + Position[id]);
+            data.Add("Skalierung=" + Skalierung[id]);
+            data.Add("Gespiegelt=" + Gespiegelt[id]);
+            data.Add("Winkel=" + Winkel[id]);
+            data.Add("[/NUTZLOSES]");
+            return data;
         }
 
         /// <summary>
-        /// Entfernt ein bestimmtes Objekt
+        ///     Entfernt ein bestimmtes Objekt
         /// </summary>
         /// <param name="i">die ID des zu entfernenden Objekts</param>
         public static void Entfernen(int i)
@@ -134,7 +120,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gibt die Anzahl an nutzlosen Objekten im Spiel zurück
+        ///     Gibt die Anzahl an nutzlosen Objekten im Spiel zurück
         /// </summary>
         /// <returns>die Anzahl der nutzlosen Objekte</returns>
         public static int GibAnzahl()
@@ -143,7 +129,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// die Position eines bestimmten Objekts
+        ///     die Position eines bestimmten Objekts
         /// </summary>
         /// <param name="ID">die ID des Objekts, dessen Position abgefragt wird</param>
         /// <returns>die Position des entsprechenden Objekts</returns>
@@ -153,7 +139,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Fügt ein neues nutzloes Objekt ins Spiel ein
+        ///     Fügt ein neues nutzloes Objekt ins Spiel ein
         /// </summary>
         /// <param name="_Bild">die Textur</param>
         /// <param name="_Position">die Position</param>
@@ -162,16 +148,17 @@ namespace _4_1_
         /// <param name="_Skalierung">Skalierung der Textur</param>
         /// <param name="_Kollision">true = Objekt kann Kollision auslösen, false = keine Kollisionen möglich</param>
         /// <param name="_Zerstörung">true = kann Zerstört werden, false = keine Zerstörung</param>
-        public static void Hinzufügen(Texture2D _Bild, Vector2 _Position, float _Winkel, bool _Gespiegelt, float _Skalierung, bool _Kollision, bool _Zerstörung)
+        public static void Hinzufügen(Texture2D _Bild, Vector2 _Position, float _Winkel, bool _Gespiegelt,
+            float _Skalierung, bool _Kollision, bool _Zerstörung)
         {
             Position.Add(_Position);
             Winkel.Add(_Winkel);
             Gespiegelt.Add(_Gespiegelt);
             Skalierung.Add(_Skalierung);
 
-            Color[] temp = new Color[_Bild.Width * _Bild.Height];
+            var temp = new Color[_Bild.Width * _Bild.Height];
             _Bild.GetData(temp);
-            Texture2D tmp = new Texture2D(_Bild.GraphicsDevice, _Bild.Width, _Bild.Height);
+            var tmp = new Texture2D(_Bild.GraphicsDevice, _Bild.Width, _Bild.Height);
             tmp.SetData(temp);
             tmp.Tag = _Bild.Tag;
 
@@ -179,9 +166,10 @@ namespace _4_1_
 
             if (_Kollision)
             {
-                Kollision.Add(new KollisionsObjekt(_Bild, _Bild.Width, _Bild.Height, _Skalierung, true, true, true, Vector2.Zero));
+                Kollision.Add(new KollisionsObjekt(_Bild, _Bild.Width, _Bild.Height, _Skalierung, true, true, true,
+                    Vector2.Zero));
             }
-            Pixel.Add((int)(Help.GetPixelAnzahl(_Bild)));
+            Pixel.Add(Help.GetPixelAnzahl(_Bild));
 
             if (_Zerstörung)
             {
@@ -190,43 +178,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Prüft ob das angegebene Objekt kollidiert
-        /// </summary>
-        /// <param name="i">die ID des zu prüfenden Objekts</param>
-        /// <param name="Incoming_Position">die Position, welche auf Kollision geprüft werden soll</param>
-        /// <returns>true = es gab eine Kollision, false = es gab keine Kollision</returns>
-        public static bool PrüfeObKollision(int i, Vector2 Incoming_Position)
-        {
-            if (Kollision[i] == null) return false;
-            return Kollision[i].collision(Incoming_Position, Position[i], Winkel[i], Gespiegelt[i]);
-        }
-
-        /// <summary>
-        /// wendet eine Explosion auf ein bestimmtes nutzloses Objekt an
-        /// </summary>
-        /// <param name="i">die ID des Objekts</param>
-        /// <param name="Explosion">die Position einer Explosion</param>
-        /// <param name="Energie">der Explosionsradius</param>
-        /// <returns>die Anzahl der getroffenen Pixel</returns>
-        public static int PrüfeObZerstörung(int i, Vector2 Explosion, int Energie)
-        {
-            if (Zerstörung[i] == null) return 0;
-            int z = Zerstörung[i].BerechneZerstörung(Bild[i], Explosion, Energie, Position[i], Gespiegelt[i], Winkel[i]);
-            Pixel[i] -= z;
-            if (Pixel[i] <= 10)
-            {
-                Entfernen(i);
-            }
-            else
-                if (z > 0)
-                {
-                    Kollision[i] = new KollisionsObjekt(Bild[i], Bild[i].Width, Bild[i].Height, Skalierung[i], true, true, true, Vector2.Zero);
-                }
-            return z;
-        }
-
-        /// <summary>
-        /// erstellt ein nutzloses Objekt aus Text
+        ///     erstellt ein nutzloses Objekt aus Text
         /// </summary>
         /// <param name="Content">ein Content Manager</param>
         /// <param name="Text">der Text, aus dem das Objekt erstellt werden soll</param>
@@ -265,7 +217,8 @@ namespace _4_1_
                 Gespiegelt[id] = TextLaden.LadeBool(Liste, "Gespiegelt", Gespiegelt[id]);
             }
 
-            Kollision[id] = new KollisionsObjekt(Bild[id], Bild[id].Width, Bild[id].Height, Skalierung[id], true, true, true, Vector2.Zero);
+            Kollision[id] = new KollisionsObjekt(Bild[id], Bild[id].Width, Bild[id].Height, Skalierung[id], true, true,
+                true, Vector2.Zero);
             Zerstörung[id] = new ZerstörungsObjekt(Bild[id].Width, Bild[id].Height, Skalierung[id], true, true, true);
 
             Kollision[id] = KollisionsObjekt.Laden(Text2, altid == -1 ? null : Kollision[id]);
@@ -274,16 +227,52 @@ namespace _4_1_
 
             Bild[id] = Kollision[id].UseMaskOnTexture2D(Bild[id]);
             Bild[id].Tag = Typ;
-            Pixel[id] = ((int)(Help.GetPixelAnzahl(Bild[id])));
+            Pixel[id] = Help.GetPixelAnzahl(Bild[id]);
         }
 
         /// <summary>
-        /// Wandelt ein Objekt in Text um
+        ///     Prüft ob das angegebene Objekt kollidiert
+        /// </summary>
+        /// <param name="i">die ID des zu prüfenden Objekts</param>
+        /// <param name="Incoming_Position">die Position, welche auf Kollision geprüft werden soll</param>
+        /// <returns>true = es gab eine Kollision, false = es gab keine Kollision</returns>
+        public static bool PrüfeObKollision(int i, Vector2 Incoming_Position)
+        {
+            if (Kollision[i] == null) return false;
+            return Kollision[i].collision(Incoming_Position, Position[i], Winkel[i], Gespiegelt[i]);
+        }
+
+        /// <summary>
+        ///     wendet eine Explosion auf ein bestimmtes nutzloses Objekt an
+        /// </summary>
+        /// <param name="i">die ID des Objekts</param>
+        /// <param name="Explosion">die Position einer Explosion</param>
+        /// <param name="Energie">der Explosionsradius</param>
+        /// <returns>die Anzahl der getroffenen Pixel</returns>
+        public static int PrüfeObZerstörung(int i, Vector2 Explosion, int Energie)
+        {
+            if (Zerstörung[i] == null) return 0;
+            int z = Zerstörung[i].BerechneZerstörung(Bild[i], Explosion, Energie, Position[i], Gespiegelt[i], Winkel[i]);
+            Pixel[i] -= z;
+            if (Pixel[i] <= 10)
+            {
+                Entfernen(i);
+            }
+            else if (z > 0)
+            {
+                Kollision[i] = new KollisionsObjekt(Bild[i], Bild[i].Width, Bild[i].Height, Skalierung[i], true, true,
+                    true, Vector2.Zero);
+            }
+            return z;
+        }
+
+        /// <summary>
+        ///     Wandelt ein Objekt in Text um
         /// </summary>
         /// <returns>der Text, welcher das Objekt darstellt</returns>
         public static List<String> Speichern()
         {
-            List<String> data = new List<String>();
+            var data = new List<String>();
             for (int i = 0; i < Bild.Count; i++)
             {
                 data.Add("[NUTZLOSES]");
@@ -302,20 +291,41 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Wandelt ein Objekt in Text um (speziell für den Editor)
+        ///     Zeichnet alle Nutzlosen Objekte
         /// </summary>
-        /// <returns>der Text, welcher das Objekt darstellt</returns>
-        public static List<String> EditorSpeichern(int id)
+        /// <param name="gameTime">ein Zeitstempel</param>
+        /// <param name="spriteBatch">eine Zeichenoberfläche</param>
+        /// <param name="Spiel2">ein Spielobjekt</param>
+        public static void ZeichneNutzloses(GameTime gameTime, SpriteBatch spriteBatch, Spiel Spiel2)
         {
-            List<String> data = new List<String>();
-            data.Add("[NUTZLOSES]");
-            data.Add("Bild=" + Bild[id].Tag);
-            data.Add("Position=" + Position[id]);
-            data.Add("Skalierung=" + Skalierung[id]);
-            data.Add("Gespiegelt=" + Gespiegelt[id]);
-            data.Add("Winkel=" + Winkel[id]);
-            data.Add("[/NUTZLOSES]");
-            return data;
+            if (Spiel2 == null) return;
+
+            for (int i = 0; i < Position.Count; i++)
+            {
+                float scale = Skalierung[i];
+                var xPos = (int)(Position[i].X - Spiel2.Fenster.X);
+                var yPos = (int)(Position[i].Y - Spiel2.Fenster.Y);
+
+                if (xPos + Bild[i].Width * scale / 2 < 0 || xPos - Bild[i].Width * scale / 2 > Game1.screenWidth) continue;
+
+                spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
+                Texturen.effect.CurrentTechnique.Passes[0].Apply();
+                spriteBatch.Draw(Bild[i], new Vector2(xPos - (Bild[i].Width * scale) / 2, yPos - Bild[i].Height * scale), null,
+                    Color.White, Winkel[i], new Vector2(0, 0), scale,
+                    Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
+                spriteBatch.End();
+
+                if (Editor.visible && Editor.mouseover == 2 && Editor.mouseoverid == i)
+                {
+                    spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
+                    spriteBatch.Draw(Bild[i], new Vector2(xPos - (Bild[i].Width * scale) / 2, yPos - Bild[i].Height * scale),
+                        null, Color.Blue, Winkel[i], new Vector2(0, 0), scale,
+                        Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
+                    spriteBatch.End();
+                }
+            }
         }
+
+        #endregion Methods
     }
 }

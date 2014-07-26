@@ -9,14 +9,15 @@ namespace HTTP
 {
     public static class HTTP
     {
-        private static String Adresse = "http://tartarus.bplaced.net";
-        public static String Result = "";
-        public static Random rand = new Random();
+        #region Fields
 
-        public static void SetServer(String _Adresse)
-        {
-            Adresse = _Adresse;
-        }
+        public static Random rand = new Random();
+        public static String Result = "";
+        private static String Adresse = "http://tartarus.bplaced.net";
+
+        #endregion Fields
+
+        #region Methods
 
         public static List<String> Eingeben()
         {
@@ -26,18 +27,6 @@ namespace HTTP
         public static List<String> Eingeben(String Text)
         {
             return Send("fehlerberichte", Text);
-        }
-
-        private static List<String> Send(String Funktion, String _Result)
-        {
-            List<String> list = new List<String>();
-            Dictionary<string, string> postParameters = new Dictionary<string, string>();
-
-            postParameters.Add("rand", rand.Next(0, Int32.MaxValue).ToString());
-            postParameters.Add("Result", _Result);
-
-            list = HttpPostRequest(Adresse + "/" + Funktion + ".php", postParameters);
-            return list;
         }
 
         public static String Get_Meldung(List<String> list)
@@ -63,18 +52,23 @@ namespace HTTP
             return false;
         }
 
+        public static void SetServer(String _Adresse)
+        {
+            Adresse = _Adresse;
+        }
+
         private static List<String> HttpPostRequest(string url, Dictionary<string, string> postParameters)
         {
             string postData = "";
-            List<String> list = new List<String>();
+            var list = new List<String>();
 
             foreach (string key in postParameters.Keys)
             {
                 postData += HttpUtility.UrlEncode(key) + "="
-                      + HttpUtility.UrlEncode(postParameters[key]) + "&";
+                            + HttpUtility.UrlEncode(postParameters[key]) + "&";
             }
 
-            HttpWebRequest myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            var myHttpWebRequest = (HttpWebRequest) WebRequest.Create(url);
             myHttpWebRequest.Method = "POST";
 
             byte[] data = Encoding.ASCII.GetBytes(postData);
@@ -88,12 +82,12 @@ namespace HTTP
                 requestStream.Write(data, 0, data.Length);
                 requestStream.Close();
 
-                HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+                var myHttpWebResponse = (HttpWebResponse) myHttpWebRequest.GetResponse();
 
                 Stream responseStream = myHttpWebResponse.GetResponseStream();
-                list.Add(((HttpWebResponse)myHttpWebResponse).StatusDescription);
+                list.Add(myHttpWebResponse.StatusDescription);
 
-                StreamReader myStreamReader = new StreamReader(responseStream, Encoding.Default);
+                var myStreamReader = new StreamReader(responseStream, Encoding.Default);
 
                 //string pageContent = myStreamReader.ReadToEnd();
                 while (!myStreamReader.EndOfStream)
@@ -113,5 +107,19 @@ namespace HTTP
 
             return list;
         }
+
+        private static List<String> Send(String Funktion, String _Result)
+        {
+            var list = new List<String>();
+            var postParameters = new Dictionary<string, string>();
+
+            postParameters.Add("rand", rand.Next(0, Int32.MaxValue).ToString());
+            postParameters.Add("Result", _Result);
+
+            list = HttpPostRequest(Adresse + "/" + Funktion + ".php", postParameters);
+            return list;
+        }
+
+        #endregion Methods
     }
 }

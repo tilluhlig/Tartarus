@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,58 +20,68 @@ using Microsoft.Xna.Framework.Input;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Chatbox
+    ///     Class Chatbox
     /// </summary>
     public class Chatbox
     {
-        /// <summary>
-        /// The messages
-        /// </summary>
-        private static List<string> messages = new List<string>();
+        #region Fields
 
         /// <summary>
-        /// The own pos
+        ///     The messages
+        /// </summary>
+        private static readonly List<string> messages = new List<string>();
+
+        /// <summary>
+        ///     The own pos
         /// </summary>
         private static Vector2 ownPos = Vector2.Zero;
 
         /// <summary>
-        /// The pos
+        ///     The pos
         /// </summary>
-        private static Vector2[] pos = new Vector2[6];
+        private static readonly Vector2[] pos = new Vector2[6];
 
         /// <summary>
-        /// The timeout
+        ///     The scrolling
         /// </summary>
-        private static List<int> timeout = new List<int>();
+        private static bool scrolling;
 
         /// <summary>
-        /// The firstmessage
+        ///     The timeout
         /// </summary>
-        private byte firstmessage = 0;
+        private static readonly List<int> timeout = new List<int>();
 
         /// <summary>
-        /// The timeoutscroll
+        ///     The firstmessage
         /// </summary>
-        private int timeoutscroll = 0;
+        private byte firstmessage;
 
         /// <summary>
-        /// The scrolling
+        ///     The timeoutscroll
         /// </summary>
-        private static bool scrolling = false;
+        private int timeoutscroll;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Chatbox"/> class.
+        ///     Initializes a new instance of the <see cref="Chatbox" /> class.
         /// </summary>
         /// <param name="Pos">The pos.</param>
         public Chatbox(Vector2 Pos)
         {
             ownPos = Pos;
             for (int i = 0; i < 6; i++)
-                pos[i] = ownPos + new Vector2(0, i * 15);
+                pos[i] = ownPos + new Vector2(0, i*15);
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Adds the message.
+        ///     Adds the message.
         /// </summary>
         /// <param name="message">The message.</param>
         public void addMessage(string message)
@@ -88,51 +99,25 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Updates this instance.
+        ///     Draws the specified sprite batch.
         /// </summary>
-        public void Update()
+        /// <param name="spriteBatch">The sprite batch.</param>
+        /// <param name="font">The font.</param>
+        public void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
-            if (timeoutscroll > 0)
-            {
-                timeoutscroll--;
-            }
+            if (scrolling)
+                for (int i = 0; i < messages.Count && i < 6; i++)
+                    spriteBatch.DrawString(font, messages[firstmessage + i], pos[i], Color.Lime*(timeoutscroll/480.0f));
             else
-                changemode(false);
-
-            for (byte i = 0; i < timeout.Count; i++)
-            {
-                timeout[i]--;
-                if (timeout[i] < 1)
+                for (byte i = 0; i < timeout.Count; i++)
                 {
-                    timeout.RemoveAt(i);
-                    i--;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Changemodes the specified status.
-        /// </summary>
-        /// <param name="status">if set to <c>true</c> [status].</param>
-        private void changemode(bool status)
-        {
-            if (!status && scrolling)
-            {
-                scrolling = false;
-                firstmessage = (byte)(messages.Count - timeout.Count);
-            }
-            else
-                if (status && !scrolling)
-                {
-                    scrolling = true;
-                    if (messages.Count > 6)
-                        firstmessage = (byte)(messages.Count - 6);
-                    else firstmessage = 0;
+                    spriteBatch.DrawString(font, messages[messages.Count - timeout.Count + i], pos[i],
+                        Color.Lime*(timeout[i]/480.0f));
                 }
         }
 
         /// <summary>
-        /// Keyboards the keys.
+        ///     Keyboards the keys.
         /// </summary>
         /// <param name="kbstate">The kbstate.</param>
         public void keyboardKeys(KeyboardState kbstate)
@@ -158,20 +143,48 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Updates this instance.
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch.</param>
-        /// <param name="font">The font.</param>
-        public void Draw(SpriteBatch spriteBatch, SpriteFont font)
+        public void Update()
         {
-            if (scrolling)
-                for (int i = 0; i < messages.Count && i < 6; i++)
-                    spriteBatch.DrawString(font, messages[firstmessage + i], pos[i], Color.Lime * ((float)(timeoutscroll / 480.0f)));
+            if (timeoutscroll > 0)
+            {
+                timeoutscroll--;
+            }
             else
-                for (byte i = 0; i < timeout.Count; i++)
+                changemode(false);
+
+            for (byte i = 0; i < timeout.Count; i++)
+            {
+                timeout[i]--;
+                if (timeout[i] < 1)
                 {
-                    spriteBatch.DrawString(font, messages[messages.Count - timeout.Count + i], pos[i], Color.Lime * ((float)(timeout[i] / 480.0f)));
+                    timeout.RemoveAt(i);
+                    i--;
                 }
+            }
         }
+
+        /// <summary>
+        ///     Changemodes the specified status.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [status].</param>
+        private void changemode(bool status)
+        {
+            if (!status && scrolling)
+            {
+                scrolling = false;
+                firstmessage = (byte) (messages.Count - timeout.Count);
+            }
+            else if (status && !scrolling)
+            {
+                scrolling = true;
+                if (messages.Count > 6)
+                    firstmessage = (byte) (messages.Count - 6);
+                else firstmessage = 0;
+            }
+        }
+
+        #endregion Methods
     }
 }

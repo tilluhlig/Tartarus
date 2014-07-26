@@ -6,58 +6,11 @@ namespace _4_1_
 {
     public static class TextLaden
     {
-        public static List<String> ErmittleBereich(List<String> Text, String Bereichsname)
-        {
-            List<String> Result = new List<String>();
-
-            bool ZielGefunden = false;
-
-            int found = 0;
-            for (int i = 0; i < Text.Count; i++)
-            {
-                Text[i] = Text[i].TrimEnd('\n');
-
-                if (Text[i].Length >= 2)
-                {
-                    if (Text[i].Substring(0, 2) == "[/")
-                    {
-                        found--;
-                    }
-                    else
-                        if (Text[i].Substring(0, 1) == "[")
-                        {
-                            found++;
-                        }
-                }
-
-                if (found == 1 && Text[i] == "[" + Bereichsname + "]")
-                {
-                    ZielGefunden = true;
-                    Text.RemoveAt(i);
-                    i--;
-                }
-                else
-                    if (found == 0 && ZielGefunden && Text[i] == "[/" + Bereichsname + "]")
-                    {
-                        Text.RemoveAt(i);
-                        i--;
-                        return Result;
-                    }
-                    else
-                        if (ZielGefunden)
-                        {
-                            Result.Add(Text[i]);
-                            Text.RemoveAt(i);
-                            i--;
-                        }
-            }
-
-            return Result;
-        }
+        #region Methods
 
         public static Dictionary<String, String> CreateDictionary(List<String> Text)
         {
-            Dictionary<String, String> Liste = new Dictionary<String, String>();
+            var Liste = new Dictionary<String, String>();
             int found = 0;
             for (int i = 0; i < Text.Count; i++)
             {
@@ -68,11 +21,10 @@ namespace _4_1_
                         found--;
                         continue;
                     }
-                    else
-                        if (Text[i].Substring(0, 1) == "[")
-                        {
-                            found++;
-                        }
+                    if (Text[i].Substring(0, 1) == "[")
+                    {
+                        found++;
+                    }
                 }
 
                 if (found == 0)
@@ -93,6 +45,52 @@ namespace _4_1_
             }
 
             return Liste;
+        }
+
+        public static List<String> ErmittleBereich(List<String> Text, String Bereichsname)
+        {
+            var Result = new List<String>();
+
+            bool ZielGefunden = false;
+
+            int found = 0;
+            for (int i = 0; i < Text.Count; i++)
+            {
+                Text[i] = Text[i].TrimEnd('\n');
+
+                if (Text[i].Length >= 2)
+                {
+                    if (Text[i].Substring(0, 2) == "[/")
+                    {
+                        found--;
+                    }
+                    else if (Text[i].Substring(0, 1) == "[")
+                    {
+                        found++;
+                    }
+                }
+
+                if (found == 1 && Text[i] == "[" + Bereichsname + "]")
+                {
+                    ZielGefunden = true;
+                    Text.RemoveAt(i);
+                    i--;
+                }
+                else if (found == 0 && ZielGefunden && Text[i] == "[/" + Bereichsname + "]")
+                {
+                    Text.RemoveAt(i);
+                    i--;
+                    return Result;
+                }
+                else if (ZielGefunden)
+                {
+                    Result.Add(Text[i]);
+                    Text.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            return Result;
         }
 
         public static bool LadeBool(Dictionary<String, String> Dict, String Name, bool Wert)
@@ -180,7 +178,9 @@ namespace _4_1_
                     zwischen = zwischen.TrimStart('{');
                     zwischen = zwischen.TrimEnd('}');
                     String[] zw = zwischen.Split(' ');
-                    temp = new Vector2((float)Convert.ToDouble(zw[0].Substring(2, zw[0].Length - 2)), (float)Convert.ToDouble(zw[1].Substring(2, zw[1].Length - 2))); ;
+                    temp = new Vector2((float)Convert.ToDouble(zw[0].Substring(2, zw[0].Length - 2)),
+                        (float)Convert.ToDouble(zw[1].Substring(2, zw[1].Length - 2)));
+                    ;
                 }
                 catch (Exception)
                 {
@@ -190,5 +190,7 @@ namespace _4_1_
             }
             return Wert;
         }
+
+        #endregion Methods
     }
 }

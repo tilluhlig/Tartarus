@@ -7,17 +7,23 @@ namespace statistik
 {
     public partial class Form1 : Form
     {
+        #region Constructors
+
         public Form1()
         {
             InitializeComponent();
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         private void button1_Click(object sender, EventArgs e)
         {
-            List<String> Dateien = new List<String>();
-            List<String> Verzeichnisse = new List<String>();
+            var Dateien = new List<String>();
+            var Verzeichnisse = new List<String>();
             // String meins = Application.StartupPath + Path.DirectorySeparatorChar.ToString();
-            Verzeichnisse.Add(Application.StartupPath + Path.DirectorySeparatorChar.ToString());
+            Verzeichnisse.Add(Application.StartupPath + Path.DirectorySeparatorChar);
 
             for (int i = 0; i < Verzeichnisse.Count; i++)
             {
@@ -36,7 +42,7 @@ namespace statistik
                 }
             }
 
-            List<String> Verboten = new List<String>();
+            var Verboten = new List<String>();
             Verboten.Add("Settings.Designer.cs");
             Verboten.Add("Form1.Designer.cs");
             Verboten.Add("Resources.Designer.cs");
@@ -48,26 +54,32 @@ namespace statistik
             comboBox1.Items.Clear();
             for (int i = 0; i < Dateien.Count; i++)
             {
-                if (Path.GetExtension(Dateien[i]).ToUpper() != ".CS" && Path.GetExtension(Dateien[i]).ToUpper() != ".PHP" && Path.GetExtension(Dateien[i]).ToUpper() != ".CPP" && Path.GetExtension(Dateien[i]).ToUpper() != ".H" && Path.GetExtension(Dateien[i]).ToUpper() != ".ASM") continue;
+                if (Path.GetExtension(Dateien[i]).ToUpper() != ".CS" &&
+                    Path.GetExtension(Dateien[i]).ToUpper() != ".PHP" &&
+                    Path.GetExtension(Dateien[i]).ToUpper() != ".CPP" && Path.GetExtension(Dateien[i]).ToUpper() != ".H" &&
+                    Path.GetExtension(Dateien[i]).ToUpper() != ".ASM") continue;
                 String Name = Path.GetFileName(Dateien[i]);
                 if (Verboten.Contains(Name)) continue;
 
                 String dat = Dateien[i];
                 Datei++;
                 comboBox1.Items.Add(Path.GetFileName(Dateien[i]));
-                StreamReader datei = new StreamReader(dat);
-                for (; !datei.EndOfStream; Count++) { Zeichen += datei.ReadLine().Length; }
+                var datei = new StreamReader(dat);
+                for (; !datei.EndOfStream; Count++)
+                {
+                    Zeichen += datei.ReadLine().Length;
+                }
                 datei.Close();
             }
-            label3.Text = "Dateien: " + Datei.ToString();
-            label2.Text = "Zeilen: " + Count.ToString();
-            label1.Text = "Zeichen: " + Zeichen.ToString();
+            label3.Text = "Dateien: " + Datei;
+            label2.Text = "Zeilen: " + Count;
+            label1.Text = "Zeichen: " + Zeichen;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            StreamReader file = new StreamReader("Städte.txt");
-            StreamWriter file2 = new StreamWriter("Orte.txt");
+            var file = new StreamReader("Städte.txt");
+            var file2 = new StreamWriter("Orte.txt");
             while (!file.EndOfStream)
             {
                 String t = file.ReadLine();
@@ -80,13 +92,12 @@ namespace statistik
                         found = true;
                         b = i;
                     }
-                    else
-                        if (found && t.Substring(i, 1) == "\t")
-                        {
-                            String result = t.Substring(b + 1, i - b - 2);
-                            if (result.Length <= 11) file2.WriteLine(result);
-                            break;
-                        }
+                    else if (found && t.Substring(i, 1) == "\t")
+                    {
+                        String result = t.Substring(b + 1, i - b - 2);
+                        if (result.Length <= 11) file2.WriteLine(result);
+                        break;
+                    }
                 }
             }
             file.Close();
@@ -95,12 +106,12 @@ namespace statistik
 
         private void button3_Click(object sender, EventArgs e)
         {
-            List<String> Dateien = new List<String>();
-            List<String> Verzeichnisse = new List<String>();
-            String meins = Application.StartupPath + Path.DirectorySeparatorChar.ToString();
+            var Dateien = new List<String>();
+            var Verzeichnisse = new List<String>();
+            String meins = Application.StartupPath + Path.DirectorySeparatorChar;
 
-            Verzeichnisse.Add(Application.StartupPath + Path.DirectorySeparatorChar.ToString());
-            List<String> Verboten = new List<String>();
+            Verzeichnisse.Add(Application.StartupPath + Path.DirectorySeparatorChar);
+            var Verboten = new List<String>();
             Verboten.Add(".svn");
             Verboten.Add("Backup");
             Verboten.Add("obj");
@@ -141,5 +152,7 @@ namespace statistik
                 File.Copy(Dateien[i], Ziel);
             }
         }
+
+        #endregion Methods
     }
 }

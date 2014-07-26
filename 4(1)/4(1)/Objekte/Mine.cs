@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,69 +22,73 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// diese Klasse verwaltet Minen
+    ///     diese Klasse verwaltet Minen
     /// </summary>
     public class Mine
     {
+        #region Fields
+
         /// <summary>
-        /// die möglichen Texturen der Minen
+        ///     die möglichen Texturen der Minen
         /// </summary>
         public static Texture2D[] Bild = new Texture2D[5];
 
         /// <summary>
-        /// ein Kollisionsobjekt, wird von allen Mineninstanzen genutzt
+        ///     ein Kollisionsobjekt, wird von allen Mineninstanzen genutzt
         /// </summary>
         public static KollisionsObjekt Kollision;
 
         /// <summary>
-        /// ein Zerstörungsobjekt, wird von allen Mineninstanzen genutzt
+        ///     ein Zerstörungsobjekt, wird von allen Mineninstanzen genutzt
         /// </summary>
         public static ZerstörungsObjekt Zerstörung;
 
         /// <summary>
-        /// nicht aktive Minen, werden in der Berechnung nicht betrachtet
+        ///     nicht aktive Minen, werden in der Berechnung nicht betrachtet
         /// </summary>
         public bool Aktiv = true;
 
         /// <summary>
-        /// der Energiewert der Mine, je nach Art
+        ///     der Energiewert der Mine, je nach Art
         /// </summary>
         public int Energie = 100;
 
         /// <summary>
-        /// die ID der Mine
+        ///     die ID der Mine
         /// </summary>
         public int ID = 0;
 
         /// <summary>
-        /// die Position der Mine
+        ///     die Position der Mine
         /// </summary>
         public Vector2 Position = Vector2.Zero;
 
         /// <summary>
-        /// der Anzeigeradius, der nach dem Setzen der Mine sichtbar ist
+        ///     der Anzeigeradius, der nach dem Setzen der Mine sichtbar ist
         /// </summary>
-        public int RadiusAnzeige = 60 * 10;
+        public int RadiusAnzeige = 60*10;
 
         /// <summary>
-        /// die Skalierung der Textur
+        ///     die Skalierung der Textur
         /// </summary>
         public float Skalierung = 1.0f;
 
         /// <summary>
-        /// die Art/Sorte/Typ der Mine
+        ///     die Art/Sorte/Typ der Mine
         /// </summary>
         public int Typ = 0;
 
         /// <summary>
-        /// die Explosionsverzögerung
+        ///     die Explosionsverzögerung
         /// </summary>
         public int Verzoegerung = 0;
 
         /// <summary>
-        /// die Waffenart ID
+        ///     die Waffenart ID
         /// </summary>
         public int Waffenart = 11;
+
+        #endregion Fields
 
         #region Privat
 
@@ -92,15 +97,15 @@ namespace _4_1_
 #if DEBUG
 
         /// <summary>
-        /// die Skalierung der Textur
+        ///     die Skalierung der Textur
         /// </summary>
         private static float sc = 0.05f;
 
 #else
 
-        /// <summary>
-        /// die Skalierung der Textur
-        /// </summary>
+    /// <summary>
+    /// die Skalierung der Textur
+    /// </summary>
         private static float sc = 1f;
 
 #endif
@@ -108,14 +113,16 @@ namespace _4_1_
         #endregion DEBUG
 
         /// <summary>
-        /// damit die Mine blinkt, wird ständig die Textur gewechselt, dafür dient dieser Zähler
+        ///     damit die Mine blinkt, wird ständig die Textur gewechselt, dafür dient dieser Zähler
         /// </summary>
-        private int mode = 0;
+        private int mode;
 
         #endregion Privat
 
+        #region Constructors
+
         /// <summary>
-        /// der Minen Konstruktor
+        ///     der Minen Konstruktor
         /// </summary>
         /// <param name="_x">die X-Position</param>
         /// <param name="_y">die Y-Position</param>
@@ -131,103 +138,24 @@ namespace _4_1_
             ID = _ID;
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Initialisiert die Daten der Minenklasssen
+        ///     Initialisiert die Daten der Minenklasssen
         /// </summary>
         /// <param name="Content">der ContentManager</param>
         public static void Initialisierung(ContentManager Content)
         {
-            for (int i = 0; i < Bild.Count(); i++) Bild[i] = Content.Load<Texture2D>("Textures\\Mine" + i.ToString());
-            Kollision = new KollisionsObjekt(Bild[0], Bild[0].Width, Bild[0].Height, sc, false, false, true, new Vector2(0, 0));
+            for (int i = 0; i < Bild.Count(); i++) Bild[i] = Content.Load<Texture2D>("Textures\\Mine" + i);
+            Kollision = new KollisionsObjekt(Bild[0], Bild[0].Width, Bild[0].Height, sc, false, false, true,
+                new Vector2(0, 0));
             Zerstörung = new ZerstörungsObjekt(Bild[0].Width, Bild[0].Height, sc, false, false, false);
         }
 
         /// <summary>
-        /// ermittelt das Bild, welches verwendet werden soll (fürs Blinken)
-        /// </summary>
-        /// <returns>git die zu verwendende Textur zurück</returns>
-        public Texture2D ErmittleBild()
-        {
-            Texture2D res;
-            if (mode % 60 < 10)
-            {
-                res = Bild[Typ + 1];
-            }
-            else
-            {
-                res = Bild[0];
-            }
-            mode++;
-            return res;
-        }
-
-        /// <summary>
-        /// Prüft, ob es eine Kollision mit der Mine gab
-        /// </summary>
-        /// <param name="Incoming_Position">die absolute zu prüfende Position</param>
-        /// <returns>true = es gab einen Treffer, false = kein Treffer</returns>
-        public bool PrüfeObKollision(Vector2 Incoming_Position)
-        {
-            if (Kollision == null) return false;
-            return Kollision.collision(Incoming_Position, Position);
-        }
-
-        /// <summary>
-        /// Wendet eine Explosion auf die Mine an
-        /// </summary>
-        /// <param name="Explosion">die Position der Explosion</param>
-        /// <param name="Energie">der Explosionsradius</param>
-        /// <returns>die Anzahl der getroffenen Pixel</returns>
-        public int PrüfeObZerstörung(Vector2 Explosion, int Energie)
-        {
-            if (Zerstörung == null) return 0;
-            Texture2D tmp = new Texture2D(Bild[0].GraphicsDevice, Bild[0].Width, Bild[0].Height);
-            Color[] temp = new Color[Bild[0].Width * Bild[0].Height];
-            Bild[0].GetData(temp);
-            tmp.SetData(temp);
-            return Zerstörung.BerechneZerstörung(tmp, Explosion, Energie, Position);
-        }
-
-        /// <summary>
-        /// zündet eine Mine
-        /// </summary>
-        /// <param name="Spielfeld">das Spielfeld</param>
-        /// <param name="gameTime">ein Zeitstempel</param>
-        /// <param name="Spiel2">ein Spielobjekt</param>
-        /// <returns>eine Liste mit Daten zur Neuberechnung der Kartenoberfläche</returns>
-        public List<Vector3> ZündeMine(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2)
-        {
-            // Mine zünden
-            List<Vector3> list = new List<Vector3>();
-
-            int _Art = Waffenart;
-
-            // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, Position, (int)Waffendaten.Daten[_Art].Y,
-                           Waffendaten.Daten[_Art].Z, Waffendaten.Daten[_Art].W, gameTime,
-                           Waffendaten.Farben[_Art], _Art, 0);
-
-            // Sound
-            Spiel2.Karte.explode_missile(Spielfeld, Position, Spiel2.Fenster, _Art);
-
-            // Rauchstelle
-            for (int j = -(int)Waffendaten.Daten[_Art].X / 2; j < Waffendaten.Daten[_Art].X / 2; j += Waffendaten.BrandAbstand[_Art])
-            {
-                if (Position.X + j < 0 || Position.X + j >= Spielfeld.Length) continue;
-                Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke, new Vector2(Position.X + j, Kartenformat.BottomOf(Position)), 4,
-               Waffendaten.Daten[_Art].Z / 10, Waffendaten.Daten[_Art].W * 10, gameTime,
-                Waffendaten.Farben[_Art], _Art, 2);
-            }
-
-            Karte a = new Karte();
-            Replay.Explosion(Position, _Art);
-            list.AddRange(a.Explode(Spielfeld, (int)Position.X, (int)Position.Y, (int)(Waffendaten.Daten[_Art].X)));
-            list.AddRange(Spiel2.Explosionsschäden(gameTime, Position, (int)(Waffendaten.Daten[_Art].X), _Art, new int[] { -1, -1 }));
-            return list;
-        }
-
-        /// <summary>
-        /// Erstellt ein Minenobjekt aus Text
+        ///     Erstellt ein Minenobjekt aus Text
         /// </summary>
         /// <param name="Text">der Text, welcher das Objekt darstellt</param>
         /// <param name="Objekt">dieses Objekt wird als Grundlage genutzt (ansonsten null)</param>
@@ -254,12 +182,79 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// wandelt ein Objekt in Text um
+        ///     wandelt ein Objekt in Text um (speziell für Editor)
+        /// </summary>
+        /// <returns>der Text, welcher das Objekt darstellt</returns>
+        public List<String> EditorSpeichern()
+        {
+            var data = new List<String>();
+            data.Add("[MINE]");
+            data.Add("Position=" + Position);
+            // data.Add("Art=" + Art);
+            data.Add("Energie=" + Energie);
+            data.Add("RadiusAnzeige=" + RadiusAnzeige);
+            data.Add("Skalierung=" + Skalierung);
+            data.Add("Aktiv=" + Aktiv);
+            data.Add("Typ=" + Typ);
+            data.Add("Verzoegerung=" + Verzoegerung);
+            data.Add("Waffenart=" + Waffenart);
+            data.Add("[/MINE]");
+            return data;
+        }
+
+        /// <summary>
+        ///     ermittelt das Bild, welches verwendet werden soll (fürs Blinken)
+        /// </summary>
+        /// <returns>git die zu verwendende Textur zurück</returns>
+        public Texture2D ErmittleBild()
+        {
+            Texture2D res;
+            if (mode%60 < 10)
+            {
+                res = Bild[Typ + 1];
+            }
+            else
+            {
+                res = Bild[0];
+            }
+            mode++;
+            return res;
+        }
+
+        /// <summary>
+        ///     Prüft, ob es eine Kollision mit der Mine gab
+        /// </summary>
+        /// <param name="Incoming_Position">die absolute zu prüfende Position</param>
+        /// <returns>true = es gab einen Treffer, false = kein Treffer</returns>
+        public bool PrüfeObKollision(Vector2 Incoming_Position)
+        {
+            if (Kollision == null) return false;
+            return Kollision.collision(Incoming_Position, Position);
+        }
+
+        /// <summary>
+        ///     Wendet eine Explosion auf die Mine an
+        /// </summary>
+        /// <param name="Explosion">die Position der Explosion</param>
+        /// <param name="Energie">der Explosionsradius</param>
+        /// <returns>die Anzahl der getroffenen Pixel</returns>
+        public int PrüfeObZerstörung(Vector2 Explosion, int Energie)
+        {
+            if (Zerstörung == null) return 0;
+            var tmp = new Texture2D(Bild[0].GraphicsDevice, Bild[0].Width, Bild[0].Height);
+            var temp = new Color[Bild[0].Width*Bild[0].Height];
+            Bild[0].GetData(temp);
+            tmp.SetData(temp);
+            return Zerstörung.BerechneZerstörung(tmp, Explosion, Energie, Position);
+        }
+
+        /// <summary>
+        ///     wandelt ein Objekt in Text um
         /// </summary>
         /// <returns>der Text, welcher das Objekt darstellt</returns>
         public List<String> Speichern()
         {
-            List<String> data = new List<String>();
+            var data = new List<String>();
             data.Add("[MINE]");
             data.Add("Position=" + Position);
             data.Add("Energie=" + Energie);
@@ -275,24 +270,47 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// wandelt ein Objekt in Text um (speziell für Editor)
+        ///     zündet eine Mine
         /// </summary>
-        /// <returns>der Text, welcher das Objekt darstellt</returns>
-        public List<String> EditorSpeichern()
+        /// <param name="Spielfeld">das Spielfeld</param>
+        /// <param name="gameTime">ein Zeitstempel</param>
+        /// <param name="Spiel2">ein Spielobjekt</param>
+        /// <returns>eine Liste mit Daten zur Neuberechnung der Kartenoberfläche</returns>
+        public List<Vector3> ZündeMine(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2)
         {
-            List<String> data = new List<String>();
-            data.Add("[MINE]");
-            data.Add("Position=" + Position);
-            // data.Add("Art=" + Art);
-            data.Add("Energie=" + Energie);
-            data.Add("RadiusAnzeige=" + RadiusAnzeige);
-            data.Add("Skalierung=" + Skalierung);
-            data.Add("Aktiv=" + Aktiv);
-            data.Add("Typ=" + Typ);
-            data.Add("Verzoegerung=" + Verzoegerung);
-            data.Add("Waffenart=" + Waffenart);
-            data.Add("[/MINE]");
-            return data;
+            // Mine zünden
+            var list = new List<Vector3>();
+
+            int _Art = Waffenart;
+
+            // Explosion
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, Position, (int) Waffendaten.Daten[_Art].Y,
+                Waffendaten.Daten[_Art].Z, Waffendaten.Daten[_Art].W, gameTime,
+                Waffendaten.Farben[_Art], _Art, 0);
+
+            // Sound
+            Spiel2.Karte.explode_missile(Spielfeld, Position, Spiel2.Fenster, _Art);
+
+            // Rauchstelle
+            for (int j = -(int) Waffendaten.Daten[_Art].X/2;
+                j < Waffendaten.Daten[_Art].X/2;
+                j += Waffendaten.BrandAbstand[_Art])
+            {
+                if (Position.X + j < 0 || Position.X + j >= Spielfeld.Length) continue;
+                Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke,
+                    new Vector2(Position.X + j, Kartenformat.BottomOf(Position)), 4,
+                    Waffendaten.Daten[_Art].Z/10, Waffendaten.Daten[_Art].W*10, gameTime,
+                    Waffendaten.Farben[_Art], _Art, 2);
+            }
+
+            var a = new Karte();
+            Replay.Explosion(Position, _Art);
+            list.AddRange(a.Explode(Spielfeld, (int) Position.X, (int) Position.Y, (int) (Waffendaten.Daten[_Art].X)));
+            list.AddRange(Spiel2.Explosionsschäden(gameTime, Position, (int) (Waffendaten.Daten[_Art].X), _Art,
+                new[] {-1, -1}));
+            return list;
         }
+
+        #endregion Methods
     }
 }

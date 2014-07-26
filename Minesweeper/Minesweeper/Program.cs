@@ -5,11 +5,17 @@ namespace Minesweeper
 {
     public static class Program
     {
+        #region Fields
+
         public static String Fehlertext = "";
         public static String Fehlertext2 = "";
 
+        #endregion Fields
+
+        #region Methods
+
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
+        ///     Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
         private static void Main(string[] args)
@@ -24,5 +30,7 @@ namespace Minesweeper
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+
+        #endregion Methods
     }
 }

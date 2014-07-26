@@ -11,152 +11,155 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Xna.Framework.Input;
+using System.Windows.Forms;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace _4_1_
 {
     /// <summary>
-    /// Class Data
+    ///     Class Data
     /// </summary>
     public static class Data
     {
+        #region Fields
+
         /// <summary>
-        /// The list
+        ///     The list
         /// </summary>
         public static List<String> list = new List<String>();
+
+        #endregion Fields
     }
 
     /// <summary>
-    /// Class Var
+    ///     Class Var
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    unsafe public class Var<T>
+    public unsafe class Var<T>
     {
+        #region Fields
+
         /// <summary>
-        /// The ALLE
+        ///     The ALLE
         /// </summary>
         public static List<Var<String>> ALLE = new List<Var<String>>();
 
         /// <summary>
-        /// The ALL e2
+        ///     The ALL e2
         /// </summary>
         public static List<Var<int>> ALLE2 = new List<Var<int>>();
 
         /// <summary>
-        /// The ALL e3
+        ///     The ALL e3
         /// </summary>
         public static List<Var<bool>> ALLE3 = new List<Var<bool>>();
 
         /// <summary>
-        /// The ALL e4
+        ///     The ALL e4
         /// </summary>
         public static List<Var<float>> ALLE4 = new List<Var<float>>();
 
         /// <summary>
-        /// The ALL e5
+        ///     The ALL e5
         /// </summary>
         public static List<Var<String[]>> ALLE5 = new List<Var<String[]>>();
 
         /// <summary>
-        /// The ALL e6
+        ///     The ALL e6
         /// </summary>
         public static List<Var<int[]>> ALLE6 = new List<Var<int[]>>();
 
         /// <summary>
-        /// The ALL e7
+        ///     The ALL e7
         /// </summary>
         public static List<Var<bool[]>> ALLE7 = new List<Var<bool[]>>();
 
         /// <summary>
-        /// The ALL e8
+        ///     The ALL e8
         /// </summary>
         public static List<Var<float[]>> ALLE8 = new List<Var<float[]>>();
 
         /// <summary>
-        /// Enthält einen eindeutigen Bezeichner der Variablen, wird
-        /// auch in den .conf Dateien zum Belegen der Variablen genutztsdg
+        ///     Enthält einen eindeutigen Bezeichner der Variablen, wird
+        ///     auch in den .conf Dateien zum Belegen der Variablen genutztsdg
         /// </summary>
         public String Name;
 
         /// <summary>
-        /// The old wert
+        ///     The old wert
         /// </summary>
         public T oldWert;
 
         /// <summary>
-        /// The wert
+        ///     The wert
         /// </summary>
         public T Wert;
 
         /// <summary>
-        /// The link B
+        ///     The link B
         /// </summary>
-        unsafe private bool* LinkB;
+        private readonly bool* LinkB;
+
+        private readonly float* LinkF;
 
         /// <summary>
-        /// The link I
+        ///     The link I
         /// </summary>
-        unsafe private int* LinkI;
+        private readonly int* LinkI;
 
-        unsafe private float* LinkF;
+        #endregion Fields
 
-        unsafe public Var(String _Name, T Default, ref float _Link)
+        #region Constructors
+
+        public Var(String _Name, T Default, ref float _Link)
         {
             Init(_Name, Default);
 
-            unsafe
+            fixed (float* a = &_Link)
             {
-                fixed (float* a = &_Link)
-                {
-                    LinkF = a;
-                }
+                LinkF = a;
             }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Var{T}"/> class.
+        ///     Initializes a new instance of the <see cref="Var{T}" /> class.
         /// </summary>
         /// <param name="_Name">Name of the _.</param>
         /// <param name="Default">The default.</param>
         /// <param name="_Link">if set to <c>true</c> [_ link].</param>
-        unsafe public Var(String _Name, T Default, ref bool _Link)
+        public Var(String _Name, T Default, ref bool _Link)
         {
             Init(_Name, Default);
 
-            unsafe
+            fixed (bool* a = &_Link)
             {
-                fixed (bool* a = &_Link)
-                {
-                    LinkB = a;
-                }
+                LinkB = a;
             }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Var{T}"/> class.
+        ///     Initializes a new instance of the <see cref="Var{T}" /> class.
         /// </summary>
         /// <param name="_Name">Name of the _.</param>
         /// <param name="Default">The default.</param>
         /// <param name="_Link">The _ link.</param>
-        unsafe public Var(String _Name, T Default, ref int _Link)
+        public Var(String _Name, T Default, ref int _Link)
         {
             Init(_Name, Default);
 
-            unsafe
+            fixed (int* a = &_Link)
             {
-                fixed (int* a = &_Link)
-                {
-                    LinkI = a;
-                }
+                LinkI = a;
             }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Var{T}"/> class.
+        ///     Initializes a new instance of the <see cref="Var{T}" /> class.
         /// </summary>
         /// <param name="_Name">Name of the _.</param>
         /// <param name="Default">The default.</param>
@@ -165,8 +168,12 @@ namespace _4_1_
             Init(_Name, Default);
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Adds the ALLE.
+        ///     Adds the ALLE.
         /// </summary>
         /// <param name="Object">The object.</param>
         public static void AddALLE(Var<T> Object)
@@ -175,54 +182,48 @@ namespace _4_1_
             {
                 ALLE2.Add((Var<int>)(object)Object);
             }
-            else
-                if (Object.GetType() == typeof(Var<bool>))
-                {
-                    ALLE3.Add((Var<bool>)(object)Object);
-                }
-                else
-                    if (Object.GetType() == typeof(Var<String>))
-                    {
-                        ALLE.Add((Var<String>)(object)Object);
-                    }
-                    else
-                        if (Object.GetType() == typeof(Var<float>))
-                        {
-                            ALLE4.Add((Var<float>)(object)Object);
-                        }
-                        else
-                            if (Object.GetType() == typeof(Var<Int32[]>))
-                            {
-                                ALLE6.Add((Var<int[]>)(object)Object);
-                            }
-                            else
-                                if (Object.GetType() == typeof(Var<bool[]>))
-                                {
-                                    ALLE7.Add((Var<bool[]>)(object)Object);
-                                }
-                                else
-                                    if (Object.GetType() == typeof(Var<String[]>))
-                                    {
-                                        ALLE5.Add((Var<String[]>)(object)Object);
-                                    }
-                                    else
-                                        if (Object.GetType() == typeof(Var<float[]>))
-                                        {
-                                            ALLE8.Add((Var<float[]>)(object)Object);
-                                        }
+            else if (Object.GetType() == typeof(Var<bool>))
+            {
+                ALLE3.Add((Var<bool>)(object)Object);
+            }
+            else if (Object.GetType() == typeof(Var<String>))
+            {
+                ALLE.Add((Var<String>)(object)Object);
+            }
+            else if (Object.GetType() == typeof(Var<float>))
+            {
+                ALLE4.Add((Var<float>)(object)Object);
+            }
+            else if (Object.GetType() == typeof(Var<Int32[]>))
+            {
+                ALLE6.Add((Var<int[]>)(object)Object);
+            }
+            else if (Object.GetType() == typeof(Var<bool[]>))
+            {
+                ALLE7.Add((Var<bool[]>)(object)Object);
+            }
+            else if (Object.GetType() == typeof(Var<String[]>))
+            {
+                ALLE5.Add((Var<String[]>)(object)Object);
+            }
+            else if (Object.GetType() == typeof(Var<float[]>))
+            {
+                ALLE8.Add((Var<float[]>)(object)Object);
+            }
         }
 
         /// <summary>
-        /// Determines whether the specified expression is numeric.
+        ///     Determines whether the specified expression is numeric.
         /// </summary>
         /// <param name="Expression">The expression.</param>
         /// <returns><c>true</c> if the specified expression is numeric; otherwise, <c>false</c>.</returns>
-        public static System.Boolean IsNumeric(System.Object Expression)
+        public static Boolean IsNumeric(Object Expression)
         {
             if (Expression == null || Expression is DateTime)
                 return false;
 
-            if (Expression is Int16 || Expression is Int32 || Expression is Int64 || Expression is Decimal || Expression is Single || Expression is Double || Expression is Boolean)
+            if (Expression is Int16 || Expression is Int32 || Expression is Int64 || Expression is Decimal ||
+                Expression is Single || Expression is Double || Expression is Boolean)
                 return true;
 
             try
@@ -233,18 +234,20 @@ namespace _4_1_
                     Double.Parse(Expression.ToString());
                 return true;
             }
-            catch { } // just dismiss errors but return false
+            catch
+            {
+            } // just dismiss errors but return false
             return false;
         }
 
         /// <summary>
-        /// Liest eine Konfigurationsdatei ein
+        ///     Liest eine Konfigurationsdatei ein
         /// </summary>
         /// <param name="_Datei">Name der Datei</param>
         public static void Open(String _Datei)
         {
             Data.list.Clear();
-            StreamReader Datei = new StreamReader(_Datei);
+            var Datei = new StreamReader(_Datei);
             for (; !Datei.EndOfStream; )
             {
                 String q = Datei.ReadLine();
@@ -255,7 +258,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Sets from ALLE.
+        ///     Sets from ALLE.
         /// </summary>
         /// <param name="Name">The name.</param>
         /// <param name="_Wert">The _ wert.</param>
@@ -263,7 +266,8 @@ namespace _4_1_
         public static bool SetFromALLE(String Name, T _Wert)
         {
             if (_Wert == null) return false;
-            if (_Wert.GetType() == typeof(Int32) || _Wert.GetType() == typeof(bool) || _Wert.GetType() == typeof(String) || _Wert.GetType() == typeof(float))
+            if (_Wert.GetType() == typeof(Int32) || _Wert.GetType() == typeof(bool) ||
+                _Wert.GetType() == typeof(String) || _Wert.GetType() == typeof(float))
             {
                 for (int i = 0; i < ALLE.Count; i++)
                     if (ALLE[i].Name == Name)
@@ -308,7 +312,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Sets from ALLE.
+        ///     Sets from ALLE.
         /// </summary>
         /// <param name="Name">The name.</param>
         /// <param name="_Wert">The _ wert.</param>
@@ -400,105 +404,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Var{T}" /> class.
-        /// </summary>
-        /// <param name="_Name">Name of the _.</param>
-        /// <param name="Default">The default.</param>
-        private void Init(String _Name, T Default)
-        {
-            Name = _Name;
-            Wert = Default;
-            if (Wert.GetType() == typeof(Int32) || Wert.GetType() == typeof(bool) || Wert.GetType() == typeof(String) || Wert.GetType() == typeof(float))
-            {
-                oldWert = Default;
-            }
-            else
-            {
-                if (typeof(T) == typeof(Int32[]))
-                {
-                    oldWert = (T)(object)new Int32[((Int32[])(object)Wert).Count()];
-                    for (int i = 0; i < ((Int32[])(object)Wert).Count(); i++)
-                    {
-                        ((Int32[])(object)oldWert)[i] = ((Int32[])(object)Wert)[i];
-                    }
-                }
-                else
-                    if (typeof(T) == typeof(bool[]))
-                    {
-                        oldWert = (T)(object)new bool[((bool[])(object)Wert).Count()];
-                        for (int i = 0; i < ((bool[])(object)Wert).Count(); i++)
-                        {
-                            ((bool[])(object)oldWert)[i] = ((bool[])(object)Wert)[i];
-                        }
-                    }
-                    else
-                        if (typeof(T) == typeof(float[]))
-                        {
-                            oldWert = (T)(object)new float[((float[])(object)Wert).Count()];
-                            for (int i = 0; i < ((float[])(object)Wert).Count(); i++)
-                            {
-                                ((float[])(object)oldWert)[i] = ((float[])(object)Wert)[i];
-                            }
-                        }
-                        else
-                            if (typeof(T) == typeof(String[]))
-                            {
-                                int anz = ((String[])(object)Wert).Count();
-                                oldWert = (T)(object)new String[anz];
-                                for (int i = 0; i < ((String[])(object)Wert).Count(); i++)
-                                {
-                                    ((String[])(object)oldWert)[i] = new String(((String[])(object)Wert)[i].ToCharArray());
-                                }
-                            }
-            }
-
-            AddALLE(this);
-        }
-
-        /*public static object GetFromALLE(String Name)
-        {
-            for (int i = 0; i < ALLE.Count; i++)
-                if (ALLE[i].Name == Name)
-                {
-                    return (object)ALLE[i];
-                }
-
-            for (int i = 0; i < ALLE2.Count; i++)
-                if (ALLE2[i].Name == Name)
-                {
-                    return (object)ALLE2[i];
-                }
-
-            for (int i = 0; i < ALLE3.Count; i++)
-                if (ALLE3[i].Name == Name)
-                {
-                    return (object)ALLE3[i];
-                }
-
-                    for (int i = 0; i < ALLE5.Count; i++)
-                if (ALLE5[i].Name == Name)
-                {
-                    return (object)ALLE5[i];
-                }
-
-            for (int i = 0; i < ALLE6.Count; i++)
-                if (ALLE6[i].Name == Name)
-                {
-                    return (object)ALLE6[i];
-                }
-
-            for (int i = 0; i < ALLE7.Count; i++)
-                if (ALLE7[i].Name == Name)
-                {
-                    return (object)ALLE7[i];
-                }
-
-            return null;
-        }
-        */
-
-        /// <summary>
-        /// Loads this instance.
+        ///     Loads this instance.
         /// </summary>
         public void Load()
         {
@@ -506,7 +412,8 @@ namespace _4_1_
             SetFromALLE(Name, oldWert);
 
             // neu laden
-            if (Wert.GetType() == typeof(Int32) || Wert.GetType() == typeof(bool) || Wert.GetType() == typeof(String) || Wert.GetType() == typeof(float))
+            if (Wert.GetType() == typeof(Int32) || Wert.GetType() == typeof(bool) || Wert.GetType() == typeof(String) ||
+                Wert.GetType() == typeof(float))
             {
                 for (int i = 0; i < Data.list.Count; i++)
                 {
@@ -517,27 +424,26 @@ namespace _4_1_
                         {
                             Wert = (T)(object)(Convert.ToInt32(data[1].Trim()));
                         }
-                        else
-                            if (Wert.GetType() == typeof(Keys))
+                        else if (Wert.GetType() == typeof(Keys))
+                        {
+                            var qq = new KeysConverter();
+                            Wert = (T)qq.ConvertFromString(data[1].Trim());
+                            String q = Wert.ToString();
+                        }
+                        else if (Wert.GetType() == typeof(bool))
+                        {
+                            try
                             {
-                                System.Windows.Forms.KeysConverter qq = new System.Windows.Forms.KeysConverter();
-                                Wert = (T)(object)(qq.ConvertFromString(data[1].Trim()));
-                                String q = Wert.ToString();
+                                Wert = (T)(object)(Convert.ToBoolean(data[1].Trim()));
                             }
-                            else
-                                if (Wert.GetType() == typeof(bool))
-                                {
-                                    try
-                                    {
-                                        Wert = (T)(object)(Convert.ToBoolean(data[1].Trim()));
-                                    }
-                                    catch (FormatException) { }
-                                }
-                                else
-                                    if (Wert.GetType() == typeof(String))
-                                    {
-                                        Wert = (T)(object)data[1].Trim();
-                                    }
+                            catch (FormatException)
+                            {
+                            }
+                        }
+                        else if (Wert.GetType() == typeof(String))
+                        {
+                            Wert = (T)(object)data[1].Trim();
+                        }
                         break;
                     }
                 }
@@ -550,7 +456,7 @@ namespace _4_1_
                     {
                         ((Int32[])(object)Wert)[i] = ((Int32[])(object)oldWert)[i];
 
-                        String search = Name + "[" + i.ToString() + "]";
+                        String search = Name + "[" + i + "]";
                         for (int b = 0; b < Data.list.Count; b++)
                         {
                             String[] data = Data.list[b].Split('=');
@@ -561,108 +467,100 @@ namespace _4_1_
                         }
                     }
                 }
-                else
-                    if (Wert.GetType() == typeof(bool[]))
+                else if (Wert.GetType() == typeof(bool[]))
+                {
+                    for (int i = 0; i < ((bool[])(object)Wert).Count(); i++)
                     {
-                        for (int i = 0; i < ((bool[])(object)Wert).Count(); i++)
-                        {
-                            ((bool[])(object)Wert)[i] = ((bool[])(object)oldWert)[i];
+                        ((bool[])(object)Wert)[i] = ((bool[])(object)oldWert)[i];
 
-                            String search = Name + "[" + i.ToString() + "]";
-                            for (int b = 0; b < Data.list.Count; b++)
+                        String search = Name + "[" + i + "]";
+                        for (int b = 0; b < Data.list.Count; b++)
+                        {
+                            String[] data = Data.list[b].Split('=');
+                            if (data[0].Trim().ToUpper() == search)
                             {
-                                String[] data = Data.list[b].Split('=');
-                                if (data[0].Trim().ToUpper() == search)
-                                {
-                                    ((bool[])(object)Wert)[i] = (Convert.ToBoolean(data[1].Trim()));
-                                }
+                                ((bool[])(object)Wert)[i] = (Convert.ToBoolean(data[1].Trim()));
                             }
                         }
                     }
-                    else
-                        if (Wert.GetType() == typeof(String[]))
-                        {
-                            for (int i = 0; i < ((String[])(object)Wert).Count(); i++)
-                            {
-                                ((String[])(object)Wert)[i] = ((String[])(object)oldWert)[i];
+                }
+                else if (Wert.GetType() == typeof(String[]))
+                {
+                    for (int i = 0; i < ((String[])(object)Wert).Count(); i++)
+                    {
+                        ((String[])(object)Wert)[i] = ((String[])(object)oldWert)[i];
 
-                                String search = Name + "[" + i.ToString() + "]";
-                                for (int b = 0; b < Data.list.Count; b++)
-                                {
-                                    String[] data = Data.list[b].Split('=');
-                                    if (data[0].Trim().ToUpper() == search)
-                                    {
-                                        ((String[])(object)Wert)[i] = data[1].Trim();
-                                    }
-                                }
+                        String search = Name + "[" + i + "]";
+                        for (int b = 0; b < Data.list.Count; b++)
+                        {
+                            String[] data = Data.list[b].Split('=');
+                            if (data[0].Trim().ToUpper() == search)
+                            {
+                                ((String[])(object)Wert)[i] = data[1].Trim();
                             }
                         }
-                        else
-                            if (Wert.GetType() == typeof(float[]))
-                            {
-                                for (int i = 0; i < ((float[])(object)Wert).Count(); i++)
-                                {
-                                    ((float[])(object)Wert)[i] = ((float[])(object)oldWert)[i];
+                    }
+                }
+                else if (Wert.GetType() == typeof(float[]))
+                {
+                    for (int i = 0; i < ((float[])(object)Wert).Count(); i++)
+                    {
+                        ((float[])(object)Wert)[i] = ((float[])(object)oldWert)[i];
 
-                                    String search = Name + "[" + i.ToString() + "]";
-                                    for (int b = 0; b < Data.list.Count; b++)
-                                    {
-                                        String[] data = Data.list[b].Split('=');
-                                        if (data[0].Trim().ToUpper() == search)
-                                        {
-                                            ((float[])(object)Wert)[i] = (float)Convert.ToDouble(data[1].Trim());
-                                        }
-                                    }
-                                }
+                        String search = Name + "[" + i + "]";
+                        for (int b = 0; b < Data.list.Count; b++)
+                        {
+                            String[] data = Data.list[b].Split('=');
+                            if (data[0].Trim().ToUpper() == search)
+                            {
+                                ((float[])(object)Wert)[i] = (float)Convert.ToDouble(data[1].Trim());
                             }
+                        }
+                    }
+                }
             }
 
-            unsafe
+            if (LinkB != null)
             {
-                if (LinkB != null)
-                {
-                    *LinkB = (bool)(object)Wert;
-                }
-                else
-                    if (LinkI != null)
-                    {
-                        *LinkI = (int)(object)Wert;
-                    }
-                    else
-                        if (LinkF != null)
-                        {
-                            *LinkF = (float)(object)Wert;
-                        }
+                *LinkB = (bool)(object)Wert;
+            }
+            else if (LinkI != null)
+            {
+                *LinkI = (int)(object)Wert;
+            }
+            else if (LinkF != null)
+            {
+                *LinkF = (float)(object)Wert;
             }
         }
 
         /// <summary>
-        /// Speichert die Variable als Zuweisung = Wert
+        ///     Speichert die Variable als Zuweisung = Wert
         /// </summary>
         public String Save()
         {
             for (int i = 0; i < ALLE.Count; i++)
                 if (ALLE[i].Name == Name)
                 {
-                    return Name + " = " + Wert.ToString();
+                    return Name + " = " + Wert;
                 }
 
             for (int i = 0; i < ALLE2.Count; i++)
                 if (ALLE2[i].Name == Name)
                 {
-                    return Name + " = " + Wert.ToString();
+                    return Name + " = " + Wert;
                 }
 
             for (int i = 0; i < ALLE3.Count; i++)
                 if (ALLE3[i].Name == Name)
                 {
-                    return Name + " = " + Wert.ToString();
+                    return Name + " = " + Wert;
                 }
 
             for (int i = 0; i < ALLE4.Count; i++)
                 if (ALLE4[i].Name == Name)
                 {
-                    return Name + " = " + Wert.ToString();
+                    return Name + " = " + Wert;
                 }
 
             for (int i = 0; i < ALLE5.Count; i++)
@@ -670,7 +568,8 @@ namespace _4_1_
                 {
                     String result = "";
                     for (int b = 0; b < ALLE5[i].Wert.Length; b++)
-                        result += ALLE5[i].Name + "[" + b.ToString() + "] = " + ALLE5[i].Wert[b] + (b < ALLE5[i].Wert.Length - 1 ? "\n" : "");
+                        result += ALLE5[i].Name + "[" + b + "] = " + ALLE5[i].Wert[b] +
+                                  (b < ALLE5[i].Wert.Length - 1 ? "\n" : "");
                     return result;
                 }
 
@@ -679,7 +578,8 @@ namespace _4_1_
                 {
                     String result = "";
                     for (int b = 0; b < ALLE6[i].Wert.Length; b++)
-                        result += ALLE6[i].Name + "[" + b.ToString() + "] = " + ALLE6[i].Wert[b] + (b < ALLE6[i].Wert.Length - 1 ? "\n" : "");
+                        result += ALLE6[i].Name + "[" + b + "] = " + ALLE6[i].Wert[b] +
+                                  (b < ALLE6[i].Wert.Length - 1 ? "\n" : "");
                     return result;
                 }
 
@@ -688,7 +588,8 @@ namespace _4_1_
                 {
                     String result = "";
                     for (int b = 0; b < ALLE7[i].Wert.Length; b++)
-                        result += ALLE7[i].Name + "[" + b.ToString() + "] = " + ALLE7[i].Wert[b] + (b < ALLE7[i].Wert.Length - 1 ? "\n" : "");
+                        result += ALLE7[i].Name + "[" + b + "] = " + ALLE7[i].Wert[b] +
+                                  (b < ALLE7[i].Wert.Length - 1 ? "\n" : "");
                     return result;
                 }
 
@@ -697,7 +598,8 @@ namespace _4_1_
                 {
                     String result = "";
                     for (int b = 0; b < ALLE8[i].Wert.Length; b++)
-                        result += ALLE8[i].Name + "[" + b.ToString() + "] = " + ALLE8[i].Wert[b] + (b < ALLE8[i].Wert.Length - 1 ? "\n" : "");
+                        result += ALLE8[i].Name + "[" + b + "] = " + ALLE8[i].Wert[b] +
+                                  (b < ALLE8[i].Wert.Length - 1 ? "\n" : "");
                     return result;
                 }
 
@@ -833,5 +735,103 @@ namespace _4_1_
                         }
             }*/
         }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="Var{T}" /> class.
+        /// </summary>
+        /// <param name="_Name">Name of the _.</param>
+        /// <param name="Default">The default.</param>
+        private void Init(String _Name, T Default)
+        {
+            Name = _Name;
+            Wert = Default;
+            if (Wert.GetType() == typeof(Int32) || Wert.GetType() == typeof(bool) || Wert.GetType() == typeof(String) ||
+                Wert.GetType() == typeof(float))
+            {
+                oldWert = Default;
+            }
+            else
+            {
+                if (typeof(T) == typeof(Int32[]))
+                {
+                    oldWert = (T)(object)new Int32[((Int32[])(object)Wert).Count()];
+                    for (int i = 0; i < ((Int32[])(object)Wert).Count(); i++)
+                    {
+                        ((Int32[])(object)oldWert)[i] = ((Int32[])(object)Wert)[i];
+                    }
+                }
+                else if (typeof(T) == typeof(bool[]))
+                {
+                    oldWert = (T)(object)new bool[((bool[])(object)Wert).Count()];
+                    for (int i = 0; i < ((bool[])(object)Wert).Count(); i++)
+                    {
+                        ((bool[])(object)oldWert)[i] = ((bool[])(object)Wert)[i];
+                    }
+                }
+                else if (typeof(T) == typeof(float[]))
+                {
+                    oldWert = (T)(object)new float[((float[])(object)Wert).Count()];
+                    for (int i = 0; i < ((float[])(object)Wert).Count(); i++)
+                    {
+                        ((float[])(object)oldWert)[i] = ((float[])(object)Wert)[i];
+                    }
+                }
+                else if (typeof(T) == typeof(String[]))
+                {
+                    int anz = ((String[])(object)Wert).Count();
+                    oldWert = (T)(object)new String[anz];
+                    for (int i = 0; i < ((String[])(object)Wert).Count(); i++)
+                    {
+                        ((String[])(object)oldWert)[i] = new String(((String[])(object)Wert)[i].ToCharArray());
+                    }
+                }
+            }
+
+            AddALLE(this);
+        }
+
+        #endregion Methods
+
+        /*public static object GetFromALLE(String Name)
+        {
+            for (int i = 0; i < ALLE.Count; i++)
+                if (ALLE[i].Name == Name)
+                {
+                    return (object)ALLE[i];
+                }
+
+            for (int i = 0; i < ALLE2.Count; i++)
+                if (ALLE2[i].Name == Name)
+                {
+                    return (object)ALLE2[i];
+                }
+
+            for (int i = 0; i < ALLE3.Count; i++)
+                if (ALLE3[i].Name == Name)
+                {
+                    return (object)ALLE3[i];
+                }
+
+                    for (int i = 0; i < ALLE5.Count; i++)
+                if (ALLE5[i].Name == Name)
+                {
+                    return (object)ALLE5[i];
+                }
+
+            for (int i = 0; i < ALLE6.Count; i++)
+                if (ALLE6[i].Name == Name)
+                {
+                    return (object)ALLE6[i];
+                }
+
+            for (int i = 0; i < ALLE7.Count; i++)
+                if (ALLE7[i].Name == Name)
+                {
+                    return (object)ALLE7[i];
+                }
+
+            return null;
+        }
+        */
     }
 }

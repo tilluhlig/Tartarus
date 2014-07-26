@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -18,7 +19,7 @@ using Microsoft.Xna.Framework;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Höhlenkonfiguration
+    ///     Class Höhlenkonfiguration
     /// </summary>
     public class Höhlenkonfiguration
     {
@@ -27,42 +28,42 @@ namespace _4_1_
         #region Allgemein
 
         /// <summary>
-        /// The beginy
+        ///     The beginy
         /// </summary>
         private int beginy = 50;
 
         /// <summary>
-        /// The dist between caves
+        ///     The dist between caves
         /// </summary>
         private int DistBetweenCaves = 150;
 
         /// <summary>
-        /// The liquid
+        ///     The liquid
         /// </summary>
-        private bool liquid = false;
+        private bool liquid;
 
         /// <summary>
-        /// The loch
+        ///     The loch
         /// </summary>
         private int loch = 450;
 
         /// <summary>
-        /// The material
+        ///     The material
         /// </summary>
         private int Material = Karte.LUFT;
 
         /// <summary>
-        /// The maxbreite
+        ///     The maxbreite
         /// </summary>
         private int maxbreite = 750;
 
         /// <summary>
-        /// The minbreite
+        ///     The minbreite
         /// </summary>
         private int minbreite = 250;
 
         /// <summary>
-        /// The minhigh
+        ///     The minhigh
         /// </summary>
         private int minhigh = 150;
 
@@ -71,32 +72,32 @@ namespace _4_1_
         #region A
 
         /// <summary>
-        /// The end A
+        ///     The end A
         /// </summary>
         private float endA = 0.3f;
 
         /// <summary>
-        /// The high A
+        ///     The high A
         /// </summary>
         private int highA = 50;
 
         /// <summary>
-        /// The low A
+        ///     The low A
         /// </summary>
         private int lowA = 8;
 
         /// <summary>
-        /// The lowest A
+        ///     The lowest A
         /// </summary>
-        private int lowestA = 0;
+        private int lowestA;
 
         /// <summary>
-        /// The maxm A
+        ///     The maxm A
         /// </summary>
         private int maxmA = 30;
 
         /// <summary>
-        /// The minm A
+        ///     The minm A
         /// </summary>
         private int minmA = 5;
 
@@ -105,32 +106,32 @@ namespace _4_1_
         #region B
 
         /// <summary>
-        /// The end B
+        ///     The end B
         /// </summary>
         private float endB = 0.3f;
 
         /// <summary>
-        /// The high B
+        ///     The high B
         /// </summary>
         private int highB = 80;
 
         /// <summary>
-        /// The low B
+        ///     The low B
         /// </summary>
         private int lowB = 8;
 
         /// <summary>
-        /// The lowest B
+        ///     The lowest B
         /// </summary>
-        private int lowestB = 0;
+        private int lowestB;
 
         /// <summary>
-        /// The maxm B
+        ///     The maxm B
         /// </summary>
         private int maxmB = 50;
 
         /// <summary>
-        /// The minm B
+        ///     The minm B
         /// </summary>
         private int minmB = 15;
 
@@ -139,39 +140,39 @@ namespace _4_1_
         #region C
 
         /// <summary>
-        /// The end C
+        ///     The end C
         /// </summary>
         private float endC = 0.2f;
 
         /// <summary>
-        /// The high C
+        ///     The high C
         /// </summary>
         private int highC = 40;
 
         /// <summary>
-        /// The low C
+        ///     The low C
         /// </summary>
         private int lowC = -40;
 
         /// <summary>
-        /// The lowest C
+        ///     The lowest C
         /// </summary>
         private int lowestC = -40;
 
         /// <summary>
-        /// The maxm C
+        ///     The maxm C
         /// </summary>
         private int maxmC = 50;
 
         /// <summary>
-        /// The minm C
+        ///     The minm C
         /// </summary>
         private int minmC = 15;
 
         #endregion C
 
         /// <summary>
-        /// Prüft ob eine x-Koordinate in einem gesperrten Bereich liegt
+        ///     Prüft ob eine x-Koordinate in einem gesperrten Bereich liegt
         /// </summary>
         /// <param name="x">die x-Koordinate</param>
         /// <param name="Sperrgebiete">Eine Liste aus Sperrgebieten x = x-Anfang, y = Breite des gesperrten Bereichs</param>
@@ -189,8 +190,10 @@ namespace _4_1_
 
         #endregion Privat
 
+        #region Methods
+
         /// <summary>
-        /// Erzeugt "Löcher" im Boden, anhand der übergebenen Definition
+        ///     Erzeugt "Löcher" im Boden, anhand der übergebenen Definition
         /// </summary>
         /// <param name="hoehle">Die Höhlendefinition</param>
         /// <param name="array">ein Spielfeld im Kartenformat</param>
@@ -240,7 +243,10 @@ namespace _4_1_
                         machen = Help.rnd.Next(0, loch) == 1 ? true : false;
                         if (machen)
                         {
-                            y = Kartenformat.Laenge(array[i][0]) + (!hoehle.liquid ? Help.rnd.Next(hoehle.beginy, (int)(Kartenformat.Laenge(array[i][1]))) : hoehle.beginy); // 50
+                            y = Kartenformat.Laenge(array[i][0]) +
+                                (!hoehle.liquid
+                                    ? Help.rnd.Next(hoehle.beginy, Kartenformat.Laenge(array[i][1]))
+                                    : hoehle.beginy); // 50
                             breite = Help.rnd.Next(hoehle.minbreite, hoehle.maxbreite); //250,750
                             maxbreite = breite;
                             moveA = 0;
@@ -297,16 +303,14 @@ namespace _4_1_
                     {
                         moveA = -1;
                     }
-                    else
-                        if (wertA <= hoehle.lowA && maxbreite * hoehle.endA < breite) // 8 // 0.3f
-                        {
-                            moveA = 1;
-                        }
-                        else
-                            if (wertA <= hoehle.lowestA)
-                            {
-                                moveA = 1;
-                            }
+                    else if (wertA <= hoehle.lowA && maxbreite * hoehle.endA < breite) // 8 // 0.3f
+                    {
+                        moveA = 1;
+                    }
+                    else if (wertA <= hoehle.lowestA)
+                    {
+                        moveA = 1;
+                    }
 
                     if (moveA == 1)
                     {
@@ -318,17 +322,16 @@ namespace _4_1_
                         else
                             wertA++;
                     }
-                    else
-                        if (moveA == -1)
+                    else if (moveA == -1)
+                    {
+                        if (distA <= 0)
                         {
-                            if (distA <= 0)
-                            {
-                                posA--;
-                                distA = (int)Math.Log(mA, Math.E);
-                            }
-                            else
-                                wertA--;
+                            posA--;
+                            distA = (int)Math.Log(mA, Math.E);
                         }
+                        else
+                            wertA--;
+                    }
 
                     mA--;
                     distA--;
@@ -358,16 +361,14 @@ namespace _4_1_
                     {
                         moveB = -1;
                     }
-                    else
-                        if (wertB <= hoehle.lowB && maxbreite * hoehle.endB < breite) // 8
-                        {
-                            moveB = 1;
-                        }
-                        else
-                            if (wertB <= hoehle.lowestB)
-                            {
-                                moveB = 1;
-                            }
+                    else if (wertB <= hoehle.lowB && maxbreite * hoehle.endB < breite) // 8
+                    {
+                        moveB = 1;
+                    }
+                    else if (wertB <= hoehle.lowestB)
+                    {
+                        moveB = 1;
+                    }
 
                     if (moveB == 1)
                     {
@@ -380,17 +381,16 @@ namespace _4_1_
                         else
                             wertB++;
                     }
-                    else
-                        if (moveB == -1)
+                    else if (moveB == -1)
+                    {
+                        if (distB <= 0)
                         {
-                            if (distB <= 0)
-                            {
-                                posB--;
-                                distB = (int)Math.Log(maxB - mB + 1, Math.E);
-                            }
-                            else
-                                wertB--;
+                            posB--;
+                            distB = (int)Math.Log(maxB - mB + 1, Math.E);
                         }
+                        else
+                            wertB--;
+                    }
 
                     mB--;
                     distB--;
@@ -420,16 +420,14 @@ namespace _4_1_
                     {
                         moveC = -1;
                     }
-                    else
-                        if (wertC <= hoehle.lowC && maxbreite * hoehle.endC < breite)
-                        {
-                            moveC = 1;
-                        }
-                        else
-                            if (wertC <= hoehle.lowestC)
-                            {
-                                moveC = 1;
-                            }
+                    else if (wertC <= hoehle.lowC && maxbreite * hoehle.endC < breite)
+                    {
+                        moveC = 1;
+                    }
+                    else if (wertC <= hoehle.lowestC)
+                    {
+                        moveC = 1;
+                    }
 
                     if (moveC == 1)
                     {
@@ -441,17 +439,16 @@ namespace _4_1_
                         else
                             wertC++;
                     }
-                    else
-                        if (moveC == -1)
+                    else if (moveC == -1)
+                    {
+                        if (distC <= 0)
                         {
-                            if (distC <= 0)
-                            {
-                                posC--;
-                                distC = (int)Math.Log(mC, Math.E);
-                            }
-                            else
-                                wertC--;
+                            posC--;
+                            distC = (int)Math.Log(mC, Math.E);
                         }
+                        else
+                            wertC--;
+                    }
 
                     mC--;
                     distC--;
@@ -471,7 +468,8 @@ namespace _4_1_
                             }
                         }
                         else
-                            Kartenformat.SetMaterialFromTo(array, i, y - wertA + wertC, y + wertB + wertC, hoehle.Material);
+                            Kartenformat.SetMaterialFromTo(array, i, y - wertA + wertC, y + wertB + wertC,
+                                hoehle.Material);
                     }
                     else
                     {
@@ -488,7 +486,10 @@ namespace _4_1_
                         }
                     }
 
-                    if (maxbreite * ((hoehle.endA + hoehle.endB) / 2) >= breite && wertA == 0 && wertB == 0) { breite = 0; }
+                    if (maxbreite * ((hoehle.endA + hoehle.endB) / 2) >= breite && wertA == 0 && wertB == 0)
+                    {
+                        breite = 0;
+                    }
 
                     if (breite > 0)
                     {
@@ -503,8 +504,10 @@ namespace _4_1_
             }
         }
 
+        #endregion Methods
+
         /// <summary>
-        /// Setzt die "A" Werte für die Definition
+        ///     Setzt die "A" Werte für die Definition
         /// </summary>
         /// <param name="_minmA">The _minm A.</param>
         /// <param name="_maxmA">The _maxm A.</param>
@@ -523,7 +526,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Setzt "Allgemeine" Werte für die Definition
+        ///     Setzt "Allgemeine" Werte für die Definition
         /// </summary>
         /// <param name="_loch">The _loch.</param>
         /// <param name="_minhigh">The _minhigh.</param>
@@ -533,7 +536,8 @@ namespace _4_1_
         /// <param name="_DistBeetweenCaves">The _ dist beetween caves.</param>
         /// <param name="_Material">The _ material.</param>
         /// <param name="_liquid">if set to <c>true</c> [_liquid].</param>
-        public void setAllgemein(int _loch, int _minhigh, int _beginy, int _minbreite, int _maxbreite, int _DistBeetweenCaves, int _Material, bool _liquid)
+        public void setAllgemein(int _loch, int _minhigh, int _beginy, int _minbreite, int _maxbreite,
+            int _DistBeetweenCaves, int _Material, bool _liquid)
         {
             liquid = _liquid;
             loch = _loch;
@@ -546,7 +550,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Setzt die "B" Werte für die Definition
+        ///     Setzt die "B" Werte für die Definition
         /// </summary>
         /// <param name="_minmB">The _minm B.</param>
         /// <param name="_maxmB">The _maxm B.</param>
@@ -565,7 +569,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Setzt die "C" Werte für die Definition
+        ///     Setzt die "C" Werte für die Definition
         /// </summary>
         /// <param name="_minmC">The _minm C.</param>
         /// <param name="_maxmC">The _maxm C.</param>

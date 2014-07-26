@@ -21,16 +21,16 @@ namespace Upload
         #region Constructor
 
         /// <summary>
-        /// Initialisiert eine neue Instanz der FTP Helper Klasse
+        ///     Initialisiert eine neue Instanz der FTP Helper Klasse
         /// </summary>
         /// <param name="adress">Name oder IP Adresse des Servers</param>
         /// <param name="user">Benutzername</param>
         /// <param name="password">Passwort</param>
         public Ftp(string adress, string user, string password)
         {
-            this.Adress = adress;
-            this.User = user;
-            this.Password = password;
+            Adress = adress;
+            User = user;
+            Password = password;
         }
 
         #endregion Constructor
@@ -43,16 +43,18 @@ namespace Upload
 
         #endregion Events
 
+        #region Methods
+
         /// <summary>
-        /// Überprüft ob eine Verbindung zum FTP Server besteht
+        ///     Überprüft ob eine Verbindung zum FTP Server besteht
         /// </summary>
         public void CheckConnection()
         {
             try
             {
-                FtpWebRequest.DefaultWebProxy = null;
-                FtpWebRequest ftpWebRequest = (FtpWebRequest)FtpWebRequest.Create(new Uri("ftp://" + this.Adress + "/"));
-                ftpWebRequest.Credentials = new NetworkCredential(this.User, this.Password);
+                WebRequest.DefaultWebProxy = null;
+                var ftpWebRequest = (FtpWebRequest)WebRequest.Create(new Uri("ftp://" + Adress + "/"));
+                ftpWebRequest.Credentials = new NetworkCredential(User, Password);
 
                 //Als Methode muss ListDirectory gewählt werden!
                 ftpWebRequest.Method = WebRequestMethods.Ftp.ListDirectory;
@@ -66,7 +68,7 @@ namespace Upload
         }
 
         /// <summary>
-        /// Erstellt einen Order auf dem FTP Server in einem beliebigen Unterverzeichnis
+        ///     Erstellt einen Order auf dem FTP Server in einem beliebigen Unterverzeichnis
         /// </summary>
         /// <param name="remoteFolder">Zielverzeichnis</param>
         /// <param name="folder">Verzeichnisname</param>
@@ -74,7 +76,8 @@ namespace Upload
         {
             try
             {
-                FtpWebRequest ftpWebRequest = (FtpWebRequest)FtpWebRequest.Create(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + folder));
+                var ftpWebRequest =
+                    (FtpWebRequest)WebRequest.Create(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + folder));
                 ftpWebRequest.UseBinary = true;
                 ftpWebRequest.Credentials = new NetworkCredential(User, Password);
                 ftpWebRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
@@ -90,16 +93,16 @@ namespace Upload
         }
 
         /// <summary>
-        /// Erstellt einen Ordner im Root Verzeichnis des FTP Nutzers
+        ///     Erstellt einen Ordner im Root Verzeichnis des FTP Nutzers
         /// </summary>
         /// <param name="folder">Verzeichnisname</param>
         public void CreateFolder(string folder)
         {
-            this.CreateFolder("", folder);
+            CreateFolder("", folder);
         }
 
         /// <summary>
-        /// Löscht eine Datei vom FTP Server
+        ///     Löscht eine Datei vom FTP Server
         /// </summary>
         /// <param name="remoteFolder">Zielverzeichnis</param>
         /// <param name="fileInfo">Datei</param>
@@ -107,7 +110,9 @@ namespace Upload
         {
             try
             {
-                FtpWebRequest ftpWebRequest = (FtpWebRequest)FtpWebRequest.Create(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + fileInfo.Name));
+                var ftpWebRequest =
+                    (FtpWebRequest)
+                        WebRequest.Create(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + fileInfo.Name));
                 ftpWebRequest.UseBinary = true;
                 ftpWebRequest.Credentials = new NetworkCredential(User, Password);
                 ftpWebRequest.Method = WebRequestMethods.Ftp.DeleteFile;
@@ -123,7 +128,7 @@ namespace Upload
         }
 
         /// <summary>
-        /// Löscht eine Datei vom FTP Server
+        ///     Löscht eine Datei vom FTP Server
         /// </summary>
         /// <param name="fileInfo">Datei</param>
         public void DeleteFile(FileInfo fileInfo)
@@ -132,17 +137,18 @@ namespace Upload
         }
 
         /// <summary>
-        /// Lädt eine Datei vom FTP Server herunter
+        ///     Lädt eine Datei vom FTP Server herunter
         /// </summary>
         public void DownloadFile(string remoteFolder, FileInfo file, string destinationFolder, FileInfo destinationFile)
         {
             try
             {
-                WebClient webClient = new WebClient();
+                var webClient = new WebClient();
 
                 webClient.Credentials = new NetworkCredential(User, Password);
 
-                byte[] data = webClient.DownloadData(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + file.Name));//
+                byte[] data = webClient.DownloadData(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + file.Name));
+                //
 
                 FileStream fileStream = File.Create(destinationFolder + @"\" + destinationFile);
 
@@ -157,26 +163,28 @@ namespace Upload
         }
 
         /// <summary>
-        /// Lädt eine Datei vom FTP Server herunter
+        ///     Lädt eine Datei vom FTP Server herunter
         /// </summary>
         /// <param name="file"></param>
         /// <param name="destinationFolder"></param>
         /// <param name="destinationFile"></param>
         public void DownloadFile(FileInfo file, string destinationFolder, FileInfo destinationFile)
         {
-            this.DownloadFile("", file, destinationFolder, destinationFile);
+            DownloadFile("", file, destinationFolder, destinationFile);
         }
 
-        public String DownloadFileToStream(string remoteFolder, FileInfo file, string destinationFolder, FileInfo destinationFile)
+        public String DownloadFileToStream(string remoteFolder, FileInfo file, string destinationFolder,
+            FileInfo destinationFile)
         {
             try
             {
-                WebClient webClient = new WebClient();
+                var webClient = new WebClient();
 
                 webClient.Credentials = new NetworkCredential(User, Password);
 
                 String q = "";
-                byte[] temp = webClient.DownloadData(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + file.Name));//
+                byte[] temp = webClient.DownloadData(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + file.Name));
+                //
                 /*for (int i = 0; i < temp.Count(); i++)
                 {
                     char t = BitConverter.ToChar(temp,0);
@@ -200,12 +208,12 @@ namespace Upload
         }
 
         /// <summary>
-        /// Liefert eine Liste von Dateien zurück, die sich in einem bestimmten Verzeichnis auf dem Server befinden
+        ///     Liefert eine Liste von Dateien zurück, die sich in einem bestimmten Verzeichnis auf dem Server befinden
         /// </summary>
         /// <returns></returns>
         public List<string> GetFileList(string remoteFolder)
         {
-            FtpWebRequest ftpWebRequest = (FtpWebRequest)WebRequest.Create("ftp://" + Adress + "/" + remoteFolder);
+            var ftpWebRequest = (FtpWebRequest)WebRequest.Create("ftp://" + Adress + "/" + remoteFolder);
             ftpWebRequest.Method = WebRequestMethods.Ftp.ListDirectory;
 
             WebResponse webResponse = null;
@@ -221,9 +229,9 @@ namespace Upload
                 throw;
             }
 
-            List<string> files = new List<string>();
+            var files = new List<string>();
 
-            StreamReader streamReader = new StreamReader(webResponse.GetResponseStream());
+            var streamReader = new StreamReader(webResponse.GetResponseStream());
 
             while (!streamReader.EndOfStream)
             {
@@ -238,16 +246,16 @@ namespace Upload
         }
 
         /// <summary>
-        /// Liefert eine Liste von Dateien zurück
+        ///     Liefert eine Liste von Dateien zurück
         /// </summary>
         /// <returns></returns>
         public List<string> GetFileList()
         {
-            return this.GetFileList("");
+            return GetFileList("");
         }
 
         /// <summary>
-        /// Lädt Dateien auf einen FTP Server
+        ///     Lädt Dateien auf einen FTP Server
         /// </summary>
         /// <param name="remoteFolder">Zielverzeichnis</param>
         /// <param name="fileInfo"></param>
@@ -279,7 +287,9 @@ namespace Upload
                          }
                  }*/
 
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + fileInfo.Name));
+                var request =
+                    (FtpWebRequest)
+                        WebRequest.Create(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + fileInfo.Name));
 
                 request.Method = WebRequestMethods.Ftp.UploadFile;
 
@@ -290,15 +300,14 @@ namespace Upload
                 FileStream file = File.OpenRead(fileInfo.FullName);
 
                 int length = 1024;
-                byte[] buffer = new byte[length];
+                var buffer = new byte[length];
                 int bytesRead = 0;
 
                 do
                 {
                     bytesRead = file.Read(buffer, 0, length);
                     ftpStream.Write(buffer, 0, bytesRead);
-                }
-                while (bytesRead != 0);
+                } while (bytesRead != 0);
 
                 file.Close();
                 ftpStream.Close();
@@ -312,12 +321,14 @@ namespace Upload
         }
 
         /// <summary>
-        /// Lädt Dateien auf einen FTP Server
+        ///     Lädt Dateien auf einen FTP Server
         /// </summary>
         /// <param name="fileInfo"></param>
         public void UploadFile(FileInfo fileInfo)
         {
-            this.UploadFile("", fileInfo);
+            UploadFile("", fileInfo);
         }
+
+        #endregion Methods
     }
 }

@@ -5,11 +5,16 @@ namespace Hauptfenster
 {
     public static class Program
     {
+        #region Fields
+
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
+        ///     Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
-        ///
         public static Form1 Formular;
+
+        #endregion Fields
+
+        #region Methods
 
         [STAThread]
         public static void Main()
@@ -19,5 +24,7 @@ namespace Hauptfenster
             //Formular = new Form1();
             Application.Run(Formular);
         }
+
+        #endregion Methods
     }
 }

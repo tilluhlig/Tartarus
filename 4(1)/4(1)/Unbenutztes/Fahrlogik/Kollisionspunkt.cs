@@ -4,12 +4,22 @@ namespace _4_1_
 {
     public class Kollisionspunkt
     {
-        private Vector2 Position; // die relative Position
+        #region Fields
+
+        private readonly Vector2 Position;
+
+        #endregion Fields
+
+        #region Constructors
 
         public Kollisionspunkt(Vector2 _Position)
         {
             Position = _Position;
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         public bool IsCollision(float angle, Vector2 Bezugspunkt, Vector2 Anheftpunkt)
         {
@@ -20,5 +30,9 @@ namespace _4_1_
 
             return Kartenformat.isSet(pos);
         }
+
+        #endregion Methods
+
+        // die relative Position
     }
 }

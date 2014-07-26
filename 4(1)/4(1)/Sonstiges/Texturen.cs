@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-// ***********************************************************************
+﻿// ***********************************************************************
 // Assembly         : 4(1)
 // Author           : Till
 // Created          : 07-20-2013
@@ -15,6 +11,9 @@ using System.IO;
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -23,406 +22,577 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Texturen
+    ///     Class Texturen
     /// </summary>
     public static class Texturen
     {
+        #region Fields
+
+        public static Dictionary<String, float> Bilddateien = new Dictionary<String, float>();
+
+        public static Effect effect;
+
+        #endregion Fields
+
+        #region Methods
+
+        /// <summary>
+        ///     Baeumes the skalierung.
+        /// </summary>
+        public static void BaeumeSkalierung()
+        {
+            /* if (Baumdata.oldscale == null)
+             {
+                 Baumdata.oldscale = new float[Baumdata.SKALIERUNG.Count()];
+                 Baumdata.SKALIERUNG.CopyTo(Baumdata.oldscale, 0);
+             }
+             else
+             {
+                 Baumdata.SKALIERUNG = new float[Baumdata.oldscale.Count()];
+                 Baumdata.oldscale.CopyTo(Baumdata.SKALIERUNG, 0);
+             }*/
+
+            for (int i = 0; i < baum.Count(); i++)
+            {
+#if DEBUG
+                if (Baumdata.SKALIERUNG.Wert[i] == 1.0f) continue;
+                var rt = new RenderTarget2D(Game1.device, (int) (baum[i].Width*Baumdata.SKALIERUNG.Wert[i]),
+                    (int) (baum[i].Height*Baumdata.SKALIERUNG.Wert[i]));
+                Game1.device.SetRenderTarget(rt);
+                var rect = new Rectangle(0, 0, (int) (baum[i].Width*Baumdata.SKALIERUNG.Wert[i]),
+                    (int) (baum[i].Height*Baumdata.SKALIERUNG.Wert[i]));
+                Game1.spriteBatch.Begin();
+                Game1.device.Clear(Color.Transparent);
+                Game1.spriteBatch.Draw(baum[i], rect, Color.White);
+                Game1.spriteBatch.End();
+                Game1.device.SetRenderTarget(null);
+                rt.Tag = baum[i].Tag;
+                baum[i] = rt;
+#endif
+                Baumdata.SKALIERUNG.Wert[i] = 1.0f;
+            }
+        }
+
+        /// <summary>
+        ///     Panzers the skalierung.
+        /// </summary>
+        public static void FahrzeugSkalierung()
+        {
+            for (int i = 0; i < panzerindex.Count(); i++)
+            {
+#if DEBUG
+                if (Fahrzeugdaten.SCALEP.Wert[i] == 1.0f) continue;
+                var rt = new RenderTarget2D(Game1.device, (int) (panzerindex[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int) (panzerindex[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                Game1.device.SetRenderTarget(rt);
+                var rect = new Rectangle(0, 0, (int) (panzerindex[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int) (panzerindex[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                Game1.spriteBatch.Begin();
+                Game1.device.Clear(Color.Transparent);
+                Game1.spriteBatch.Draw(panzerindex[i], rect, Color.White);
+                Game1.spriteBatch.End();
+                Game1.device.SetRenderTarget(null);
+                rt.Tag = panzerindex[i].Tag;
+                panzerindex[i] = rt;
+
+                rt = new RenderTarget2D(Game1.device, (int) (panzerindexreifen[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int) (panzerindexreifen[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                Game1.device.SetRenderTarget(rt);
+                rect = new Rectangle(0, 0, (int) (panzerindexreifen[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int) (panzerindexreifen[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                Game1.spriteBatch.Begin();
+                Game1.device.Clear(Color.Transparent);
+                Game1.spriteBatch.Draw(panzerindexreifen[i], rect, Color.White);
+                Game1.spriteBatch.End();
+                Game1.device.SetRenderTarget(null);
+                rt.Tag = panzerindexreifen[i].Tag;
+                panzerindexreifen[i] = rt;
+
+                rt = new RenderTarget2D(Game1.device, (int) (panzerruine[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int) (panzerruine[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                Game1.device.SetRenderTarget(rt);
+                rect = new Rectangle(0, 0, (int) (panzerruine[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int) (panzerruine[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                Game1.spriteBatch.Begin();
+                Game1.device.Clear(Color.Transparent);
+                Game1.spriteBatch.Draw(panzerruine[i], rect, Color.White);
+                Game1.spriteBatch.End();
+                Game1.device.SetRenderTarget(null);
+                rt.Tag = panzerruine[i].Tag;
+                panzerruine[i] = rt;
+#endif
+                Fahrzeugdaten.SCALEP.Wert[i] = 1.0f;
+            }
+
+            for (int i = 0; i < panzerrohrindex.Count(); i++)
+            {
+#if DEBUG
+                if ((int) (panzerrohrindex[i].Width*Fahrzeugdaten.SCALER.Wert[i]) > 0 &&
+                    (int) (panzerrohrindex[i].Height*Fahrzeugdaten.SCALER.Wert[i]) > 0)
+                {
+                    var rt = new RenderTarget2D(Game1.device,
+                        (int) (panzerrohrindex[i].Width*Fahrzeugdaten.SCALER.Wert[i]),
+                        (int) (panzerrohrindex[i].Height*Fahrzeugdaten.SCALER.Wert[i]));
+                    Game1.device.SetRenderTarget(rt);
+                    var rect = new Rectangle(0, 0, (int) (panzerrohrindex[i].Width*Fahrzeugdaten.SCALER.Wert[i]),
+                        (int) (panzerrohrindex[i].Height*Fahrzeugdaten.SCALER.Wert[i]));
+                    Game1.spriteBatch.Begin();
+                    Game1.device.Clear(Color.Transparent);
+                    Game1.spriteBatch.Draw(panzerrohrindex[i], rect, Color.White);
+                    Game1.spriteBatch.End();
+                    Game1.device.SetRenderTarget(null);
+                    panzerrohrindex[i] = rt;
+#endif
+                    Fahrzeugdaten.SCALER.Wert[i] = 1.0f;
+#if DEBUG
+                }
+#endif
+            }
+        }
+
         public static Texture2D FromFile(String Datei)
         {
             Texture2D fileTexture;
-            using (FileStream fileStream = new FileStream(Datei, FileMode.Open))
+            using (var fileStream = new FileStream(Datei, FileMode.Open))
             {
                 fileTexture = Texture2D.FromStream(Game1.device, fileStream);
             }
             return fileTexture;
         }
 
-        public static Dictionary<String, float> Bilddateien = new Dictionary<String, float>();
-
-        public static Effect effect;
+        #endregion Methods
 
         #region Texturdeklarationen
 
         /// <summary>
-        /// The freeze
+        ///     The active background
+        /// </summary>
+        public static Texture2D activeBackground;
+
+        /// <summary>
+        ///     The algerian font
+        /// </summary>
+        public static SpriteFont AlgerianFont;
+
+        /// <summary>
+        ///     The background1
+        /// </summary>
+        public static Texture2D background1;
+
+        /// <summary>
+        ///     The baum
+        /// </summary>
+        public static Texture2D[] baum = new Texture2D[26];
+
+        /// <summary>
+        ///     The bunker
+        /// </summary>
+        public static Texture2D[] bunker = new Texture2D[3];
+
+        /// <summary>
+        ///     The bunker2
+        /// </summary>
+        public static Texture2D[] bunker2 = new Texture2D[3];
+
+        /// <summary>
+        ///     The button1
+        /// </summary>
+        public static Texture2D Button1;
+
+        /// <summary>
+        ///     The cannon origin
+        /// </summary>
+        public static Vector2[][] CannonOrigin = new Vector2[6][];
+
+        /// <summary>
+        ///     The comboboxbalken
+        /// </summary>
+        public static Texture2D Comboboxbalken;
+
+        /// <summary>
+        ///     The dot
+        /// </summary>
+        public static Texture2D dot;
+
+        /// <summary>
+        ///     The dot2
+        /// </summary>
+        public static Texture2D dot2;
+
+        /// <summary>
+        ///     The exp
+        /// </summary>
+        public static Texture2D Exp;
+
+        /// <summary>
+        ///     The explosion
+        /// </summary>
+        public static Texture2D explosion;
+
+        /// <summary>
+        ///     The fahne
+        /// </summary>
+        public static Texture2D fahne;
+
+        /// <summary>
+        ///     The font
+        /// </summary>
+        public static SpriteFont font;
+
+        /// <summary>
+        ///     The font2
+        /// </summary>
+        public static SpriteFont font2;
+
+        /// <summary>
+        ///     The font3
+        /// </summary>
+        public static SpriteFont font3;
+
+        public static SpriteFont font4;
+
+        /// <summary>
+        ///     The freeze
         /// </summary>
         public static Texture2D freeze;
 
         /// <summary>
-        /// The hp status
+        ///     The fuel
         /// </summary>
-        public static Texture2D HpStatus;
+        public static Texture2D fuel;
 
         /// <summary>
-        /// The geld
+        ///     The geld
         /// </summary>
         public static Texture2D Geld;
 
         /// <summary>
-        /// The exp
+        ///     The haus
         /// </summary>
-        public static Texture2D Exp;
+        public static Texture2D[] haus = new Texture2D[18];
+
+        /// <summary>
+        ///     The hausbutton
+        /// </summary>
+        public static Texture2D hausbutton;
+
+        /// <summary>
+        ///     The hausumriss
+        /// </summary>
+        public static Texture2D[] hausumriss = new Texture2D[18];
+
+        /// <summary>
+        ///     The hp status
+        /// </summary>
+        public static Texture2D HpStatus;
+
+        /// <summary>
+        ///     The spielerkennzeichnung
+        /// </summary>
+        public static Texture2D Karte;
+
+        /// <summary>
+        ///     The kasten
+        /// </summary>
+        public static Texture2D kasten;
+
+        /// <summary>
+        ///     The klotzchen
+        /// </summary>
+        public static Texture2D klotzchen;
+
+        /// <summary>
+        ///     The kreis
+        /// </summary>
+        public static Texture2D kreis;
+
+        /// <summary>
+        ///     The kreuz
+        /// </summary>
+        public static Texture2D kreuz;
+
+        /// <summary>
+        ///     The leben
+        /// </summary>
+        public static Texture2D leben;
+
+        /// <summary>
+        ///     The load
+        /// </summary>
+        public static Texture2D LeeresFeld;
+
+        /// <summary>
+        ///     The maus zeiger
+        /// </summary>
+        public static Texture2D mausZeiger;
+
+        /// <summary>
+        ///     The miniback
+        /// </summary>
+        public static Texture2D miniback;
+
+        /// <summary>
+        ///     The missle
+        /// </summary>
+        public static Texture2D[] missle = new Texture2D[21];
+
+        /// <summary>
+        ///     The nach oben
+        /// </summary>
+        public static Texture2D nachOben;
+
+        /// <summary>
+        ///     The nach unten
+        /// </summary>
+        public static Texture2D nachUnten;
+
+        /// <summary>
+        ///     The nichts
+        /// </summary>
+        public static Texture2D nichts;
 
         public static Texture2D Notizmarkierung;
 
         public static Texture2D NotizmarkierungUmriss;
 
         /// <summary>
-        /// The fuel
+        ///     The spielerkennzeichnung
         /// </summary>
-        public static Texture2D fuel;
+        public static Texture2D Objekte;
 
         /// <summary>
-        /// The pfeil
-        /// </summary>
-        public static Texture2D pfeil;
-
-        /// <summary>
-        /// The leer
-        /// </summary>
-        //public static Texture2D leer;
-
-        /// <summary>
-        /// The rahmen
-        /// </summary>
-        public static Texture2D rahmen;
-
-        /// <summary>
-        /// The load
-        /// </summary>
-        public static Texture2D LeeresFeld;
-
-        /// <summary>
-        /// The haus
-        /// </summary>
-        public static Texture2D[] haus = new Texture2D[18];
-
-        /// <summary>
-        /// The hausumriss
-        /// </summary>
-        public static Texture2D[] hausumriss = new Texture2D[18];
-
-        /// <summary>
-        /// The baum
-        /// </summary>
-        public static Texture2D[] baum = new Texture2D[26];
-
-        /// <summary>
-        /// The waffenbilder
-        /// </summary>
-        public static Texture2D[] waffenbilder = new Texture2D[21];
-
-        /// <summary>
-        /// The missle
-        /// </summary>
-        public static Texture2D[] missle = new Texture2D[21];
-
-        /// <summary>
-        /// The wasser
-        /// </summary>
-        public static Texture2D wasser;
-
-        /// <summary>
-        /// The kreuz
-        /// </summary>
-        public static Texture2D kreuz;
-
-        /// <summary>
-        /// The strich
-        /// </summary>
-        public static Texture2D strich;
-
-        /// <summary>
-        /// The smoke texture
-        /// </summary>
-        public static Texture2D smokeTexture;
-
-        /// <summary>
-        /// The background1
-        /// </summary>
-        public static Texture2D background1;
-
-        /// <summary>
-        /// The active background
-        /// </summary>
-        public static Texture2D activeBackground;
-
-        /// <summary>
-        /// The explosion
-        /// </summary>
-        public static Texture2D explosion;
-
-        /// <summary>
-        /// The wind
-        /// </summary>
-        public static Texture2D wind;
-
-        /// <summary>
-        /// The leben
-        /// </summary>
-        public static Texture2D leben;
-
-        /// <summary>
-        /// The maus zeiger
-        /// </summary>
-        public static Texture2D mausZeiger;
-
-        /// <summary>
-        /// The kasten
-        /// </summary>
-        public static Texture2D kasten;
-
-        /// <summary>
-        /// The dot
-        /// </summary>
-        public static Texture2D dot;
-
-        /// <summary>
-        /// The dot2
-        /// </summary>
-        public static Texture2D dot2;
-
-        /// <summary>
-        /// The miniback
-        /// </summary>
-        public static Texture2D miniback;
-
-        /// <summary>
-        /// The fahne
-        /// </summary>
-        public static Texture2D fahne;
-
-        /// <summary>
-        /// The tickbox on
-        /// </summary>
-        public static Texture2D tickboxOn;
-
-        /// <summary>
-        /// The tickbox off
-        /// </summary>
-        public static Texture2D tickboxOff;
-
-        /// <summary>
-        /// The nach unten
-        /// </summary>
-        public static Texture2D nachUnten;
-
-        /// <summary>
-        /// The nach oben
-        /// </summary>
-        public static Texture2D nachOben;
-
-        /// <summary>
-        /// The comboboxbalken
-        /// </summary>
-        public static Texture2D Comboboxbalken;
-
-        /// <summary>
-        /// The klotzchen
-        /// </summary>
-        public static Texture2D klotzchen;
-
-        /// <summary>
-        /// The startmenu
-        /// </summary>
-        //  public static Texture2D Startmenu;
-
-        /// <summary>
-        /// The pregamemenu
-        /// </summary>
-        public static Texture2D pregamemenu;
-
-        /// <summary>
-        /// The hausbutton
-        /// </summary>
-        public static Texture2D hausbutton;
-
-        /// <summary>
-        /// The button1
-        /// </summary>
-        public static Texture2D Button1;
-
-        /// <summary>
-        /// The pausenmenu
-        /// </summary>
-        //public static Texture2D Pausenmenu;
-
-        /// <summary>
-        /// The spielermenu
-        /// </summary>
-        // public static Texture2D Spielermenu;
-
-        /// <summary>
-        /// The nichts
-        /// </summary>
-        public static Texture2D nichts;
-
-        /// <summary>
-        /// The tunnel
-        /// </summary>
-        public static Texture2D tunnel;
-
-        /// <summary>
-        /// The tunnelumriss
-        /// </summary>
-        public static Texture2D tunnelumriss;
-
-        // public static Texture2D nebel;
-        // public static Texture2D nebelkreis;
-        /// <summary>
-        /// The panzerruine
-        /// </summary>
-        public static Texture2D[] panzerruine = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerindex
-        /// </summary>
-        public static Texture2D[] panzerindex = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerumriss
-        /// </summary>
-        public static Texture2D[] panzerumriss = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerumriss2
-        /// </summary>
-        public static Texture2D[] panzerumriss2 = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerrohrindex
-        /// </summary>
-        public static Texture2D[] panzerrohrindex = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerrohrumriss
-        /// </summary>
-        public static Texture2D[] panzerrohrumriss = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerrohrumriss2
-        /// </summary>
-        public static Texture2D[] panzerrohrumriss2 = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerbutton
-        /// </summary>
-        public static Texture2D[] panzerbutton = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerindexreifen
-        /// </summary>
-        public static Texture2D[] panzerindexreifen = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerumrissreifen
-        /// </summary>
-        public static Texture2D[] panzerumrissreifen = new Texture2D[6];
-
-        /// <summary>
-        /// The panzerumriss2reifen
-        /// </summary>
-        public static Texture2D[] panzerumriss2reifen = new Texture2D[6];
-
-        /// <summary>
-        /// The tank pos
-        /// </summary>
-        public static Vector2[] TankPos = new Vector2[6];
-
-        /// <summary>
-        /// The rohr pos
-        /// </summary>
-        public static Vector2[] RohrPos = new Vector2[6];
-
-        /// <summary>
-        /// The rohr pos2
-        /// </summary>
-        public static Vector2[] RohrPos2 = new Vector2[6];
-
-        /// <summary>
-        /// The cannon origin
-        /// </summary>
-        public static Vector2[][] CannonOrigin = new Vector2[6][];
-
-        /// <summary>
-        /// The bunker
-        /// </summary>
-        public static Texture2D[] bunker = new Texture2D[3];
-
-        /// <summary>
-        /// The bunker2
-        /// </summary>
-        public static Texture2D[] bunker2 = new Texture2D[3];
-
-        /// <summary>
-        /// The radpositionen
-        /// </summary>
-        public static Vector2[][] Radpositionen = new Vector2[6][];
-
-        /// <summary>
-        /// The punkt
-        /// </summary>
-        public static Texture2D Punkt;
-
-        /// <summary>
-        /// The ort
+        ///     The ort
         /// </summary>
         public static Texture2D Ort;
 
         /// <summary>
-        /// The font
+        ///     The panzerbutton
         /// </summary>
-        public static SpriteFont font;
+        public static Texture2D[] panzerbutton = new Texture2D[6];
 
         /// <summary>
-        /// The algerian font
+        ///     The panzerindex
         /// </summary>
-        public static SpriteFont AlgerianFont;
+        public static Texture2D[] panzerindex = new Texture2D[6];
 
         /// <summary>
-        /// The font2
+        ///     The panzerindexreifen
         /// </summary>
-        public static SpriteFont font2;
-
-        public static SpriteFont font4;
+        public static Texture2D[] panzerindexreifen = new Texture2D[6];
 
         /// <summary>
-        /// The font3
+        ///     The panzerrohrindex
         /// </summary>
-        public static SpriteFont font3;
+        public static Texture2D[] panzerrohrindex = new Texture2D[6];
 
         /// <summary>
-        /// The shootingpower
+        ///     The panzerrohrumriss
+        /// </summary>
+        public static Texture2D[] panzerrohrumriss = new Texture2D[6];
+
+        /// <summary>
+        ///     The panzerrohrumriss2
+        /// </summary>
+        public static Texture2D[] panzerrohrumriss2 = new Texture2D[6];
+
+        // public static Texture2D nebel;
+        // public static Texture2D nebelkreis;
+        /// <summary>
+        ///     The panzerruine
+        /// </summary>
+        public static Texture2D[] panzerruine = new Texture2D[6];
+
+        /// <summary>
+        ///     The panzerumriss
+        /// </summary>
+        public static Texture2D[] panzerumriss = new Texture2D[6];
+
+        /// <summary>
+        ///     The panzerumriss2
+        /// </summary>
+        public static Texture2D[] panzerumriss2 = new Texture2D[6];
+
+        /// <summary>
+        ///     The panzerumriss2reifen
+        /// </summary>
+        public static Texture2D[] panzerumriss2reifen = new Texture2D[6];
+
+        /// <summary>
+        ///     The panzerumrissreifen
+        /// </summary>
+        public static Texture2D[] panzerumrissreifen = new Texture2D[6];
+
+        /// <summary>
+        ///     The pfeil
+        /// </summary>
+        public static Texture2D pfeil;
+
+        //public static Texture2D leer;
+        /// <summary>
+        ///     The leer
+        /// </summary>
+        /// <summary>
+        ///     The pregamemenu
+        /// </summary>
+        public static Texture2D pregamemenu;
+
+        /// <summary>
+        ///     The punkt
+        /// </summary>
+        public static Texture2D Punkt;
+
+        /// <summary>
+        ///     The radpositionen
+        /// </summary>
+        public static Vector2[][] Radpositionen = new Vector2[6][];
+
+        /// <summary>
+        ///     The rahmen
+        /// </summary>
+        public static Texture2D rahmen;
+
+        /// <summary>
+        ///     The rohr pos
+        /// </summary>
+        public static Vector2[] RohrPos = new Vector2[6];
+
+        /// <summary>
+        ///     The rohr pos2
+        /// </summary>
+        public static Vector2[] RohrPos2 = new Vector2[6];
+
+        /// <summary>
+        ///     The shootingpower
         /// </summary>
         public static Texture2D shootingpower;
 
         /// <summary>
-        /// The kreis
+        ///     The smoke texture
         /// </summary>
-        public static Texture2D kreis;
+        public static Texture2D smokeTexture;
 
         /// <summary>
-        /// The spielerkennzeichnung
+        ///     The spielerkennzeichnung
         /// </summary>
         public static Texture2D Spielerkennzeichnung;
 
         /// <summary>
-        /// The spielerkennzeichnung
+        ///     The strich
         /// </summary>
-        public static Texture2D Karte;
+        public static Texture2D strich;
 
         /// <summary>
-        /// The spielerkennzeichnung
+        ///     The tank pos
         /// </summary>
-        public static Texture2D Objekte;
+        public static Vector2[] TankPos = new Vector2[6];
+
+        /// <summary>
+        ///     The tickbox off
+        /// </summary>
+        public static Texture2D tickboxOff;
+
+        /// <summary>
+        ///     The tickbox on
+        /// </summary>
+        public static Texture2D tickboxOn;
+
+        // public static Texture2D Spielermenu;
+        /// <summary>
+        ///     The spielermenu
+        /// </summary>
+        /// <summary>
+        ///     The tunnel
+        /// </summary>
+        public static Texture2D tunnel;
+
+        //  public static Texture2D Startmenu;
+        //public static Texture2D Pausenmenu;
+        /// <summary>
+        ///     The startmenu
+        /// </summary>
+        /// <summary>
+        ///     The pausenmenu
+        /// </summary>
+        /// <summary>
+        ///     The tunnelumriss
+        /// </summary>
+        public static Texture2D tunnelumriss;
+
+        /// <summary>
+        ///     The waffenbilder
+        /// </summary>
+        public static Texture2D[] waffenbilder = new Texture2D[21];
+
+        /// <summary>
+        ///     The wasser
+        /// </summary>
+        public static Texture2D wasser;
+
+        /// <summary>
+        ///     The wind
+        /// </summary>
+        public static Texture2D wind;
 
         #endregion Texturdeklarationen
 
         /// <summary>
-        /// Loads the specified content.
+        ///     Haeusers the skalierung.
+        /// </summary>
+        public static void HaeuserSkalierung()
+        {
+            /*  if (Gebäudedaten.oldscale == null)
+              {
+                  Gebäudedaten.oldscale = new float[Gebäudedaten.SKALIERUNG.Count()];
+                  Gebäudedaten.SKALIERUNG.CopyTo(Gebäudedaten.oldscale, 0);
+              }
+              else
+              {
+                  Gebäudedaten.SKALIERUNG = new float[Gebäudedaten.oldscale.Count()];
+                  Gebäudedaten.oldscale.CopyTo(Gebäudedaten.SKALIERUNG, 0);
+              }*/
+
+            for (int i = 0; i < haus.Count(); i++)
+            {
+#if DEBUG
+                if (Gebäudedaten.SKALIERUNG.Wert[i] == 1.0f) continue;
+                var rt = new RenderTarget2D(Game1.device, (int) (haus[i].Width*Gebäudedaten.SKALIERUNG.Wert[i]),
+                    (int) (haus[i].Height*Gebäudedaten.SKALIERUNG.Wert[i]));
+                Game1.device.SetRenderTarget(rt);
+                var rect = new Rectangle(0, 0, (int) (haus[i].Width*Gebäudedaten.SKALIERUNG.Wert[i]),
+                    (int) (haus[i].Height*Gebäudedaten.SKALIERUNG.Wert[i]));
+                Game1.spriteBatch.Begin();
+                Game1.device.Clear(Color.Transparent);
+                Game1.spriteBatch.Draw(haus[i], rect, Color.White);
+                Game1.spriteBatch.End();
+                Game1.device.SetRenderTarget(null);
+                rt.Tag = haus[i].Tag;
+                haus[i] = rt;
+#endif
+                Gebäudedaten.SKALIERUNG.Wert[i] = 1.0f;
+            }
+
+#if DEBUG
+            var rt2 = new RenderTarget2D(Game1.device, (int) (tunnel.Width*Tunnel.SKALIERUNG),
+                (int) (tunnel.Height*Tunnel.SKALIERUNG));
+            Game1.device.SetRenderTarget(rt2);
+            var rect2 = new Rectangle(0, 0, (int) (tunnel.Width*Tunnel.SKALIERUNG),
+                (int) (tunnel.Height*Tunnel.SKALIERUNG));
+            Game1.spriteBatch.Begin();
+            Game1.device.Clear(Color.Transparent);
+            Game1.spriteBatch.Draw(tunnel, rect2, Color.White);
+            Game1.spriteBatch.End();
+            Game1.device.SetRenderTarget(null);
+            rt2.Tag = tunnel.Tag;
+            tunnel = rt2;
+#endif
+            Tunnel.SKALIERUNG = 1.0f;
+        }
+
+        /// <summary>
+        ///     Loads the specified content.
         /// </summary>
         /// <param name="Content">The content.</param>
-        unsafe public static void Load(ContentManager Content) // lädt alle Texturen
+        public static void Load(ContentManager Content) // lädt alle Texturen
         {
             Bilddateien.Clear();
 
@@ -434,7 +604,7 @@ namespace _4_1_
             Radpositionen[0] = new Vector2[0];
             Radpositionen[1] = new Vector2[0];
             Radpositionen[2] = new Vector2[0];
-            Radpositionen[3] = new Vector2[] { new Vector2(-18, 6), new Vector2(16, 6) };
+            Radpositionen[3] = new[] {new Vector2(-18, 6), new Vector2(16, 6)};
             Radpositionen[4] = new Vector2[0];
             Radpositionen[5] = new Vector2[0];
 
@@ -495,7 +665,7 @@ namespace _4_1_
             #region Loading Content
 
             Punkt = new Texture2D(Game1.device, 1, 1);
-            Color[] tt = new Color[1];
+            var tt = new Color[1];
             tt[0] = Color.White;
             Punkt.SetData(tt);
 
@@ -689,14 +859,23 @@ namespace _4_1_
             FahrzeugSkalierung();
 
             // Umrisse generieren
-            for (int i = 0; i < panzerindex.Count(); i++) panzerumriss[i] = Umriss.Generieren(panzerindex[i], Color.White, 1);
-            for (int i = 0; i < panzerindex.Count(); i++) panzerumriss2[i] = Umriss.Generieren(panzerindex[i], Color.Lime, 3);
-            for (int i = 0; i < panzerindex.Count(); i++) panzerumrissreifen[i] = Umriss.Generieren(panzerindexreifen[i], Color.White, 1);
-            for (int i = 0; i < panzerindex.Count(); i++) panzerumriss2reifen[i] = Umriss.Generieren(panzerindexreifen[i], Color.Lime, 3);
-            for (int i = 0; i < panzerrohrindex.Count(); i++) panzerrohrumriss[i] = Umriss.Generieren(panzerrohrindex[i], Color.White, 1);
-            for (int i = 0; i < panzerrohrindex.Count(); i++) panzerrohrumriss2[i] = Umriss.Generieren(panzerrohrindex[i], Color.Lime, 3);
+            for (int i = 0; i < panzerindex.Count(); i++)
+                panzerumriss[i] = Umriss.Generieren(panzerindex[i], Color.White, 1);
+            for (int i = 0; i < panzerindex.Count(); i++)
+                panzerumriss2[i] = Umriss.Generieren(panzerindex[i], Color.Lime, 3);
+            for (int i = 0; i < panzerindex.Count(); i++)
+                panzerumrissreifen[i] = Umriss.Generieren(panzerindexreifen[i], Color.White, 1);
+            for (int i = 0; i < panzerindex.Count(); i++)
+                panzerumriss2reifen[i] = Umriss.Generieren(panzerindexreifen[i], Color.Lime, 3);
+            for (int i = 0; i < panzerrohrindex.Count(); i++)
+                panzerrohrumriss[i] = Umriss.Generieren(panzerrohrindex[i], Color.White, 1);
+            for (int i = 0; i < panzerrohrindex.Count(); i++)
+                panzerrohrumriss2[i] = Umriss.Generieren(panzerrohrindex[i], Color.Lime, 3);
 
-            for (int i = 0; i < panzerindex.Count(); i++) { Fahrzeugdaten.Messpunkte[i] = Help.GetMesspunkte(panzerindex[i]); }
+            for (int i = 0; i < panzerindex.Count(); i++)
+            {
+                Fahrzeugdaten.Messpunkte[i] = Help.GetMesspunkte(panzerindex[i]);
+            }
 
             #region Schriften
 
@@ -828,7 +1007,7 @@ namespace _4_1_
                 haus[17] = Content.Load<Texture2D>("Textures\\Haus18");
                 haus[17].Tag = "Textures\\Haus18";
 
-                Texturen.HaeuserSkalierung();
+                HaeuserSkalierung();
 
                 for (int i = 0; i < haus.Count(); i++)
                 {
@@ -925,7 +1104,7 @@ namespace _4_1_
                 baum[25] = Content.Load<Texture2D>("Textures\\Palm_p04");
                 baum[25].Tag = "Textures\\Palm_p04";
 
-                Texturen.BaeumeSkalierung();
+                BaeumeSkalierung();
             }
             else
                 for (int i = 0; i < baum.Count(); i++) baum[i] = null;
@@ -955,125 +1134,9 @@ namespace _4_1_
             #endregion Grounds
         }
 
-        /// <summary>
-        /// Haeusers the skalierung.
-        /// </summary>
-        public static void HaeuserSkalierung()
-        {
-            /*  if (Gebäudedaten.oldscale == null)
-              {
-                  Gebäudedaten.oldscale = new float[Gebäudedaten.SKALIERUNG.Count()];
-                  Gebäudedaten.SKALIERUNG.CopyTo(Gebäudedaten.oldscale, 0);
-              }
-              else
-              {
-                  Gebäudedaten.SKALIERUNG = new float[Gebäudedaten.oldscale.Count()];
-                  Gebäudedaten.oldscale.CopyTo(Gebäudedaten.SKALIERUNG, 0);
-              }*/
-
-            for (int i = 0; i < haus.Count(); i++)
-            {
-#if DEBUG
-                if (Gebäudedaten.SKALIERUNG.Wert[i] == 1.0f) continue;
-                RenderTarget2D rt = new RenderTarget2D(Game1.device, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]), (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
-                Game1.device.SetRenderTarget(rt);
-                Rectangle rect = new Rectangle(0, 0, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]), (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
-                Game1.spriteBatch.Begin();
-                Game1.device.Clear(Color.Transparent);
-                Game1.spriteBatch.Draw(haus[i], rect, Color.White);
-                Game1.spriteBatch.End();
-                Game1.device.SetRenderTarget(null);
-                rt.Tag = haus[i].Tag;
-                haus[i] = rt;
-#endif
-                Gebäudedaten.SKALIERUNG.Wert[i] = 1.0f;
-            }
-
-#if DEBUG
-            RenderTarget2D rt2 = new RenderTarget2D(Game1.device, (int)(tunnel.Width * Tunnel.SKALIERUNG), (int)(tunnel.Height * Tunnel.SKALIERUNG));
-            Game1.device.SetRenderTarget(rt2);
-            Rectangle rect2 = new Rectangle(0, 0, (int)(tunnel.Width * Tunnel.SKALIERUNG), (int)(tunnel.Height * Tunnel.SKALIERUNG));
-            Game1.spriteBatch.Begin();
-            Game1.device.Clear(Color.Transparent);
-            Game1.spriteBatch.Draw(tunnel, rect2, Color.White);
-            Game1.spriteBatch.End();
-            Game1.device.SetRenderTarget(null);
-            rt2.Tag = tunnel.Tag;
-            tunnel = rt2;
-#endif
-            Tunnel.SKALIERUNG = 1.0f;
-        }
-
-        /// <summary>
-        /// Panzers the skalierung.
-        /// </summary>
-        public static void FahrzeugSkalierung()
-        {
-            for (int i = 0; i < panzerindex.Count(); i++)
-            {
-#if DEBUG
-                if (Fahrzeugdaten.SCALEP.Wert[i] == 1.0f) continue;
-                RenderTarget2D rt = new RenderTarget2D(Game1.device, (int)(panzerindex[i].Width * Fahrzeugdaten.SCALEP.Wert[i]), (int)(panzerindex[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
-                Game1.device.SetRenderTarget(rt);
-                Rectangle rect = new Rectangle(0, 0, (int)(panzerindex[i].Width * Fahrzeugdaten.SCALEP.Wert[i]), (int)(panzerindex[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
-                Game1.spriteBatch.Begin();
-                Game1.device.Clear(Color.Transparent);
-                Game1.spriteBatch.Draw(panzerindex[i], rect, Color.White);
-                Game1.spriteBatch.End();
-                Game1.device.SetRenderTarget(null);
-                rt.Tag = panzerindex[i].Tag;
-                panzerindex[i] = rt;
-
-                rt = new RenderTarget2D(Game1.device, (int)(panzerindexreifen[i].Width * Fahrzeugdaten.SCALEP.Wert[i]), (int)(panzerindexreifen[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
-                Game1.device.SetRenderTarget(rt);
-                rect = new Rectangle(0, 0, (int)(panzerindexreifen[i].Width * Fahrzeugdaten.SCALEP.Wert[i]), (int)(panzerindexreifen[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
-                Game1.spriteBatch.Begin();
-                Game1.device.Clear(Color.Transparent);
-                Game1.spriteBatch.Draw(panzerindexreifen[i], rect, Color.White);
-                Game1.spriteBatch.End();
-                Game1.device.SetRenderTarget(null);
-                rt.Tag = panzerindexreifen[i].Tag;
-                panzerindexreifen[i] = rt;
-
-                rt = new RenderTarget2D(Game1.device, (int)(panzerruine[i].Width * Fahrzeugdaten.SCALEP.Wert[i]), (int)(panzerruine[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
-                Game1.device.SetRenderTarget(rt);
-                rect = new Rectangle(0, 0, (int)(panzerruine[i].Width * Fahrzeugdaten.SCALEP.Wert[i]), (int)(panzerruine[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
-                Game1.spriteBatch.Begin();
-                Game1.device.Clear(Color.Transparent);
-                Game1.spriteBatch.Draw(panzerruine[i], rect, Color.White);
-                Game1.spriteBatch.End();
-                Game1.device.SetRenderTarget(null);
-                rt.Tag = panzerruine[i].Tag;
-                panzerruine[i] = rt;
-#endif
-                Fahrzeugdaten.SCALEP.Wert[i] = 1.0f;
-            }
-
-            for (int i = 0; i < panzerrohrindex.Count(); i++)
-            {
-#if DEBUG
-                if ((int)(panzerrohrindex[i].Width * Fahrzeugdaten.SCALER.Wert[i]) > 0 && (int)(panzerrohrindex[i].Height * Fahrzeugdaten.SCALER.Wert[i]) > 0)
-                {
-                    RenderTarget2D rt = new RenderTarget2D(Game1.device, (int)(panzerrohrindex[i].Width * Fahrzeugdaten.SCALER.Wert[i]), (int)(panzerrohrindex[i].Height * Fahrzeugdaten.SCALER.Wert[i]));
-                    Game1.device.SetRenderTarget(rt);
-                    Rectangle rect = new Rectangle(0, 0, (int)(panzerrohrindex[i].Width * Fahrzeugdaten.SCALER.Wert[i]), (int)(panzerrohrindex[i].Height * Fahrzeugdaten.SCALER.Wert[i]));
-                    Game1.spriteBatch.Begin();
-                    Game1.device.Clear(Color.Transparent);
-                    Game1.spriteBatch.Draw(panzerrohrindex[i], rect, Color.White);
-                    Game1.spriteBatch.End();
-                    Game1.device.SetRenderTarget(null);
-                    panzerrohrindex[i] = rt;
-#endif
-                    Fahrzeugdaten.SCALER.Wert[i] = 1.0f;
-#if DEBUG
-                }
-#endif
-            }
-        }
-
         // TODO da steht nichts drin
         /// <summary>
-        /// Materials the skalierung.
+        ///     Materials the skalierung.
         /// </summary>
         public static void MaterialSkalierung()
         {
@@ -1090,41 +1153,6 @@ namespace _4_1_
                 haus[i] = rt;
                 Hausdata.scale[i] = 1.0f;
             }*/
-        }
-
-        /// <summary>
-        /// Baeumes the skalierung.
-        /// </summary>
-        public static void BaeumeSkalierung()
-        {
-            /* if (Baumdata.oldscale == null)
-             {
-                 Baumdata.oldscale = new float[Baumdata.SKALIERUNG.Count()];
-                 Baumdata.SKALIERUNG.CopyTo(Baumdata.oldscale, 0);
-             }
-             else
-             {
-                 Baumdata.SKALIERUNG = new float[Baumdata.oldscale.Count()];
-                 Baumdata.oldscale.CopyTo(Baumdata.SKALIERUNG, 0);
-             }*/
-
-            for (int i = 0; i < baum.Count(); i++)
-            {
-#if DEBUG
-                if (Baumdata.SKALIERUNG.Wert[i] == 1.0f) continue;
-                RenderTarget2D rt = new RenderTarget2D(Game1.device, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]), (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
-                Game1.device.SetRenderTarget(rt);
-                Rectangle rect = new Rectangle(0, 0, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]), (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
-                Game1.spriteBatch.Begin();
-                Game1.device.Clear(Color.Transparent);
-                Game1.spriteBatch.Draw(baum[i], rect, Color.White);
-                Game1.spriteBatch.End();
-                Game1.device.SetRenderTarget(null);
-                rt.Tag = baum[i].Tag;
-                baum[i] = rt;
-#endif
-                Baumdata.SKALIERUNG.Wert[i] = 1.0f;
-            }
         }
     }
 }

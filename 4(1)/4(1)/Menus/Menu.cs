@@ -1,6 +1,4 @@
-﻿using System;
-
-// ***********************************************************************
+﻿// ***********************************************************************
 // Assembly         : 4(1)
 // Author           : Till
 // Created          : 07-20-2013
@@ -13,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,54 +19,59 @@ using Microsoft.Xna.Framework.Input;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Menu
+    ///     Class Menu
     /// </summary>
     internal class Menu
     {
-        /// <summary>
-        /// The menu items
-        /// </summary>
-        private Button[] menuItems = new Button[5];
-
-        /// <summary>
-        /// The screen height
-        /// </summary>
-        public int screenHeight;
-
-        /// <summary>
-        /// The screen width
-        /// </summary>
-        public int screenWidth;
-
-        /// <summary>
-        /// The visible
-        /// </summary>
-        public bool visible = false;
+        #region Fields
 
         //Constructor des Menüs
         //Initialisiert Standardwerte
         /// <summary>
-        /// The aux
+        ///     The aux
         /// </summary>
-        private Vector2 aux;
+        private readonly Vector2 aux;
 
         /// <summary>
-        /// The menutexture
+        ///     The menu items
         /// </summary>
+        private readonly Button[] menuItems = new Button[5];
+
         //   private Texture2D menutexture = Texturen.Pausenmenu;
-
         /// <summary>
-        /// The selected
+        ///     The menutexture
         /// </summary>
-        private Color selected;
-
         /// <summary>
-        /// The unselected
+        ///     The selected
         /// </summary>
-        private Color unselected;
+        private readonly Color selected;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Menu"/> class.
+        ///     The unselected
+        /// </summary>
+        private readonly Color unselected;
+
+        /// <summary>
+        ///     The screen height
+        /// </summary>
+        public int screenHeight;
+
+        /// <summary>
+        ///     The screen width
+        /// </summary>
+        public int screenWidth;
+
+        /// <summary>
+        ///     The visible
+        /// </summary>
+        public bool visible = false;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="Menu" /> class.
         /// </summary>
         /// <param name="unselectedColor">Color of the unselected.</param>
         /// <param name="selectedColor">Color of the selected.</param>
@@ -76,25 +80,29 @@ namespace _4_1_
         /// <param name="h">The h.</param>
         public Menu(Color unselectedColor, Color selectedColor, SpriteFont font, int w, int h)
         {
-            this.screenWidth = w;
-            this.screenHeight = h;
-            this.selected = selectedColor;
-            this.unselected = unselectedColor;
+            screenWidth = w;
+            screenHeight = h;
+            selected = selectedColor;
+            unselected = unselectedColor;
 
-            aux = new Vector2((screenWidth - Texturen.Button1.Width) / 2, 90);
+            aux = new Vector2((screenWidth - Texturen.Button1.Width)/2, 90);
 
-            menuItems[0] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 0), "Neues", "Spiel", font);
-            menuItems[1] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 1), "Speichern", "Laden", font);
-            menuItems[2] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 2), "Optionen", font);
-            menuItems[3] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 3), "Zuruck", "zum Spiel", font);
-            menuItems[4] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 4), "Spiel", "beenden", font);
+            menuItems[0] = new Button(Texturen.Button1, aux + new Vector2(0, 80*0), "Neues", "Spiel", font);
+            menuItems[1] = new Button(Texturen.Button1, aux + new Vector2(0, 80*1), "Speichern", "Laden", font);
+            menuItems[2] = new Button(Texturen.Button1, aux + new Vector2(0, 80*2), "Optionen", font);
+            menuItems[3] = new Button(Texturen.Button1, aux + new Vector2(0, 80*3), "Zuruck", "zum Spiel", font);
+            menuItems[4] = new Button(Texturen.Button1, aux + new Vector2(0, 80*4), "Spiel", "beenden", font);
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         //Methode um das komplette Menü zu zeichnen
         //Übergibt die Spritebatch und einen Boolschen Wert der abgibt ob sich das Menü außerhalb von
         //spriteBatch.Begin()/.End() befindet
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
@@ -129,16 +137,16 @@ namespace _4_1_
 
             // davor
             for (int i = -2; i < 0; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
 
             // danach
-            int Danach = (int)Math.Ceiling((float)Game1.screenHeight / 80) - 6;
+            int Danach = (int) Math.Ceiling((float) Game1.screenHeight/80) - 6;
             for (int i = menuItems.Length; i < menuItems.Length + Danach; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
         }
 
         /// <summary>
-        /// Hides this instance.
+        ///     Hides this instance.
         /// </summary>
         public void hide()
         {
@@ -146,7 +154,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Mouses the keys.
+        ///     Mouses the keys.
         /// </summary>
         /// <param name="mouseState">State of the mouse.</param>
         /// <returns>System.Int32.</returns>
@@ -160,12 +168,14 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Shows this instance.
+        ///     Shows this instance.
         /// </summary>
         public void show()
         {
             visible = true;
         }
+
+        #endregion Methods
 
         /*
         //Methode um den nächsten Menüpunkt auszuwählen

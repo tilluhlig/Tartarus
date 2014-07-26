@@ -11,63 +11,37 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Hauptfenster;
 
 namespace _4_1_
 {
     /// <summary>
-    /// diese Klasse dient dem Laden von gespeicherten Spielen
+    ///     diese Klasse dient dem Laden von gespeicherten Spielen
     /// </summary>
     public class MapReader
     {
+        #region Fields
+
         /// <summary>
-        /// The convert
+        ///     The convert
         /// </summary>
         public static bool Convert = false;
 
         /// <summary>
-        /// The list
+        ///     The list
         /// </summary>
         public static List<String> list = new List<String>();
 
-        /// <summary>
-        /// Finds the begin.
-        /// </summary>
-        /// <param name="Text">The text.</param>
-        /// <param name="Data">The data.</param>
-        /// <returns>System.Int32.</returns>
-        private int FindBegin(String Text, List<String> Data)
-        {
-            for (int i = 0; i < Data.Count; i++)
-                if (Data[i] == Text)
-                    return i;
-            return -1;
-        }
+        #endregion Fields
+
+        #region Methods
 
         /// <summary>
-        /// INTs the specified data.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns>System.Int32.</returns>
-        private int INT(String data)
-        {
-            return System.Convert.ToInt32(data);
-        }
-
-        /// <summary>
-        /// FLOATs the specified data.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns>System.Single.</returns>
-        private float FLOAT(String data)
-        {
-            return (float)(System.Convert.ToDouble(data));
-        }
-
-        /// <summary>
-        /// Loads the map.
+        ///     Loads the map.
         /// </summary>
         /// <param name="game">The game.</param>
         /// <param name="Map">The map.</param>
@@ -82,7 +56,7 @@ namespace _4_1_
 
             Hauptfenster.Program.Formular.label31.Show();
             Hauptfenster.Program.Formular.label31.BringToFront();
-            Hauptfenster.Tausch.SpielAktiv = false;
+            Tausch.SpielAktiv = false;
 
             // Reset
             // Karte.Reset_Materialien();
@@ -103,9 +77,9 @@ namespace _4_1_
             // Komponenten laden
             //game.loadAllContent();
 
-            StreamReader datei = new StreamReader(Map);
-            List<String> Data = new List<String>();
-            for (; !datei.EndOfStream; ) Data.Add(datei.ReadLine());
+            var datei = new StreamReader(Map);
+            var Data = new List<String>();
+            for (; !datei.EndOfStream;) Data.Add(datei.ReadLine());
             datei.Close();
 
             // Game1.Spiel2 = null;
@@ -159,7 +133,43 @@ namespace _4_1_
 
             //Game1.Spiel2 = new Spiel();
             Game1.Ladebildschirmtexte = null;
-            Hauptfenster.Tausch.SpielAktiv = true;
+            Tausch.SpielAktiv = true;
         }
+
+        /// <summary>
+        ///     Finds the begin.
+        /// </summary>
+        /// <param name="Text">The text.</param>
+        /// <param name="Data">The data.</param>
+        /// <returns>System.Int32.</returns>
+        private int FindBegin(String Text, List<String> Data)
+        {
+            for (int i = 0; i < Data.Count; i++)
+                if (Data[i] == Text)
+                    return i;
+            return -1;
+        }
+
+        /// <summary>
+        ///     FLOATs the specified data.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns>System.Single.</returns>
+        private float FLOAT(String data)
+        {
+            return (float) (System.Convert.ToDouble(data));
+        }
+
+        /// <summary>
+        ///     INTs the specified data.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns>System.Int32.</returns>
+        private int INT(String data)
+        {
+            return System.Convert.ToInt32(data);
+        }
+
+        #endregion Methods
     }
 }

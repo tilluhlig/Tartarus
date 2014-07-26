@@ -15,34 +15,46 @@
 namespace _4_1_
 {
     /// <summary>
-    /// Class Saveinfo
+    ///     Class Saveinfo
     /// </summary>
     public class Saveinfo
     {
+        #region Fields
+
         /// <summary>
-        /// The button
+        ///     The button
         /// </summary>
         public int button;
 
         /// <summary>
-        /// The target
+        ///     The target
         /// </summary>
         public string target;
 
+        #endregion Fields
+
+        #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Saveinfo"/> class.
+        ///     Initializes a new instance of the <see cref="Saveinfo" /> class.
         /// </summary>
         public Saveinfo()
         {
-            button = -1; target = "";
+            button = -1;
+            target = "";
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Saveinfo"/> class.
+        ///     Initializes a new instance of the <see cref="Saveinfo" /> class.
         /// </summary>
         /// <param name="button">The button.</param>
         /// <param name="target">The target.</param>
         public Saveinfo(int button, string target)
-        { this.button = button; this.target = target; }
+        {
+            this.button = button;
+            this.target = target;
+        }
+
+        #endregion Constructors
     }
 }

@@ -21,24 +21,28 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// diese Klasse verwaltet Kisten
+    ///     diese Klasse verwaltet Kisten
     /// </summary>
     public class Kiste
     {
+        #region Fields
+
         /// <summary>
-        /// die Kisten Textur
+        ///     die Kisten Textur
         /// </summary>
         public static Texture2D Bild;
 
         /// <summary>
-        /// ein Kollisionsobjekt für die Textur
+        ///     ein Kollisionsobjekt für die Textur
         /// </summary>
         public static KollisionsObjekt Kollision;
 
         /// <summary>
-        /// ein Zerstörungsobjekt für die Textur
+        ///     ein Zerstörungsobjekt für die Textur
         /// </summary>
         public static ZerstörungsObjekt Zerstörung;
+
+        #endregion Fields
 
         #region DEBUG
 
@@ -51,9 +55,9 @@ namespace _4_1_
 
 #else
 
-        /// <summary>
-        ///     Die Skalierung der Kistentexturen
-        /// </summary>
+    /// <summary>
+    ///     Die Skalierung der Kistentexturen
+    /// </summary>
         public static float sc = 1f;
 
 #endif
@@ -61,32 +65,32 @@ namespace _4_1_
         #endregion DEBUG
 
         /// <summary>
-        /// die Inventare der Kisten
-        /// </summary>
-        public List<Inventar> Rucksack = new List<Inventar>();
-
-        /// <summary>
-        /// bestimmt, ob die Kiste in die Berechnungen einbezogen werden soll (true = mit berechnet, false = inaktiv)
+        ///     bestimmt, ob die Kiste in die Berechnungen einbezogen werden soll (true = mit berechnet, false = inaktiv)
         /// </summary>
         public List<bool> aktiv = new List<bool>();
 
         /// <summary>
-        /// die IDs der Kisten
+        ///     die IDs der Kisten
         /// </summary>
         public List<int> id = new List<int>();
 
         /// <summary>
-        /// die Position der Kiste
+        ///     die Position der Kiste
         /// </summary>
         public List<Vector2> pos = new List<Vector2>();
 
         /// <summary>
-        /// eine Explosionsverzögerung
+        ///     die Inventare der Kisten
+        /// </summary>
+        public List<Inventar> Rucksack = new List<Inventar>();
+
+        /// <summary>
+        ///     eine Explosionsverzögerung
         /// </summary>
         public List<int> verzögerung = new List<int>();
 
         /// <summary>
-        /// initalisiert die Kistenklasse
+        ///     initalisiert die Kistenklasse
         /// </summary>
         /// <param name="Content">The content.</param>
         public static void init(ContentManager Content)
@@ -97,7 +101,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// fügt eine Kiste hinzu
+        ///     fügt eine Kiste hinzu
         /// </summary>
         /// <param name="_x">die X-Koordinate</param>
         /// <param name="_y">die Y-Koordinate</param>
@@ -113,7 +117,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// fügt eine Kiste hinzu
+        ///     fügt eine Kiste hinzu
         /// </summary>
         /// <param name="_pos">die Position der Kiste</param>
         /// <param name="_Inventar">das Inventar der Kiste</param>
@@ -128,7 +132,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// entfernt eine Kiste
+        ///     entfernt eine Kiste
         /// </summary>
         /// <param name="id2">die id der Kiste</param>
         public void DeleteKiste(int id2)
@@ -141,7 +145,25 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// lässt eine Kiste explodieren
+        ///     wandelt eine Kiste in Text um (speziell für Editor)
+        /// </summary>
+        /// <param name="i">die ID der Kiste</param>
+        /// <returns>die Textdarstellung des Kistenobjekts</returns>
+        public List<String> EditorSpeichern(int i)
+        {
+            var data = new List<String>();
+            data.Add("[KISTE]");
+            data.Add("aktiv=" + aktiv[i]);
+            data.Add("id=" + id[i]);
+            data.Add("pos=" + pos[i]);
+            data.Add("verzögerung=" + verzögerung[i]);
+            data.Add("[/KISTE]");
+
+            return data;
+        }
+
+        /// <summary>
+        ///     lässt eine Kiste explodieren
         /// </summary>
         /// <param name="id">die ID der Kiste</param>
         /// <param name="Spielfeld">ein Spielfeld</param>
@@ -164,7 +186,9 @@ namespace _4_1_
             Spiel2.Karte.explode_missile(Spielfeld, pos[id], Spiel2.Fenster, _Art);
 
             // Rauchstelle
-            for (int j = -(int)Waffendaten.Daten[_Art].X / 2; j < Waffendaten.Daten[_Art].X / 2; j += Waffendaten.BrandAbstand[_Art])
+            for (int j = -(int)Waffendaten.Daten[_Art].X / 2;
+                j < Waffendaten.Daten[_Art].X / 2;
+                j += Waffendaten.BrandAbstand[_Art])
             {
                 if (pos[id].X + j < 0 || pos[id].X + j >= Spielfeld.Length) continue;
                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke,
@@ -176,12 +200,13 @@ namespace _4_1_
             var a = new Karte();
             Replay.Explosion(pos[id], _Art);
             list.AddRange(a.Explode(Spielfeld, (int)pos[id].X, (int)pos[id].Y, (int)(Waffendaten.Daten[_Art].X)));
-            list.AddRange(Spiel2.Explosionsschäden(gameTime, pos[id], (int)(Waffendaten.Daten[_Art].X), _Art, new[] { -1, -1 }));
+            list.AddRange(Spiel2.Explosionsschäden(gameTime, pos[id], (int)(Waffendaten.Daten[_Art].X), _Art,
+                new[] { -1, -1 }));
             return list;
         }
 
         /// <summary>
-        /// Prüft, ob eine bestimmte Kiste mit einer Position kollidiert
+        ///     Prüft, ob eine bestimmte Kiste mit einer Position kollidiert
         /// </summary>
         /// <param name="id">die ID der Kiste</param>
         /// <param name="Incoming_Position">die Position, die auf Kollision geprüft werden soll</param>
@@ -193,7 +218,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// berechnet die Explosionsschäden an einer Kiste
+        ///     berechnet die Explosionsschäden an einer Kiste
         /// </summary>
         /// <param name="id">die ID der Kiste</param>
         /// <param name="Explosion">die Position der Explosion</param>
@@ -209,11 +234,12 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// erstellt ein Kistenobjekt aus Text
+        ///     erstellt ein Kistenobjekt aus Text
         /// </summary>
         /// <param name="Text">der Text, aus dem das Objekt erzeugt werden soll</param>
-        /// <param name="i">die ID der Kiste/param>
-        /// <param name="Content">ein Content Manager</param>
+        /// <param name="i">
+        ///     die ID der Kiste/param>
+        ///     <param name="Content">ein Content Manager</param>
         public void Laden(List<String> Text, int i, ContentManager Content)
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "KISTE");
@@ -236,12 +262,12 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// wandelt alle Kisten in Text um
+        ///     wandelt alle Kisten in Text um
         /// </summary>
         /// <returns>die Textdarstellung der Kistenobjekte</returns>
         public List<String> Speichern()
         {
-            List<String> data = new List<String>();
+            var data = new List<String>();
             for (int i = 0; i < pos.Count; i++)
             {
                 data.Add("[KISTE]");
@@ -252,24 +278,6 @@ namespace _4_1_
                 data.AddRange(Rucksack[i].Speichern());
                 data.Add("[/KISTE]");
             }
-
-            return data;
-        }
-
-        /// <summary>
-        /// wandelt eine Kiste in Text um (speziell für Editor)
-        /// </summary>
-        /// <param name="i">die ID der Kiste</param>
-        /// <returns>die Textdarstellung des Kistenobjekts</returns>
-        public List<String> EditorSpeichern(int i)
-        {
-            List<String> data = new List<String>();
-            data.Add("[KISTE]");
-            data.Add("aktiv=" + aktiv[i]);
-            data.Add("id=" + id[i]);
-            data.Add("pos=" + pos[i]);
-            data.Add("verzögerung=" + verzögerung[i]);
-            data.Add("[/KISTE]");
 
             return data;
         }

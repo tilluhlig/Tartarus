@@ -6,56 +6,41 @@ namespace _4_1_
 {
     public class Motor
     {
+        #region Fields
+
+        public float Beschleunigung;
         public float Drehzahl;
+        public float GeschwindigkeitBeschleunigung;
         public float MaxDrehzahl;
-        public float Beschleunigung; // Drehzahlbeschleunigung
+        // Drehzahlbeschleunigung
 
         public float MaxGeschwindigkeit;
-        public float GeschwindigkeitBeschleunigung;
         public List<Vector2> MotorVector = new List<Vector2>();
         public Vector2 MotorVectorOld = new Vector2(0, 0);
 
         public List<Rad> Raeder = new List<Rad>();
-        // public int Radbedarf = 0;
 
-        public bool GetRad(int rad, float angle, Vector2 Bezugspunkt)
-        {
-            //int anz=0;
-            //for (int i = 0; i < Raeder.Count; i++)
-            if (Raeder[rad].IsKontakt(angle, Bezugspunkt)) return true;
-            return false;
-            //anz++;
-            //  if (anz >= Radbedarf) return 1.0f;
-            //  return (float)anz / Radbedarf;
-        }
+        #endregion Fields
 
-        public bool GetRadCollision(int rad, float angle, Vector2 Bezugspunkt)
-        {
-            //int anz=0;
-            //for (int i = 0; i < Raeder.Count; i++)
-            if (Raeder[rad].IsCollision(angle, Bezugspunkt)) return true;
-            return false;
-            //anz++;
-            //  if (anz >= Radbedarf) return 1.0f;
-            //  return (float)anz / Radbedarf;
-        }
+        #region Constructors
 
-        public float GetBremswert(float angle, Vector2 Bezugspunkt)
-        {
-            float wert = 0;
-            for (int i = 0; i < Raeder.Count; i++)
-                if (Raeder[i].IsCollision(angle, Bezugspunkt))
-                    wert += Raeder[i].Reibung;
-            return wert;
-        }
-
-        public Motor(int _MaxDrehzahl, int _Beschleunigung, int _Radbedarf, float _MaxGeschwindigkeit, float _GeschwindigkeitBeschleunigung)
+        public Motor(int _MaxDrehzahl, int _Beschleunigung, int _Radbedarf, float _MaxGeschwindigkeit,
+            float _GeschwindigkeitBeschleunigung)
         {
             MaxDrehzahl = _MaxDrehzahl;
             Beschleunigung = _Beschleunigung;
             //Radbedarf = _Radbedarf;
             MaxGeschwindigkeit = _MaxGeschwindigkeit;
             GeschwindigkeitBeschleunigung = _GeschwindigkeitBeschleunigung;
+        }
+
+        #endregion Constructors
+
+        #region Methods
+
+        public void Abschalten()
+        {
+            Drehzahl = 0;
         }
 
         public void AddRad(Vector2 pos, Texture2D _Bild)
@@ -72,22 +57,21 @@ namespace _4_1_
             if (Drehzahl > MaxDrehzahl) Drehzahl = MaxDrehzahl;
         }
 
-        public void Abschalten()
-        {
-            Drehzahl = 0;
-        }
-
         public Vector2 GetAntriebsVector(int rad, float angle, Vector2 Bezugspunkt)
         {
-            float Anteil = (float)Drehzahl / MaxDrehzahl;
+            float Anteil = Drehzahl / MaxDrehzahl;
             // float Beschleunigungsanteil = GetRad(rad,angle,Bezugspunkt) ? 1 : 0; //GetRadAnteil(angle, Bezugspunkt);
-            float Bremswert = GetRad(rad, angle, Bezugspunkt) ? Raeder[rad].Reibung : 0; //GetBremswert(angle, Bezugspunkt);
+            float Bremswert = GetRad(rad, angle, Bezugspunkt) ? Raeder[rad].Reibung : 0;
+            //GetBremswert(angle, Bezugspunkt);
 
             Vector2 result = Raeder[rad].Energie;
             // Raeder[rad].Bremswirkung = 0;
             //    result.Y -= Raeder[rad].Potenzielle;
 
-            if (!GetRad(rad, angle, Bezugspunkt)) { result += new Vector2(0, +0.3f); }
+            if (!GetRad(rad, angle, Bezugspunkt))
+            {
+                result += new Vector2(0, +0.3f);
+            }
             /*else
                 if (GetRad(rad, angle, Bezugspunkt) && Raeder[rad].Energie.Y < 3)
                 { Raeder[rad].Energie += new Vector2(0, +0.1f); }*/
@@ -142,5 +126,40 @@ namespace _4_1_
 
             return Raeder[rad].Energie;
         }
+
+        public float GetBremswert(float angle, Vector2 Bezugspunkt)
+        {
+            float wert = 0;
+            for (int i = 0; i < Raeder.Count; i++)
+                if (Raeder[i].IsCollision(angle, Bezugspunkt))
+                    wert += Raeder[i].Reibung;
+            return wert;
+        }
+
+        public bool GetRad(int rad, float angle, Vector2 Bezugspunkt)
+        {
+            //int anz=0;
+            //for (int i = 0; i < Raeder.Count; i++)
+            if (Raeder[rad].IsKontakt(angle, Bezugspunkt)) return true;
+            return false;
+            //anz++;
+            //  if (anz >= Radbedarf) return 1.0f;
+            //  return (float)anz / Radbedarf;
+        }
+
+        public bool GetRadCollision(int rad, float angle, Vector2 Bezugspunkt)
+        {
+            //int anz=0;
+            //for (int i = 0; i < Raeder.Count; i++)
+            if (Raeder[rad].IsCollision(angle, Bezugspunkt)) return true;
+            return false;
+            //anz++;
+            //  if (anz >= Radbedarf) return 1.0f;
+            //  return (float)anz / Radbedarf;
+        }
+
+        #endregion Methods
+
+        // public int Radbedarf = 0;
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-// ***********************************************************************
+﻿// ***********************************************************************
 // Assembly         : 4(1)
 // Author           : Till
 // Created          : 07-20-2013
@@ -13,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,36 +20,36 @@ namespace _4_1_
 {
     //ist das allererste Menu
     /// <summary>
-    /// Class Startmenu
+    ///     Class Startmenu
     /// </summary>
     internal class Startmenu
     {
         #region vars
 
         /// <summary>
-        /// The menu items
+        ///     The selected
         /// </summary>
-        public Button[] menuItems = new Button[4];
+        private readonly Color selected;
 
         /// <summary>
-        /// The visible
+        ///     The unselected
         /// </summary>
-        public bool visible = false;
+        private readonly Color unselected; //Farbe der aktuell nicht ausgewählten Einträge
 
         /// <summary>
-        /// The font
+        ///     The font
         /// </summary>
         private SpriteFont font;
 
         /// <summary>
-        /// The selected
+        ///     The menu items
         /// </summary>
-        private Color selected;
+        public Button[] menuItems = new Button[4];
 
         /// <summary>
-        /// The unselected
+        ///     The visible
         /// </summary>
-        private Color unselected;           //Farbe der aktuell nicht ausgewählten Einträge
+        public bool visible = false;
 
         //Farbe des ausgewählten Eintrages
 
@@ -58,22 +57,26 @@ namespace _4_1_
 
         #endregion vars
 
+        #region Fields
+
         /// <summary>
-        /// The screen height
+        ///     The screen height
         /// </summary>
         public int screenHeight;
 
         /// <summary>
-        /// The screen width
+        ///     The screen width
         /// </summary>
         public int screenWidth;
 
-        //    private Texture2D menutexture = Texturen.Pausenmenu;
+        #endregion Fields
+
+        #region Constructors
 
         //Constructor des Menüs
         //Initialisiert Standardwerte
         /// <summary>
-        /// Initializes a new instance of the <see cref="Startmenu"/> class.
+        ///     Initializes a new instance of the <see cref="Startmenu" /> class.
         /// </summary>
         /// <param name="unselectedColor">Color of the unselected.</param>
         /// <param name="selectedColor">Color of the selected.</param>
@@ -82,22 +85,26 @@ namespace _4_1_
         /// <param name="h">The h.</param>
         public Startmenu(Color unselectedColor, Color selectedColor, SpriteFont font, int w, int h)
         {
-            this.screenWidth = w;
-            this.screenHeight = h;
+            screenWidth = w;
+            screenHeight = h;
             this.font = font;
 
-            this.unselected = unselectedColor;
-            this.selected = selectedColor;
+            unselected = unselectedColor;
+            selected = selectedColor;
 
-            Vector2 aux = new Vector2((screenWidth - Texturen.Button1.Width) / 2, 80);
+            var aux = new Vector2((screenWidth - Texturen.Button1.Width)/2, 80);
             menuItems[0] = new Button(Texturen.Button1, aux, "Neues", "Spiel", font);
-            menuItems[1] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 1), "Spiel", "Laden", font);
-            menuItems[2] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 2), "Optionen", font);
-            menuItems[3] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 3), "Spiel", "Verlassen", font);
+            menuItems[1] = new Button(Texturen.Button1, aux + new Vector2(0, 80*1), "Spiel", "Laden", font);
+            menuItems[2] = new Button(Texturen.Button1, aux + new Vector2(0, 80*2), "Optionen", font);
+            menuItems[3] = new Button(Texturen.Button1, aux + new Vector2(0, 80*3), "Spiel", "Verlassen", font);
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
@@ -117,20 +124,20 @@ namespace _4_1_
                 menuItems[i].Draw(spriteBatch, selected, unselected);
             }
 
-            Vector2 aux = new Vector2((screenWidth - Texturen.Button1.Width) / 2, 80);
+            var aux = new Vector2((screenWidth - Texturen.Button1.Width)/2, 80);
 
             // davor auffüllen
             for (int i = -2; i < 0; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
 
             // danach auffüllen
-            int Danach = (int)Math.Ceiling((float)Game1.screenHeight / 80) - 4;
+            int Danach = (int) Math.Ceiling((float) Game1.screenHeight/80) - 4;
             for (int i = menuItems.Length; i < menuItems.Length + Danach; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
         }
 
         /// <summary>
-        /// Hides this instance.
+        ///     Hides this instance.
         /// </summary>
         public void hide()
         {
@@ -138,7 +145,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Mouses the keys.
+        ///     Mouses the keys.
         /// </summary>
         /// <param name="mouseState">State of the mouse.</param>
         /// <returns>System.Int32.</returns>
@@ -152,12 +159,16 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Shows this instance.
+        ///     Shows this instance.
         /// </summary>
         public void show()
         {
             visible = true;
         }
+
+        #endregion Methods
+
+        //    private Texture2D menutexture = Texturen.Pausenmenu;
 
         //Methode zum Erstellen eines neuen Menüeintrages
         //Übergibt den Namen und Position

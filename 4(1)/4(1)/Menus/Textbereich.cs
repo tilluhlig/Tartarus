@@ -1,87 +1,100 @@
-﻿using System;
+﻿#region Using Statements
+
+using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
-#region Using Statements
-
-using System.Windows.Forms; // This class exposes WinForms-style key events.
+// This class exposes WinForms-style key events.
 
 #endregion Using Statements
 
 namespace _4_1_
 {
     /// <summary>
-    ///
     /// </summary>
     public class Textbereich
     {
+        #region Fields
+
         /// <summary>
-        /// The cursor
+        ///     The cursor
         /// </summary>
         public int cursor = 0;
 
         /// <summary>
-        /// The font
+        ///     The font
         /// </summary>
         public SpriteFont font;
 
         /// <summary>
-        /// The maximum pixel information zeile
+        ///     The maximum pixel information zeile
         /// </summary>
         public int maxPixelInZeile = 300;
 
         /// <summary>
-        /// The maximum zeilen
+        ///     The maximum zeilen
         /// </summary>
         public int maxZeilen = 10;
 
         /// <summary>
-        /// The original text
+        ///     The original text
         /// </summary>
         public String originalText = "";
 
         /// <summary>
-        /// The scrollbar
+        ///     The scrollbar
         /// </summary>
         public Scroller Scrollbar = null;
 
         /// <summary>
-        /// The text
+        ///     The text
         /// </summary>
         public List<string> Text = new List<string>();
 
         /// <summary>
-        /// The visible
+        ///     The visible
         /// </summary>
         public bool visible = false;
 
         /// <summary>
-        /// The position
+        ///     The position
         /// </summary>
         private Vector2 pos;
 
+        #endregion Fields
+
+        #region Constructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Textbereich"/> class.
+        ///     Initializes a new instance of the <see cref="Textbereich" /> class.
         /// </summary>
         /// <param name="font">The font.</param>
         /// <param name="maxPixelInZeile">The maximum pixel information zeile.</param>
         /// <param name="maxZeilen">The maximum zeilen.</param>
         /// <param name="graphicsDevice">The graphics device.</param>
         /// <param name="Content">The content.</param>
-        public Textbereich(SpriteFont font, int maxPixelInZeile, int maxZeilen, GraphicsDevice graphicsDevice, ContentManager Content)
+        public Textbereich(SpriteFont font, int maxPixelInZeile, int maxZeilen, GraphicsDevice graphicsDevice,
+            ContentManager Content)
         {
             this.font = font;
             this.maxPixelInZeile = maxPixelInZeile;
             this.maxZeilen = maxZeilen;
 
-            Scrollbar = new Scroller(40, (int)(font.MeasureString("a").Y * maxZeilen + 14), Vector2.Zero, maxZeilen, 1, true, graphicsDevice, Content, Color.LightGoldenrodYellow, Color.Black);
+            Scrollbar = new Scroller(40, (int)(font.MeasureString("a").Y * maxZeilen + 14), Vector2.Zero, maxZeilen, 1,
+                true, graphicsDevice, Content, Color.LightGoldenrodYellow, Color.Black);
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         /// <param name="graphicsDevice">The graphics device.</param>
@@ -91,7 +104,8 @@ namespace _4_1_
         /// <param name="Feldfarbe">The feldfarbe.</param>
         /// <param name="Randfarbe">The randfarbe.</param>
         /// <returns></returns>
-        public bool Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Vector2 Fenster, bool found, Vector2 pos, Color Feldfarbe, Color Randfarbe)
+        public bool Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Vector2 Fenster, bool found,
+            Vector2 pos, Color Feldfarbe, Color Randfarbe)
         {
             if (!visible) return false;
 
@@ -109,9 +123,13 @@ namespace _4_1_
                 temppos.Y = Game1.screenHeight - Maße.Y;
             }
 
-            Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)(temppos.X - 7 - Fenster.X), (int)(temppos.Y - 7 - Fenster.Y), (int)(Maße.X + 14), (int)(Maße.Y + 14)), Randfarbe, 1f);
+            Help.DrawRectangle(spriteBatch, graphicsDevice,
+                new Rectangle((int)(temppos.X - 7 - Fenster.X), (int)(temppos.Y - 7 - Fenster.Y), (int)(Maße.X + 14),
+                    (int)(Maße.Y + 14)), Randfarbe, 1f);
 
-            Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)(temppos.X - 5 - Fenster.X), (int)(temppos.Y - 5 - Fenster.Y), (int)(Maße.X + 10), (int)(Maße.Y + 10)), Feldfarbe, 1f);
+            Help.DrawRectangle(spriteBatch, graphicsDevice,
+                new Rectangle((int)(temppos.X - 5 - Fenster.X), (int)(temppos.Y - 5 - Fenster.Y), (int)(Maße.X + 10),
+                    (int)(Maße.Y + 10)), Feldfarbe, 1f);
 
             // Text zeichnen
 
@@ -120,7 +138,8 @@ namespace _4_1_
             {
                 String draw = Text[i];
                 if (draw.Length >= 1 && draw[draw.Length - 1] == '\n') draw = draw.Substring(0, draw.Length - 1);
-                spriteBatch.DrawString(font, draw, temppos + new Vector2(0, font.MeasureString("a").Y * (i - Scrollbar.oberstes)) - Fenster, Color.Black);
+                spriteBatch.DrawString(font, draw,
+                    temppos + new Vector2(0, font.MeasureString("a").Y * (i - Scrollbar.oberstes)) - Fenster, Color.Black);
             }
 
             // Cursor zeichnen
@@ -132,7 +151,8 @@ namespace _4_1_
             {
                 position += Text[i].Length;
 
-                if (cursor <= position || (Text[i].Length > 0 && Text[i][Text[i].Length - 1] == '\n' && cursor <= position))
+                if (cursor <= position ||
+                    (Text[i].Length > 0 && Text[i][Text[i].Length - 1] == '\n' && cursor <= position))
                 {
                     if (Text[i].Length > 0 && cursor == position && Text[i][Text[i].Length - 1] == '\n') //
                     {
@@ -151,7 +171,10 @@ namespace _4_1_
             }
 
             if (y - Scrollbar.oberstes >= 0 && y - Scrollbar.oberstes < maxZeilen)
-                spriteBatch.DrawString(font, "_", temppos + new Vector2(font.MeasureString(cursortext).X, font.MeasureString("a").Y * (y - Scrollbar.oberstes)) - Fenster, Color.Red, 0, Vector2.Zero, 1.1f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(font, "_",
+                    temppos +
+                    new Vector2(font.MeasureString(cursortext).X, font.MeasureString("a").Y * (y - Scrollbar.oberstes)) -
+                    Fenster, Color.Red, 0, Vector2.Zero, 1.1f, SpriteEffects.None, 1);
 
             Scrollbar.UpdatePos(temppos + new Vector2(Maße.X + 7, -7));
             Scrollbar.updateScroller(Text.Count, graphicsDevice);
@@ -161,7 +184,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Hides this instance.
+        ///     Hides this instance.
         /// </summary>
         public void hide()
         {
@@ -170,15 +193,17 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Mouses the keys.
+        ///     Mouses the keys.
         /// </summary>
         /// <param name="Fenster">The fenster.</param>
         /// <returns></returns>
         public bool MouseKeys(Vector2 Fenster)
         {
             if (!visible) return false;
-            BoundingBox a = new BoundingBox(new Vector3(pos, 0), new Vector3(pos + new Vector2(maxPixelInZeile, maxZeilen * font.MeasureString("a").Y), 0));
-            if (a.Contains(new Vector3(Help.GetMouseState().X + Fenster.X, Help.GetMouseState().Y + Fenster.Y, 0)) == ContainmentType.Contains)
+            var a = new BoundingBox(new Vector3(pos, 0),
+                new Vector3(pos + new Vector2(maxPixelInZeile, maxZeilen * font.MeasureString("a").Y), 0));
+            if (a.Contains(new Vector3(Help.GetMouseState().X + Fenster.X, Help.GetMouseState().Y + Fenster.Y, 0)) ==
+                ContainmentType.Contains)
             {
                 return true;
             }
@@ -187,10 +212,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Called when [key press].
+        ///     Called when [key press].
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!visible) return;
@@ -199,21 +224,22 @@ namespace _4_1_
 
             if (e.KeyChar == 8 && originalText.Length != 0 && cursor > 0)
             {
-                originalText = originalText.Substring(0, cursor - 1) + originalText.Substring(cursor, originalText.Length - cursor);
+                originalText = originalText.Substring(0, cursor - 1) +
+                               originalText.Substring(cursor, originalText.Length - cursor);
                 cursor--;
             }
-            else
-                if (e.KeyChar >= 32 && e.KeyChar <= 126)
-                {
-                    originalText = originalText.Substring(0, cursor) + e.KeyChar.ToString() + originalText.Substring(cursor, originalText.Length - cursor);
-                    cursor++;
-                }
+            else if (e.KeyChar >= 32 && e.KeyChar <= 126)
+            {
+                originalText = originalText.Substring(0, cursor) + e.KeyChar +
+                               originalText.Substring(cursor, originalText.Length - cursor);
+                cursor++;
+            }
 
             Text = Help.ZerhackeTextAufFesteBreite(font, originalText, maxPixelInZeile, true);
         }
 
         /// <summary>
-        /// Shows this instance.
+        ///     Shows this instance.
         /// </summary>
         public void show()
         {
@@ -222,7 +248,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Tastens the eingabe.
+        ///     Tastens the eingabe.
         /// </summary>
         /// <param name="keybState">State of the keyb.</param>
         public void TastenEingabe(KeyboardState keybState)
@@ -230,86 +256,81 @@ namespace _4_1_
             if (!visible) return;
 
             bool gedrückt = true;
-            if (keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Delete) && cursor < originalText.Length)
+            if (keybState.IsKeyDown(Keys.Delete) && cursor < originalText.Length)
             {
-                originalText = originalText.Substring(0, cursor) + originalText.Substring(cursor + 1, originalText.Length - cursor - 1);
+                originalText = originalText.Substring(0, cursor) +
+                               originalText.Substring(cursor + 1, originalText.Length - cursor - 1);
                 Text = Help.ZerhackeTextAufFesteBreite(font, originalText, maxPixelInZeile, true);
             }
-            else
-                if (keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Enter))
+            else if (keybState.IsKeyDown(Keys.Enter))
+            {
+                originalText = originalText.Substring(0, cursor) + "\n" +
+                               originalText.Substring(cursor, originalText.Length - cursor);
+                cursor++;
+                Text = Help.ZerhackeTextAufFesteBreite(font, originalText, maxPixelInZeile, true);
+            }
+            else if (keybState.IsKeyDown(Keys.Right) && cursor < originalText.Length)
+            {
+                cursor++;
+            }
+            else if (keybState.IsKeyDown(Keys.Left) && cursor > 0)
+            {
+                cursor--;
+            }
+            else if (keybState.IsKeyDown(Keys.Down) && cursor < originalText.Length)
+            {
+                int x = 0;
+                int position = 0;
+                for (int i = 0; i < Text.Count; i++)
                 {
-                    originalText = originalText.Substring(0, cursor) + "\n" + originalText.Substring(cursor, originalText.Length - cursor);
-                    cursor++;
-                    Text = Help.ZerhackeTextAufFesteBreite(font, originalText, maxPixelInZeile, true);
-                }
-                else
-                    if (keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Right) && cursor < originalText.Length)
+                    position += Text[i].Length;
+                    if (cursor < position)
                     {
-                        cursor++;
-                    }
-                    else
-                        if (keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Left) && cursor > 0)
+                        x = Text[i].Length - (position - cursor);
+                        if (i == Text.Count - 1)
                         {
-                            cursor--;
+                        }
+                        else if (x >= Text[i + 1].Length)
+                        {
+                            cursor = position + Text[i + 1].Length - 1;
                         }
                         else
-                            if (keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Down) && cursor < originalText.Length)
-                            {
-                                int x = 0;
-                                int position = 0;
-                                for (int i = 0; i < Text.Count; i++)
-                                {
-                                    position += Text[i].Length;
-                                    if (cursor < position)
-                                    {
-                                        x = Text[i].Length - (position - cursor);
-                                        if (i == Text.Count - 1)
-                                        {
-                                        }
-                                        else
-                                            if (x >= Text[i + 1].Length)
-                                            {
-                                                cursor = position + Text[i + 1].Length - 1;
-                                            }
-                                            else
-                                            {
-                                                cursor = position + x;
-                                            }
+                        {
+                            cursor = position + x;
+                        }
 
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                                if (keybState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Up))
-                                {
-                                    int x = 0;
-                                    int position = 0;
-                                    for (int i = 0; i < Text.Count; i++)
-                                    {
-                                        position += Text[i].Length;
-                                        if (cursor < position || (i == Text.Count - 1 && cursor == position))
-                                        {
-                                            x = Text[i].Length - (position - cursor);
-                                            if (i == 0)
-                                            {
-                                            }
-                                            else
-                                                if (x >= Text[i - 1].Length)
-                                                {
-                                                    cursor = position - Text[i].Length - 1;
-                                                }
-                                                else
-                                                {
-                                                    cursor = position + x - Text[i].Length - Text[i - 1].Length;
-                                                }
+                        break;
+                    }
+                }
+            }
+            else if (keybState.IsKeyDown(Keys.Up))
+            {
+                int x = 0;
+                int position = 0;
+                for (int i = 0; i < Text.Count; i++)
+                {
+                    position += Text[i].Length;
+                    if (cursor < position || (i == Text.Count - 1 && cursor == position))
+                    {
+                        x = Text[i].Length - (position - cursor);
+                        if (i == 0)
+                        {
+                        }
+                        else if (x >= Text[i - 1].Length)
+                        {
+                            cursor = position - Text[i].Length - 1;
+                        }
+                        else
+                        {
+                            cursor = position + x - Text[i].Length - Text[i - 1].Length;
+                        }
 
-                                            break;
-                                        }
-                                    }
-                                }
-                                else
-                                    gedrückt = false;
+                        break;
+                    }
+                }
+            }
+            else
+                gedrückt = false;
 
             if (gedrückt)
             {
@@ -320,7 +341,8 @@ namespace _4_1_
                 {
                     position += Text[i].Length;
 
-                    if (cursor <= position || (Text[i].Length > 0 && Text[i][Text[i].Length - 1] == '\n' && cursor <= position))
+                    if (cursor <= position ||
+                        (Text[i].Length > 0 && Text[i][Text[i].Length - 1] == '\n' && cursor <= position))
                     {
                         if (Text[i].Length > 0 && cursor == position && Text[i][Text[i].Length - 1] == '\n') //
                         {
@@ -334,9 +356,17 @@ namespace _4_1_
                     }
                 }
 
-                if (y < Scrollbar.oberstes) { Scrollbar.oberstes = y; }
-                if (Scrollbar.oberstes + Scrollbar.maxItems - 1 < y) { Scrollbar.oberstes = y - Scrollbar.maxItems + 1; }
+                if (y < Scrollbar.oberstes)
+                {
+                    Scrollbar.oberstes = y;
+                }
+                if (Scrollbar.oberstes + Scrollbar.maxItems - 1 < y)
+                {
+                    Scrollbar.oberstes = y - Scrollbar.maxItems + 1;
+                }
             }
         }
+
+        #endregion Methods
     }
 }

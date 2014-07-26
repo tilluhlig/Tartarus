@@ -9,18 +9,16 @@ namespace _4_1_
 {
     public static class Schrift
     {
-        // Adding a private font (Win2000 and later)
-        [DllImport("gdi32.dll", ExactSpelling = true)]
-        private static extern IntPtr AddFontMemResourceEx(byte[] pbFont, int cbFont, IntPtr pdv, out uint pcFonts);
-
-        // Cleanup of a private font (Win2000 and later)
-        [DllImport("gdi32.dll", ExactSpelling = true)]
-        internal static extern bool RemoveFontMemResourceEx(IntPtr fh);
+        #region Fields
 
         // Some private holders of font information we are loading
-        static private IntPtr m_fh = IntPtr.Zero;
+        private static IntPtr m_fh = IntPtr.Zero;
 
-        static private PrivateFontCollection m_pfc = null;
+        private static PrivateFontCollection m_pfc;
+
+        #endregion Fields
+
+        #region Methods
 
         /////////////////////////////////////
         //
@@ -37,7 +35,7 @@ namespace _4_1_
             {
                 // First load the font as a memory stream
                 Stream stmFont = Assembly.GetExecutingAssembly().GetManifestResourceStream(
-                                        Schriftdatei);
+                    Schriftdatei);
 
                 if (null != stmFont)
                 {
@@ -47,7 +45,7 @@ namespace _4_1_
                     //
 
                     // First read the font into a buffer
-                    byte[] rgbyt = new Byte[stmFont.Length];
+                    var rgbyt = new Byte[stmFont.Length];
                     stmFont.Read(rgbyt, 0, rgbyt.Length);
 
                     // Then do the unmanaged font (Windows 2000 and later)
@@ -78,5 +76,15 @@ namespace _4_1_
 
             return fnt;
         }
+
+        // Cleanup of a private font (Win2000 and later)
+        [DllImport("gdi32.dll", ExactSpelling = true)]
+        internal static extern bool RemoveFontMemResourceEx(IntPtr fh);
+
+        // Adding a private font (Win2000 and later)
+        [DllImport("gdi32.dll", ExactSpelling = true)]
+        private static extern IntPtr AddFontMemResourceEx(byte[] pbFont, int cbFont, IntPtr pdv, out uint pcFonts);
+
+        #endregion Methods
     }
 }

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -19,39 +20,73 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Destruction_Object
+    ///     Class Destruction_Object
     /// </summary>
     public class ZerstörungsObjekt
     {
+        #region Fields
+
         /// <summary>
-        /// The bild_ width
+        ///     The bild_ width
         /// </summary>
         public int BildBreite = 0;
 
         /// <summary>
-        /// The bild_ height
+        ///     The bild_ height
         /// </summary>
         public int BildHöhe = 0;
 
         /// <summary>
-        /// The rotateable
+        ///     The rotateable
         /// </summary>
         public bool Drehbar = false;
 
         /// <summary>
-        /// The scale
+        ///     The scale
         /// </summary>
         public float Skalierung = 1.0f;
 
         /// <summary>
-        /// The overreachable
+        ///     The overreachable
         /// </summary>
         public bool Spiegelbar = false;
 
         /// <summary>
-        /// The centered
+        ///     The centered
         /// </summary>
         public bool Zentriert = false;
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ZerstörungsObjekt" /> class.
+        /// </summary>
+        /// <param name="_Bild_Width">Width of the _ bild_.</param>
+        /// <param name="_Bild_Height">Height of the _ bild_.</param>
+        /// <param name="_scale">The _scale.</param>
+        /// <param name="_centered">if set to <c>true</c> [_centered].</param>
+        /// <param name="_overreachable">if set to <c>true</c> [_overreachable].</param>
+        /// <param name="_rotateable">if set to <c>true</c> [_rotateable].</param>
+        public ZerstörungsObjekt(int _Bild_Width, int _Bild_Height, float _scale, bool _centered, bool _overreachable,
+            bool _rotateable)
+        {
+            BildBreite = _Bild_Width;
+            BildHöhe = _Bild_Height;
+            Skalierung = _scale;
+            Zentriert = _centered;
+            Spiegelbar = _overreachable;
+            Drehbar = _rotateable;
+        }
+
+        public ZerstörungsObjekt()
+        {
+        }
+
+        #endregion Constructors
+
+        #region Methods
 
         public static ZerstörungsObjekt Laden(List<String> Text, ZerstörungsObjekt Objekt)
         {
@@ -71,46 +106,8 @@ namespace _4_1_
             return temp;
         }
 
-        public List<String> Speichern()
-        {
-            List<String> data = new List<String>();
-            data.Add("[ZERSTÖRUNGSOBJEKT]");
-            data.Add("Zentriert=" + Zentriert);
-            data.Add("Spiegelbar=" + Spiegelbar);
-            data.Add("Skalierung=" + Skalierung);
-            data.Add("Drehbar=" + Drehbar);
-            data.Add("BildHöhe=" + BildHöhe);
-            data.Add("BildBreite=" + BildBreite);
-            data.Add("[/ZERSTÖRUNGSOBJEKT]");
-
-            return data;
-        }
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="ZerstörungsObjekt"/> class.
-        /// </summary>
-        /// <param name="_Bild_Width">Width of the _ bild_.</param>
-        /// <param name="_Bild_Height">Height of the _ bild_.</param>
-        /// <param name="_scale">The _scale.</param>
-        /// <param name="_centered">if set to <c>true</c> [_centered].</param>
-        /// <param name="_overreachable">if set to <c>true</c> [_overreachable].</param>
-        /// <param name="_rotateable">if set to <c>true</c> [_rotateable].</param>
-        public ZerstörungsObjekt(int _Bild_Width, int _Bild_Height, float _scale, bool _centered, bool _overreachable, bool _rotateable)
-        {
-            BildBreite = _Bild_Width;
-            BildHöhe = _Bild_Height;
-            Skalierung = _scale;
-            Zentriert = _centered;
-            Spiegelbar = _overreachable;
-            Drehbar = _rotateable;
-        }
-
-        public ZerstörungsObjekt()
-        {
-        }
-
-        /// <summary>
-        /// Explodes the specified bild.
+        ///     Explodes the specified bild.
         /// </summary>
         /// <param name="Bild">The bild.</param>
         /// <param name="Explosion">The explosion.</param>
@@ -123,7 +120,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Explodes the specified bild.
+        ///     Explodes the specified bild.
         /// </summary>
         /// <param name="Bild">The bild.</param>
         /// <param name="Explosion">The explosion.</param>
@@ -132,53 +129,57 @@ namespace _4_1_
         /// <param name="overreach">if set to <c>true</c> [overreach].</param>
         /// <param name="angle">The angle.</param>
         /// <returns>System.Int32.</returns>
-        public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position, bool overreach, float angle)
+        public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position,
+            bool overreach, float angle)
         {
             // Triviale ignorieren (zu weit weg)
-            int abstand = (int)Help.Abstand(new Vector2(0, 0), new Vector2(BildBreite * Skalierung, BildHöhe * Skalierung));
-            if (Help.Abstand(Explosion, Object_Position) > Energie + 4 * abstand) return 0;  //new Vector2(Object_Position.X + Bild_Width * scale / 2, Object_Position.Y + Bild_Height * scale / 2)
+            var abstand = (int) Help.Abstand(new Vector2(0, 0), new Vector2(BildBreite*Skalierung, BildHöhe*Skalierung));
+            if (Help.Abstand(Explosion, Object_Position) > Energie + 4*abstand)
+                return 0;
+                    //new Vector2(Object_Position.X + Bild_Width * scale / 2, Object_Position.Y + Bild_Height * scale / 2)
 
             // Rotateable korrektur
             if (Drehbar)
                 Explosion = Help.RotatePosition(Object_Position, MathHelper.ToRadians(360) - angle, Explosion);
 
             // Bringe Object und Eindringling relativ zueinander
-            int x = (int)(Explosion.X - Object_Position.X);
-            int y = (int)(Explosion.Y - Object_Position.Y);
+            var x = (int) (Explosion.X - Object_Position.X);
+            var y = (int) (Explosion.Y - Object_Position.Y);
 
             // Korrektur für Bilder, die nach ihrem Mittelpunkt ausgerichtet wurden
-            if (Zentriert) x += (int)(BildBreite * Skalierung / 2);
+            if (Zentriert) x += (int) (BildBreite*Skalierung/2);
 
             // Korrektur (Bild wurde verschoben)
-            y += (int)(BildHöhe * Skalierung);
+            y += (int) (BildHöhe*Skalierung);
 
             // Korrektur der Skalierung
-            x = (int)((float)x / Skalierung);
-            y = (int)((float)y / Skalierung);
+            x = (int) (x/Skalierung);
+            y = (int) (y/Skalierung);
 
             // Korrektur des Overreach
             if (overreach) x = BildBreite - x;
 
-            Color[] Picture = new Color[(int)(BildBreite * BildHöhe)];
+            var Picture = new Color[BildBreite*BildHöhe];
             Bild.GetData(Picture);
 
             // Punkte berechnen
             int found = 0;
-            Energie = (int)(Energie / Skalierung);
-            int aa = (int)((double)Math.Log((((Energie) - 0) * Math.PI), Math.E) * Math.Sqrt(Energie));
+            Energie = (int) (Energie/Skalierung);
+            var aa = (int) (Math.Log((((Energie) - 0)*Math.PI), Math.E)*Math.Sqrt(Energie));
             for (int i = -aa; i < aa; i++)
             {
-                int dist = i; if (dist < 0) dist = -dist;
-                int add = (int)((double)Math.Log((((aa) - dist) * Math.PI), Math.E) * Math.Sqrt(Energie));
+                int dist = i;
+                if (dist < 0) dist = -dist;
+                var add = (int) (Math.Log((((aa) - dist)*Math.PI), Math.E)*Math.Sqrt(Energie));
                 for (int b = -add; b < add; b++)
                 {
-                    Vector2 Delete = new Vector2(x + i, y + b);
+                    var Delete = new Vector2(x + i, y + b);
                     if (Delete.X < 0 || Delete.Y < 0 || Delete.X >= BildBreite || Delete.Y >= BildHöhe) continue;
 
-                    if (Picture[(int)(Delete.X + Delete.Y * BildBreite)] != Color.Transparent)
+                    if (Picture[(int) (Delete.X + Delete.Y*BildBreite)] != Color.Transparent)
                     {
                         found++;
-                        Picture[(int)(Delete.X + Delete.Y * BildBreite)] = Color.Transparent;
+                        Picture[(int) (Delete.X + Delete.Y*BildBreite)] = Color.Transparent;
                     }
                 }
             }
@@ -189,8 +190,24 @@ namespace _4_1_
                 Bild.SetData(Picture);
                 return found;
             }
-            else
-                return 0;
+            return 0;
         }
+
+        public List<String> Speichern()
+        {
+            var data = new List<String>();
+            data.Add("[ZERSTÖRUNGSOBJEKT]");
+            data.Add("Zentriert=" + Zentriert);
+            data.Add("Spiegelbar=" + Spiegelbar);
+            data.Add("Skalierung=" + Skalierung);
+            data.Add("Drehbar=" + Drehbar);
+            data.Add("BildHöhe=" + BildHöhe);
+            data.Add("BildBreite=" + BildBreite);
+            data.Add("[/ZERSTÖRUNGSOBJEKT]");
+
+            return data;
+        }
+
+        #endregion Methods
     }
 }

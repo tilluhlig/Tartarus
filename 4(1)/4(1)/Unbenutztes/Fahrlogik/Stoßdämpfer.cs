@@ -2,9 +2,15 @@
 {
     public class Stoßdämpfer
     {
+        #region Fields
+
+        public float Haerte;
         public int Laenge;
         public int MaxLaenge;
-        public float Haerte;
+
+        #endregion Fields
+
+        #region Constructors
 
         public Stoßdämpfer(int _MaxLaenge, float _Haerte)
         {
@@ -12,5 +18,7 @@
             Laenge = MaxLaenge;
             Haerte = _Haerte;
         }
+
+        #endregion Constructors
     }
 }

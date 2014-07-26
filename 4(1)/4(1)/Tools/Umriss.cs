@@ -11,18 +11,21 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _4_1_
 {
     /// <summary>
-    /// Hilfsklasse zur Erstellung von Umrissen für 2D Bilder
+    ///     Hilfsklasse zur Erstellung von Umrissen für 2D Bilder
     /// </summary>
     public static class Umriss
     {
+        #region Methods
+
         /// <summary>
-        /// Erstellt einen Umriss eines 2D Bildes
+        ///     Erstellt einen Umriss eines 2D Bildes
         /// </summary>
         /// <param name="Bild">Das Bild</param>
         /// <param name="Farbe">Die Farbe des Umrisses</param>
@@ -31,34 +34,37 @@ namespace _4_1_
         public static Texture2D Generieren(Texture2D Bild, Color Farbe, int Breite)
         {
             if (Bild == null) return null;
-            Color[] Data = new Color[Bild.Width * Bild.Height];
+            var Data = new Color[Bild.Width*Bild.Height];
             Bild.GetData(Data);
-            Color[] Data2 = new Color[Bild.Width * Bild.Height];
+            var Data2 = new Color[Bild.Width*Bild.Height];
 
             for (int i = 0; i < Bild.Width; i++)
                 for (int b = 0; b < Bild.Height; b++)
                 {
                     bool found = false;
-                    if (i > Breite - 1 && Data[i - Breite + b * Bild.Width] == Color.Transparent) found = true;
+                    if (i > Breite - 1 && Data[i - Breite + b*Bild.Width] == Color.Transparent) found = true;
                     if (i <= Breite - 1) found = true;
-                    if (i < Bild.Width - Breite && Data[i + Breite + b * Bild.Width] == Color.Transparent) found = true;
+                    if (i < Bild.Width - Breite && Data[i + Breite + b*Bild.Width] == Color.Transparent) found = true;
                     if (i >= Bild.Width - Breite) found = true;
-                    if (b > Breite - 1 && Data[i + (b - Breite) * Bild.Width] == Color.Transparent) found = true;
+                    if (b > Breite - 1 && Data[i + (b - Breite)*Bild.Width] == Color.Transparent) found = true;
                     if (b <= Breite - 1) found = true;
-                    if (b < Bild.Height - Breite && Data[i + (b + Breite) * Bild.Width] == Color.Transparent) found = true;
+                    if (b < Bild.Height - Breite && Data[i + (b + Breite)*Bild.Width] == Color.Transparent)
+                        found = true;
                     if (b >= Bild.Height - Breite) found = true;
 
-                    if (Data[i + b * Bild.Width] != Color.Transparent && found)
+                    if (Data[i + b*Bild.Width] != Color.Transparent && found)
                     {
-                        Data2[i + b * Bild.Width] = Farbe;
+                        Data2[i + b*Bild.Width] = Farbe;
                     }
                     else
-                        Data2[i + b * Bild.Width] = Color.Transparent;
+                        Data2[i + b*Bild.Width] = Color.Transparent;
                 }
 
-            Texture2D result = new Texture2D(Game1.device, Bild.Width, Bild.Height);
+            var result = new Texture2D(Game1.device, Bild.Width, Bild.Height);
             result.SetData(Data2);
             return result;
         }
+
+        #endregion Methods
     }
 }

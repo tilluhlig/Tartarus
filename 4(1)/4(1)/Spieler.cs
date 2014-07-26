@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,136 +22,125 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Spieler
+    ///     Class Spieler
     /// </summary>
     public class Spieler
     {
+        #region Fields
+
         /// <summary>
-        /// The GLOBA l_ FUEL
+        ///     The GLOBA l_ FUEL
         /// </summary>
         public static Var<bool> GLOBAL_FUEL = new Var<bool>("GLOBAL_FUEL", false);
 
         /// <summary>
-        /// The PLAYE r_ FUEL
+        ///     The PLAYE r_ FUEL
         /// </summary>
         public static Var<bool> PLAYER_FUEL = new Var<bool>("PLAYER_FUEL", false);
 
         /// <summary>
-        /// The WAFFE n_ COOLDOWN
+        ///     The WAFFE n_ COOLDOWN
         /// </summary>
         public static Var<bool> WAFFEN_COOLDOWN = new Var<bool>("WAFFEN_COOLDOWN", false);
 
         /// <summary>
-        /// The action points
+        ///     The fauxdown
+        /// </summary>
+        private readonly float fauxdown = MathHelper.ToRadians(0);
+
+        /// <summary>
+        ///     The fauxup
+        /// </summary>
+        private readonly float fauxup = MathHelper.ToRadians(180);
+
+        /// <summary>
+        ///     The action points
         /// </summary>
         public int ActionPoints = 999;
 
         /// <summary>
-        /// The angle
+        ///     The angle
         /// </summary>
         public List<float> Angle = new List<float>();
 
         /// <summary>
-        /// The cooldown
+        ///     The cooldown
         /// </summary>
         public List<int> Cooldown = new List<int>();
 
         /// <summary>
-        /// The credits
+        ///     The credits
         /// </summary>
         public float Credits = 0;
 
         /// <summary>
-        /// Das aktuelle Level des Fahrzeugs
+        ///     Das aktuelle Level des Fahrzeugs
         /// </summary>
         public List<int> CurrentLv = new List<int>();
 
         /// <summary>
-        /// The current weapon
+        ///     The current weapon
         /// </summary>
         public int CurrentWeapon = 0;
 
         /// <summary>
-        /// The effekte
+        ///     The effekte
         /// </summary>
         public List<EffectPacket> Effekte = new List<EffectPacket>();
 
         //enthält den aktuellen Level des Fahrzeugs
         /// <summary>
-        /// The exp now
+        ///     The exp now
         /// </summary>
         public List<int> ExpNow = new List<int>();
 
         //gibt an, wieviel Exp das Fahrzeug bereits hat
-        /// <summary>
-        /// The exp progress
-        /// </summary>
         //    public List<int> ExpProgress = new List<int>();
-
         /// <summary>
-        /// The farbe
+        ///     The exp progress
+        /// </summary>
+        /// <summary>
+        ///     The farbe
         /// </summary>
         public Color Farbe;
 
         /// <summary>
-        /// The fuel remains
-        /// </summary>
-        public float fuelRemains = 999;
-
-        /// <summary>
-        /// The hp
-        /// </summary>
-        public List<int> hp = new List<int>();
-
-        public int id = 0;
-
-        /// <summary>
-        /// The im tunnel
+        ///     The im tunnel
         /// </summary>
         public bool ImTunnel = false;
 
         /// <summary>
-        /// The isthere
-        /// </summary>
-        public List<bool> isthere = new List<bool>();
-
-        /// <summary>
-        /// The kindof tank
+        ///     The kindof tank
         /// </summary>
         public List<int> KindofTank = new List<int>();
 
         /// <summary>
-        /// The collision
+        ///     The collision
         /// </summary>
         public List<KollisionsObjekt> Kollision = new List<KollisionsObjekt>();
 
         /// <summary>
-        /// The logik
-        /// </summary>
-        public List<Fahrlogik_Object> logik = new List<Fahrlogik_Object>();
-
-        /// <summary>
-        /// The max pixel
+        ///     The max pixel
         /// </summary>
         public List<int> MaxPixel = new List<int>();
 
         /// <summary>
-        /// The max schuesse
+        ///     The max schuesse
         /// </summary>
         public int MaxSchuesse;
 
         /// <summary>
-        /// The max timeout
+        ///     The max timeout
         /// </summary>
         public int MaxTimeout;
 
         /// <summary>
-        /// The minen
+        ///     The minen
         /// </summary>
         public List<Mine> Minen = new List<Mine>();
 
         /// <summary>
-        /// The munition
+        ///     The munition
         /// </summary>
         public List<int>[] Munition = new List<int>[21];
 
@@ -159,88 +149,108 @@ namespace _4_1_
         public Notizen Notiz = new Notizen();
 
         /// <summary>
-        /// The oldpos
-        /// </summary>
-        public List<Vector2> oldpos = new List<Vector2>();
-
-        /// <summary>
-        /// The overreach
-        /// </summary>
-        public List<bool> overreach = new List<bool>();
-
-        /// <summary>
-        /// The pos
-        /// </summary>
-        public List<Vector2> pos = new List<Vector2>();
-
-        /// <summary>
-        /// The rucksack
+        ///     The rucksack
         /// </summary>
         public List<Inventar> Rucksack = new List<Inventar>();
 
         /// <summary>
-        /// The shooting power
-        /// </summary>
-        public float shootingPower;
-
-        /// <summary>
-        /// The size
+        ///     The size
         /// </summary>
         public List<float> Size = new List<float>();
 
         /// <summary>
-        /// The size of cannon
+        ///     The size of cannon
         /// </summary>
         public List<float> SizeOfCannon = new List<float>();
 
         /// <summary>
-        /// The tunnel anlage
+        ///     The tunnel anlage
         /// </summary>
         public List<Tunnel> TunnelAnlage = new List<Tunnel>();
 
         /// <summary>
-        /// The vehikle angle
-        /// </summary>
-        public List<float> vehikleAngle = new List<float>();
-
-        /// <summary>
-        /// The destruction
+        ///     The destruction
         /// </summary>
         public List<ZerstörungsObjekt> Zerstörung = new List<ZerstörungsObjekt>();
 
         /// <summary>
-        /// The zielpos
+        ///     The zielpos
         /// </summary>
         public List<Vector2> Zielpos = new List<Vector2>();
 
         /// <summary>
-        /// The _ current tank
+        ///     The _ current tank
         /// </summary>
-        private int _CurrentTank = 0; // aktuell gewählter panzer
+        private int _CurrentTank; // aktuell gewählter panzer
 
         /// <summary>
-        /// The fauxdown
+        ///     The fuel remains
         /// </summary>
-        private float fauxdown = MathHelper.ToRadians(0);
+        public float fuelRemains = 999;
 
         /// <summary>
-        /// The fauxup
+        ///     The hp
         /// </summary>
-        private float fauxup = MathHelper.ToRadians(180);
+        public List<int> hp = new List<int>();
+
+        public int id = 0;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Spieler" /> class.
+        ///     The isthere
+        /// </summary>
+        public List<bool> isthere = new List<bool>();
+
+        /// <summary>
+        ///     The logik
+        /// </summary>
+        public List<Fahrlogik_Object> logik = new List<Fahrlogik_Object>();
+
+        /// <summary>
+        ///     The oldpos
+        /// </summary>
+        public List<Vector2> oldpos = new List<Vector2>();
+
+        /// <summary>
+        ///     The overreach
+        /// </summary>
+        public List<bool> overreach = new List<bool>();
+
+        /// <summary>
+        ///     The pos
+        /// </summary>
+        public List<Vector2> pos = new List<Vector2>();
+
+        /// <summary>
+        ///     The shooting power
+        /// </summary>
+        public float shootingPower;
+
+        /// <summary>
+        ///     The vehikle angle
+        /// </summary>
+        public List<float> vehikleAngle = new List<float>();
+
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="Spieler" /> class.
         /// </summary>
         public Spieler() // Initialisiert einen neuen Spieler
         {
             // Eigentlich total sinnlos   löschen???
-            if (Spiel.TIMEOUT.Wert) MaxTimeout = 60 * 60; // Maximale Zeit zum feuern
+            if (Spiel.TIMEOUT.Wert) MaxTimeout = 60*60; // Maximale Zeit zum feuern
             shootingPower = 2;
             if (Spiel.SCHUESSE.Wert) MaxSchuesse = 1; // Maximale anzahl an Schuessen
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         /// <summary>
-        /// Gets or sets the current tank.
+        ///     Gets or sets the current tank.
         /// </summary>
         /// <value>The current tank.</value>
         public int CurrentTank
@@ -256,11 +266,10 @@ namespace _4_1_
                         {
                             _CurrentTank = 0;
                         }
-                        else
-                            if (_CurrentTank >= hp.Count)
-                            {
-                                _CurrentTank = hp.Count - 1;
-                            }
+                        else if (_CurrentTank >= hp.Count)
+                        {
+                            _CurrentTank = hp.Count - 1;
+                        }
                     }
                 }
 
@@ -277,7 +286,7 @@ namespace _4_1_
                     {
                         int begin = 0;
                         CurrentWeaponNow2 = 0;
-                        for (; Fahrzeugdaten.Shootable[KindofTank[CurrentTankNow2], CurrentWeaponNow2] <= 0; )
+                        for (; Fahrzeugdaten.Shootable[KindofTank[CurrentTankNow2], CurrentWeaponNow2] <= 0;)
                         {
                             CurrentWeaponNow2--;
                             if (CurrentWeaponNow2 < 0) CurrentWeaponNow2 = Waffendaten.Daten.Count() - 1;
@@ -294,14 +303,14 @@ namespace _4_1_
 
                     if (CurrentWaeponOld != CurrentWeaponNow2)
                     {
-                        if (CurrentWeaponNow2 == 5)//&& !Spiel2.increaseairstrike
+                        if (CurrentWeaponNow2 == 5) //&& !Spiel2.increaseairstrike
                         {
                             Spiel2.increaseairstrike = true;
                             shootingPower = pos[CurrentTankNow2].X;
                             if (!Spiel2.Moving_Map) Spiel2.Set_Focus(new Vector2(shootingPower, pos[_CurrentTank].Y));
                         }
                         else
-                        //  if (!Spiel2.increaseairstrike)
+                            //  if (!Spiel2.increaseairstrike)
                         {
                             Spiel2.players[Spiel2.CurrentPlayer].shootingPower = 0;
                             Spiel2.increaseairstrike = false;
@@ -317,11 +326,19 @@ namespace _4_1_
                 }
                 return _CurrentTank;
             }
-            set { if (value != _CurrentTank)Game1.Spielermenu.intrade = false; _CurrentTank = value; }
+            set
+            {
+                if (value != _CurrentTank) Game1.Spielermenu.intrade = false;
+                _CurrentTank = value;
+            }
         }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
-        /// Draws the player.
+        ///     Draws the player.
         /// </summary>
         /// <param name="tankid">The tankid.</param>
         /// <param name="spriteBatch">The sprite batch.</param>
@@ -335,30 +352,36 @@ namespace _4_1_
         /// <param name="iscurrent">if set to <c>true</c> [iscurrent].</param>
         /// <param name="faktor">The faktor.</param>
         /// <param name="Transparenz">The transparenz.</param>
-        public void DrawPlayer(int tankid, SpriteBatch spriteBatch, float Angle, float vehikleAngle, float scaleP, float scaleR, Vector2 Position, Vector2 Fenster, bool overreach, bool iscurrent, float faktor, float Transparenz, Color CurrentColor, bool Besitzer)
+        public void DrawPlayer(int tankid, SpriteBatch spriteBatch, float Angle, float vehikleAngle, float scaleP,
+            float scaleR, Vector2 Position, Vector2 Fenster, bool overreach, bool iscurrent, float faktor,
+            float Transparenz, Color CurrentColor, bool Besitzer)
         {
             scaleP *= faktor;
             scaleR *= faktor;
 
             int b = tankid;
-            Color r = Color.White * Transparenz;
-            if (Effekte[b].GetVergiftet()) r = Color.Lime * Transparenz;
-            if (Effekte[b].GetEingefroren()) r = Color.Aquamarine * Transparenz;
+            Color r = Color.White*Transparenz;
+            if (Effekte[b].GetVergiftet()) r = Color.Lime*Transparenz;
+            if (Effekte[b].GetEingefroren()) r = Color.Aquamarine*Transparenz;
 
-            Color r2 = Farbe * Transparenz * 0.5f;
+            Color r2 = Farbe*Transparenz*0.5f;
             // r2 *= 1f;
 
-            int xPos = (int)Position.X - (int)Fenster.X;
-            int yPos = (int)Position.Y - (int)Fenster.Y;
+            int xPos = (int) Position.X - (int) Fenster.X;
+            int yPos = (int) Position.Y - (int) Fenster.Y;
             int Kindof = KindofTank[tankid];
 
             if (Kindof != 4)
             {
                 int id2 = Kindof;
-                Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle, new Vector2((overreach ? Texturen.RohrPos[KindofTank[b]].X : -Texturen.RohrPos[KindofTank[b]].X), Texturen.RohrPos[KindofTank[b]].Y) * faktor);
+                Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
+                    new Vector2((overreach ? Texturen.RohrPos[KindofTank[b]].X : -Texturen.RohrPos[KindofTank[b]].X),
+                        Texturen.RohrPos[KindofTank[b]].Y)*faktor);
                 spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
-                spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, r, Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
+                spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, r, Angle + vehikleAngle,
+                    Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None,
+                    1); //
                 spriteBatch.End();
 
                 if (Mod.AKTUELLER_ON_TANK_VISIBLE.Wert)
@@ -366,7 +389,9 @@ namespace _4_1_
                     if (iscurrent)
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, CurrentColor * Transparenz, Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
+                        spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, CurrentColor*Transparenz,
+                            Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR,
+                            overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
                         spriteBatch.End();
                         //  spriteBatch.Draw(Texturen.panzerrohrumriss[id2], p, null, Color.DarkGoldenrod * Transparenz, Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
                     }
@@ -377,14 +402,21 @@ namespace _4_1_
             //Texturen.effect.CurrentTechnique.Passes[0].Apply();
             for (int i = 0; i < Texturen.Radpositionen[KindofTank[b]].Count(); i++)
             {
-                Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle, new Vector2((overreach ? Texturen.Radpositionen[KindofTank[b]][i].X : -Texturen.Radpositionen[KindofTank[b]][i].X), Texturen.Radpositionen[KindofTank[b]][i].Y) * faktor);
+                Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
+                    new Vector2(
+                        (overreach
+                            ? Texturen.Radpositionen[KindofTank[b]][i].X
+                            : -Texturen.Radpositionen[KindofTank[b]][i].X), Texturen.Radpositionen[KindofTank[b]][i].Y)*
+                    faktor);
 
                 spriteBatch.Draw(Texturen.panzerindexreifen[Kindof], p, null, r, vehikleAngle,
-               new Vector2(Texturen.panzerindexreifen[Kindof].Width / 2, Texturen.panzerindexreifen[Kindof].Height / 2), scaleP, SpriteEffects.None, 0);
+                    new Vector2(Texturen.panzerindexreifen[Kindof].Width/2, Texturen.panzerindexreifen[Kindof].Height/2),
+                    scaleP, SpriteEffects.None, 0);
             }
 
             spriteBatch.Draw(Texturen.panzerindex[Kindof], new Vector2(xPos, yPos), null, r, vehikleAngle,
-                new Vector2(Texturen.panzerindex[Kindof].Width / 2, Texturen.panzerindex[Kindof].Height), scaleP, overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                new Vector2(Texturen.panzerindex[Kindof].Width/2, Texturen.panzerindex[Kindof].Height), scaleP,
+                overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
 
             spriteBatch.End();
             spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
@@ -392,11 +424,15 @@ namespace _4_1_
             {
                 if (iscurrent)
                 {
-                    spriteBatch.Draw(Texturen.panzerumriss[Kindof], new Vector2(xPos, yPos), null, CurrentColor * Transparenz, vehikleAngle,
-                    new Vector2(Texturen.panzerumriss[Kindof].Width / 2, Texturen.panzerumriss[Kindof].Height), scaleP, overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    spriteBatch.Draw(Texturen.panzerumriss[Kindof], new Vector2(xPos, yPos), null,
+                        CurrentColor*Transparenz, vehikleAngle,
+                        new Vector2(Texturen.panzerumriss[Kindof].Width/2, Texturen.panzerumriss[Kindof].Height), scaleP,
+                        overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
 
-                    spriteBatch.Draw(Texturen.panzerindex[Kindof], new Vector2(xPos, yPos), null, CurrentColor * Transparenz, vehikleAngle,
-    new Vector2(Texturen.panzerindex[Kindof].Width / 2, Texturen.panzerindex[Kindof].Height), scaleP, overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                    spriteBatch.Draw(Texturen.panzerindex[Kindof], new Vector2(xPos, yPos), null,
+                        CurrentColor*Transparenz, vehikleAngle,
+                        new Vector2(Texturen.panzerindex[Kindof].Width/2, Texturen.panzerindex[Kindof].Height), scaleP,
+                        overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                 }
             }
             spriteBatch.End();
@@ -404,10 +440,14 @@ namespace _4_1_
             if (Kindof == 4)
             {
                 int id2 = Kindof;
-                Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle, new Vector2((overreach ? Texturen.RohrPos[Kindof].X * faktor : -Texturen.RohrPos[Kindof].X * faktor), Texturen.RohrPos[Kindof].Y * faktor));
+                Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
+                    new Vector2((overreach ? Texturen.RohrPos[Kindof].X*faktor : -Texturen.RohrPos[Kindof].X*faktor),
+                        Texturen.RohrPos[Kindof].Y*faktor));
                 spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
-                spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, r, Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
+                spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, r, Angle + vehikleAngle,
+                    Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None,
+                    1); //
                 spriteBatch.End();
 
                 if (Mod.AKTUELLER_ON_TANK_VISIBLE.Wert)
@@ -415,7 +455,9 @@ namespace _4_1_
                     if (iscurrent)
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, CurrentColor * Transparenz, Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
+                        spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, CurrentColor*Transparenz,
+                            Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR,
+                            overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
                         spriteBatch.End();
                         //    spriteBatch.Draw(Texturen.panzerrohrumriss[id2], p, null, Color.DarkGoldenrod * Transparenz, Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR, overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
                     }
@@ -426,25 +468,58 @@ namespace _4_1_
             {
                 spriteBatch.Begin();
                 // Level zeichnen
-                Vector2[] leveloffset = { new Vector2(30, 25), new Vector2(22, 25), new Vector2(35, 32), new Vector2(25, 27), new Vector2(0, 18), new Vector2(10, 20) };
+                Vector2[] leveloffset =
+                {
+                    new Vector2(30, 25), new Vector2(22, 25), new Vector2(35, 32),
+                    new Vector2(25, 27), new Vector2(0, 18), new Vector2(10, 20)
+                };
                 int id = Kindof;
                 for (int f = 0; f < CurrentLv[b]; f++)
                 {
-                    Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle, new Vector2((overreach ? leveloffset[id].X : -leveloffset[id].X + 8), leveloffset[id].Y - f * 4) * faktor);
-                    spriteBatch.DrawString(Texturen.font2, "^", p, Color.Gold * Transparenz, vehikleAngle, Vector2.Zero, 1.0f * faktor, SpriteEffects.None, 0);
+                    Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
+                        new Vector2((overreach ? leveloffset[id].X : -leveloffset[id].X + 8), leveloffset[id].Y - f*4)*
+                        faktor);
+                    spriteBatch.DrawString(Texturen.font2, "^", p, Color.Gold*Transparenz, vehikleAngle, Vector2.Zero,
+                        1.0f*faktor, SpriteEffects.None, 0);
                 }
 
                 // Spielerfarbe zeichnen
-                Vector2[] spieleroffset = { new Vector2(20, 25), new Vector2(12, 20), new Vector2(25, 22), new Vector2(15, 22), new Vector2(0, 23), new Vector2(0, 20) };
+                Vector2[] spieleroffset =
+                {
+                    new Vector2(20, 25), new Vector2(12, 20), new Vector2(25, 22),
+                    new Vector2(15, 22), new Vector2(0, 23), new Vector2(0, 20)
+                };
                 id = Kindof;
-                Vector2 p2 = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle, new Vector2((overreach ? spieleroffset[id].X : -spieleroffset[id].X + 8), spieleroffset[id].Y) * faktor);
-                spriteBatch.Draw(Texturen.Spielerkennzeichnung, p2, null, r2, vehikleAngle, Vector2.Zero, 0.3f * faktor, SpriteEffects.None, 1);
+                Vector2 p2 = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
+                    new Vector2((overreach ? spieleroffset[id].X : -spieleroffset[id].X + 8), spieleroffset[id].Y)*
+                    faktor);
+                spriteBatch.Draw(Texturen.Spielerkennzeichnung, p2, null, r2, vehikleAngle, Vector2.Zero, 0.3f*faktor,
+                    SpriteEffects.None, 1);
                 spriteBatch.End();
             }
         }
 
+        public List<String> EditorSpeichern(int i)
+        {
+            var data = new List<String>();
+            data.Add("[FAHRZEUG]");
+            data.Add("hp=" + hp[i]);
+            data.Add("ExpNow=" + ExpNow[i]);
+            data.Add("CurrentLv=" + CurrentLv[i]);
+            data.Add("Cooldown=" + Cooldown[i]);
+            data.Add("isthere=" + isthere[i]);
+            data.Add("KindofTank=" + KindofTank[i]);
+            data.Add("oldpos=" + oldpos[i]);
+            data.Add("overreach=" + overreach[i]);
+            data.Add("Namen=" + Namen[i]);
+            data.Add("vehikleAngle=" + vehikleAngle[i]);
+            data.Add("Zielpos=" + Zielpos[i]);
+            data.Add("[/FAHRZEUG]");
+            return data;
+        }
+
         /// <summary>
-        /// Deletes the specified i.
+        ///     Deletes the specified i.
         /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="explode">if set to <c>true</c> [explode].</param>
@@ -453,7 +528,8 @@ namespace _4_1_
         public void Entfernen(int i, bool explode, Spiel Spiel2, GameTime gameTime)
         {
             if (explode)
-                Karte.Explosion_einer_Waffe_zünden_ohne_schaden_sound(Spiel2.Spielfeld, gameTime, Spiel2, 1, Sounds.fahrzeugzerstört, pos[i]);
+                Karte.Explosion_einer_Waffe_zünden_ohne_schaden_sound(Spiel2.Spielfeld, gameTime, Spiel2, 1,
+                    Sounds.fahrzeugzerstört, pos[i]);
 
             hp.RemoveAt(i);
             Angle.RemoveAt(i);
@@ -490,7 +566,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Generate_s the credits.
+        ///     Generate_s the credits.
         /// </summary>
         /// <param name="Haeuser">The haeuser.</param>
         /// <param name="id">The id.</param>
@@ -506,7 +582,9 @@ namespace _4_1_
 
             for (int i = 0; i < Haeuser.Lebenspunkte.Count; i++)
             {
-                if (Haeuser.BesitzerPunkte[i] >= Allgemein.MinBesitzerPunkte && Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id && Haeuser.HausTyp[i] != Gebäudedaten.FABRIK && Haeuser.HausTyp[i] != Gebäudedaten.WAFFENHÄNDLER)
+                if (Haeuser.BesitzerPunkte[i] >= Allgemein.MinBesitzerPunkte && Haeuser.Lebenspunkte[i] > 0 &&
+                    Haeuser.Besitzer[i] == id && Haeuser.HausTyp[i] != Gebäudedaten.FABRIK &&
+                    Haeuser.HausTyp[i] != Gebäudedaten.WAFFENHÄNDLER)
                 {
                     anzahl++;
                 }
@@ -515,7 +593,7 @@ namespace _4_1_
             if (anzahl > 0)
             {
                 anzahl++; // korrektur, damit log1.1 (1) = 0 nicht vorkommt
-                Cred += (int)Math.Log(anzahl, 1.1f) * 25.0f;
+                Cred += (int) Math.Log(anzahl, 1.1f)*25.0f;
             }
 
             return Cred;
@@ -523,7 +601,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gets the panzer ID.
+        ///     Gets the panzer ID.
         /// </summary>
         /// <param name="id">The id.</param>
         /// <param name="Liste">The liste.</param>
@@ -585,7 +663,8 @@ namespace _4_1_
 
             for (int i = 0; i < Haeuser.Lebenspunkte.Count; i++)
             {
-                if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id && Haeuser.HausTyp[i] == Gebäudedaten.FABRIK)
+                if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id &&
+                    Haeuser.HausTyp[i] == Gebäudedaten.FABRIK)
                 {
                     anzahl++;
                 }
@@ -627,7 +706,8 @@ namespace _4_1_
 
             for (int i = 0; i < Haeuser.Lebenspunkte.Count; i++)
             {
-                if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id && Haeuser.HausTyp[i] == Gebäudedaten.WAFFENHÄNDLER)
+                if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id &&
+                    Haeuser.HausTyp[i] == Gebäudedaten.WAFFENHÄNDLER)
                 {
                     anzahl++;
                 }
@@ -641,7 +721,8 @@ namespace _4_1_
 
             for (int i = 0; i < Haeuser.Lebenspunkte.Count; i++)
             {
-                if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id && Haeuser.HausTyp[i] != Gebäudedaten.FABRIK && Haeuser.HausTyp[i] != Gebäudedaten.WAFFENHÄNDLER)
+                if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id &&
+                    Haeuser.HausTyp[i] != Gebäudedaten.FABRIK && Haeuser.HausTyp[i] != Gebäudedaten.WAFFENHÄNDLER)
                 {
                     anzahl++;
                 }
@@ -650,7 +731,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gets the left tunnel pos.
+        ///     Gets the left tunnel pos.
         /// </summary>
         /// <returns>Vector2.</returns>
         public Vector2 GibLinkenTunnel()
@@ -671,7 +752,7 @@ namespace _4_1_
                     }
                 }
             }
-            return TunnelAnlage[min].Position + new Vector2(TunnelAnlage[min].Bild.Width / 2, 0);
+            return TunnelAnlage[min].Position + new Vector2(TunnelAnlage[min].Bild.Width/2, 0);
         }
 
         public int GibPanzer()
@@ -689,7 +770,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gets the right tunnel pos.
+        ///     Gets the right tunnel pos.
         /// </summary>
         /// <returns>Vector2.</returns>
         public Vector2 GibRechtenTunnel()
@@ -710,7 +791,7 @@ namespace _4_1_
                     }
                 }
             }
-            return TunnelAnlage[min].Position + new Vector2(TunnelAnlage[min].Bild.Width / 2, 0);
+            return TunnelAnlage[min].Position + new Vector2(TunnelAnlage[min].Bild.Width/2, 0);
         }
 
         public int GibScout()
@@ -728,7 +809,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gets the tunnel.
+        ///     Gets the tunnel.
         /// </summary>
         /// <returns>System.Int32.</returns>
         public int GibTunnelAnAktuellerPanzerposition()
@@ -743,6 +824,20 @@ namespace _4_1_
                     }
                 }
             return -1;
+        }
+
+        /// <summary>
+        ///     Load_panzerdatens the specified i.
+        /// </summary>
+        /// <param name="i">The i.</param>
+        public void LadeKollisionsObjekt(int i)
+        {
+            Kollision.Add(null);
+            int id = KindofTank[i];
+            Kollision[i] = new KollisionsObjekt(Texturen.panzerindex[id], Texturen.panzerindex[id].Width,
+                Texturen.panzerindex[id].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true,
+                new Vector2((Texturen.panzerindex[id].Width*Fahrzeugdaten.SCALEP.Wert[id])/2, 0));
+            MaxPixel.Add(Help.GetPixelAnzahl(Texturen.panzerindex[id]));
         }
 
         public void LadenFahrzeug(List<String> Text, int i, ContentManager Content)
@@ -775,8 +870,10 @@ namespace _4_1_
             Effekte[i] = EffectPacket.Laden(Text2, Content);
 
             int id = KindofTank[i];
-            Kollision[i] = new KollisionsObjekt(Texturen.panzerindex[i], Texturen.panzerindex[i].Width, Texturen.panzerindex[i].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true, Vector2.Zero);
-            Zerstörung[i] = new ZerstörungsObjekt(Texturen.panzerindex[id].Width, Texturen.panzerindex[id].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true);
+            Kollision[i] = new KollisionsObjekt(Texturen.panzerindex[i], Texturen.panzerindex[i].Width,
+                Texturen.panzerindex[i].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true, Vector2.Zero);
+            Zerstörung[i] = new ZerstörungsObjekt(Texturen.panzerindex[id].Width, Texturen.panzerindex[id].Height,
+                Fahrzeugdaten.SCALEP.Wert[id], true, true, true);
 
             Kollision[i] = KollisionsObjekt.Laden(Text2, altid == -1 ? null : Kollision[id]);
 
@@ -791,30 +888,19 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Load_panzerdatens the specified i.
-        /// </summary>
-        /// <param name="i">The i.</param>
-        public void LadeKollisionsObjekt(int i)
-        {
-            Kollision.Add(null);
-            int id = KindofTank[i];
-            Kollision[i] = new KollisionsObjekt(Texturen.panzerindex[id], Texturen.panzerindex[id].Width, Texturen.panzerindex[id].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true, new Vector2((Texturen.panzerindex[id].Width * Fahrzeugdaten.SCALEP.Wert[id]) / 2, 0));
-            MaxPixel.Add((int)(Help.GetPixelAnzahl(Texturen.panzerindex[id])));
-        }
-
-        /// <summary>
-        /// Load2s the specified i.
+        ///     Load2s the specified i.
         /// </summary>
         /// <param name="i">The i.</param>
         public void LadeZerstörungsObjekt(int i)
         {
             Zerstörung.Add(null);
             int id = KindofTank[i];
-            Zerstörung[i] = new ZerstörungsObjekt(Texturen.panzerindex[id].Width, Texturen.panzerindex[id].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true);
+            Zerstörung[i] = new ZerstörungsObjekt(Texturen.panzerindex[id].Width, Texturen.panzerindex[id].Height,
+                Fahrzeugdaten.SCALEP.Wert[id], true, true, true);
         }
 
         /// <summary>
-        /// Linkses the specified spielfeld.
+        ///     Linkses the specified spielfeld.
         /// </summary>
         /// <param name="Spielfeld">The spielfeld.</param>
         /// <param name="id">The id.</param>
@@ -823,7 +909,7 @@ namespace _4_1_
         {
             if (Client.isRunning) return false;
             if (id < 0 || id >= KindofTank.Count) return false;
-            if (Spieler.GLOBAL_FUEL.Wert && fuelRemains < Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]) return false;
+            if (GLOBAL_FUEL.Wert && fuelRemains < Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]) return false;
 
             overreach[id] = false;
             float ang = MathHelper.ToDegrees(Angle[id]);
@@ -832,7 +918,9 @@ namespace _4_1_
             if (ImTunnel && GibTunnelAnAktuellerPanzerposition() >= 0 && ActionPoints >= Allgemein.TunnelAPKosten)
             {
                 Vector2 po = GibLinkenTunnel();
-                if (po != TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position + new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width / 2, 0))
+                if (po !=
+                    TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position +
+                    new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width/2, 0))
                 {
                     pos[id] = po;
                     ActionPoints -= Allgemein.TunnelAPKosten;
@@ -841,16 +929,22 @@ namespace _4_1_
                 return false;
             }
 
-            if (this.vehikleAngle[id] >= MathHelper.ToRadians(Fahrzeugdaten.WINKEL.Wert[KindofTank[id]])) return false;
-            if (pos[id].Y - 40 > Kartenformat.BottomOf((int)pos[id].X - Fahrzeugdaten.FAHRM.Wert[KindofTank[id]] - 1, (int)pos[id].Y)) return false;
-            int x1 = (int)(oldpos[id].X - Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
-            if (pos[id].X < x1) { return false; }
+            if (vehikleAngle[id] >= MathHelper.ToRadians(Fahrzeugdaten.WINKEL.Wert[KindofTank[id]])) return false;
+            if (pos[id].Y - 40 >
+                Kartenformat.BottomOf((int) pos[id].X - Fahrzeugdaten.FAHRM.Wert[KindofTank[id]] - 1, (int) pos[id].Y))
+                return false;
+            var x1 =
+                (int) (oldpos[id].X - Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
+            if (pos[id].X < x1)
+            {
+                return false;
+            }
 
             float move = Effekte[id].GibGeschwV(Fahrzeugdaten.GESCHWV.Wert[KindofTank[id]]);
             // if (overreach[id]) move = Effekte[id].GibGeschwR(Fahrzeugdaten.GESCHWR.Wert[KindofTank[id]]);
             if (CurrentWeapon == 8) move /= 4;
             if (move <= 0) return false;
-            Vector2 g = new Vector2(-move, 0);
+            var g = new Vector2(-move, 0);
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.SUMPF) g /= 3;
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.WASSER) g /= 1.5f;
             pos[id] += g;
@@ -858,8 +952,11 @@ namespace _4_1_
 
             //if (!overreach[id])
             {
-                if (Spieler.GLOBAL_FUEL.Wert) fuelRemains -= Effekte[id].GibTreibstoffverbrauch((float)(Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]));
-                if (Spieler.PLAYER_FUEL.Wert) Rucksack[id].Treibstoff -= Effekte[id].GibTreibstoffverbrauch((float)(Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]));
+                if (GLOBAL_FUEL.Wert)
+                    fuelRemains -= Effekte[id].GibTreibstoffverbrauch(Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]);
+                if (PLAYER_FUEL.Wert)
+                    Rucksack[id].Treibstoff -=
+                        Effekte[id].GibTreibstoffverbrauch(Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]);
             }
             /* else*
              {
@@ -871,12 +968,12 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Ordnes the eigene panzer anhand der karte.
+        ///     Ordnes the eigene panzer anhand der karte.
         /// </summary>
         /// <returns>List{System.Int32}.</returns>
         public List<int> OrdneEigenePanzerAnhandDerKarte()
         {
-            List<int> result = new List<int>();
+            var result = new List<int>();
             for (int i = 0; i < pos.Count; i++)
             {
                 for (int b = 0; b <= result.Count; b++)
@@ -886,19 +983,18 @@ namespace _4_1_
                         result.Add(i);
                         break;
                     }
-                    else
-                        if (pos[i].X < pos[result[b]].X)
-                        {
-                            result.Insert(b, i);
-                            break;
-                        }
+                    if (pos[i].X < pos[result[b]].X)
+                    {
+                        result.Insert(b, i);
+                        break;
+                    }
                 }
             }
             return result;
         }
 
         /// <summary>
-        /// Determines whether the specified i is collision.
+        ///     Determines whether the specified i is collision.
         /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="Incoming_Position">The incoming_ position.</param>
@@ -910,7 +1006,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Determines whether the specified i is explode.
+        ///     Determines whether the specified i is explode.
         /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="Explosion">The explosion.</param>
@@ -920,25 +1016,27 @@ namespace _4_1_
         {
             if (Zerstörung[i] == null) return 0;
             int id = KindofTank[i];
-            Color[] temp = new Color[Texturen.panzerindex[id].Width * Texturen.panzerindex[id].Height];
+            var temp = new Color[Texturen.panzerindex[id].Width*Texturen.panzerindex[id].Height];
             Texturen.panzerindex[id].GetData(temp);
-            Texture2D tmp = new Texture2D(Texturen.panzerindex[id].GraphicsDevice, Texturen.panzerindex[id].Width, Texturen.panzerindex[id].Height);
+            var tmp = new Texture2D(Texturen.panzerindex[id].GraphicsDevice, Texturen.panzerindex[id].Width,
+                Texturen.panzerindex[id].Height);
             tmp.SetData(temp);
             return Zerstörung[i].BerechneZerstörung(tmp, Explosion, Energie, pos[i], overreach[i], vehikleAngle[i]);
         }
 
         /// <summary>
-        /// Rechtses the specified spielfeld.
+        ///     Rechtses the specified spielfeld.
         /// </summary>
         /// <param name="Spielfeld">The spielfeld.</param>
         /// <param name="id">The id.</param>
         /// <param name="Fenster">The fenster.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
         public bool Rechts(List<UInt16>[] Spielfeld, int id, Vector2 Fenster)
-        { // Rechtsbewegung
+        {
+            // Rechtsbewegung
             if (Client.isRunning) return false;
             if (id < 0 || id >= KindofTank.Count) return false;
-            if (Spieler.GLOBAL_FUEL.Wert && fuelRemains < Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]) return false;
+            if (GLOBAL_FUEL.Wert && fuelRemains < Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]) return false;
 
             overreach[id] = true;
             float ang = MathHelper.ToDegrees(Angle[id]);
@@ -947,7 +1045,9 @@ namespace _4_1_
             if (ImTunnel && GibTunnelAnAktuellerPanzerposition() >= 0 && ActionPoints >= Allgemein.TunnelAPKosten)
             {
                 Vector2 po = GibRechtenTunnel();
-                if (po != TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position + new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width / 2, 0))
+                if (po !=
+                    TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position +
+                    new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width/2, 0))
                 {
                     pos[id] = po;
                     ActionPoints -= Allgemein.TunnelAPKosten;
@@ -956,18 +1056,24 @@ namespace _4_1_
                 return false;
             }
 
-            if (this.vehikleAngle[id] <= MathHelper.ToRadians(-Fahrzeugdaten.WINKEL.Wert[KindofTank[id]])) return false;
-            if (pos[id].Y - 40 > Kartenformat.BottomOf((int)pos[id].X + Fahrzeugdaten.FAHRM.Wert[KindofTank[id]] + 1, (int)pos[id].Y)) return false;
+            if (vehikleAngle[id] <= MathHelper.ToRadians(-Fahrzeugdaten.WINKEL.Wert[KindofTank[id]])) return false;
+            if (pos[id].Y - 40 >
+                Kartenformat.BottomOf((int) pos[id].X + Fahrzeugdaten.FAHRM.Wert[KindofTank[id]] + 1, (int) pos[id].Y))
+                return false;
 
-            int x2 = (int)(oldpos[id].X + Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
-            if (pos[id].X > x2) { return false; }
+            var x2 =
+                (int) (oldpos[id].X + Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
+            if (pos[id].X > x2)
+            {
+                return false;
+            }
 
             float move = Effekte[id].GibGeschwV(Fahrzeugdaten.GESCHWV.Wert[KindofTank[id]]);
             // if (!overreach[id]) move = Effekte[id].GibGeschwR(Fahrzeugdaten.GESCHWR.Wert[KindofTank[id]]);
 
             if (CurrentWeapon == 8) move /= 4;
             if (move <= 0) return false;
-            Vector2 g = new Vector2(move, 0);
+            var g = new Vector2(move, 0);
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.SUMPF) g /= 3;
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.WASSER) g /= 1.5f;
 
@@ -981,15 +1087,18 @@ namespace _4_1_
              }
              else*/
             {
-                if (Spieler.GLOBAL_FUEL.Wert) fuelRemains -= Effekte[id].GibTreibstoffverbrauch((float)(Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]));
-                if (Spieler.PLAYER_FUEL.Wert) Rucksack[id].Treibstoff -= Effekte[id].GibTreibstoffverbrauch(Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]);
+                if (GLOBAL_FUEL.Wert)
+                    fuelRemains -= Effekte[id].GibTreibstoffverbrauch(Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]);
+                if (PLAYER_FUEL.Wert)
+                    Rucksack[id].Treibstoff -=
+                        Effekte[id].GibTreibstoffverbrauch(Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]);
             }
 
             return true;
         }
 
         /// <summary>
-        /// Rohr_s the links.
+        ///     Rohr_s the links.
         /// </summary>
         /// <param name="id">The id.</param>
         public bool Rohr_Links(int id) // Rohr nach Links
@@ -1018,7 +1127,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Rohr_s the rechts.
+        ///     Rohr_s the rechts.
         /// </summary>
         /// <param name="id">The id.</param>
         public bool Rohr_Rechts(int id) // Rohr nach Rechts
@@ -1047,7 +1156,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Rohrspitzes the specified c.
+        ///     Rohrspitzes the specified c.
         /// </summary>
         /// <param name="c">The c.</param>
         /// <returns>Vector2.</returns>
@@ -1055,23 +1164,29 @@ namespace _4_1_
         {
             int kind = KindofTank[c];
             int welcher = overreach[c] ? 1 : 0;
-            Vector2 posi = pos[c] + new Vector2(welcher == 1 ? -Texturen.RohrPos[kind].X : Texturen.RohrPos[kind].X, -Texturen.RohrPos[kind].Y);
-            float temp2 = Texturen.CannonOrigin[kind][0].Y / 2;
+            Vector2 posi = pos[c] +
+                           new Vector2(welcher == 1 ? -Texturen.RohrPos[kind].X : Texturen.RohrPos[kind].X,
+                               -Texturen.RohrPos[kind].Y);
+            float temp2 = Texturen.CannonOrigin[kind][0].Y/2;
 
-            Vector2 p = Help.RotatePositionOffset(posi, Angle[c], new Vector2(Texturen.panzerrohrindex[kind].Width - (Texturen.panzerrohrindex[kind].Width - Texturen.CannonOrigin[kind][0].X), welcher == 0 ? temp2 : -temp2));
+            Vector2 p = Help.RotatePositionOffset(posi, Angle[c],
+                new Vector2(
+                    Texturen.panzerrohrindex[kind].Width -
+                    (Texturen.panzerrohrindex[kind].Width - Texturen.CannonOrigin[kind][0].X),
+                    welcher == 0 ? temp2 : -temp2));
             p = Help.RotatePosition(pos[c], vehikleAngle[c], p);
             return p;
         }
 
         public List<String> Speichern()
         {
-            List<String> data = new List<String>();
+            var data = new List<String>();
             data.Add("[SPIELER]");
             data.Add("id=" + id);
             data.Add("ActionPoints=" + ActionPoints);
             data.Add("Credits=" + Credits);
             data.Add("CurrentWeapon=" + CurrentWeapon);
-            data.Add("Farbe=" + Farbe.ToString());
+            data.Add("Farbe=" + Farbe);
             data.Add("fuelRemains=" + fuelRemains);
             data.Add("ImTunnel=" + ImTunnel);
             data.Add("MaxSchuesse=" + MaxSchuesse);
@@ -1118,32 +1233,15 @@ namespace _4_1_
             return data;
         }
 
-        public List<String> EditorSpeichern(int i)
-        {
-            List<String> data = new List<String>();
-            data.Add("[FAHRZEUG]");
-            data.Add("hp=" + hp[i]);
-            data.Add("ExpNow=" + ExpNow[i]);
-            data.Add("CurrentLv=" + CurrentLv[i]);
-            data.Add("Cooldown=" + Cooldown[i]);
-            data.Add("isthere=" + isthere[i]);
-            data.Add("KindofTank=" + KindofTank[i]);
-            data.Add("oldpos=" + oldpos[i]);
-            data.Add("overreach=" + overreach[i]);
-            data.Add("Namen=" + Namen[i]);
-            data.Add("vehikleAngle=" + vehikleAngle[i]);
-            data.Add("Zielpos=" + Zielpos[i]);
-            data.Add("[/FAHRZEUG]");
-            return data;
-        }
-
         /// <summary>
-        /// Tunnel_erstellens the specified pos.
+        ///     Tunnel_erstellens the specified pos.
         /// </summary>
         /// <param name="pos">The pos.</param>
         public void TunnelErstellen(Vector2 pos)
         {
             TunnelAnlage.Add(new Tunnel(pos));
         }
+
+        #endregion Methods
     }
 }

@@ -32,209 +32,17 @@ namespace _4_1_
     /// </summary>
     public class Karte
     {
-        /// <summary>
-        /// Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
-        /// </summary>
-        public static bool STAEDTE_UND_DOERFER;
+        #region Fields
 
         /// <summary>
         /// MOD-Variable, Gibt an, ob die Karte symmetrisch aufgebaut werden soll
         /// </summary>
         public static bool KARTE_SYMMETRISCH;
 
-        #region Privat
-
-        /// <summary>
-        /// MOD-Variable, Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
-        /// </summary>
-        private static Var<bool> MOD_STAEDTE_UND_DOERFER = new Var<bool>("STAEDTE_UND_DOERFER", false, ref STAEDTE_UND_DOERFER);
-
-        /// <summary>
-        /// Mod-Variable, Gibt an, ob die Karte symmetrisch aufgebaut werden soll
-        /// </summary>
-        private static Var<bool> MOD_KARTE_SYMMETRISCH = new Var<bool>("KARTE_SYMMETRISCH", false, ref KARTE_SYMMETRISCH);
-
-        #endregion Privat
-
-        /// <summary>
-        /// Der interne Zufallszahlengenerator
-        /// </summary>
-        private Random rand = new Random();
-
-        /// <summary>
-        /// Enthält Sammlung von Werten von einen Partikel
-        /// </summary>
-        public struct ParticleData
-        {
-            /// <summary>
-            /// wann Partikel erschaffen wurde
-            /// </summary>
-            public float BirthTime;
-
-            /// <summary>
-            /// nach welcher Dauer muss der Partikel entfernt werden
-            /// </summary>
-            public float MaxAge;
-
-            /// <summary>
-            /// wo wurde der Partikel erschaffen
-            /// </summary>
-            public Vector2 OrginalPosition;
-
-            /// <summary>
-            /// Beschleunigung des Partikels (x- und y Richtung)
-            /// </summary>
-            public Vector2 Accelaration;
-
-            /// <summary>
-            /// Die Bewegungsrichtung des Partikels
-            /// </summary>
-            public Vector2 Direction;
-
-            /// <summary>
-            /// Die Position des Partikels
-            /// </summary>
-            public Vector2 Position;
-
-            /// <summary>
-            /// Die Skalierung des Partikels
-            /// </summary>
-            public float Scaling;
-
-            /// <summary>
-            /// ???
-            /// </summary>
-            public Microsoft.Xna.Framework.Color ModColor;
-
-            /// <summary>
-            /// The set
-            /// </summary>
-            public bool set;
-
-            /// <summary>
-            /// enthält die munitionsart ID, 0 bis ...
-            /// </summary>
-            public int art;
-
-            /// <summary>
-            /// The alive
-            /// </summary>
-            public bool alive;
-        }
-
-        /// <summary>
-        /// The particle list exp
-        /// </summary>
-        public List<ParticleData> particleListExp = new List<ParticleData>();
-
-        /// <summary>
-        /// The particle list map smoke
-        /// </summary>
-        public List<ParticleData> particleListMapSmoke = new List<ParticleData>();
-
-        /// <summary>
-        /// The particle farbe
-        /// </summary>
-        public List<Vector3> particleFarbe = new List<Vector3>(); // speichert die farbwerte der particle für explosion
-
-        /// <summary>
-        /// The particle farbe S
-        /// </summary>
-        public List<Vector3> particleFarbeS = new List<Vector3>(); // speichert die farbwerte der particle für raketensmoke
-
-        /// <summary>
-        /// The particle farbe s2
-        /// </summary>
-        public List<Vector3> particleFarbeS2 = new List<Vector3>(); // speichert die farbwerte der particle für mapsmoke
-
-        /// <summary>
-        /// The particle map smoke data
-        /// </summary>
-        public List<Vector3> particleMapSmokeData = new List<Vector3>();
-
         /// <summary>
         /// The material
         /// </summary>
         public static Materialien[] Material = new Materialien[16];
-
-        #region Materialnummern
-
-        /// <summary>
-        /// ID des Material Luft
-        /// </summary>
-        public static int LUFT = 0;
-
-        /// <summary>
-        ///  ID des Material Erde
-        /// </summary>
-        public static int ERDE = 1;
-
-        /// <summary>
-        ///  ID des Material Backstein1 (Brücke)
-        /// </summary>
-        public static int BACKSTEIN1 = 2;
-
-        /// <summary>
-        ///  ID des Material Backstein2 (getroffene Brücke)
-        /// </summary>
-        public static int BACKSTEIN2 = 3;
-
-        /// <summary>
-        ///  ID des Material Beton
-        /// </summary>
-        public static int BETON = 4;
-
-        /// <summary>
-        ///  ID des Material Fels
-        /// </summary>
-        public static int FELS = 5;
-
-        /// <summary>
-        ///  ID des Material Granit
-        /// </summary>
-        public static int GRANIT1 = 6;
-
-        /// <summary>
-        ///  ID des Material Granit (getroffen)
-        /// </summary>
-        public static int GRANIT2 = 7;
-
-        /// <summary>
-        ///  ID des Material Sumpf
-        /// </summary>
-        public static int SUMPF = 8;
-
-        /// <summary>
-        ///  ID des Material Wasser
-        /// </summary>
-        public static int WASSER = 9;
-
-        /// <summary>
-        ///  ID des Material Feuer (Material für Brandherde)
-        /// </summary>
-        public static int FEUER = 10;
-
-        #endregion Materialnummern
-
-        /// <summary>
-        /// The MATERIA l_ TEXTUR
-        /// </summary>
-        public static Var<String[]> MATERIAL_NAME = new Var<String[]>("MATERIAL_NAME", new String[] { "LUFT", "ERDE", "BACKSTEIN1", "BACKSTEIN2", "BETON", "FELS", "GRANIT1", "GRANIT2", "SUMPF", "WASSER", "FEUER", "nichts", "nichts", "nichts", "nichts", "nichts" });
-
-        /// <summary>
-        /// The MATERIA l_ TEXTUR
-        /// </summary>
-        public static Var<String[]> MATERIAL_TEXTUR = new Var<String[]>("MATERIAL_TEXTUR", new String[] { "#00000000", "Material\\foreground8", "Material\\buergersteig_64_2", "Material\\buergersteig_64_22", "Material\\boden10240026_512", "Material\\bergtextur_512_2", "Material\\mosh-erde (11)", "Material\\mosh-erde (11)_2", "Material\\boden10", "Material\\wasser14", "Material\\welle_04", "#00000000", "#00000000", "#00000000", "#00000000", "#00000000" });
-
-        /// <summary>
-        /// The MATERIA l_ I s_ TEXTUR
-        /// </summary>
-        public static Var<bool[]> MATERIAL_IS_TEXTUR = new Var<bool[]>("MATERIAL_IS_TEXTUR", new bool[] { false, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false });
-
-        /// <summary>
-        /// The MATERIA l_ FOLGEID
-        /// </summary>
-        public static Var<int[]> MATERIAL_FOLGEID = new Var<int[]>("MATERIAL_FOLGEID", new int[] { 0, 0, 3, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 0, 0 });
 
         /// <summary>
         /// The MATERIA l_ BLUR
@@ -247,6 +55,176 @@ namespace _4_1_
         public static Var<bool[]> MATERIAL_COLLISION = new Var<bool[]>("MATERIAL_COLLISION", new bool[] { false, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false });
 
         /// <summary>
+        /// The MATERIA l_ FOLGEID
+        /// </summary>
+        public static Var<int[]> MATERIAL_FOLGEID = new Var<int[]>("MATERIAL_FOLGEID", new int[] { 0, 0, 3, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 0, 0 });
+
+        /// <summary>
+        /// The MATERIA l_ I s_ TEXTUR
+        /// </summary>
+        public static Var<bool[]> MATERIAL_IS_TEXTUR = new Var<bool[]>("MATERIAL_IS_TEXTUR", new bool[] { false, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false });
+
+        /// <summary>
+        /// The MATERIA l_ TEXTUR
+        /// </summary>
+        public static Var<String[]> MATERIAL_NAME = new Var<String[]>("MATERIAL_NAME", new String[] { "LUFT", "ERDE", "BACKSTEIN1", "BACKSTEIN2", "BETON", "FELS", "GRANIT1", "GRANIT2", "SUMPF", "WASSER", "FEUER", "nichts", "nichts", "nichts", "nichts", "nichts" });
+
+        /// <summary>
+        /// The MATERIA l_ TEXTUR
+        /// </summary>
+        public static Var<String[]> MATERIAL_TEXTUR = new Var<String[]>("MATERIAL_TEXTUR", new String[] { "#00000000", "Material\\foreground8", "Material\\buergersteig_64_2", "Material\\buergersteig_64_22", "Material\\boden10240026_512", "Material\\bergtextur_512_2", "Material\\mosh-erde (11)", "Material\\mosh-erde (11)_2", "Material\\boden10", "Material\\wasser14", "Material\\welle_04", "#00000000", "#00000000", "#00000000", "#00000000", "#00000000" });
+
+        /// <summary>
+        /// Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
+        /// </summary>
+        public static bool STAEDTE_UND_DOERFER;
+
+        #endregion Fields
+
+        #region Privat
+
+        /// <summary>
+        /// Mod-Variable, Gibt an, ob die Karte symmetrisch aufgebaut werden soll
+        /// </summary>
+        private static Var<bool> MOD_KARTE_SYMMETRISCH = new Var<bool>("KARTE_SYMMETRISCH", false, ref KARTE_SYMMETRISCH);
+
+        /// <summary>
+        /// MOD-Variable, Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
+        /// </summary>
+        private static Var<bool> MOD_STAEDTE_UND_DOERFER = new Var<bool>("STAEDTE_UND_DOERFER", false, ref STAEDTE_UND_DOERFER);
+
+        #endregion Privat
+
+        /// <summary>
+        /// The particle farbe
+        /// </summary>
+        public List<Vector3> particleFarbe = new List<Vector3>();
+
+        /// <summary>
+        /// The particle farbe S
+        /// </summary>
+        public List<Vector3> particleFarbeS = new List<Vector3>();
+
+        /// <summary>
+        /// The particle farbe s2
+        /// </summary>
+        public List<Vector3> particleFarbeS2 = new List<Vector3>();
+
+        /// <summary>
+        /// The particle list exp
+        /// </summary>
+        public List<ParticleData> particleListExp = new List<ParticleData>();
+
+        /// <summary>
+        /// The particle list map smoke
+        /// </summary>
+        public List<ParticleData> particleListMapSmoke = new List<ParticleData>();
+
+        /// <summary>
+        /// The particle map smoke data
+        /// </summary>
+        public List<Vector3> particleMapSmokeData = new List<Vector3>();
+
+        /// <summary>
+        /// Der interne Zufallszahlengenerator
+        /// </summary>
+        private Random rand = new Random();
+
+        // Explosion einer Waffe zünden
+        /// <summary>
+        /// Explosion_einer_s the waffe_zünden.
+        /// </summary>
+        /// <param name="Spielfeld">The spielfeld.</param>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="Spiel2">The spiel2.</param>
+        /// <param name="Waffenart">The waffenart.</param>
+        /// <param name="pos">The pos.</param>
+        public static void Explosion_einer_Waffe_zünden(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2, int Waffenart, Vector2 pos)
+        {
+            List<Vector3> list = new List<Vector3>();
+
+            int _Art = Waffenart;
+
+            // Explosion
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
+                           Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
+                           Waffendaten.Farben[_Art], _Art, 0);
+
+            // Sound
+            Spiel2.Karte.explode_missile(Spielfeld, pos, Spiel2.Fenster, _Art);
+
+            // Rauchstelle
+            /* for (int j = -(int)Rakete.Daten[_Art].X / 2; j < Rakete.Daten[_Art].X / 2; j += Rakete.BrandAbstand[_Art])
+             {
+                 if (pos.X + j < 0 || pos.X + j >= Spielfeld.Length) continue;
+                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke, new Vector2(pos.X + j, Help.BottomOf2(pos)), 4,
+                Rakete.Daten[_Art].Z / 10, Rakete.Daten[_Art].W * 10, gameTime,
+                 Microsoft.Xna.Framework.Color.Gray.ToVector3(), _Art, 2); //.Farben[_Art]
+             }*/
+
+            Karte a = new Karte();
+            Replay.Explosion(pos, _Art);
+            list.AddRange(a.Explode(Spielfeld, (int)pos.X, (int)pos.Y, (int)(Waffendaten.Daten[_Art].X)));
+            list.AddRange(Spiel2.Explosionsschäden(gameTime, pos, (int)(Waffendaten.Daten[_Art].X), _Art, new int[] { -1, -1 }));
+            Vordergrund.AktualisiereVordergrund(list);
+        }
+
+        // Explosion einer Waffe zünden
+        /// <summary>
+        /// Explosion_einer_s the waffe_zünden_ohne_schaden.
+        /// </summary>
+        /// <param name="Spielfeld">The spielfeld.</param>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="Spiel2">The spiel2.</param>
+        /// <param name="Waffenart">The waffenart.</param>
+        /// <param name="pos">The pos.</param>
+        public static void Explosion_einer_Waffe_zünden_ohne_schaden(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2, int Waffenart, Vector2 pos)
+        {
+            int _Art = Waffenart;
+
+            // Explosion
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
+                           Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
+                           Waffendaten.Farben[_Art], _Art, 0);
+
+            // Sound
+            Spiel2.Karte.explode_missile(Spielfeld, pos, Spiel2.Fenster, _Art);
+
+            // Rauchstelle
+            /* for (int j = -(int)Rakete.Daten[_Art].X / 2; j < Rakete.Daten[_Art].X / 2; j += Rakete.BrandAbstand[_Art])
+             {
+                 if (pos.X + j < 0 || pos.X + j >= Spielfeld.Length) continue;
+                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke, new Vector2(pos.X + j, Help.BottomOf2(pos)), 4,
+                Rakete.Daten[_Art].Z / 10, Rakete.Daten[_Art].W * 10, gameTime,
+                 Rakete.Farben[_Art], _Art, 2);
+             }*/
+        }
+
+        public static void Explosion_einer_Waffe_zünden_ohne_schaden_sound(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2, int Waffenart, Soundsystem Sound, Vector2 pos)
+        {
+            int _Art = Waffenart;
+
+            // Explosion
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
+                           Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
+                           Waffendaten.Farben[_Art], _Art, 0);
+
+            Sound.PlaySoundAny();
+
+            // Sound
+            // Spiel2.Karte.explode_missile(Spielfeld, pos, Spiel2.Fenster, _Art);
+
+            // Rauchstelle
+            /* for (int j = -(int)Rakete.Daten[_Art].X / 2; j < Rakete.Daten[_Art].X / 2; j += Rakete.BrandAbstand[_Art])
+             {
+                 if (pos.X + j < 0 || pos.X + j >= Spielfeld.Length) continue;
+                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke, new Vector2(pos.X + j, Help.BottomOf2(pos)), 4,
+                Rakete.Daten[_Art].Z / 10, Rakete.Daten[_Art].W * 10, gameTime,
+                 Rakete.Farben[_Art], _Art, 2);
+             }*/
+        }
+
+        /// <summary>
         /// Froms the name.
         /// </summary>
         /// <param name="colorName">Name of the color.</param>
@@ -255,25 +233,6 @@ namespace _4_1_
         {
             CColor clrColor = Hauptfenster.Form1.Colors.FromName(colorName);
             return new XColor(clrColor.R, clrColor.G, clrColor.B, clrColor.A);
-        }
-
-        /// <summary>
-        /// To the name.
-        /// </summary>
-        /// <param name="Name">The name.</param>
-        /// <returns>String.</returns>
-        public static String ToName(Microsoft.Xna.Framework.Color Name)
-        {
-            XColor xColor = Name;
-            CColor clrColor = CColor.FromArgb(xColor.R, xColor.G, xColor.B, xColor.A);
-            return Hauptfenster.Form1.Colors.ToName(clrColor);
-        }
-
-        /// <summary>
-        /// Reset_s the materialien.
-        /// </summary>
-        public static void Reset_Materialien()
-        {
         }
 
         /// <summary>
@@ -289,20 +248,41 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Explode_missiles the specified spielfeld.
+        /// Reset_s the materialien.
         /// </summary>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <param name="pos">The pos.</param>
-        /// <param name="Fenster">The fenster.</param>
-        /// <param name="Art">The art.</param>
-        public void explode_missile(List<UInt16>[] Spielfeld, Vector2 pos, Vector2 Fenster, int Art)  // Spielt den Explosionssound ab
+        public static void Reset_Materialien()
         {
-            if (Waffendaten.Explosionen[Art] >= 0)
-            {
-                Soundsystem[] expo = Sounds.Explosion;
-                int dist = (int)(pos.X - (Fenster.X)); if (dist < 0) dist = -dist;
-                expo[Waffendaten.Explosionen[Art]].PlaySoundAny(false, ((float)(1.0d - ((double)dist / Spielfeld.Length))));
-            }
+        }
+
+        /// <summary>
+        /// To the name.
+        /// </summary>
+        /// <param name="Name">The name.</param>
+        /// <returns>String.</returns>
+        public static String ToName(Microsoft.Xna.Framework.Color Name)
+        {
+            XColor xColor = Name;
+            CColor clrColor = CColor.FromArgb(xColor.R, xColor.G, xColor.B, xColor.A);
+            return Hauptfenster.Form1.Colors.ToName(clrColor);
+        }
+
+        /// <summary>
+        /// Adds the explosion.
+        /// </summary>
+        /// <param name="particleList">The particle list.</param>
+        /// <param name="explosionPos">The explosion pos.</param>
+        /// <param name="numberOfParticles">The number of particles.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="maxAge">The max age.</param>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="Farben">The farben.</param>
+        /// <param name="Weapon">The weapon.</param>
+        /// <param name="id">The id.</param>
+        public void AddExplosion(List<ParticleData> particleList, Vector2 explosionPos, int numberOfParticles, float size, float maxAge, GameTime gameTime, Vector3 Farben, int Weapon, int id)
+        {
+            //Weapon;
+            for (int i = 0; i < numberOfParticles; i++)
+                AddExplosionParticle(particleList, explosionPos, size, maxAge, gameTime, Farben, Weapon, id);
         }
 
         /// <summary>
@@ -458,384 +438,6 @@ namespace _4_1_
             }
             return check;
         }
-
-        /// <summary>
-        /// Adds the explosion.
-        /// </summary>
-        /// <param name="particleList">The particle list.</param>
-        /// <param name="explosionPos">The explosion pos.</param>
-        /// <param name="numberOfParticles">The number of particles.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="maxAge">The max age.</param>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="Farben">The farben.</param>
-        /// <param name="Weapon">The weapon.</param>
-        /// <param name="id">The id.</param>
-        public void AddExplosion(List<ParticleData> particleList, Vector2 explosionPos, int numberOfParticles, float size, float maxAge, GameTime gameTime, Vector3 Farben, int Weapon, int id)
-        {
-            //Weapon;
-            for (int i = 0; i < numberOfParticles; i++)
-                AddExplosionParticle(particleList, explosionPos, size, maxAge, gameTime, Farben, Weapon, id);
-        }
-
-        /// <summary>
-        /// Adds the explosion particle.
-        /// </summary>
-        /// <param name="particleList">The particle list.</param>
-        /// <param name="explosionPos">The explosion pos.</param>
-        /// <param name="explosionSize">Size of the explosion.</param>
-        /// <param name="maxAge">The max age.</param>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="Farben">The farben.</param>
-        /// <param name="Weapon">The weapon.</param>
-        /// <param name="id">The id.</param>
-        private void AddExplosionParticle(List<ParticleData> particleList, Vector2 explosionPos, float explosionSize, float maxAge, GameTime gameTime, Vector3 Farben, int Weapon, int id) // geändert
-        {
-            ParticleData particle = new ParticleData();
-            particle.OrginalPosition = explosionPos;
-            particle.Position = particle.OrginalPosition;
-            particle.BirthTime = (float)gameTime.TotalGameTime.TotalMilliseconds;
-
-            if (id == 2)
-            {
-                // maxAge *= 0.5f;
-                particle.MaxAge = (float)(maxAge - ((float)rand.Next(0, (int)((float)maxAge * 0.9))));
-            }
-            else
-                particle.MaxAge = maxAge;
-
-            particle.art = Weapon;
-            particle.set = false;
-            particle.Scaling = 0.25f;
-            particle.ModColor = Microsoft.Xna.Framework.Color.White;
-
-            float particleDistance = (float)rand.NextDouble() * explosionSize;
-            Vector2 displacement = new Vector2(particleDistance, 0);
-            float angle = 0;
-
-            switch (id)
-            {
-                case 0: { angle = MathHelper.ToRadians(rand.Next(360)); break; }
-                case 1: { angle = MathHelper.ToRadians(rand.Next(360)); break; }
-                case 2: { angle = MathHelper.ToRadians(rand.Next(225, 315)); break; }
-            }
-            displacement = Vector2.Transform(displacement, Matrix.CreateRotationZ(angle));
-
-            particle.Direction = displacement * 2.0f;
-            particle.Accelaration = -particle.Direction;
-            particle.alive = true;
-            int position = find_dead_particle(particleList, id);
-            if (position <= 0)
-            {
-                particleList.Add(particle);
-
-                switch (id)
-                {
-                    case 0: { particleFarbe.Add(Farben); break; }
-                    case 1: { particleFarbeS.Add(Farben); break; }
-                    case 2: { particleFarbeS2.Add(Farben); particleMapSmokeData.Add(new Vector3(explosionPos.X, explosionPos.Y, 7)); break; }
-                }
-            }
-            else
-            {
-                particleList[position] = particle;
-                switch (id)
-                {
-                    case 0: { particleFarbe[position] = Farben; break; }
-                    case 1: { particleFarbeS[position] = Farben; break; }
-                    case 2: { particleFarbeS2[position] = Farben; particleMapSmokeData[position] = new Vector3(explosionPos.X, explosionPos.Y, 7); break; }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Find_dead_particles the specified particle list.
-        /// </summary>
-        /// <param name="particleList">The particle list.</param>
-        /// <param name="id">The id.</param>
-        /// <returns>System.Int32.</returns>
-        public int find_dead_particle(List<ParticleData> particleList, int id)
-        {
-            for (int i = 0; i < particleList.Count; i++)
-            {
-                if (particleList[i].alive == false)
-                {
-                    // gefunden
-                    int found = -1;
-                    for (int b = particleList.Count - 1; b > i; b--)
-                    {
-                        if (particleList[b].alive == true)
-                        {
-                            found = b;
-                            break;
-                        }
-                    }
-
-                    if (found != -1)
-                    {
-                        if (found + 1 < particleList.Count && particleList.Count - (found) - 1 > 0)
-                        {
-                            particleList.RemoveRange(found + 1, particleList.Count - (found) - 1);
-                            switch (id)
-                            {
-                                case 0: { particleFarbe.RemoveRange(found + 1, particleList.Count - (found) - 1); break; }
-                                case 1: { particleFarbeS.RemoveRange(found + 1, particleList.Count - (found) - 1); break; }
-                                case 2:
-                                    {
-                                        particleFarbeS2.RemoveRange(found + 1, particleList.Count - (found) - 1);
-                                        particleMapSmokeData.RemoveRange(found + 1, particleList.Count - (found) - 1);
-                                        break;
-                                    }
-                            }
-                        }
-                    }
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        /// <summary>
-        /// Updates the particles.
-        /// </summary>
-        /// <param name="particleList">The particle list.</param>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="id">The id.</param>
-        public void UpdateParticles(List<ParticleData> particleList, GameTime gameTime, int id) // geändert
-        {
-            float now = (float)gameTime.TotalGameTime.TotalMilliseconds;
-            for (int i = particleList.Count - 1; i >= 0; i--)
-            {
-                ParticleData particle = particleList[i];
-                if (!particle.alive) continue;
-                float timeAlive = now - particle.BirthTime;
-
-                if (timeAlive > particle.MaxAge)
-                {
-                    switch (id)
-                    {
-                        case 2:
-                            {
-                                if (particleMapSmokeData[i].Z > 0)
-                                {
-                                    particleMapSmokeData[i] = new Vector3(particleMapSmokeData[i].X, Kartenformat.BottomOf(particleMapSmokeData[i].X, particleMapSmokeData[i].Y), particleMapSmokeData[i].Z - 1);
-                                    int idet = particle.art;
-                                    particle.set = false;
-                                    int maxAge = (int)((float)((float)Waffendaten.Daten[0].W * 8)); // /20 *(20-fakt)
-
-                                    particle.OrginalPosition = new Vector2(particleMapSmokeData[i].X, particleMapSmokeData[i].Y);
-                                    particle.Position = particle.OrginalPosition;
-
-                                    particle.BirthTime = (float)gameTime.TotalGameTime.TotalMilliseconds;
-                                    if (particleMapSmokeData[i].Z >= 0)
-                                    {
-                                        particle.MaxAge = (float)(maxAge - ((float)rand.Next(0, (int)((float)maxAge * 0.2))));
-                                    }
-                                    else
-                                        particle.MaxAge = (float)(maxAge - ((float)rand.Next(0, (int)((float)maxAge * 0.6))));
-
-                                    particle.Scaling = 0.25f;
-                                    particle.ModColor = Microsoft.Xna.Framework.Color.White;
-                                    particle.alive = true;
-                                    float particleDistance = (float)rand.NextDouble() * Waffendaten.Daten[0].Z;
-                                    Vector2 displacement = new Vector2(particleDistance, 0);
-                                    float angle = 0;
-                                    angle = MathHelper.ToRadians(rand.Next(225, 315));
-                                    displacement = Vector2.Transform(displacement, Matrix.CreateRotationZ(angle));
-
-                                    particle.Direction = displacement * 2.0f;
-                                    particle.Accelaration = -particle.Direction;
-                                    particleList[i] = particle;
-                                }
-                                else
-                                {
-                                    particle.alive = false;
-                                    particleList[i] = particle;
-                                }
-
-                                break;
-                            }
-                    }
-                    if (id != 2) { particle.alive = false; particleList[i] = particle; }
-                }
-                else
-                {
-                    float relAge = timeAlive / particle.MaxAge;
-                    particle.Position = 0.5f * particle.Accelaration * relAge * relAge + particle.Direction * relAge + particle.OrginalPosition;
-
-                    float invAge = 1.0f - relAge;
-                    Vector2 positionFromCenter = particle.Position - particle.OrginalPosition;
-                    float distance = positionFromCenter.Length();
-                    particle.set = true;
-                    switch (id)
-                    {
-                        case 0:
-                            {
-                                particle.ModColor = new Microsoft.Xna.Framework.Color(new Vector4((float)(invAge * particleFarbe[i].X),
-                                    (float)(invAge * particleFarbe[i].Y), (float)(invAge * particleFarbe[i].Z), 10f * invAge));
-                                particle.Scaling = (Waffendaten.Explosionscale[particle.art] + distance) / 200.0f;
-                                break;
-                            }
-                        case 1:
-                            {
-                                particle.ModColor = new Microsoft.Xna.Framework.Color(new Vector4(Waffendaten.Daten4[particle.art].X * invAge, Waffendaten.Daten4[particle.art].Y * invAge, Waffendaten.Daten4[particle.art].Z * invAge, Waffendaten.Daten3[particle.art].W * invAge));
-                                particle.Scaling = (2.0f + distance) / 200.0f;
-                                break;
-                            }
-                        case 2:
-                            {
-                                particle.ModColor = new Microsoft.Xna.Framework.Color(new Vector4(0.5f * invAge, 0.5f * invAge, 0.5f * invAge, 8f * invAge));
-                                particle.Scaling = (2.0f + distance) / 200.0f;
-                                break;
-                            }
-                    }
-
-                    particleList[i] = particle;
-                }
-            }
-        }
-
-        /*Bsp.
-         int[] Daten;
-         Daten = new int[1000];
-         Karte a = new Karte();
-         a.create_map(Daten, 150, 50, 30, 100, 25,pictureBox1.Height);
-         int X = 1; int Y=1; // Koordinaten
-         a.Explode(Daten,X, Y, 20, pictureBox1.Height);*/
-
-        /// <summary>
-        /// Explodes the specified daten.
-        /// </summary>
-        /// <param name="Daten">The daten.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <returns>List{Vector3}.</returns>
-        public List<Vector3> Explode(List<UInt16>[] Daten, int x, int y, int width) // errechnet zerstörungen der Karte
-        {
-            List<Vector3> list = new List<Vector3>();
-            int aa = (int)((double)Math.Log((((width) - 0) * Math.PI), Math.E) * Math.Sqrt(width));
-            for (int i = -aa; i < aa; i++)
-            {
-                if (i + x < 0 || i + x >= Daten.Length) continue;
-
-                int dist = i; if (dist < 0) dist = -dist;
-                int add = (int)((double)Math.Log((((aa) - dist) * Math.PI), Math.E) * Math.Sqrt(width));
-                int add2 = y + add;
-                if (add2 > Game1.screenHeight) add2 = Game1.screenHeight;
-                list.AddRange(Kartenformat.DeleteFromTo(x + i, (int)(y - add), (int)(add2)));
-            }
-
-            for (int i = 0; i < list.Count; i++) list[i] = new Vector3(list[i].X, list[i].Y - 5, list[i].Z + 5);
-            if (list.Count >= 1)
-            {
-                Vector3 temp0 = list[0];
-                Vector3 templast = list[list.Count - 1];
-                for (int i = 0; i < 5; i++) list.Insert(0, new Vector3(temp0.X - i, temp0.Y, temp0.Z));
-                for (int i = 0; i < 5; i++) list.Insert(list.Count - 1, new Vector3(templast.X + i, templast.Y, templast.Z));
-            }
-            return list;
-        }
-
-        // Explosion einer Waffe zünden
-        /// <summary>
-        /// Explosion_einer_s the waffe_zünden.
-        /// </summary>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="Spiel2">The spiel2.</param>
-        /// <param name="Waffenart">The waffenart.</param>
-        /// <param name="pos">The pos.</param>
-        public static void Explosion_einer_Waffe_zünden(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2, int Waffenart, Vector2 pos)
-        {
-            List<Vector3> list = new List<Vector3>();
-
-            int _Art = Waffenart;
-
-            // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
-                           Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
-                           Waffendaten.Farben[_Art], _Art, 0);
-
-            // Sound
-            Spiel2.Karte.explode_missile(Spielfeld, pos, Spiel2.Fenster, _Art);
-
-            // Rauchstelle
-            /* for (int j = -(int)Rakete.Daten[_Art].X / 2; j < Rakete.Daten[_Art].X / 2; j += Rakete.BrandAbstand[_Art])
-             {
-                 if (pos.X + j < 0 || pos.X + j >= Spielfeld.Length) continue;
-                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke, new Vector2(pos.X + j, Help.BottomOf2(pos)), 4,
-                Rakete.Daten[_Art].Z / 10, Rakete.Daten[_Art].W * 10, gameTime,
-                 Microsoft.Xna.Framework.Color.Gray.ToVector3(), _Art, 2); //.Farben[_Art]
-             }*/
-
-            Karte a = new Karte();
-            Replay.Explosion(pos, _Art);
-            list.AddRange(a.Explode(Spielfeld, (int)pos.X, (int)pos.Y, (int)(Waffendaten.Daten[_Art].X)));
-            list.AddRange(Spiel2.Explosionsschäden(gameTime, pos, (int)(Waffendaten.Daten[_Art].X), _Art, new int[] { -1, -1 }));
-            Vordergrund.AktualisiereVordergrund(list);
-        }
-
-        // Explosion einer Waffe zünden
-        /// <summary>
-        /// Explosion_einer_s the waffe_zünden_ohne_schaden.
-        /// </summary>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <param name="gameTime">The game time.</param>
-        /// <param name="Spiel2">The spiel2.</param>
-        /// <param name="Waffenart">The waffenart.</param>
-        /// <param name="pos">The pos.</param>
-        public static void Explosion_einer_Waffe_zünden_ohne_schaden(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2, int Waffenart, Vector2 pos)
-        {
-            int _Art = Waffenart;
-
-            // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
-                           Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
-                           Waffendaten.Farben[_Art], _Art, 0);
-
-            // Sound
-            Spiel2.Karte.explode_missile(Spielfeld, pos, Spiel2.Fenster, _Art);
-
-            // Rauchstelle
-            /* for (int j = -(int)Rakete.Daten[_Art].X / 2; j < Rakete.Daten[_Art].X / 2; j += Rakete.BrandAbstand[_Art])
-             {
-                 if (pos.X + j < 0 || pos.X + j >= Spielfeld.Length) continue;
-                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke, new Vector2(pos.X + j, Help.BottomOf2(pos)), 4,
-                Rakete.Daten[_Art].Z / 10, Rakete.Daten[_Art].W * 10, gameTime,
-                 Rakete.Farben[_Art], _Art, 2);
-             }*/
-        }
-
-        public static void Explosion_einer_Waffe_zünden_ohne_schaden_sound(List<UInt16>[] Spielfeld, GameTime gameTime, Spiel Spiel2, int Waffenart, Soundsystem Sound, Vector2 pos)
-        {
-            int _Art = Waffenart;
-
-            // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
-                           Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
-                           Waffendaten.Farben[_Art], _Art, 0);
-
-            Sound.PlaySoundAny();
-
-            // Sound
-            // Spiel2.Karte.explode_missile(Spielfeld, pos, Spiel2.Fenster, _Art);
-
-            // Rauchstelle
-            /* for (int j = -(int)Rakete.Daten[_Art].X / 2; j < Rakete.Daten[_Art].X / 2; j += Rakete.BrandAbstand[_Art])
-             {
-                 if (pos.X + j < 0 || pos.X + j >= Spielfeld.Length) continue;
-                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke, new Vector2(pos.X + j, Help.BottomOf2(pos)), 4,
-                Rakete.Daten[_Art].Z / 10, Rakete.Daten[_Art].W * 10, gameTime,
-                 Rakete.Farben[_Art], _Art, 2);
-             }*/
-        }
-
-        /*Bsp.
-          int[] Daten;
-          Daten = new int[1000];
-          Karte a = new Karte();
-          a.create_map(Daten, 150, 50, 30, 100, 25, screenHeight); */
 
         /// <summary>
         /// Create_maps the specified array.
@@ -1212,6 +814,104 @@ namespace _4_1_
             }
         }
 
+        /// <summary>
+        /// Explodes the specified daten.
+        /// </summary>
+        /// <param name="Daten">The daten.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <returns>List{Vector3}.</returns>
+        public List<Vector3> Explode(List<UInt16>[] Daten, int x, int y, int width) // errechnet zerstörungen der Karte
+        {
+            List<Vector3> list = new List<Vector3>();
+            int aa = (int)((double)Math.Log((((width) - 0) * Math.PI), Math.E) * Math.Sqrt(width));
+            for (int i = -aa; i < aa; i++)
+            {
+                if (i + x < 0 || i + x >= Daten.Length) continue;
+
+                int dist = i; if (dist < 0) dist = -dist;
+                int add = (int)((double)Math.Log((((aa) - dist) * Math.PI), Math.E) * Math.Sqrt(width));
+                int add2 = y + add;
+                if (add2 > Game1.screenHeight) add2 = Game1.screenHeight;
+                list.AddRange(Kartenformat.DeleteFromTo(x + i, (int)(y - add), (int)(add2)));
+            }
+
+            for (int i = 0; i < list.Count; i++) list[i] = new Vector3(list[i].X, list[i].Y - 5, list[i].Z + 5);
+            if (list.Count >= 1)
+            {
+                Vector3 temp0 = list[0];
+                Vector3 templast = list[list.Count - 1];
+                for (int i = 0; i < 5; i++) list.Insert(0, new Vector3(temp0.X - i, temp0.Y, temp0.Z));
+                for (int i = 0; i < 5; i++) list.Insert(list.Count - 1, new Vector3(templast.X + i, templast.Y, templast.Z));
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// Explode_missiles the specified spielfeld.
+        /// </summary>
+        /// <param name="Spielfeld">The spielfeld.</param>
+        /// <param name="pos">The pos.</param>
+        /// <param name="Fenster">The fenster.</param>
+        /// <param name="Art">The art.</param>
+        public void explode_missile(List<UInt16>[] Spielfeld, Vector2 pos, Vector2 Fenster, int Art)  // Spielt den Explosionssound ab
+        {
+            if (Waffendaten.Explosionen[Art] >= 0)
+            {
+                Soundsystem[] expo = Sounds.Explosion;
+                int dist = (int)(pos.X - (Fenster.X)); if (dist < 0) dist = -dist;
+                expo[Waffendaten.Explosionen[Art]].PlaySoundAny(false, ((float)(1.0d - ((double)dist / Spielfeld.Length))));
+            }
+        }
+
+        /// <summary>
+        /// Find_dead_particles the specified particle list.
+        /// </summary>
+        /// <param name="particleList">The particle list.</param>
+        /// <param name="id">The id.</param>
+        /// <returns>System.Int32.</returns>
+        public int find_dead_particle(List<ParticleData> particleList, int id)
+        {
+            for (int i = 0; i < particleList.Count; i++)
+            {
+                if (particleList[i].alive == false)
+                {
+                    // gefunden
+                    int found = -1;
+                    for (int b = particleList.Count - 1; b > i; b--)
+                    {
+                        if (particleList[b].alive == true)
+                        {
+                            found = b;
+                            break;
+                        }
+                    }
+
+                    if (found != -1)
+                    {
+                        if (found + 1 < particleList.Count && particleList.Count - (found) - 1 > 0)
+                        {
+                            particleList.RemoveRange(found + 1, particleList.Count - (found) - 1);
+                            switch (id)
+                            {
+                                case 0: { particleFarbe.RemoveRange(found + 1, particleList.Count - (found) - 1); break; }
+                                case 1: { particleFarbeS.RemoveRange(found + 1, particleList.Count - (found) - 1); break; }
+                                case 2:
+                                    {
+                                        particleFarbeS2.RemoveRange(found + 1, particleList.Count - (found) - 1);
+                                        particleMapSmokeData.RemoveRange(found + 1, particleList.Count - (found) - 1);
+                                        break;
+                                    }
+                            }
+                        }
+                    }
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         // TODO ausfüllen
         /// <summary>
         /// Erzeugt den Inhalt des Effektes aus einem String
@@ -1262,5 +962,318 @@ namespace _4_1_
 
             return data;
         }
+
+        /// <summary>
+        /// Updates the particles.
+        /// </summary>
+        /// <param name="particleList">The particle list.</param>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="id">The id.</param>
+        public void UpdateParticles(List<ParticleData> particleList, GameTime gameTime, int id) // geändert
+        {
+            float now = (float)gameTime.TotalGameTime.TotalMilliseconds;
+            for (int i = particleList.Count - 1; i >= 0; i--)
+            {
+                ParticleData particle = particleList[i];
+                if (!particle.alive) continue;
+                float timeAlive = now - particle.BirthTime;
+
+                if (timeAlive > particle.MaxAge)
+                {
+                    switch (id)
+                    {
+                        case 2:
+                            {
+                                if (particleMapSmokeData[i].Z > 0)
+                                {
+                                    particleMapSmokeData[i] = new Vector3(particleMapSmokeData[i].X, Kartenformat.BottomOf(particleMapSmokeData[i].X, particleMapSmokeData[i].Y), particleMapSmokeData[i].Z - 1);
+                                    int idet = particle.art;
+                                    particle.set = false;
+                                    int maxAge = (int)((float)((float)Waffendaten.Daten[0].W * 8)); // /20 *(20-fakt)
+
+                                    particle.OrginalPosition = new Vector2(particleMapSmokeData[i].X, particleMapSmokeData[i].Y);
+                                    particle.Position = particle.OrginalPosition;
+
+                                    particle.BirthTime = (float)gameTime.TotalGameTime.TotalMilliseconds;
+                                    if (particleMapSmokeData[i].Z >= 0)
+                                    {
+                                        particle.MaxAge = (float)(maxAge - ((float)rand.Next(0, (int)((float)maxAge * 0.2))));
+                                    }
+                                    else
+                                        particle.MaxAge = (float)(maxAge - ((float)rand.Next(0, (int)((float)maxAge * 0.6))));
+
+                                    particle.Scaling = 0.25f;
+                                    particle.ModColor = Microsoft.Xna.Framework.Color.White;
+                                    particle.alive = true;
+                                    float particleDistance = (float)rand.NextDouble() * Waffendaten.Daten[0].Z;
+                                    Vector2 displacement = new Vector2(particleDistance, 0);
+                                    float angle = 0;
+                                    angle = MathHelper.ToRadians(rand.Next(225, 315));
+                                    displacement = Vector2.Transform(displacement, Matrix.CreateRotationZ(angle));
+
+                                    particle.Direction = displacement * 2.0f;
+                                    particle.Accelaration = -particle.Direction;
+                                    particleList[i] = particle;
+                                }
+                                else
+                                {
+                                    particle.alive = false;
+                                    particleList[i] = particle;
+                                }
+
+                                break;
+                            }
+                    }
+                    if (id != 2) { particle.alive = false; particleList[i] = particle; }
+                }
+                else
+                {
+                    float relAge = timeAlive / particle.MaxAge;
+                    particle.Position = 0.5f * particle.Accelaration * relAge * relAge + particle.Direction * relAge + particle.OrginalPosition;
+
+                    float invAge = 1.0f - relAge;
+                    Vector2 positionFromCenter = particle.Position - particle.OrginalPosition;
+                    float distance = positionFromCenter.Length();
+                    particle.set = true;
+                    switch (id)
+                    {
+                        case 0:
+                            {
+                                particle.ModColor = new Microsoft.Xna.Framework.Color(new Vector4((float)(invAge * particleFarbe[i].X),
+                                    (float)(invAge * particleFarbe[i].Y), (float)(invAge * particleFarbe[i].Z), 10f * invAge));
+                                particle.Scaling = (Waffendaten.Explosionscale[particle.art] + distance) / 200.0f;
+                                break;
+                            }
+                        case 1:
+                            {
+                                particle.ModColor = new Microsoft.Xna.Framework.Color(new Vector4(Waffendaten.Daten4[particle.art].X * invAge, Waffendaten.Daten4[particle.art].Y * invAge, Waffendaten.Daten4[particle.art].Z * invAge, Waffendaten.Daten3[particle.art].W * invAge));
+                                particle.Scaling = (2.0f + distance) / 200.0f;
+                                break;
+                            }
+                        case 2:
+                            {
+                                particle.ModColor = new Microsoft.Xna.Framework.Color(new Vector4(0.5f * invAge, 0.5f * invAge, 0.5f * invAge, 8f * invAge));
+                                particle.Scaling = (2.0f + distance) / 200.0f;
+                                break;
+                            }
+                    }
+
+                    particleList[i] = particle;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds the explosion particle.
+        /// </summary>
+        /// <param name="particleList">The particle list.</param>
+        /// <param name="explosionPos">The explosion pos.</param>
+        /// <param name="explosionSize">Size of the explosion.</param>
+        /// <param name="maxAge">The max age.</param>
+        /// <param name="gameTime">The game time.</param>
+        /// <param name="Farben">The farben.</param>
+        /// <param name="Weapon">The weapon.</param>
+        /// <param name="id">The id.</param>
+        private void AddExplosionParticle(List<ParticleData> particleList, Vector2 explosionPos, float explosionSize, float maxAge, GameTime gameTime, Vector3 Farben, int Weapon, int id) // geändert
+        {
+            ParticleData particle = new ParticleData();
+            particle.OrginalPosition = explosionPos;
+            particle.Position = particle.OrginalPosition;
+            particle.BirthTime = (float)gameTime.TotalGameTime.TotalMilliseconds;
+
+            if (id == 2)
+            {
+                // maxAge *= 0.5f;
+                particle.MaxAge = (float)(maxAge - ((float)rand.Next(0, (int)((float)maxAge * 0.9))));
+            }
+            else
+                particle.MaxAge = maxAge;
+
+            particle.art = Weapon;
+            particle.set = false;
+            particle.Scaling = 0.25f;
+            particle.ModColor = Microsoft.Xna.Framework.Color.White;
+
+            float particleDistance = (float)rand.NextDouble() * explosionSize;
+            Vector2 displacement = new Vector2(particleDistance, 0);
+            float angle = 0;
+
+            switch (id)
+            {
+                case 0: { angle = MathHelper.ToRadians(rand.Next(360)); break; }
+                case 1: { angle = MathHelper.ToRadians(rand.Next(360)); break; }
+                case 2: { angle = MathHelper.ToRadians(rand.Next(225, 315)); break; }
+            }
+            displacement = Vector2.Transform(displacement, Matrix.CreateRotationZ(angle));
+
+            particle.Direction = displacement * 2.0f;
+            particle.Accelaration = -particle.Direction;
+            particle.alive = true;
+            int position = find_dead_particle(particleList, id);
+            if (position <= 0)
+            {
+                particleList.Add(particle);
+
+                switch (id)
+                {
+                    case 0: { particleFarbe.Add(Farben); break; }
+                    case 1: { particleFarbeS.Add(Farben); break; }
+                    case 2: { particleFarbeS2.Add(Farben); particleMapSmokeData.Add(new Vector3(explosionPos.X, explosionPos.Y, 7)); break; }
+                }
+            }
+            else
+            {
+                particleList[position] = particle;
+                switch (id)
+                {
+                    case 0: { particleFarbe[position] = Farben; break; }
+                    case 1: { particleFarbeS[position] = Farben; break; }
+                    case 2: { particleFarbeS2[position] = Farben; particleMapSmokeData[position] = new Vector3(explosionPos.X, explosionPos.Y, 7); break; }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Enthält Sammlung von Werten von einen Partikel
+        /// </summary>
+        public struct ParticleData
+        {
+            #region Fields
+
+            /// <summary>
+            /// Beschleunigung des Partikels (x- und y Richtung)
+            /// </summary>
+            public Vector2 Accelaration;
+
+            /// <summary>
+            /// The alive
+            /// </summary>
+            public bool alive;
+
+            /// <summary>
+            /// enthält die munitionsart ID, 0 bis ...
+            /// </summary>
+            public int art;
+
+            /// <summary>
+            /// wann Partikel erschaffen wurde
+            /// </summary>
+            public float BirthTime;
+
+            /// <summary>
+            /// Die Bewegungsrichtung des Partikels
+            /// </summary>
+            public Vector2 Direction;
+
+            /// <summary>
+            /// nach welcher Dauer muss der Partikel entfernt werden
+            /// </summary>
+            public float MaxAge;
+
+            /// <summary>
+            /// ???
+            /// </summary>
+            public Microsoft.Xna.Framework.Color ModColor;
+
+            /// <summary>
+            /// wo wurde der Partikel erschaffen
+            /// </summary>
+            public Vector2 OrginalPosition;
+
+            /// <summary>
+            /// Die Position des Partikels
+            /// </summary>
+            public Vector2 Position;
+
+            /// <summary>
+            /// Die Skalierung des Partikels
+            /// </summary>
+            public float Scaling;
+
+            /// <summary>
+            /// The set
+            /// </summary>
+            public bool set;
+
+            #endregion Fields
+        }
+
+        // speichert die farbwerte der particle für explosion
+
+        // speichert die farbwerte der particle für raketensmoke
+
+        // speichert die farbwerte der particle für mapsmoke
+
+        #region Materialnummern
+
+        /// <summary>
+        ///  ID des Material Backstein1 (Brücke)
+        /// </summary>
+        public static int BACKSTEIN1 = 2;
+
+        /// <summary>
+        ///  ID des Material Backstein2 (getroffene Brücke)
+        /// </summary>
+        public static int BACKSTEIN2 = 3;
+
+        /// <summary>
+        ///  ID des Material Beton
+        /// </summary>
+        public static int BETON = 4;
+
+        /// <summary>
+        ///  ID des Material Erde
+        /// </summary>
+        public static int ERDE = 1;
+
+        /// <summary>
+        ///  ID des Material Fels
+        /// </summary>
+        public static int FELS = 5;
+
+        /// <summary>
+        ///  ID des Material Feuer (Material für Brandherde)
+        /// </summary>
+        public static int FEUER = 10;
+
+        /// <summary>
+        ///  ID des Material Granit
+        /// </summary>
+        public static int GRANIT1 = 6;
+
+        /// <summary>
+        ///  ID des Material Granit (getroffen)
+        /// </summary>
+        public static int GRANIT2 = 7;
+
+        /// <summary>
+        /// ID des Material Luft
+        /// </summary>
+        public static int LUFT = 0;
+
+        /// <summary>
+        ///  ID des Material Sumpf
+        /// </summary>
+        public static int SUMPF = 8;
+
+        /// <summary>
+        ///  ID des Material Wasser
+        /// </summary>
+        public static int WASSER = 9;
+
+        #endregion Materialnummern
+
+        /*Bsp.
+         int[] Daten;
+         Daten = new int[1000];
+         Karte a = new Karte();
+         a.create_map(Daten, 150, 50, 30, 100, 25,pictureBox1.Height);
+         int X = 1; int Y=1; // Koordinaten
+         a.Explode(Daten,X, Y, 20, pictureBox1.Height);*/
+        /*Bsp.
+          int[] Daten;
+          Daten = new int[1000];
+          Karte a = new Karte();
+          a.create_map(Daten, 150, 50, 30, 100, 25, screenHeight); */
     }
 }

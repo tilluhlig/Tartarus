@@ -1,118 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Update
 {
     public partial class Form1 : Form
     {
+        #region Fields
+
         private String Bezeichner = "";
-        private int value = 0;
-        private int maxvalue = 0;
+        private int maxvalue;
+        private int value;
 
-        public static String HASH(String Datei)
-        {
-            BinaryReader daten = new BinaryReader(File.Open(Datei, FileMode.Open, System.IO.FileAccess.Read));
-            MemoryStream a = new MemoryStream();
+        #endregion Fields
 
-            int pos = 0;
-            while (pos < daten.BaseStream.Length && pos < 1024)
-            {
-                a.WriteByte(daten.ReadByte());
-                pos++;
-            }
-            daten.Close();
-
-            a.Position = 0;
-
-            String q = HASH(a);
-            a.Close();
-            return q;
-        }
-
-        /// <summary>
-        /// HASHs the specified daten.
-        /// </summary>
-        /// <param name="Daten">The daten.</param>
-        /// <returns>String.</returns>
-        public static String HASH(Stream Daten)
-        {
-            MD5 hash = MD5.Create();
-            char[] g = Encoding.ASCII.GetChars(hash.ComputeHash(Daten));
-            String q = "";
-            for (int i = 0; i < g.Length; i++)
-            {
-                int a = g[i];
-                q = q + a.ToString();
-            }
-
-            //String q = new string(g);
-            return q;
-        }
+        #region Constructors
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            label1.Show();
-            progressBar1.Show();
-            timer2.Enabled = true;
-            backgroundWorker1.RunWorkerAsync();
-        }
+        #endregion Constructors
 
-        private static List<String> HttpPostRequest(string url)
-        {
-            string postData = "";
-            List<String> list = new List<String>();
-
-            HttpWebRequest myHttpWebRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            myHttpWebRequest.Method = "POST";
-
-            byte[] data = Encoding.ASCII.GetBytes(postData);
-
-            myHttpWebRequest.ContentType = "application/x-www-form-urlencoded";
-            myHttpWebRequest.ContentLength = data.Length;
-
-            try
-            {
-                Stream requestStream = myHttpWebRequest.GetRequestStream();
-                requestStream.Write(data, 0, data.Length);
-                requestStream.Close();
-
-                HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
-
-                Stream responseStream = myHttpWebResponse.GetResponseStream();
-                list.Add(((HttpWebResponse)myHttpWebResponse).StatusDescription);
-
-                StreamReader myStreamReader = new StreamReader(responseStream, Encoding.Default);
-
-                //string pageContent = myStreamReader.ReadToEnd();
-                while (!myStreamReader.EndOfStream)
-                    list.Add(myStreamReader.ReadLine());
-
-                myStreamReader.Close();
-                responseStream.Close();
-
-                myHttpWebResponse.Close();
-            }
-            catch (Exception)
-            {
-                //  list.Add("FEHLER");
-                //  list.Add("Keine Verbindung");
-                return list;
-            }
-
-            return list;
-        }
+        #region Methods
 
         public static int DownloadFile(String remoteFilename, String localFilename)
         {
@@ -147,7 +65,7 @@ namespace Update
                         localStream = File.Create(localFilename);
 
                         // Allocate a 1k buffer
-                        byte[] buffer = new byte[1024];
+                        var buffer = new byte[1024];
                         int bytesRead;
 
                         // Simple do/while loop to read from stream until
@@ -184,31 +102,117 @@ namespace Update
             return bytesProcessed;
         }
 
+        public static String HASH(String Datei)
+        {
+            var daten = new BinaryReader(File.Open(Datei, FileMode.Open, FileAccess.Read));
+            var a = new MemoryStream();
+
+            int pos = 0;
+            while (pos < daten.BaseStream.Length && pos < 1024)
+            {
+                a.WriteByte(daten.ReadByte());
+                pos++;
+            }
+            daten.Close();
+
+            a.Position = 0;
+
+            String q = HASH(a);
+            a.Close();
+            return q;
+        }
+
+        /// <summary>
+        ///     HASHs the specified daten.
+        /// </summary>
+        /// <param name="Daten">The daten.</param>
+        /// <returns>String.</returns>
+        public static String HASH(Stream Daten)
+        {
+            MD5 hash = MD5.Create();
+            char[] g = Encoding.ASCII.GetChars(hash.ComputeHash(Daten));
+            String q = "";
+            for (int i = 0; i < g.Length; i++)
+            {
+                int a = g[i];
+                q = q + a;
+            }
+
+            //String q = new string(g);
+            return q;
+        }
+
+        private static List<String> HttpPostRequest(string url)
+        {
+            string postData = "";
+            var list = new List<String>();
+
+            var myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            myHttpWebRequest.Method = "POST";
+
+            byte[] data = Encoding.ASCII.GetBytes(postData);
+
+            myHttpWebRequest.ContentType = "application/x-www-form-urlencoded";
+            myHttpWebRequest.ContentLength = data.Length;
+
+            try
+            {
+                Stream requestStream = myHttpWebRequest.GetRequestStream();
+                requestStream.Write(data, 0, data.Length);
+                requestStream.Close();
+
+                var myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+
+                Stream responseStream = myHttpWebResponse.GetResponseStream();
+                list.Add(myHttpWebResponse.StatusDescription);
+
+                var myStreamReader = new StreamReader(responseStream, Encoding.Default);
+
+                //string pageContent = myStreamReader.ReadToEnd();
+                while (!myStreamReader.EndOfStream)
+                    list.Add(myStreamReader.ReadLine());
+
+                myStreamReader.Close();
+                responseStream.Close();
+
+                myHttpWebResponse.Close();
+            }
+            catch (Exception)
+            {
+                //  list.Add("FEHLER");
+                //  list.Add("Keine Verbindung");
+                return list;
+            }
+
+            return list;
+        }
+
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             String Adress = ""; //tillu.selfhost.me
 
-            if (Path.GetFileName(Application.ExecutablePath).ToUpper() == "UPDATE.EXE" || Path.GetFileName(Application.ExecutablePath).ToUpper() == "SPIEL.EXE")
+            if (Path.GetFileName(Application.ExecutablePath).ToUpper() == "UPDATE.EXE" ||
+                Path.GetFileName(Application.ExecutablePath).ToUpper() == "SPIEL.EXE")
             {
                 if (File.Exists("UpdateBackup.exe")) File.Delete("UpdateBackup.exe");
                 File.Copy(Path.GetFileName(Application.ExecutablePath), "UpdateBackup.exe");
-                System.Diagnostics.Process Prozess = System.Diagnostics.Process.Start("UpdateBackup.exe", "");
+                Process Prozess = Process.Start("UpdateBackup.exe", "");
                 Application.Exit();
             }
 
             Bezeichner = "suche Server...";
-            value = 0; maxvalue = 0;
-            System.Threading.Thread.Sleep(500);
+            value = 0;
+            maxvalue = 0;
+            Thread.Sleep(500);
 
             if (HttpPostRequest("http://tartarus.bplaced.net/Updates/checksum.dat").Count > 0) ///Updates/checksum.dat
             {
                 Adress = "tartarus.bplaced.net";
             }
-            else
-                if (HttpPostRequest("http://tillu.selfhost.me/Updates/checksum.dat").Count > 0) ///Updates/checksum.dat
-                {
-                    Adress = "tillu.selfhost.me";
-                }
+            else if (HttpPostRequest("http://tillu.selfhost.me/Updates/checksum.dat").Count > 0) ///Updates/checksum.dat
+            {
+                Adress = "tillu.selfhost.me";
+            }
 
             //   HttpWebResponse response;
 
@@ -252,17 +256,18 @@ namespace Update
             }
 
             Bezeichner = "...";
-            value = 0; maxvalue = 0;
+            value = 0;
+            maxvalue = 0;
 
             // Dateien ermitteln
-            List<String> Dateien = new List<String>();
-            String meins = Application.StartupPath + Path.DirectorySeparatorChar.ToString();
+            var Dateien = new List<String>();
+            String meins = Application.StartupPath + Path.DirectorySeparatorChar;
 
             // alte hashes runterladen
-            FileInfo FileInf = new FileInfo("checksum.dat");
-            List<String> Data = new List<String>();
+            var FileInf = new FileInfo("checksum.dat");
+            var Data = new List<String>();
 
-            WebClient Webclient1 = new WebClient();
+            var Webclient1 = new WebClient();
             try
             {
                 Webclient1.DownloadFile("http://" + Adress + "/Updates/checksum.dat", "checksum.dat");
@@ -278,7 +283,7 @@ namespace Update
             {
                 if (File.Exists("checksum.dat"))
                 {
-                    StreamReader dat = new StreamReader("checksum.dat");
+                    var dat = new StreamReader("checksum.dat");
                     while (!dat.EndOfStream)
                         Data.Add(dat.ReadLine());
                     dat.Close();
@@ -301,8 +306,9 @@ namespace Update
 
             // meine Hash werte erstellen
             Bezeichner = "ermittle Hashwerte...";
-            value = 0; maxvalue = Dateien.Count;
-            List<String> Hash = new List<String>();
+            value = 0;
+            maxvalue = Dateien.Count;
+            var Hash = new List<String>();
             for (int i = 0; i < Dateien.Count; i++)
             {
                 if (!File.Exists(Dateien[i]))
@@ -318,22 +324,20 @@ namespace Update
                     Hash.Add(HASH("UpdateBackup"));
                     File.Delete("UpdateBackup");
                 }
+                else if (Path.GetFileName(Dateien[i]) == "Spiel.exe")
+                {
+                    File.Copy("Spiel.exe", "SpielBackup");
+                    Hash.Add(HASH("SpielBackup"));
+                    File.Delete("SpielBackup");
+                }
+                else if (Path.GetFileName(Dateien[i]) == "ReaderStream.dll")
+                {
+                    File.Copy("ReaderStream.dll", "ReaderStreamBackup");
+                    Hash.Add(HASH("ReaderStreamBackup"));
+                    File.Delete("ReaderStreamBackup");
+                }
                 else
-                    if (Path.GetFileName(Dateien[i]) == "Spiel.exe")
-                    {
-                        File.Copy("Spiel.exe", "SpielBackup");
-                        Hash.Add(HASH("SpielBackup"));
-                        File.Delete("SpielBackup");
-                    }
-                    else
-                        if (Path.GetFileName(Dateien[i]) == "ReaderStream.dll")
-                        {
-                            File.Copy("ReaderStream.dll", "ReaderStreamBackup");
-                            Hash.Add(HASH("ReaderStreamBackup"));
-                            File.Delete("ReaderStreamBackup");
-                        }
-                        else
-                            Hash.Add(HASH(Dateien[i]));
+                    Hash.Add(HASH(Dateien[i]));
                 value++;
             }
 
@@ -344,7 +348,7 @@ namespace Update
             }
 
             // die gesamte Hashliste erstellen
-            List<String> Data2 = new List<String>();
+            var Data2 = new List<String>();
 
             for (int i = 0; i < Dateien.Count; i++)
             {
@@ -367,7 +371,8 @@ namespace Update
 
             // neue Dateien hochladen
             Bezeichner = "neue Dateien herunterladen...";
-            value = 0; maxvalue = Dateien.Count;
+            value = 0;
+            maxvalue = Dateien.Count;
             for (int i = 0; i < Dateien.Count; i++)
             {
                 /* if (Path.GetFileName(Dateien[i]) == "Update.exe")
@@ -379,8 +384,9 @@ namespace Update
                      continue;
                  }*/
 
-                String a = Path.GetDirectoryName(Dateien[i]).Replace('\\', '/'); ;
-                FileInfo FileInf2 = new FileInfo(Dateien[i]);
+                String a = Path.GetDirectoryName(Dateien[i]).Replace('\\', '/');
+                ;
+                var FileInf2 = new FileInfo(Dateien[i]);
                 String path = Path.GetDirectoryName(Dateien[i]);
                 if (path != "" && !Directory.Exists(path))
                     Directory.CreateDirectory(path);
@@ -391,6 +397,15 @@ namespace Update
             }
 
             Application.Exit();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            label1.Show();
+            progressBar1.Show();
+            timer2.Enabled = true;
+            backgroundWorker1.RunWorkerAsync();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -407,7 +422,9 @@ namespace Update
             }
 
             label1.Text = Bezeichner;
-            label1.Left = this.Width / 2 - label1.Width / 2;
+            label1.Left = Width / 2 - label1.Width / 2;
         }
+
+        #endregion Methods
     }
 }

@@ -1,14 +1,22 @@
+using Hauptfenster;
+
 namespace _4_1_
 {
 #if WINDOWS || XBOX || LINUX
 
     public static class Program
     {
+        #region Fields
+
         public static Game1 game;
+
+        #endregion Fields
+
+        #region Methods
 
         //public static XnaTextInput.TextInputHandler Keyb;
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         private static void Main(string[] args)
         {
@@ -19,15 +27,15 @@ namespace _4_1_
 
             //Keyb = new XnaTextInput.TextInputHandler((IntPtr)0);
             //Hauptfenster.Form1 form = new Hauptfenster.Form1();
-            Hauptfenster.Program.Formular = new Hauptfenster.Form1();
-            Hauptfenster.Form1 form = Hauptfenster.Program.Formular;
+            Hauptfenster.Program.Formular = new Form1();
+            Form1 form = Hauptfenster.Program.Formular;
             //XnaTextInput.TextInputHandler Keyb;
             // Keyb = new XnaTextInput.TextInputHandler((IntPtr)); //
             //Hauptfenster.Program.Formular.KeyPress += new KeyPressEventHandler(this.OnKeyPress);
             // Keyb.KeyPress += new KeyPressEventHandler(this.OnKeyPress);
 
             form.Show();
-            Game1 game = new Game1(form.getDrawSurface());
+            var game = new Game1(form.getDrawSurface());
             form.pp = game;
             Program.game = game;
 
@@ -108,6 +116,8 @@ namespace _4_1_
             }
 #endif
         }
+
+        #endregion Methods
     }
 
 #endif

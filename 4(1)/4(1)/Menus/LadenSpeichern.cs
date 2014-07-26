@@ -11,41 +11,45 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 #region Using Statements
 
-using System.Windows.Forms; // This class exposes WinForms-style key events.
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+
+// This class exposes WinForms-style key events.
 
 #endregion Using Statements
 
 namespace _4_1_
 {
     /// <summary>
-    /// Class Lademenu
+    ///     Class Lademenu
     /// </summary>
     public class Lademenu
     {
         #region vars
 
         /// <summary>
-        /// The font
+        ///     The font
         /// </summary>
-        private SpriteFont font;
+        private readonly SpriteFont font;
 
         /// <summary>
-        /// The selected
+        ///     The selected
         /// </summary>
-        private Color selected;
+        private readonly Color selected;
 
         /// <summary>
-        /// The unselected
+        ///     The unselected
         /// </summary>
-        private Color unselected;           //Farbe der aktuell nicht ausgewählten Einträge
+        private readonly Color unselected; //Farbe der aktuell nicht ausgewählten Einträge
 
         //Farbe des ausgewählten Eintrages
 
@@ -53,61 +57,64 @@ namespace _4_1_
 
         #endregion vars
 
+        #region Fields
+
         /// <summary>
-        /// The visible
+        ///     The visible
         /// </summary>
         public bool visible = false;
 
         /// <summary>
-        /// The active string
+        ///     The data
+        /// </summary>
+        private readonly List<string> data = new List<string>();
+
+        /// <summary>
+        ///     The menu items
+        /// </summary>
+        private readonly Button[] menuItems = new Button[3];
+
+        /// <summary>
+        ///     The parent directory
+        /// </summary>
+        private readonly DirectoryInfo ParentDirectory = new DirectoryInfo("Content\\Savegames");
+
+        /// <summary>
+        ///     The screen height
+        /// </summary>
+        private readonly int screenHeight;
+
+        /// <summary>
+        ///     The screen width
+        /// </summary>
+        private readonly int screenWidth;
+
+        /// <summary>
+        ///     The stringbox
+        /// </summary>
+        private readonly List<BoundingBox> stringbox = new List<BoundingBox>();
+
+        /// <summary>
+        ///     The stringspos
+        /// </summary>
+        private readonly List<Vector2> stringspos = new List<Vector2>();
+
+        /// <summary>
+        ///     The textbox
+        /// </summary>
+        private readonly Textfeld textbox;
+
+        /// <summary>
+        ///     The active string
         /// </summary>
         private int activeString;
 
-        /// <summary>
-        /// The data
-        /// </summary>
-        private List<string> data = new List<string>();
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
-        /// The menu items
-        /// </summary>
-        private Button[] menuItems = new Button[3];
-
-        /// <summary>
-        /// The parent directory
-        /// </summary>
-        private System.IO.DirectoryInfo ParentDirectory = new System.IO.DirectoryInfo("Content\\Savegames");
-
-        /// <summary>
-        /// The screen height
-        /// </summary>
-        private int screenHeight;
-
-        /// <summary>
-        /// The screen width
-        /// </summary>
-        private int screenWidth;
-
-        /// <summary>
-        /// The stringbox
-        /// </summary>
-        private List<BoundingBox> stringbox = new List<BoundingBox>();
-
-        /// <summary>
-        /// The stringspos
-        /// </summary>
-        private List<Vector2> stringspos = new List<Vector2>();
-
-        /// <summary>
-        /// The textbox
-        /// </summary>
-        private Textfeld textbox;
-
-        //Constructor des Menüs
-        //Initialisiert Standardwerte
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Lademenu"/> class.
+        ///     Initializes a new instance of the <see cref="Lademenu" /> class.
         /// </summary>
         /// <param name="unselectedColor">Color of the unselected.</param>
         /// <param name="selectedColor">Color of the selected.</param>
@@ -130,15 +137,20 @@ namespace _4_1_
             textbox = new Textfeld(new Vector2(50, 500), "Klicke um neue Datei zu erstellen");
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
             //Durchläuft alle Menüpunkte und zeichnet den Menüpunkt mit den entsprechenden Eigenschaften
-            spriteBatch.Draw(Texturen.pregamemenu, new Vector2(screenWidth / 2 - Texturen.pregamemenu.Width / 2, screenHeight / 2 - Texturen.pregamemenu.Height / 2),
+            spriteBatch.Draw(Texturen.pregamemenu,
+                new Vector2(screenWidth / 2 - Texturen.pregamemenu.Width / 2, screenHeight / 2 - Texturen.pregamemenu.Height / 2),
                 Color.White);
             for (int i = 0; i < menuItems.Length; i++)
                 menuItems[i].Draw(spriteBatch, selected, unselected);
@@ -151,7 +163,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Hides this instance.
+        ///     Hides this instance.
         /// </summary>
         public void hide()
         {
@@ -160,7 +172,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Mouses the keys.
+        ///     Mouses the keys.
         /// </summary>
         /// <param name="mouseState">State of the mouse.</param>
         /// <returns>Saveinfo.</returns>
@@ -171,7 +183,7 @@ namespace _4_1_
 
             #region Update Filelist
 
-            foreach (System.IO.FileInfo f in ParentDirectory.GetFiles())
+            foreach (FileInfo f in ParentDirectory.GetFiles())
             {
                 j++;
                 if (j > data.Count())
@@ -205,7 +217,7 @@ namespace _4_1_
 
             for (int i = 0; i < stringbox.Count; i++)
                 if (stringbox[i].Contains(new Vector3(mouseState.X, mouseState.Y, 0)) == ContainmentType.Contains
-                    && Help.GetMouseState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+                    && Help.GetMouseState().LeftButton == ButtonState.Pressed)
                     if (data[i].EndsWith(".map"))
                     {
                         activeString = i;
@@ -226,11 +238,8 @@ namespace _4_1_
                     textbox.Zurücksetzen();
                     return new Saveinfo(0, "Saves//" + textbox.input + ".map");
                 }
-                else
-                {
-                    textbox.Zurücksetzen();
-                    return new Saveinfo(0, "Saves//" + data[activeString]);
-                }
+                textbox.Zurücksetzen();
+                return new Saveinfo(0, "Saves//" + data[activeString]);
             }
             if (menuItems[1].MouseKeys())
             {
@@ -248,20 +257,25 @@ namespace _4_1_
             return new Saveinfo();
         }
 
+        #endregion Methods
+
+        //Constructor des Menüs
+        //Initialisiert Standardwerte
+
         //Methode zum Erstellen eines neuen Menüeintrages
         //Übergibt den Namen und Position
         /// <summary>
-        /// Called when [key press].
+        ///     Called when [key press].
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             textbox.OnKeyPress(sender, e);
         }
 
         /// <summary>
-        /// Shows this instance.
+        ///     Shows this instance.
         /// </summary>
         public void show()
         {

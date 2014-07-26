@@ -15,13 +15,22 @@
 namespace _4_1_
 {
     /// <summary>
-    /// Enthält Daten zu den Baumtexturen
+    ///     Enthält Daten zu den Baumtexturen
     /// </summary>
     public static class Baumdata
     {
+        #region Fields
+
         /// <summary>
-        /// Skalierung der Baumtexutren
+        ///     Skalierung der Baumtexutren
         /// </summary>
-        public static Var<float[]> SKALIERUNG = new Var<float[]>("SKALIERUNG", new float[] { 0.07f, 0.1f, 0.1f, 0.1f, 0.05f, 0.1f, 0.1f, 0.05f, 0.1f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f });
+        public static Var<float[]> SKALIERUNG = new Var<float[]>("SKALIERUNG",
+            new[]
+            {
+                0.07f, 0.1f, 0.1f, 0.1f, 0.05f, 0.1f, 0.1f, 0.05f, 0.1f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f,
+                0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f, 0.25f
+            });
+
+        #endregion Fields
     }
 }

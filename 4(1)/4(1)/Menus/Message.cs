@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -19,62 +20,68 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// Class Message
+    ///     Class Message
     /// </summary>
     public class Message
     {
+        #region Fields
+
         /// <summary>
-        /// The border
+        ///     The font
+        /// </summary>
+        private readonly SpriteFont font;
+
+        /// <summary>
+        ///     The item
+        /// </summary>
+        private readonly Button item;
+
+        /// <summary>
+        ///     The textur
+        /// </summary>
+        private readonly Texture2D textur;
+
+        /// <summary>
+        ///     The border
         /// </summary>
         private int border = 20;
 
         /// <summary>
-        /// The content
+        ///     The content
         /// </summary>
         private List<string> content;
 
         /// <summary>
-        /// The content pos
+        ///     The content pos
         /// </summary>
         private List<Vector2> contentPos;
 
         /// <summary>
-        /// The font
-        /// </summary>
-        private SpriteFont font;
-
-        /// <summary>
-        /// The head
+        ///     The head
         /// </summary>
         private string head;
 
         /// <summary>
-        /// The head pos
+        ///     The head pos
         /// </summary>
         private Vector2 headPos;
 
         /// <summary>
-        /// The item
-        /// </summary>
-        private Button item;
-
-        /// <summary>
-        /// The own pos
+        ///     The own pos
         /// </summary>
         private Vector2 ownPos;
 
         /// <summary>
-        /// The textur
+        ///     The visible
         /// </summary>
-        private Texture2D textur;
+        private bool visible;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
-        /// The visible
-        /// </summary>
-        private bool visible = false;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Message"/> class.
+        ///     Initializes a new instance of the <see cref="Message" /> class.
         /// </summary>
         /// <param name="font">The font.</param>
         /// <param name="screenwidth">The screenwidth.</param>
@@ -84,12 +91,19 @@ namespace _4_1_
         {
             this.font = font;
             this.textur = textur;
-            ownPos = new Vector2((screenwidth - textur.Width) / 2, (screenheight - textur.Height) / 2);
-            item = new Button(Texturen.hausbutton, ownPos + new Vector2((textur.Width - Texturen.hausbutton.Width) / 2, textur.Height - Texturen.hausbutton.Height - border), "OK", font);
+            ownPos = new Vector2((screenwidth - textur.Width)/2, (screenheight - textur.Height)/2);
+            item = new Button(Texturen.hausbutton,
+                ownPos +
+                new Vector2((textur.Width - Texturen.hausbutton.Width)/2,
+                    textur.Height - Texturen.hausbutton.Height - border), "OK", font);
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
@@ -103,7 +117,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Hides this instance.
+        ///     Hides this instance.
         /// </summary>
         public void hide()
         {
@@ -112,7 +126,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Mousekeyses this instance.
+        ///     Mousekeyses this instance.
         /// </summary>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
         public bool Mousekeys()
@@ -124,7 +138,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Sets the strings.
+        ///     Sets the strings.
         /// </summary>
         /// <param name="head">The head.</param>
         /// <param name="content">The content.</param>
@@ -133,7 +147,7 @@ namespace _4_1_
             this.content = new List<String>();
             contentPos = new List<Vector2>();
             this.head = head;
-            headPos = new Vector2((textur.Width - font.MeasureString(head).X) / 2, ownPos.Y + 0);
+            headPos = new Vector2((textur.Width - font.MeasureString(head).X)/2, ownPos.Y + 0);
             String[] aux = content.Split(' ');
             String auxitem = aux[0];
             for (int i = 1; i < aux.Length; i++)
@@ -143,21 +157,23 @@ namespace _4_1_
                 else
                 {
                     this.content.Add(auxitem);
-                    contentPos.Add(ownPos + new Vector2(border, this.content.Count * 25));
+                    contentPos.Add(ownPos + new Vector2(border, this.content.Count*25));
                     auxitem = aux[i];
                 }
             }
             this.content.Add(auxitem);
-            contentPos.Add(ownPos + new Vector2(border, this.content.Count * 25));
+            contentPos.Add(ownPos + new Vector2(border, this.content.Count*25));
         }
 
         /// <summary>
-        /// Shows this instance.
+        ///     Shows this instance.
         /// </summary>
         public void show()
         {
             visible = true;
             item.show();
         }
+
+        #endregion Methods
     }
 }

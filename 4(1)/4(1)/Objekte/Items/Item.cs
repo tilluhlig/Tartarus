@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
@@ -18,37 +19,44 @@ using Microsoft.Xna.Framework.Content;
 namespace _4_1_
 {
     /// <summary>
-    /// Diese Klasse verwaltet Packete gleichartiger Gegenstände(Items)
+    ///     Diese Klasse verwaltet Packete gleichartiger Gegenstände(Items)
     /// </summary>
     public class Item
     {
+        #region Fields
+
         /// <summary>
-        /// gleiche Items werden zusammengefasst
+        ///     gleiche Items werden zusammengefasst
         /// </summary>
         public int Anzahl;
 
         /// <summary>
-        /// der Effekt, der zu diesem Item gehört
+        ///     der Effekt, der zu diesem Item gehört
         /// </summary>
         public Effekt Effekt;
 
         /// <summary>
-        /// Ein bezeichner für das Item (dient der eindeutigen Unterscheidung), wollte erst Zahlen nehmen, kann ich mir aber schlecht merken
+        ///     Ein bezeichner für das Item (dient der eindeutigen Unterscheidung), wollte erst Zahlen nehmen, kann ich mir aber
+        ///     schlecht merken
         /// </summary>
         public String Name;
 
         /// <summary>
-        /// Einzelpreis der Items
+        ///     Einzelpreis der Items
         /// </summary>
         public int Preis;
 
         /// <summary>
-        /// 0 == Upgrade, 1 == Konsumierbar
+        ///     0 == Upgrade, 1 == Konsumierbar
         /// </summary>
         public int Typ;
 
+        #endregion Fields
+
+        #region Constructors
+
         /// <summary>
-        ///Konstruktor
+        ///     Konstruktor
         /// </summary>
         /// <param name="_Name">Name des Items</param>
         /// <param name="_Preis">Einzelpreis</param>
@@ -65,66 +73,19 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///Konstruktor
+        ///     Konstruktor
         /// </summary>
         public Item()
         {
         }
 
-        /// <summary>
-        /// (+1) erhöht die Anzahl der Items in diesem Item
-        /// </summary>
-        public void Erhöhen()
-        {
-            Anzahl++;
-        }
+        #endregion Constructors
 
-        /// <summary>
-        /// (+anz) erhöht die Anzahl der Items in diesem Item
-        /// </summary>
-        /// <param name="anz">Die Anzahl um die Erhöht werden soll</param>
-        public void Erhöhen(int anz)
-        {
-            Anzahl += anz;
-        }
-
-        /// <summary>
-        /// (=anz) setzt die Anzahl der Items in diesem Item
-        /// </summary>
-        /// <param name="anz">Die Anzahl auf die gesetzt werden soll</param>
-        public void SetzeAnzahl(int anz)
-        {
-            Anzahl = anz;
-        }
-
-        /// <summary>
-        /// (-1) reduziert die Anzahl der Items in diesem Item (wenn es dann leer ist, wird false zurückgegeben)
-        /// </summary>
-        /// <returns>Gibt zurück, ob Objektpacket leer ist, true = >0 Objekte , false = leer</returns>
-        public bool Verringern()
-        {
-            Anzahl--;
-            if (Anzahl <= 0) return false;
-            return true;
-        }
-
-        /// <summary>
-        /// (-anz) reduziert die Anzahl der Items in diesem Item (wenn es dann leer ist, wird false zurückgegeben)
-        /// </summary>
-        /// <param name="anz">die Anzahl um die verringert werden soll</param>
-        /// <returns>
-        /// Gibt zurück, ob Objektpacket leer ist, true = >0 Objekte , false = leer
-        /// </returns>
-        public bool Verringern(int anz)
-        {
-            Anzahl -= anz;
-            if (Anzahl <= 0) return false;
-            return true;
-        }
+        #region Methods
 
         // TODO ausfüllen
         /// <summary>
-        /// Erzeugt den Inhalt des Effektes aus einem String
+        ///     Erzeugt den Inhalt des Effektes aus einem String
         /// </summary>
         /// <param name="Text">der Text in dem der Effekt definiert ist</param>
         public static Item Laden(List<String> Text, ContentManager Content, Item Objekt)
@@ -147,21 +108,74 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Wandelt den Effekt zum Speichern in einen Text um
+        ///     (+1) erhöht die Anzahl der Items in diesem Item
+        /// </summary>
+        public void Erhöhen()
+        {
+            Anzahl++;
+        }
+
+        /// <summary>
+        ///     (+anz) erhöht die Anzahl der Items in diesem Item
+        /// </summary>
+        /// <param name="anz">Die Anzahl um die Erhöht werden soll</param>
+        public void Erhöhen(int anz)
+        {
+            Anzahl += anz;
+        }
+
+        /// <summary>
+        ///     (=anz) setzt die Anzahl der Items in diesem Item
+        /// </summary>
+        /// <param name="anz">Die Anzahl auf die gesetzt werden soll</param>
+        public void SetzeAnzahl(int anz)
+        {
+            Anzahl = anz;
+        }
+
+        /// <summary>
+        ///     Wandelt den Effekt zum Speichern in einen Text um
         /// </summary>
         /// <returns>Gibt den zu speichernden Text zurück</returns>
         public List<String> Speichern()
         {
-            List<String> data = new List<String>();
+            var data = new List<String>();
             data.Add("[ITEM]");
             data.Add("Name=" + Name);
-            data.Add("Preis=" + Preis.ToString());
-            data.Add("Typ=" + Typ.ToString());
-            data.Add("Anzahl=" + Anzahl.ToString());
+            data.Add("Preis=" + Preis);
+            data.Add("Typ=" + Typ);
+            data.Add("Anzahl=" + Anzahl);
             data.AddRange(Effekt.Speichern());
             data.Add("[/ITEM]");
 
             return data;
         }
+
+        /// <summary>
+        ///     (-1) reduziert die Anzahl der Items in diesem Item (wenn es dann leer ist, wird false zurückgegeben)
+        /// </summary>
+        /// <returns>Gibt zurück, ob Objektpacket leer ist, true = >0 Objekte , false = leer</returns>
+        public bool Verringern()
+        {
+            Anzahl--;
+            if (Anzahl <= 0) return false;
+            return true;
+        }
+
+        /// <summary>
+        ///     (-anz) reduziert die Anzahl der Items in diesem Item (wenn es dann leer ist, wird false zurückgegeben)
+        /// </summary>
+        /// <param name="anz">die Anzahl um die verringert werden soll</param>
+        /// <returns>
+        ///     Gibt zurück, ob Objektpacket leer ist, true = >0 Objekte , false = leer
+        /// </returns>
+        public bool Verringern(int anz)
+        {
+            Anzahl -= anz;
+            if (Anzahl <= 0) return false;
+            return true;
+        }
+
+        #endregion Methods
     }
 }

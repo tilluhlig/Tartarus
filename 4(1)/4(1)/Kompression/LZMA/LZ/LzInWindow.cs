@@ -1,71 +1,37 @@
 // LzInWindow.cs
 
 using System;
+using System.IO;
 
 namespace SevenZip.Compression.LZ
 {
     public class InWindow
     {
+        #region Fields
+
+        public UInt32 _blockSize;
         public Byte[] _bufferBase = null; // pointer to buffer with data
-        private System.IO.Stream _stream;
-        private UInt32 _posLimit; // offset (from _buffer) of first byte when new block reading must be done
-        private bool _streamEndWasReached; // if (true) then _streamPos shows real end of stream
-
-        private UInt32 _pointerToLastSafePosition;
-
         public UInt32 _bufferOffset;
 
-        public UInt32 _blockSize; // Size of Allocated memory block
-        public UInt32 _pos; // offset (from _buffer) of curent byte
-        private UInt32 _keepSizeBefore; // how many BYTEs must be kept in buffer before _pos
-        private UInt32 _keepSizeAfter; // how many BYTEs must be kept buffer after _pos
-        public UInt32 _streamPos; // offset (from _buffer) of first not read byte from Stream
+        // Size of Allocated memory block
+        private UInt32 _keepSizeAfter;
 
-        public void MoveBlock()
-        {
-            UInt32 offset = (UInt32)(_bufferOffset) + _pos - _keepSizeBefore;
-            // we need one additional byte, since MovePos moves on 1 byte.
-            if (offset > 0)
-                offset--;
+        // offset (from _buffer) of curent byte
+        private UInt32 _keepSizeBefore;
 
-            UInt32 numBytes = (UInt32)(_bufferOffset) + _streamPos - offset;
+        private UInt32 _pointerToLastSafePosition;
+        public UInt32 _pos;
+        private UInt32 _posLimit;
+        private Stream _stream;
 
-            // check negative offset ????
-            for (UInt32 i = 0; i < numBytes; i++)
-                _bufferBase[i] = _bufferBase[offset + i];
-            _bufferOffset -= offset;
-        }
+        // offset (from _buffer) of first byte when new block reading must be done
+        private bool _streamEndWasReached;
 
-        public virtual void ReadBlock()
-        {
-            if (_streamEndWasReached)
-                return;
-            while (true)
-            {
-                int size = (int)((0 - _bufferOffset) + _blockSize - _streamPos);
-                if (size == 0)
-                    return;
-                int numReadBytes = _stream.Read(_bufferBase, (int)(_bufferOffset + _streamPos), size);
-                if (numReadBytes == 0)
-                {
-                    _posLimit = _streamPos;
-                    UInt32 pointerToPostion = _bufferOffset + _posLimit;
-                    if (pointerToPostion > _pointerToLastSafePosition)
-                        _posLimit = (UInt32)(_pointerToLastSafePosition - _bufferOffset);
+        public UInt32 _streamPos;
 
-                    _streamEndWasReached = true;
-                    return;
-                }
-                _streamPos += (UInt32)numReadBytes;
-                if (_streamPos >= _pos + _keepSizeAfter)
-                    _posLimit = _streamPos - _keepSizeAfter;
-            }
-        }
+        #endregion Fields
 
-        private void Free()
-        {
-            _bufferBase = null;
-        }
+        #region Methods
 
         public void Create(UInt32 keepSizeBefore, UInt32 keepSizeAfter, UInt32 keepSizeReserv)
         {
@@ -81,14 +47,29 @@ namespace SevenZip.Compression.LZ
             _pointerToLastSafePosition = _blockSize - keepSizeAfter;
         }
 
-        public void SetStream(System.IO.Stream stream)
+        public Byte GetIndexByte(Int32 index)
         {
-            _stream = stream;
+            return _bufferBase[_bufferOffset + _pos + index];
         }
 
-        public void ReleaseStream()
+        // index + limit have not to exceed _keepSizeAfter;
+        public UInt32 GetMatchLen(Int32 index, UInt32 distance, UInt32 limit)
         {
-            _stream = null;
+            if (_streamEndWasReached)
+                if ((_pos + index) + limit > _streamPos)
+                    limit = _streamPos - (UInt32) (_pos + index);
+            distance++;
+            // Byte *pby = _buffer + (size_t)_pos + index;
+            UInt32 pby = _bufferOffset + _pos + (UInt32) index;
+
+            UInt32 i;
+            for (i = 0; i < limit && _bufferBase[pby + i] == _bufferBase[pby + i - distance]; i++) ;
+            return i;
+        }
+
+        public UInt32 GetNumAvailableBytes()
+        {
+            return _streamPos - _pos;
         }
 
         public void Init()
@@ -98,6 +79,21 @@ namespace SevenZip.Compression.LZ
             _streamPos = 0;
             _streamEndWasReached = false;
             ReadBlock();
+        }
+
+        public void MoveBlock()
+        {
+            UInt32 offset = _bufferOffset + _pos - _keepSizeBefore;
+            // we need one additional byte, since MovePos moves on 1 byte.
+            if (offset > 0)
+                offset--;
+
+            UInt32 numBytes = _bufferOffset + _streamPos - offset;
+
+            // check negative offset ????
+            for (UInt32 i = 0; i < numBytes; i++)
+                _bufferBase[i] = _bufferBase[offset + i];
+            _bufferOffset -= offset;
         }
 
         public void MovePos()
@@ -112,37 +108,60 @@ namespace SevenZip.Compression.LZ
             }
         }
 
-        public Byte GetIndexByte(Int32 index)
-        {
-            return _bufferBase[_bufferOffset + _pos + index];
-        }
-
-        // index + limit have not to exceed _keepSizeAfter;
-        public UInt32 GetMatchLen(Int32 index, UInt32 distance, UInt32 limit)
+        public virtual void ReadBlock()
         {
             if (_streamEndWasReached)
-                if ((_pos + index) + limit > _streamPos)
-                    limit = _streamPos - (UInt32)(_pos + index);
-            distance++;
-            // Byte *pby = _buffer + (size_t)_pos + index;
-            UInt32 pby = _bufferOffset + _pos + (UInt32)index;
+                return;
+            while (true)
+            {
+                var size = (int) ((0 - _bufferOffset) + _blockSize - _streamPos);
+                if (size == 0)
+                    return;
+                int numReadBytes = _stream.Read(_bufferBase, (int) (_bufferOffset + _streamPos), size);
+                if (numReadBytes == 0)
+                {
+                    _posLimit = _streamPos;
+                    UInt32 pointerToPostion = _bufferOffset + _posLimit;
+                    if (pointerToPostion > _pointerToLastSafePosition)
+                        _posLimit = _pointerToLastSafePosition - _bufferOffset;
 
-            UInt32 i;
-            for (i = 0; i < limit && _bufferBase[pby + i] == _bufferBase[pby + i - distance]; i++) ;
-            return i;
-        }
-
-        public UInt32 GetNumAvailableBytes()
-        {
-            return _streamPos - _pos;
+                    _streamEndWasReached = true;
+                    return;
+                }
+                _streamPos += (UInt32) numReadBytes;
+                if (_streamPos >= _pos + _keepSizeAfter)
+                    _posLimit = _streamPos - _keepSizeAfter;
+            }
         }
 
         public void ReduceOffsets(Int32 subValue)
         {
-            _bufferOffset += (UInt32)subValue;
-            _posLimit -= (UInt32)subValue;
-            _pos -= (UInt32)subValue;
-            _streamPos -= (UInt32)subValue;
+            _bufferOffset += (UInt32) subValue;
+            _posLimit -= (UInt32) subValue;
+            _pos -= (UInt32) subValue;
+            _streamPos -= (UInt32) subValue;
         }
+
+        public void ReleaseStream()
+        {
+            _stream = null;
+        }
+
+        public void SetStream(Stream stream)
+        {
+            _stream = stream;
+        }
+
+        private void Free()
+        {
+            _bufferBase = null;
+        }
+
+        #endregion Methods
+
+        // if (true) then _streamPos shows real end of stream
+        // how many BYTEs must be kept in buffer before _pos
+        // how many BYTEs must be kept buffer after _pos
+        // offset (from _buffer) of first not read byte from Stream
     }
 }

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,33 +19,39 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    /// die Klasse verwaltet Kurzmeldungen, auf dem Bildschirm für eine bestimmte Zeit
-    /// angezeigt werden
+    ///     die Klasse verwaltet Kurzmeldungen, auf dem Bildschirm für eine bestimmte Zeit
+    ///     angezeigt werden
     /// </summary>
     public static class Kurzmeldung
     {
-        /// <summary>
-        /// der Inhalt der Kurzmeldung / der Text
-        /// </summary>
-        private static List<string> Inhalt = new List<string>();
+        #region Fields
 
         /// <summary>
-        /// wielange die Kurzmeldung angezeigt werden soll, bevor sie verschwindet
+        ///     der Inhalt der Kurzmeldung / der Text
         /// </summary>
-        private static List<int> Lebenszeit = new List<int>();
+        private static readonly List<string> Inhalt = new List<string>();
 
         /// <summary>
-        /// die Position der Kurzmeldung
+        ///     wielange die Kurzmeldung angezeigt werden soll, bevor sie verschwindet
         /// </summary>
-        private static List<Vector2> Position = new List<Vector2>();
+        private static readonly List<int> Lebenszeit = new List<int>();
 
         /// <summary>
-        /// die Farbe des Textes
+        ///     die Position der Kurzmeldung
         /// </summary>
-        private static List<Color> Textfarbe = new List<Color>();
+        private static readonly List<Vector2> Position = new List<Vector2>();
 
         /// <summary>
-        /// Aktualisiert die Lebenszeit, Farbe und Position aller Kurzmeldungen
+        ///     die Farbe des Textes
+        /// </summary>
+        private static readonly List<Color> Textfarbe = new List<Color>();
+
+        #endregion Fields
+
+        #region Methods
+
+        /// <summary>
+        ///     Aktualisiert die Lebenszeit, Farbe und Position aller Kurzmeldungen
         /// </summary>
         public static void Aktualisieren()
         {
@@ -63,7 +70,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// fügt eine Kurzmeldung ein
+        ///     fügt eine Kurzmeldung ein
         /// </summary>
         /// <param name="_content">der Text</param>
         /// <param name="_pos">die Position</param>
@@ -77,7 +84,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// fügt eine Kurzmeldung ein
+        ///     fügt eine Kurzmeldung ein
         /// </summary>
         /// <param name="_content">der Text</param>
         /// <param name="_pos">die Position</param>
@@ -92,7 +99,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         /// <param name="font">The font.</param>
@@ -102,11 +109,12 @@ namespace _4_1_
         {
             for (int i = 0; i < Inhalt.Count; i++)
                 if (Position[i].X >= minX && Position[i].X <= maxX)
-                    spriteBatch.DrawString(font, Inhalt[i], new Vector2(Position[i].X - minX, Position[i].Y), Textfarbe[i]);
+                    spriteBatch.DrawString(font, Inhalt[i], new Vector2(Position[i].X - minX, Position[i].Y),
+                        Textfarbe[i]);
         }
 
         /// <summary>
-        /// entfernt eine bestimmte Kurzmeldung
+        ///     entfernt eine bestimmte Kurzmeldung
         /// </summary>
         /// <param name="i">die ID</param>
         private static void Entfernen(int i)
@@ -116,5 +124,7 @@ namespace _4_1_
             Lebenszeit.RemoveAt(i);
             Textfarbe.RemoveAt(i);
         }
+
+        #endregion Methods
     }
 }

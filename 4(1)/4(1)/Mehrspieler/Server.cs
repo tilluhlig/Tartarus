@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Hauptfenster;
 using Lidgren.Network;
 using Microsoft.Xna.Framework;
 
@@ -9,67 +10,15 @@ namespace _4_1_
 {
     public static class Server
     {
-        private static NetServer s_server;
+        #region Fields
+
         public static bool isRunning = false;
-        public static _4_1_.Spiel Spiel2 = null;
+        public static Spiel Spiel2 = null;
+        private static NetServer s_server;
 
-        public static void Setup()
-        {
-            // set up network
-            NetPeerConfiguration config = new NetPeerConfiguration("chat");
-            config.MaximumConnections = 100;
-            config.Port = 14242;
-            s_server = new NetServer(config);
-        }
+        #endregion Fields
 
-        public static int INT(String data)
-        {
-            return Convert.ToInt32(data);
-        }
-
-        public static double DOUBLE(String data)
-        {
-            return Convert.ToDouble(data);
-        }
-
-        public static void SendAll()
-        {
-            Server.Send("DELETEALLHAEUSER");
-            Server.Send("DELETEALLBAEUME");
-
-            for (int i = 0; i < Spiel2.Spielfeld.Length; i++)
-            {
-                String add = Convert.ToString(Spiel2.Spielfeld[i][0]);
-                for (int b = 1; b < Spiel2.Spielfeld[i].Count; b++)
-                {
-                    add = add + " " + Spiel2.Spielfeld[i][b];
-                }
-                Server.Send("KARTE " + i + " " + add);
-            }
-
-            Server.Send("UPDATEKARTE");
-            for (int i = 0; i < Spiel2.players.Length; i++)
-            {
-                for (int b = 0; b < Spiel2.players[i].pos.Count; b++)
-                {
-                    Server.Send("POS " + i + " " + b + " " + Spiel2.players[i].pos[b].X + " " + Spiel2.players[i].pos[b].Y);
-                    Server.Send("ROHRANGLE " + i + " " + b + " " + Spiel2.players[i].Angle[b]);
-                    Server.Send("VEHIKLEANGLE " + i + " " + b + " " + Spiel2.players[i].vehikleAngle[b]);
-                    Server.Send("OVERREACH " + i + " " + b + " " + Spiel2.players[i].overreach[b]);
-                    // Server.Send("FREEZED " + i + " " + b + " " + Spiel2.players[i].freezed[b]);
-                    Server.Send("HP " + i + " " + b + " " + Spiel2.players[i].hp[b]);
-                }
-                Server.Send("CREDITS " + i + " " + Spiel2.players[i].Credits);
-            }
-            Server.Send("CURRENTPLAYER " + Spiel2.CurrentPlayer);
-
-            for (int i = 0; i < Spiel2.Haeuser.Position.Count; i++)
-            {
-                Server.Send("ADDHAUS " + Spiel2.Haeuser.Position[i].X + " " + Spiel2.Haeuser.Position[i].Y + " " + Spiel2.Haeuser.HausTyp[i]);
-            }
-
-            Hauptfenster.Tausch.Output.Add("<ALL>");
-        }
+        #region Methods
 
         [STAThread]
         public static void Application_Idle(object sender, EventArgs e)
@@ -89,7 +38,7 @@ namespace _4_1_
                         break;
 
                     case NetIncomingMessageType.StatusChanged:
-                        NetConnectionStatus status = (NetConnectionStatus)im.ReadByte();
+                        var status = (NetConnectionStatus)im.ReadByte();
                         string reason = im.ReadString();
                         // Output(NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier) + " " + status + ": " + reason);
                         // Neuer hinzugefügt
@@ -109,7 +58,7 @@ namespace _4_1_
                         all.Remove(im.SenderConnection);
                         if (message[0].Length >= 2 && message[0].Substring(0, 2) == "<>")
                         {
-                            Hauptfenster.Tausch.Input.Add(message[0].Substring(2, message[0].Length - 2));
+                            Tausch.Input.Add(message[0].Substring(2, message[0].Length - 2));
                         }
 
                         if (message[0] == "LEFT") Spiel2.Current_Left();
@@ -120,36 +69,85 @@ namespace _4_1_
                         if (message[0] == "SHOT")
                         {
                             Spiel2.players[Spiel2.CurrentPlayer].shootingPower = INT(message[1]);
-                            Vector2 a = Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
+                            Vector2 a =
+                                Spiel2.players[Spiel2.CurrentPlayer].pos[
+                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
 
                             if (!Spiel2.increaseairstrike)
                             {
-                                if (Fahrzeugdaten.Shootable[Spiel2.players[Spiel2.CurrentPlayer].KindofTank[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank], Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
+                                if (
+                                    Fahrzeugdaten.Shootable[
+                                        Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
+                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
+                                        Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
                                 {
-                                    a.Y -= (float)Math.Sin(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 25;
-                                    a.X -= (float)Math.Cos(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
+                                    a.Y -=
+                                        (float)
+                                            Math.Sin(
+                                                Spiel2.players[Spiel2.CurrentPlayer].Angle[
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
+                                                Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 25;
+                                    a.X -=
+                                        (float)
+                                            Math.Cos(
+                                                Spiel2.players[Spiel2.CurrentPlayer].Angle[
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
+                                                Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
 
-                                    Vector2 up = new Vector2(0, -1);
-                                    Matrix rotMatrix = Matrix.CreateRotationZ(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] - (float)MathHelper.PiOver2);
+                                    var up = new Vector2(0, -1);
+                                    Matrix rotMatrix =
+                                        Matrix.CreateRotationZ(
+                                            Spiel2.players[Spiel2.CurrentPlayer].Angle[
+                                                Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
+                                            Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
+                                                Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] -
+                                            (float)MathHelper.PiOver2);
                                     Vector2 b = Vector2.Transform(up, rotMatrix);
-                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower / (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
+                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
+                                         (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
 
-                                    Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, a, b, 300 * 4, Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon, Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
+                                    Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, a, b, 300 * 4,
+                                        Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
+                                        Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
                                     //Program.game.CurrentMissle
 
                                     // abschuss rauch
-                                    a = Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
+                                    a =
+                                        Spiel2.players[Spiel2.CurrentPlayer].pos[
+                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
                                     //a.Y -= 25;
                                     //a.X += 25;
-                                    a.Y -= (float)Math.Sin(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 50;
-                                    a.X -= (float)Math.Cos(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
+                                    a.Y -=
+                                        (float)
+                                            Math.Sin(
+                                                Spiel2.players[Spiel2.CurrentPlayer].Angle[
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
+                                                Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 50;
+                                    a.X -=
+                                        (float)
+                                            Math.Cos(
+                                                Spiel2.players[Spiel2.CurrentPlayer].Angle[
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
+                                                Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
 
                                     up = new Vector2(0, -1);
-                                    rotMatrix = Matrix.CreateRotationZ(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] - (float)MathHelper.PiOver2);
+                                    rotMatrix =
+                                        Matrix.CreateRotationZ(
+                                            Spiel2.players[Spiel2.CurrentPlayer].Angle[
+                                                Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
+                                            Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
+                                                Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] -
+                                            (float)MathHelper.PiOver2);
                                     b = Vector2.Transform(up, rotMatrix);
-                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower / (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
+                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
+                                         (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
 
-                                    Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, a, 4, 50, 1800, Program.game.Time, new Vector3(0.7f, 1f, 1.2f), 0, 0);
+                                    Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, a, 4, 50, 1800,
+                                        Program.game.Time, new Vector3(0.7f, 1f, 1.2f), 0, 0);
 
                                     Spiel2.Missile[Spiel2.CurrentMissile].focused = true; //Program.game.CurrentMissle
                                     // Bsp.: Spiel2.Missile[CurrentMissle].Explosion(Spiel2.Spielfeld, screenHeight);
@@ -168,7 +166,11 @@ namespace _4_1_
                                 {
                                     Spiel2.increaseairstrike = false;
                                     Spiel2.increaseshot = false;
-                                    if (Fahrzeugdaten.Shootable[Spiel2.players[Spiel2.CurrentPlayer].KindofTank[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank], Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
+                                    if (
+                                        Fahrzeugdaten.Shootable[
+                                            Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
+                                                Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
+                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
                                     {
                                         a.X = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
                                         Spiel2.Airstrike(a, Spiel2.CurrentPlayer);
@@ -179,8 +181,14 @@ namespace _4_1_
                                 {
                                     // Abstand
                                     a.X = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
-                                    Spiel2.CurrentMissile = Spiel2.AddRakete(3, new Vector2(a.X, Spiel.rand.Next(-1100, -200)), new Vector2(Spiel.rand.Next(-100, 100) / 25, -1), 300 * 4, Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon, Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
-                                    if (Spiel2.CurrentMissile != -1) Spiel2.Missile[Spiel2.CurrentMissile].focused = true; //Program.game.CurrentMissle
+                                    Spiel2.CurrentMissile = Spiel2.AddRakete(3,
+                                        new Vector2(a.X, Spiel.rand.Next(-1100, -200)),
+                                        new Vector2(Spiel.rand.Next(-100, 100) / 25, -1), 300 * 4,
+                                        Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
+                                        Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
+                                    if (Spiel2.CurrentMissile != -1)
+                                        Spiel2.Missile[Spiel2.CurrentMissile].focused = true;
+                                    //Program.game.CurrentMissle
                                     Spiel2.players[Spiel2.CurrentPlayer].shootingPower = 2;
                                     Spiel2.increaseairstrike = false;
                                     Spiel2.increaseshot = false;
@@ -204,6 +212,16 @@ namespace _4_1_
             }
         }
 
+        public static double DOUBLE(String data)
+        {
+            return Convert.ToDouble(data);
+        }
+
+        public static int INT(String data)
+        {
+            return Convert.ToInt32(data);
+        }
+
         public static void Send(String chat)
         {
             List<NetConnection> all = s_server.Connections; // get copy
@@ -215,13 +233,60 @@ namespace _4_1_
             }
         }
 
-        private static void UpdateConnectionsList()
+        public static void SendAll()
         {
-            foreach (NetConnection conn in s_server.Connections)
+            Send("DELETEALLHAEUSER");
+            Send("DELETEALLBAEUME");
+
+            for (int i = 0; i < Spiel2.Spielfeld.Length; i++)
             {
-                string str = NetUtility.ToHexString(conn.RemoteUniqueIdentifier) + " from " + conn.RemoteEndpoint.ToString() + " [" + conn.Status + "]";
-                // s_form.listBox1.Items.Add(str);
+                String add = Convert.ToString(Spiel2.Spielfeld[i][0]);
+                for (int b = 1; b < Spiel2.Spielfeld[i].Count; b++)
+                {
+                    add = add + " " + Spiel2.Spielfeld[i][b];
+                }
+                Send("KARTE " + i + " " + add);
             }
+
+            Send("UPDATEKARTE");
+            for (int i = 0; i < Spiel2.players.Length; i++)
+            {
+                for (int b = 0; b < Spiel2.players[i].pos.Count; b++)
+                {
+                    Send("POS " + i + " " + b + " " + Spiel2.players[i].pos[b].X + " " + Spiel2.players[i].pos[b].Y);
+                    Send("ROHRANGLE " + i + " " + b + " " + Spiel2.players[i].Angle[b]);
+                    Send("VEHIKLEANGLE " + i + " " + b + " " + Spiel2.players[i].vehikleAngle[b]);
+                    Send("OVERREACH " + i + " " + b + " " + Spiel2.players[i].overreach[b]);
+                    // Server.Send("FREEZED " + i + " " + b + " " + Spiel2.players[i].freezed[b]);
+                    Send("HP " + i + " " + b + " " + Spiel2.players[i].hp[b]);
+                }
+                Send("CREDITS " + i + " " + Spiel2.players[i].Credits);
+            }
+            Send("CURRENTPLAYER " + Spiel2.CurrentPlayer);
+
+            for (int i = 0; i < Spiel2.Haeuser.Position.Count; i++)
+            {
+                Send("ADDHAUS " + Spiel2.Haeuser.Position[i].X + " " + Spiel2.Haeuser.Position[i].Y + " " +
+                     Spiel2.Haeuser.HausTyp[i]);
+            }
+
+            Tausch.Output.Add("<ALL>");
+        }
+
+        public static void Setup()
+        {
+            // set up network
+            var config = new NetPeerConfiguration("chat");
+            config.MaximumConnections = 100;
+            config.Port = 14242;
+            s_server = new NetServer(config);
+        }
+
+        // called by the UI
+        public static void Shutdown()
+        {
+            s_server.Shutdown("Requested by user");
+            isRunning = false;
         }
 
         public static void StartServer()
@@ -231,11 +296,16 @@ namespace _4_1_
             isRunning = true;
         }
 
-        // called by the UI
-        public static void Shutdown()
+        private static void UpdateConnectionsList()
         {
-            s_server.Shutdown("Requested by user");
-            isRunning = false;
+            foreach (NetConnection conn in s_server.Connections)
+            {
+                string str = NetUtility.ToHexString(conn.RemoteUniqueIdentifier) + " from " + conn.RemoteEndpoint + " [" +
+                             conn.Status + "]";
+                // s_form.listBox1.Items.Add(str);
+            }
         }
+
+        #endregion Methods
     }
 }

@@ -7,22 +7,20 @@ namespace _4_1_
 {
     public static class KleinesMenu
     {
+        #region Fields
+
+        public static bool sichtbar = false;
         public static Minimenu test;
         private static bool first = true;
-        public static bool sichtbar = false;
 
-        public static void init(GraphicsDevice graphicsDevice)
+        #endregion Fields
+
+        #region Methods
+
+        public static void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Vector2 Fenster)
         {
-            List<string> Inhalt = new List<string>();
-            Inhalt.Add("Entferne Notiz");
-
-            test = new Minimenu(Inhalt, Texturen.font4, graphicsDevice, -1, Color.SteelBlue, Color.Black, Color.Goldenrod, Color.White);
-        }
-
-        public static void show(Vector2 Pos, int target)
-        {
-            sichtbar = true;
-            test.show(Pos, target);
+            if (!sichtbar) return;
+            test.Draw(spriteBatch, graphicsDevice, Fenster, false);
         }
 
         public static void hide()
@@ -30,10 +28,13 @@ namespace _4_1_
             sichtbar = false;
         }
 
-        public static void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Vector2 Fenster)
+        public static void init(GraphicsDevice graphicsDevice)
         {
-            if (!sichtbar) return;
-            test.Draw(spriteBatch, graphicsDevice, Fenster, false);
+            var Inhalt = new List<string>();
+            Inhalt.Add("Entferne Notiz");
+
+            test = new Minimenu(Inhalt, Texturen.font4, graphicsDevice, -1, Color.SteelBlue, Color.Black,
+                Color.Goldenrod, Color.White);
         }
 
         public static void MouseKeys(GraphicsDevice graphicsDevice, Notizen notiz, MouseState oldmouseState)
@@ -50,7 +51,12 @@ namespace _4_1_
             {
                 case 0:
                     {
-                        if (test.target > -1) { notiz.delNotiz(test.target); test.target = -1; test.sichtbar = false; }
+                        if (test.target > -1)
+                        {
+                            notiz.delNotiz(test.target);
+                            test.target = -1;
+                            test.sichtbar = false;
+                        }
                         return;
                     }
                 case 1:
@@ -64,8 +70,17 @@ namespace _4_1_
                         //notiz.AddNotiz(graphicsDevice, temp, "Neuer Eintrag");
                         return;
                     }
-                default: break;
+                default:
+                    break;
             }
         }
+
+        public static void show(Vector2 Pos, int target)
+        {
+            sichtbar = true;
+            test.show(Pos, target);
+        }
+
+        #endregion Methods
     }
 }

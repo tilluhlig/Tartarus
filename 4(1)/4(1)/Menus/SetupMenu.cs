@@ -11,41 +11,43 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
+#region Using Statements
+
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-#region Using Statements
-
-using System.Windows.Forms; // This class exposes WinForms-style key events.
+// This class exposes WinForms-style key events.
 
 #endregion Using Statements
 
 namespace _4_1_
 {
     /// <summary>
-    /// Class SetupMenu
+    ///     Class SetupMenu
     /// </summary>
     public class SetupMenu
     {
         #region vars
 
         /// <summary>
-        /// The font
+        ///     The font
         /// </summary>
-        private SpriteFont font;
+        private readonly SpriteFont font;
 
         /// <summary>
-        /// The selected
+        ///     The selected
         /// </summary>
         private Color selected;
 
         //private Vector2[] pos;              //Array mit allen Menüpositionen
         /// <summary>
-        /// The unselected
+        ///     The unselected
         /// </summary>
-        private Color unselected;           //Farbe der aktuell nicht ausgewählten Einträge
+        private Color unselected; //Farbe der aktuell nicht ausgewählten Einträge
 
         //Farbe des ausgewählten Eintrages
 
@@ -53,109 +55,115 @@ namespace _4_1_
 
         #endregion vars
 
+        #region Fields
+
         /// <summary>
-        /// The lokal
+        ///     The lokal
         /// </summary>
         public bool lokal = false;
 
         /// <summary>
-        /// The visible
+        ///     The visible
         /// </summary>
         public bool visible = false;
 
         /// <summary>
-        /// The buttons
+        ///     The buttons
         /// </summary>
-        private List<Button> buttons = new List<Button>();
+        private readonly List<Button> buttons = new List<Button>();
+
+        /// <summary>
+        ///     The screen height
+        /// </summary>
+        private readonly int screenHeight;
+
+        /// <summary>
+        ///     The screen width
+        /// </summary>
+        private readonly int screenWidth;
+
+        /// <summary>
+        ///     The text boxen
+        /// </summary>
+        private readonly List<Textfeld> textBoxen = new List<Textfeld>();
+
+        /// <summary>
+        ///     The tickbox lokal
+        /// </summary>
+        private readonly TickBox TickboxLokal;
 
         //Passwort andern
         /// <summary>
-        /// The current passwort
+        ///     The current passwort
         /// </summary>
         private Textfeld CurrentPasswort;
 
         /// <summary>
-        /// The e mail
+        ///     The e mail
         /// </summary>
         private Textfeld eMail;
 
         /// <summary>
-        /// The login button
+        ///     The login button
         /// </summary>
         private Button LoginButton;
 
         /// <summary>
-        /// The new passwort
+        ///     The new passwort
         /// </summary>
         private Textfeld NewPasswort;
 
         /// <summary>
-        /// The passwort
+        ///     The passwort
         /// </summary>
         private Textfeld Passwort;
 
         /// <summary>
-        /// The passwort bestatigen
+        ///     The passwort bestatigen
         /// </summary>
         private Textfeld passwortBestatigen;
 
         /// <summary>
-        /// The passwortbestatigen
+        ///     The passwortbestatigen
         /// </summary>
         private Textfeld Passwortbestatigen;
 
         /// <summary>
-        /// The screen height
-        /// </summary>
-        private int screenHeight;
-
-        /// <summary>
-        /// The screen width
-        /// </summary>
-        private int screenWidth;
-
-        /// <summary>
-        /// The set
+        ///     The set
         /// </summary>
         private Button set;
 
         /// <summary>
-        /// The set passwort
+        ///     The set passwort
         /// </summary>
         private Textfeld setPasswort;
 
         /// <summary>
-        /// The set player
+        ///     The set player
         /// </summary>
         private Button SetPlayer;
 
         //Spieler einloggen
         /// <summary>
-        /// The spieler
+        ///     The spieler
         /// </summary>
         private Textfeld Spieler;
 
         //neuer Spieler
         /// <summary>
-        /// The spieler name
+        ///     The spieler name
         /// </summary>
         private Textfeld spielerName;
 
-        /// <summary>
-        /// The text boxen
-        /// </summary>
-        private List<Textfeld> textBoxen = new List<Textfeld>();
+        #endregion Fields
 
-        /// <summary>
-        /// The tickbox lokal
-        /// </summary>
-        private TickBox TickboxLokal;
+        #region Constructors
 
         //
         //Constructor des Menüs
         //Initialisiert Standardwerte
         /// <summary>
-        /// Initializes a new instance of the <see cref="SetupMenu"/> class.
+        ///     Initializes a new instance of the <see cref="SetupMenu" /> class.
         /// </summary>
         /// <param name="unselectedColor">Color of the unselected.</param>
         /// <param name="selectedColor">Color of the selected.</param>
@@ -203,15 +211,20 @@ namespace _4_1_
             TickboxLokal = new TickBox(Color.Gold, Color.White, new Vector2(300, 20), 0.7f, false);
         }
 
+        #endregion Constructors
+
+        #region Methods
+
         /// <summary>
-        /// Draws the specified sprite batch.
+        ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!visible) return;
             //Durchläuft alle Menüpunkte und zeichnet den Menüpunkt mit den entsprechenden Eigenschaften
-            spriteBatch.Draw(Texturen.pregamemenu, new Vector2(screenWidth / 2 - Texturen.pregamemenu.Width / 2, screenHeight / 2 - Texturen.pregamemenu.Height / 2),
+            spriteBatch.Draw(Texturen.pregamemenu,
+                new Vector2(screenWidth / 2 - Texturen.pregamemenu.Width / 2, screenHeight / 2 - Texturen.pregamemenu.Height / 2),
                 Color.White);
 
             //zeichne Einloggenmenu
@@ -231,7 +244,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Hides this instance.
+        ///     Hides this instance.
         /// </summary>
         public void hide()
         {
@@ -244,7 +257,7 @@ namespace _4_1_
         //Methode zum Erstellen eines neuen Menüeintrages
         //Übergibt den Namen und Position
         /// <summary>
-        /// Mouses the keys.
+        ///     Mouses the keys.
         /// </summary>
         /// <param name="mouseState">State of the mouse.</param>
         /// <param name="spriteBatch">The sprite batch.</param>
@@ -264,10 +277,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Called when [key press].
+        ///     Called when [key press].
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="KeyPressEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!visible) return;
@@ -276,7 +289,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Shows this instance.
+        ///     Shows this instance.
         /// </summary>
         public void show()
         {
@@ -285,5 +298,7 @@ namespace _4_1_
             for (int i = 0; i < buttons.Count; i++) buttons[i].show();
             TickboxLokal.Anzeigen();
         }
+
+        #endregion Methods
     }
 }

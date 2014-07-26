@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -18,17 +19,24 @@ using Microsoft.Xna.Framework;
 namespace _4_1_
 {
     /// <summary>
-    /// Diese Klasse stellt Funktionen zur Verwaltung des Kartenformats zur verfügung
+    ///     Diese Klasse stellt Funktionen zur Verwaltung des Kartenformats zur verfügung
     /// </summary>
     public static class Kartenformat
     {
+        #region Fields
+
         /// <summary>
-        /// Diese Konstante wird für Berechnungen innerhalb des Kartenformats benötigt (gibt größe der Abschnitte an)
+        ///     Diese Konstante wird für Berechnungen innerhalb des Kartenformats benötigt (gibt größe der Abschnitte an)
         /// </summary>
         private static int MapFaktor = 4096;
 
+        #endregion Fields
+
+        #region Methods
+
         /// <summary>
-        /// Gibt die nächste y Koordinate aus, an der es zu einer Kollision kommt (sucht nach unten, wenn in Material, dann nach oben), nutzt Spielfeld
+        ///     Gibt die nächste y Koordinate aus, an der es zu einer Kollision kommt (sucht nach unten, wenn in Material, dann
+        ///     nach oben), nutzt Spielfeld
         /// </summary>
         /// <param name="x">x Koordiante</param>
         /// <param name="y">y Koordiante</param>
@@ -39,7 +47,8 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gibt die nächste y Koordinate aus, an der es zu einer Kollision kommt (sucht nach unten, wenn in Material: dann nach oben), nutzt Spielfeld
+        ///     Gibt die nächste y Koordinate aus, an der es zu einer Kollision kommt (sucht nach unten, wenn in Material: dann
+        ///     nach oben), nutzt Spielfeld
         /// </summary>
         /// <param name="pos">Die zu prüfende Position</param>
         /// <returns>gibt die gesuchte y Koordinate zurück</returns>
@@ -49,7 +58,8 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gibt die nächste y Koordinate aus, an der es zu einer Kollision kommt (sucht nach unten, wenn in Material, dann nach oben)
+        ///     Gibt die nächste y Koordinate aus, an der es zu einer Kollision kommt (sucht nach unten, wenn in Material, dann
+        ///     nach oben)
         /// </summary>
         /// <param name="array">das Spielfeld im Kartenformat</param>
         /// <param name="x">x Koordiante</param>
@@ -63,7 +73,11 @@ namespace _4_1_
 
             for (int i = 0; i < array[(int)x].Count; i++)
             {
-                if (!Karte.Material[Material(array[(int)x][i])].Kollision) { last = 0; } else last += Laenge(array[(int)x][i]);
+                if (!Karte.Material[Material(array[(int)x][i])].Kollision)
+                {
+                    last = 0;
+                }
+                else last += Laenge(array[(int)x][i]);
                 sum += Laenge(array[(int)x][i]);
                 if (y < sum)
                 {
@@ -84,7 +98,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Löscht einen Abschnitt und setzt dabei die nächste Materialsorte
+        ///     Löscht einen Abschnitt und setzt dabei die nächste Materialsorte
         /// </summary>
         /// <param name="array">das Array mit den Kartendaten</param>
         /// <param name="x">x Koordiante</param>
@@ -97,7 +111,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Löscht einen Abschnitt und setzt dabei die nächste Materialsorte (nutzt Spielfeld)
+        ///     Löscht einen Abschnitt und setzt dabei die nächste Materialsorte (nutzt Spielfeld)
         /// </summary>
         /// <param name="x">x Koordiante</param>
         /// <param name="y1">y1 Koordiante</param>
@@ -109,7 +123,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gibt das Material an der Position zurück (nutzt Spielfeld)
+        ///     Gibt das Material an der Position zurück (nutzt Spielfeld)
         /// </summary>
         /// <param name="Pos">Die Position</param>
         /// <returns>Gibt die ID des Materials zurück</returns>
@@ -119,7 +133,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gibt das Material an der Position zurück (nutzt Spielfeld)
+        ///     Gibt das Material an der Position zurück (nutzt Spielfeld)
         /// </summary>
         /// <param name="x">die x-Koordinate</param>
         /// <param name="y">die y-Koordinate</param>
@@ -130,7 +144,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Gibt das Material an der Position zurück
+        ///     Gibt das Material an der Position zurück
         /// </summary>
         /// <param name="array">Spielfeld im Kartenformat</param>
         /// <param name="x">die x-Koordinate</param>
@@ -138,7 +152,7 @@ namespace _4_1_
         /// <returns>Gibt die ID des Materials zurück</returns>
         public static int GetMaterial(List<UInt16>[] array, float x, float y)
         {
-            int x2 = (int)Spiel.Position(x);
+            var x2 = (int)Spiel.Position(x);
             int sum = 0;
             for (int i = 0; i < array[x2].Count; i++)
             {
@@ -152,7 +166,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Prüft, ob eine Koordinate eine Kollision verursacht (ist gesetzt?)
+        ///     Prüft, ob eine Koordinate eine Kollision verursacht (ist gesetzt?)
         /// </summary>
         /// <param name="x">x Koordinate</param>
         /// <param name="y">y Koordinate</param>
@@ -163,7 +177,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Prüft, ob eine Koordinate eine Kollision verursacht (ist gesetzt?)
+        ///     Prüft, ob eine Koordinate eine Kollision verursacht (ist gesetzt?)
         /// </summary>
         /// <param name="array">das Array im kartenformat</param>
         /// <param name="x">x Koordinate</param>
@@ -186,7 +200,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Prüft, ob eine Koordinate eine Kollision verursacht (ist gesetzt?), nutzt Spielfeld
+        ///     Prüft, ob eine Koordinate eine Kollision verursacht (ist gesetzt?), nutzt Spielfeld
         /// </summary>
         /// <param name="pos">Die Position die geprüft werden soll</param>
         /// <returns>true = Position x,y verursacht Kollision</returns>
@@ -196,7 +210,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Berechnet aus einem Wert des Kartenformats die Länge des Abschnitts
+        ///     Berechnet aus einem Wert des Kartenformats die Länge des Abschnitts
         /// </summary>
         /// <param name="Zahl">der Wert</param>
         /// <returns>gibt die Länge zurück</returns>
@@ -206,7 +220,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///  Berechnet aus einem Wert des Kartenformats die Länge des Abschnitts
+        ///     Berechnet aus einem Wert des Kartenformats die Länge des Abschnitts
         /// </summary>
         /// <param name="Zahl">der Wert</param>
         /// <returns>gibt die Länge zurück</returns>
@@ -216,7 +230,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Setzt einen Abschnitt auf eine Materialsorte (nutzt Spielfeld)
+        ///     Setzt einen Abschnitt auf eine Materialsorte (nutzt Spielfeld)
         /// </summary>
         /// <param name="x">x Koordiante</param>
         /// <param name="y1">y1 Koordiante</param>
@@ -229,7 +243,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Setzt einen Abschnitt auf eine Materialsorte
+        ///     Setzt einen Abschnitt auf eine Materialsorte
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="x">x Koordiante</param>
@@ -239,16 +253,24 @@ namespace _4_1_
         /// <returns>Gibt die Bereiche zurück, die neu gezeichnet werden müssen</returns>
         public static List<Vector3> SetMaterialFromTo(List<UInt16>[] array, int x, int y1, int y2, int MaterialSorte)
         {
-            List<Vector3> list = new List<Vector3>();
+            var list = new List<Vector3>();
             if (x >= array.Length) return list;
             if (x < 0) return list;
-            if (y1 > y2) { int temp = y1; y1 = y2; y2 = temp; }
+            if (y1 > y2)
+            {
+                int temp = y1;
+                y1 = y2;
+                y2 = temp;
+            }
             if (y1 < 0) y1 = 0;
             if (y2 > Game1.screenHeight) y2 = Game1.screenHeight;
 
             int sum = 0;
             int last = 0;
-            int sum1 = 0; int sum2 = 0; int last1 = 0; int last2 = 0;
+            int sum1 = 0;
+            int sum2 = 0;
+            int last1 = 0;
+            int last2 = 0;
             int a = -1;
             int b = -1;
             for (int i = 0; i < array[x].Count; i++)
@@ -279,22 +301,24 @@ namespace _4_1_
                 // entferne
                 if (a == b) // befinden sich im selben Bereich
                 {
-                    if (Material(array[x][a]) == MaterialSorte || (MaterialSorte == -1 && Material(array[x][a]) == Karte.LUFT)) // ist bereits das Material
+                    if (Material(array[x][a]) == MaterialSorte ||
+                        (MaterialSorte == -1 && Material(array[x][a]) == Karte.LUFT)) // ist bereits das Material
                     {
                         // brauche nichts ändern
                         return list;
                     }
-                    else
-                    {     // ist anderes Material
-                        float fakt2 = Material(array[x][a]) * MapFaktor;
-                        fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][a])].FolgeID : MaterialSorte) * MapFaktor;
-                        array[x].Insert(a + 1, (UInt16)((sum2 - y2) + fakt2)); b++;
-                        array[x].Insert(a + 1, (UInt16)((y2 - y1) + fakt));
-                        array[x].Insert(a + 1, (UInt16)((y1 - last1) + fakt2)); b++;
-                        array[x].RemoveAt(a);
+                    // ist anderes Material
+                    float fakt2 = Material(array[x][a]) * MapFaktor;
+                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][a])].FolgeID : MaterialSorte) *
+                           MapFaktor;
+                    array[x].Insert(a + 1, (UInt16)((sum2 - y2) + fakt2));
+                    b++;
+                    array[x].Insert(a + 1, (UInt16)((y2 - y1) + fakt));
+                    array[x].Insert(a + 1, (UInt16)((y1 - last1) + fakt2));
+                    b++;
+                    array[x].RemoveAt(a);
 
-                        list.Add(new Vector3(x, y1, y2));
-                    }
+                    list.Add(new Vector3(x, y1, y2));
                 }
                 else
                 {
@@ -302,25 +326,34 @@ namespace _4_1_
                     int anz = sum1 - y1;
                     int old = sum1;
 
-                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][a])].FolgeID : MaterialSorte) * MapFaktor;
-                    if ((MaterialSorte == -1 && Material(array[x][a]) != Karte.Material[Material(array[x][a])].FolgeID) || MaterialSorte != Material(array[x][a])) list.Add(new Vector3(x, y1, sum1));
+                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][a])].FolgeID : MaterialSorte) *
+                           MapFaktor;
+                    if ((MaterialSorte == -1 && Material(array[x][a]) != Karte.Material[Material(array[x][a])].FolgeID) ||
+                        MaterialSorte != Material(array[x][a])) list.Add(new Vector3(x, y1, sum1));
                     array[x][a] = (UInt16)(array[x][a] - anz);
-                    array[x].Insert(a + 1, (UInt16)(anz + fakt)); b++;
+                    array[x].Insert(a + 1, (UInt16)(anz + fakt));
+                    b++;
 
                     // b bearbeiten
                     anz = y2 - last2;
-                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][b])].FolgeID : MaterialSorte) * MapFaktor;
+                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][b])].FolgeID : MaterialSorte) *
+                           MapFaktor;
                     array[x].Insert(b, (UInt16)(anz + fakt));
-                    array[x][b + 1] = (UInt16)(array[x][b + 1] - anz); b++;
-                    if ((MaterialSorte == -1 && Material(array[x][b]) != Karte.Material[Material(array[x][b])].FolgeID) || MaterialSorte != Material(array[x][b])) list.Add(new Vector3(x, last2, y2));
+                    array[x][b + 1] = (UInt16)(array[x][b + 1] - anz);
+                    b++;
+                    if ((MaterialSorte == -1 && Material(array[x][b]) != Karte.Material[Material(array[x][b])].FolgeID) ||
+                        MaterialSorte != Material(array[x][b])) list.Add(new Vector3(x, last2, y2));
 
                     int summe = old;
                     bool change = false;
-                    if ((MaterialSorte == -1 && Material(array[x][a + 2]) != Karte.Material[Material(array[x][a + 2])].FolgeID) || MaterialSorte != Material(array[x][a + 2])) change = true;
+                    if ((MaterialSorte == -1 &&
+                         Material(array[x][a + 2]) != Karte.Material[Material(array[x][a + 2])].FolgeID) ||
+                        MaterialSorte != Material(array[x][a + 2])) change = true;
                     for (int i = a + 2; i < b - 1; i++)
                     {
                         summe += Laenge(array[x][i]);
-                        fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][i])].FolgeID : MaterialSorte) * MapFaktor;
+                        fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][i])].FolgeID : MaterialSorte) *
+                               MapFaktor;
                         array[x][i] = (UInt16)((Laenge(array[x][i]) + fakt));
                     }
                     if (change) list.Add(new Vector3(x, old, summe)); //if (change)
@@ -348,7 +381,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Berechent aus einer Material-ID den Sortenfaktor (array[i] = 5 * SortenFaktor(Stein))
+        ///     Berechent aus einer Material-ID den Sortenfaktor (array[i] = 5 * SortenFaktor(Stein))
         /// </summary>
         /// <param name="sorte">die ID des Materials</param>
         /// <returns>gibt den Faktor zurück</returns>
@@ -356,5 +389,7 @@ namespace _4_1_
         {
             return sorte * MapFaktor;
         }
+
+        #endregion Methods
     }
 }
