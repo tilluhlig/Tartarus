@@ -254,7 +254,7 @@ namespace _4_1_
         /// <summary>
         ///     The freeze
         /// </summary>
-        public static Texture2D freeze;
+        /// public static Texture2D freeze;
 
         /// <summary>
         ///     The fuel
@@ -264,7 +264,7 @@ namespace _4_1_
         /// <summary>
         ///     The geld
         /// </summary>
-        public static Texture2D Geld;
+        ///public static Texture2D Geld;
 
         /// <summary>
         ///     The haus
@@ -284,7 +284,7 @@ namespace _4_1_
         /// <summary>
         ///     The hp status
         /// </summary>
-        public static Texture2D HpStatus;
+        ///public static Texture2D HpStatus;
 
         /// <summary>
         ///     The spielerkennzeichnung
@@ -675,7 +675,7 @@ namespace _4_1_
             Bilddateien.Add("leer", 0.25f);
             LeeresFeld = Content.Load<Texture2D>("Textures\\leer");
 
-            freeze = Content.Load<Texture2D>("Textures\\freeze");
+            //freeze = Content.Load<Texture2D>("Textures\\freeze");
 
             Bilddateien.Add("alt_oben", 0.25f);
             nachOben = Content.Load<Texture2D>("Textures\\alt_oben");
@@ -1109,14 +1109,14 @@ namespace _4_1_
             else
                 for (int i = 0; i < baum.Count(); i++) baum[i] = null;
 
-            Bilddateien.Add("geldbutton", 0.25f);
-            Geld = Content.Load<Texture2D>("Textures\\geldbutton");
+            ///Bilddateien.Add("geldbutton", 0.25f);
+            ///Geld = Content.Load<Texture2D>("Textures\\geldbutton");
 
             Bilddateien.Add("lvupbutton", 0.25f);
             Exp = Content.Load<Texture2D>("Textures\\lvupbutton");
 
-            Bilddateien.Add("hpstatusbutton", 0.25f);
-            HpStatus = Content.Load<Texture2D>("Textures\\hpstatusbutton");
+            ///Bilddateien.Add("hpstatusbutton", 0.25f);
+            ///HpStatus = Content.Load<Texture2D>("Textures\\hpstatusbutton");
 
             Bilddateien.Add("fuel", 0.25f);
             fuel = Content.Load<Texture2D>("Textures\\fuel");

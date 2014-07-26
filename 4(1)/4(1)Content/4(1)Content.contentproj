@@ -339,11 +339,6 @@
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="Textures\freeze.png">
-      <Name>freeze</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Textures\geschoss.png">
       <Name>geschoss</Name>
       <Importer>TextureImporter</Importer>
@@ -689,16 +684,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\geldbutton.png">
-      <Name>geldbutton</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\hpstatusbutton.png">
-      <Name>hpstatusbutton</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Textures\fuel.png">
       <Name>fuel</Name>
       <Importer>TextureImporter</Importer>
