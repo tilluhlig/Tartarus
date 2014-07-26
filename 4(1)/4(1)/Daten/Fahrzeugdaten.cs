@@ -64,19 +64,19 @@ namespace _4_1_
         public static Var<int[]> ARBEITSBEREICH = new Var<int[]>("ARBEITSBEREICH", new[] { 1000, 1000, 1000, 1000, 0, 0 });
 
         /// <summary>
+        ///     wie viel Maximalgesundheit welcher Art von Fahrzeug zustehen
+        /// </summary>
+        public static Var<int[]> _MAXHP = new Var<int[]>("_MAXHP", new[] { 10000, 10000, 10000, 5000, 5000, 5000 });
+
+        /// <summary>
         ///     gibt an, wieviel Exp bei Abschuss dieses Fahrzeugs gibt
         /// </summary>
-        public static int[] ExpRewarded = new int[MAXHP.Wert.Count()];
+        public static int[] ExpRewarded = new int[_MAXHP.Wert.Count()];
 
         /// <summary>
         ///     Enthält, wieviel Erfahrung für die Zerstörung des Fahrzeugtyps zusteht
         /// </summary>
         public static Var<int[]> EXPREWARDED = new Var<int[]>("EXPREWARDED", new[] { 80, 90, 70, 60, 60, 60 });
-
-        /// <summary>
-        ///     gibt an, wieviel Exp das Fahrzeug braucht, um ein Level aufzusteigen
-        /// </summary>
-        public static int[,] ExpToLvUp = new int[MAXHP.Wert.Count(), EXPTOLVUP0.Wert.Count()];
 
         /// <summary>
         ///     Enthält, wieviel Erfahrung die ARTILLERIE braucht, um die nächste Stufe aufzusteigen
@@ -113,6 +113,11 @@ namespace _4_1_
         ///     Jeweils für Stufe 1, 2 und 3
         /// </summary>
         public static Var<int[]> EXPTOLVUP5 = new Var<int[]>("EXPTOLVUP5", new[] { 100, 100, 100 });
+
+        /// <summary>
+        ///     gibt an, wieviel Exp das Fahrzeug braucht, um ein Level aufzusteigen
+        /// </summary>
+        public static int[,] ExpToLvUpVar = new int[_MAXHP.Wert.Count(), EXPTOLVUP0.Wert.Count()];
 
         /// <summary>
         ///     Gibt an, wo bei den Fahrzeug die Mitte ist
@@ -215,15 +220,10 @@ namespace _4_1_
             });
 
         /// <summary>
-        ///     wie viel Maximalgesundheit welcher Art von Fahrzeug zustehen
-        /// </summary>
-        public static Var<int[]> MAXHP = new Var<int[]>("MAXHP", new[] { 10000, 10000, 10000, 5000, 5000, 5000 });
-
-        /// <summary>
         ///     Die Maske des Fahrzeugs zur Schadensbestimmung (pro Fahrzeugtyp), wird in nicht genutzter Fahrlogik verwendet
         ///     (! keine Verwendung)
         /// </summary>
-        public static Vector2[][] Messpunkte = new Vector2[MAXHP.Wert.Count()][];
+        public static Vector2[][] Messpunkte = new Vector2[_MAXHP.Wert.Count()][];
 
         /// <summary>
         ///     Enthält die Kosten eines neuen Fahrzeugs dieser Art
@@ -284,11 +284,6 @@ namespace _4_1_
         public static Var<float[]> SCALER = new Var<float[]>("SCALER", new[] { 0.25f, 0.19f, 0.32f, 0.11f, 0.45f, 0.45f });
 
         /// <summary>
-        ///     Beinhaltet die verschießbare Munition (alle Fahrzeuge, alle Munitionsarten)
-        /// </summary>
-        public static int[,] Shootable = new int[MAXHP.Wert.Count(), SHOOTABLE0.Wert.Count()];
-
-        /// <summary>
         ///     Enthält, welche Muntionsklassen von der ARTILLERIE verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE0 = new Var<int[]>("SHOOTABLE0",
@@ -323,6 +318,11 @@ namespace _4_1_
         /// </summary>
         public static Var<int[]> SHOOTABLE5 = new Var<int[]>("SHOOTABLE5",
             new[] { 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+
+        /// <summary>
+        ///     Beinhaltet die verschießbare Munition (alle Fahrzeuge, alle Munitionsarten)
+        /// </summary>
+        public static int[,] ShootableAmmunition = new int[_MAXHP.Wert.Count(), SHOOTABLE0.Wert.Count()];
 
         /// <summary>
         ///     Id des Blubb-Sounds, der benutz wird, ween das fahrzeug ins Wasser fällt
@@ -392,22 +392,22 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
-        ///     Ladet Shootable und ExpToLvUp mit Werten aus korrespondierenden modifizierbaren Variablen
+        ///     Ladet ShootableAmmunition und ExpToLvUpVar mit Werten aus korrespondierenden modifizierbaren Variablen
         /// </summary>
         public static void LadePanzerdaten()
         {
-            for (int i = 0; i < SHOOTABLE0.Wert.Count(); i++) Shootable[0, i] = SHOOTABLE0.Wert[i];
-            for (int i = 0; i < SHOOTABLE1.Wert.Count(); i++) Shootable[1, i] = SHOOTABLE1.Wert[i];
-            for (int i = 0; i < SHOOTABLE2.Wert.Count(); i++) Shootable[2, i] = SHOOTABLE2.Wert[i];
-            for (int i = 0; i < SHOOTABLE3.Wert.Count(); i++) Shootable[3, i] = SHOOTABLE3.Wert[i];
-            for (int i = 0; i < SHOOTABLE4.Wert.Count(); i++) Shootable[4, i] = SHOOTABLE4.Wert[i];
-            for (int i = 0; i < SHOOTABLE5.Wert.Count(); i++) Shootable[5, i] = SHOOTABLE5.Wert[i];
-            for (int i = 0; i < EXPTOLVUP0.Wert.Count(); i++) ExpToLvUp[0, i] = EXPTOLVUP0.Wert[i];
-            for (int i = 0; i < EXPTOLVUP1.Wert.Count(); i++) ExpToLvUp[1, i] = EXPTOLVUP1.Wert[i];
-            for (int i = 0; i < EXPTOLVUP2.Wert.Count(); i++) ExpToLvUp[2, i] = EXPTOLVUP2.Wert[i];
-            for (int i = 0; i < EXPTOLVUP3.Wert.Count(); i++) ExpToLvUp[3, i] = EXPTOLVUP3.Wert[i];
-            for (int i = 0; i < EXPTOLVUP4.Wert.Count(); i++) ExpToLvUp[4, i] = EXPTOLVUP4.Wert[i];
-            for (int i = 0; i < EXPTOLVUP5.Wert.Count(); i++) ExpToLvUp[5, i] = EXPTOLVUP5.Wert[i];
+            for (int i = 0; i < SHOOTABLE0.Wert.Count(); i++) ShootableAmmunition[0, i] = SHOOTABLE0.Wert[i];
+            for (int i = 0; i < SHOOTABLE1.Wert.Count(); i++) ShootableAmmunition[1, i] = SHOOTABLE1.Wert[i];
+            for (int i = 0; i < SHOOTABLE2.Wert.Count(); i++) ShootableAmmunition[2, i] = SHOOTABLE2.Wert[i];
+            for (int i = 0; i < SHOOTABLE3.Wert.Count(); i++) ShootableAmmunition[3, i] = SHOOTABLE3.Wert[i];
+            for (int i = 0; i < SHOOTABLE4.Wert.Count(); i++) ShootableAmmunition[4, i] = SHOOTABLE4.Wert[i];
+            for (int i = 0; i < SHOOTABLE5.Wert.Count(); i++) ShootableAmmunition[5, i] = SHOOTABLE5.Wert[i];
+            for (int i = 0; i < EXPTOLVUP0.Wert.Count(); i++) ExpToLvUpVar[0, i] = EXPTOLVUP0.Wert[i];
+            for (int i = 0; i < EXPTOLVUP1.Wert.Count(); i++) ExpToLvUpVar[1, i] = EXPTOLVUP1.Wert[i];
+            for (int i = 0; i < EXPTOLVUP2.Wert.Count(); i++) ExpToLvUpVar[2, i] = EXPTOLVUP2.Wert[i];
+            for (int i = 0; i < EXPTOLVUP3.Wert.Count(); i++) ExpToLvUpVar[3, i] = EXPTOLVUP3.Wert[i];
+            for (int i = 0; i < EXPTOLVUP4.Wert.Count(); i++) ExpToLvUpVar[4, i] = EXPTOLVUP4.Wert[i];
+            for (int i = 0; i < EXPTOLVUP5.Wert.Count(); i++) ExpToLvUpVar[5, i] = EXPTOLVUP5.Wert[i];
             ExpRewarded = EXPREWARDED.Wert;
         }
 

@@ -1,20 +1,26 @@
 using Hauptfenster;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace _4_1_
 {
 #if WINDOWS || XBOX || LINUX
 
+    /// <summary>
+    /// </summary>
     public static class Program
     {
         #region Fields
 
+        /// <summary>
+        /// </summary>
         public static Game1 game;
 
         #endregion Fields
 
         #region Methods
 
-        //public static XnaTextInput.TextInputHandler Keyb;
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>

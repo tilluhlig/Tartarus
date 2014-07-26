@@ -601,7 +601,7 @@ namespace _4_1_
                             // munition ausgewählt
                             var which = (int)munlist[selected - tre].X;
                             if (
-                                Fahrzeugdaten.Shootable[
+                                Fahrzeugdaten.ShootableAmmunition[
                                     Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].KindofTank[
                                         Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].CurrentTank], which] > 0)
                             {

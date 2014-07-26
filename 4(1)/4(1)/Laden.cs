@@ -4,10 +4,16 @@ using Microsoft.Xna.Framework;
 
 namespace _4_1_
 {
+    /// <summary>
+    /// </summary>
     public static class TextLaden
     {
         #region Methods
 
+        /// <summary>
+        /// </summary>
+        /// <param name="Text"></param>
+        /// <returns></returns>
         public static Dictionary<String, String> CreateDictionary(List<String> Text)
         {
             var Liste = new Dictionary<String, String>();
@@ -47,6 +53,11 @@ namespace _4_1_
             return Liste;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="Text"></param>
+        /// <param name="Bereichsname"></param>
+        /// <returns></returns>
         public static List<String> ErmittleBereich(List<String> Text, String Bereichsname)
         {
             var Result = new List<String>();
@@ -93,6 +104,12 @@ namespace _4_1_
             return Result;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="Dict"></param>
+        /// <param name="Name"></param>
+        /// <param name="Wert"></param>
+        /// <returns></returns>
         public static bool LadeBool(Dictionary<String, String> Dict, String Name, bool Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -111,6 +128,12 @@ namespace _4_1_
             return Wert;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="Dict"></param>
+        /// <param name="Name"></param>
+        /// <param name="Wert"></param>
+        /// <returns></returns>
         public static float LadeFloat(Dictionary<String, String> Dict, String Name, float Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -118,7 +141,7 @@ namespace _4_1_
                 float temp = Wert;
                 try
                 {
-                    temp = (float)Convert.ToDouble(Dict[Name]);
+                    temp = (float) Convert.ToDouble(Dict[Name]);
                 }
                 catch (Exception)
                 {
@@ -130,6 +153,12 @@ namespace _4_1_
             return Wert;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="Dict"></param>
+        /// <param name="Name"></param>
+        /// <param name="Wert"></param>
+        /// <returns></returns>
         public static int LadeInt(Dictionary<String, String> Dict, String Name, int Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -149,6 +178,12 @@ namespace _4_1_
             return Wert;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="Dict"></param>
+        /// <param name="Name"></param>
+        /// <param name="Wert"></param>
+        /// <returns></returns>
         public static String LadeString(Dictionary<String, String> Dict, String Name, String Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -167,6 +202,12 @@ namespace _4_1_
             return Wert;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="Dict"></param>
+        /// <param name="Name"></param>
+        /// <param name="Wert"></param>
+        /// <returns></returns>
         public static Vector2 LadeVector2(Dictionary<String, String> Dict, String Name, Vector2 Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -178,8 +219,8 @@ namespace _4_1_
                     zwischen = zwischen.TrimStart('{');
                     zwischen = zwischen.TrimEnd('}');
                     String[] zw = zwischen.Split(' ');
-                    temp = new Vector2((float)Convert.ToDouble(zw[0].Substring(2, zw[0].Length - 2)),
-                        (float)Convert.ToDouble(zw[1].Substring(2, zw[1].Length - 2)));
+                    temp = new Vector2((float) Convert.ToDouble(zw[0].Substring(2, zw[0].Length - 2)),
+                        (float) Convert.ToDouble(zw[1].Substring(2, zw[1].Length - 2)));
                     ;
                 }
                 catch (Exception)

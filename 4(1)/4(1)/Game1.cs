@@ -827,7 +827,7 @@ namespace _4_1_
                         if (Mod.LEISTE_LEBENSLINIE_VISIBLE.Wert)
                         {
                             int anteil = current.Effekte[b].GetHP(current.hp[b]);
-                            var ges = (int)(((float)anteil / Fahrzeugdaten.MAXHP.Wert[current.KindofTank[b]]) * 250);
+                            var ges = (int)(((float)anteil / Fahrzeugdaten._MAXHP.Wert[current.KindofTank[b]]) * 250);
                             var a = new Rectangle(0, 0, ges, Texturen.leben.Height);
                             spriteBatch.Draw(Texturen.leben,
                                 new Vector2(10 + ((float)Texturen.LeeresFeld.Width * scale) * i,
@@ -1164,7 +1164,7 @@ namespace _4_1_
                                 int anteil = Spiel2.players[i].Effekte[b].GetHP(Spiel2.players[i].hp[b]);
                                 int max =
                                     Spiel2.players[i].Effekte[b].GetMaxHP(
-                                        Fahrzeugdaten.MAXHP.Wert[Spiel2.players[i].KindofTank[b]]);
+                                        Fahrzeugdaten._MAXHP.Wert[Spiel2.players[i].KindofTank[b]]);
                                 if (anteil > max) anteil = max;
                                 var ges = (int)(((float)anteil / max) * 300);
                                 a = new Rectangle(0, 0, ges, Texturen.leben.Height);
@@ -1191,7 +1191,7 @@ namespace _4_1_
 
                             int anteil = Spiel2.players[i].ExpNow[b];
 
-                            int max = Fahrzeugdaten.ExpToLvUp[Spiel2.players[i].KindofTank[b], 0];
+                            int max = Fahrzeugdaten.ExpToLvUpVar[Spiel2.players[i].KindofTank[b], 0];
                             if (anteil > max) anteil = max;
                             var ges = (int)(((float)anteil / max) * 300);
                             a = new Rectangle(0, 0, ges, Texturen.leben.Height);
@@ -3126,7 +3126,7 @@ namespace _4_1_
                         if (Tastatur.TASTE_SCHUSS.Wert &&
                             ((currentState.IsConnected && currentState.Buttons.A == ButtonState.Pressed) ||
                              (!currentState.IsConnected && Keyboard.GetState().IsKeyDown(Tastatur.SCHUSS.Wert))) &&
-                            Fahrzeugdaten.Shootable[
+                            Fahrzeugdaten.ShootableAmmunition[
                                 Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] >= 1)
@@ -3242,7 +3242,7 @@ namespace _4_1_
                             if (Tastatur.TASTE_SCHUSS.Wert &&
                                 ((currentState.IsConnected && currentState.Buttons.A == ButtonState.Pressed) ||
                                  (!currentState.IsConnected && Keyboard.GetState().IsKeyDown(Tastatur.SCHUSS.Wert))) &&
-                                Fahrzeugdaten.Shootable[
+                                Fahrzeugdaten.ShootableAmmunition[
                                     Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] >= 1)
@@ -3308,7 +3308,7 @@ namespace _4_1_
                                     if (!Spiel2.increaseairstrike)
                                     {
                                         if (
-                                            Fahrzeugdaten.Shootable[
+                                            Fahrzeugdaten.ShootableAmmunition[
                                                 Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
                                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] >= 1 &&
@@ -3526,7 +3526,7 @@ namespace _4_1_
                                             //Spiel2.increaseairstrike = false;
                                             Spiel2.increaseshot = false;
                                             if (
-                                                Fahrzeugdaten.Shootable[
+                                                Fahrzeugdaten.ShootableAmmunition[
                                                     Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
                                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
                                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] >= 1)
@@ -3676,7 +3676,7 @@ namespace _4_1_
                     int a = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;*/
 
                     for (;
-                        Fahrzeugdaten.Shootable[
+                        Fahrzeugdaten.ShootableAmmunition[
                             Spiel2.players[Spiel2.CurrentPlayer].KindofTank[CurrentTankNow], CurrentWeaponNow] <= 0; )
                     {
                         CurrentWeaponNow--;
@@ -3720,7 +3720,7 @@ namespace _4_1_
                      if (Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon>=Rakete.Daten.Count()) Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon = 0;
                      int a = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;*/
                     for (;
-                        Fahrzeugdaten.Shootable[
+                        Fahrzeugdaten.ShootableAmmunition[
                             Spiel2.players[Spiel2.CurrentPlayer].KindofTank[CurrentTankNow], CurrentWeaponNow] <= 0; )
                     {
                         CurrentWeaponNow++;

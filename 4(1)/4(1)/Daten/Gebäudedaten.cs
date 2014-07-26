@@ -62,7 +62,8 @@ namespace _4_1_
         public static Var<float[]> SKALIERUNG = new Var<float[]>("SKALIERUNG",
             new[]
             {
-                0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.11f, 0.09f, 0.08f, 0.075f, 0.085f, 0.15f, 1f, 1f, 1f, 1f, 0.25f,
+                0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.11f, 0.09f, 0.08f, 0.075f, 0.085f, 0.15f, 1f, 1f, 0.20f, 0.25f,
+                0.25f,
                 0.25f
             });
 

@@ -282,11 +282,11 @@ namespace _4_1_
                     int CurrentWeaponNow2 = CurrentWeapon;
                     int CurrentTankNow2 = _CurrentTank;
                     int CurrentWaeponOld = CurrentWeapon;
-                    if (Fahrzeugdaten.Shootable[KindofTank[CurrentTankNow2], CurrentWeaponNow2] <= 0)
+                    if (Fahrzeugdaten.ShootableAmmunition[KindofTank[CurrentTankNow2], CurrentWeaponNow2] <= 0)
                     {
                         int begin = 0;
                         CurrentWeaponNow2 = 0;
-                        for (; Fahrzeugdaten.Shootable[KindofTank[CurrentTankNow2], CurrentWeaponNow2] <= 0;)
+                        for (; Fahrzeugdaten.ShootableAmmunition[KindofTank[CurrentTankNow2], CurrentWeaponNow2] <= 0;)
                         {
                             CurrentWeaponNow2--;
                             if (CurrentWeaponNow2 < 0) CurrentWeaponNow2 = Waffendaten.Daten.Count() - 1;

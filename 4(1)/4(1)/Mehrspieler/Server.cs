@@ -76,7 +76,7 @@ namespace _4_1_
                             if (!Spiel2.increaseairstrike)
                             {
                                 if (
-                                    Fahrzeugdaten.Shootable[
+                                    Fahrzeugdaten.ShootableAmmunition[
                                         Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
                                             Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
@@ -167,7 +167,7 @@ namespace _4_1_
                                     Spiel2.increaseairstrike = false;
                                     Spiel2.increaseshot = false;
                                     if (
-                                        Fahrzeugdaten.Shootable[
+                                        Fahrzeugdaten.ShootableAmmunition[
                                             Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
                                             Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)

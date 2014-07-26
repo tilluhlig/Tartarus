@@ -471,7 +471,7 @@ namespace _4_1_
             }
 
             int di = typ;
-            players[Spieler].hp.Add(Fahrzeugdaten.MAXHP.Wert[di]);
+            players[Spieler].hp.Add(Fahrzeugdaten._MAXHP.Wert[di]);
             int b = players[Spieler].hp.Count - 1;
             players[Spieler].Angle.Add(_angle);
             players[Spieler].vehikleAngle.Add(0);
@@ -901,16 +901,16 @@ namespace _4_1_
                         float auxep = players[i].ExpNow[b];
                         float auxep2 = players[i].KindofTank[b];
                         float abc = players[i].CurrentLv[b];
-                        float abcd = Fahrzeugdaten.ExpToLvUp[players[i].KindofTank[b], players[i].CurrentLv[b]];
+                        float abcd = Fahrzeugdaten.ExpToLvUpVar[players[i].KindofTank[b], players[i].CurrentLv[b]];
 
                         players[i].ExpNow[b] = players[i].ExpNow[b]*100/
-                                               Fahrzeugdaten.ExpToLvUp[players[i].KindofTank[b], players[i].CurrentLv[b]
+                                               Fahrzeugdaten.ExpToLvUpVar[players[i].KindofTank[b], players[i].CurrentLv[b]
                                                    ];
                         if (players[i].ExpNow[b] >=
-                            Fahrzeugdaten.ExpToLvUp[players[i].KindofTank[b], players[i].CurrentLv[b]])
+                            Fahrzeugdaten.ExpToLvUpVar[players[i].KindofTank[b], players[i].CurrentLv[b]])
                         {
                             players[i].ExpNow[b] -=
-                                Fahrzeugdaten.ExpToLvUp[players[i].KindofTank[b], players[i].CurrentLv[b]];
+                                Fahrzeugdaten.ExpToLvUpVar[players[i].KindofTank[b], players[i].CurrentLv[b]];
                             players[i].CurrentLv[b]++;
                             Sounds.punkteerhalten.StopSound(0);
                             Sounds.levelup.PlaySoundAny();
