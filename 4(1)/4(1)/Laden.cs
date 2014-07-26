@@ -5,15 +5,17 @@ using Microsoft.Xna.Framework;
 namespace _4_1_
 {
     /// <summary>
+    /// diese Klasse dient dem Erstellen und Handhaben von Textlisten (siehe Serialisierung)
     /// </summary>
     public static class TextLaden
     {
         #region Methods
 
         /// <summary>
+        /// erzeugt ein Dictionary aus einer Textliste, dabei werden Unterobjekte ignoriert
         /// </summary>
-        /// <param name="Text"></param>
-        /// <returns></returns>
+        /// <param name="Text">die Textliste</param>
+        /// <returns>ein Dictionary mit den Paaren</returns>
         public static Dictionary<String, String> CreateDictionary(List<String> Text)
         {
             var Liste = new Dictionary<String, String>();
@@ -54,10 +56,11 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Ermittelt ein Unterobjekt einer Textliste, mit einem bestimmten Namen und entfernt diesen aus der original Liste
         /// </summary>
-        /// <param name="Text"></param>
-        /// <param name="Bereichsname"></param>
-        /// <returns></returns>
+        /// <param name="Text">die Textliste</param>
+        /// <param name="Bereichsname">der Name des Bereichs/Unterobjekts</param>
+        /// <returns>einen Teil der Textliste, welcher den benannten Bereich enthält</returns>
         public static List<String> ErmittleBereich(List<String> Text, String Bereichsname)
         {
             var Result = new List<String>();
@@ -105,11 +108,12 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Lädt eine Bool-Variable mit entsprechendem Namen
         /// </summary>
-        /// <param name="Dict"></param>
-        /// <param name="Name"></param>
-        /// <param name="Wert"></param>
-        /// <returns></returns>
+        /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
+        /// <param name="Name">der Name des Eintrages</param>
+        /// <param name="Wert">ein default-Wert, wenn der Eintrag nicht existiert</param>
+        /// <returns>den Wert des Eintrages oder den Default-Wert</returns>
         public static bool LadeBool(Dictionary<String, String> Dict, String Name, bool Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -129,11 +133,12 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Lädt eine Float-Variable mit entsprechendem Namen
         /// </summary>
-        /// <param name="Dict"></param>
-        /// <param name="Name"></param>
-        /// <param name="Wert"></param>
-        /// <returns></returns>
+        /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
+        /// <param name="Name">der Name des Eintrages</param>
+        /// <param name="Wert">ein default-Wert, wenn der Eintrag nicht existiert</param>
+        /// <returns>den Wert des Eintrages oder den Default-Wert</returns>
         public static float LadeFloat(Dictionary<String, String> Dict, String Name, float Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -154,11 +159,12 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Lädt eine Int-Variable mit entsprechendem Namen
         /// </summary>
-        /// <param name="Dict"></param>
-        /// <param name="Name"></param>
-        /// <param name="Wert"></param>
-        /// <returns></returns>
+        /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
+        /// <param name="Name">der Name des Eintrages</param>
+        /// <param name="Wert">ein default-Wert, wenn der Eintrag nicht existiert</param>
+        /// <returns>den Wert des Eintrages oder den Default-Wert</returns>
         public static int LadeInt(Dictionary<String, String> Dict, String Name, int Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -179,11 +185,12 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Lädt eine String-Variable mit entsprechendem Namen
         /// </summary>
-        /// <param name="Dict"></param>
-        /// <param name="Name"></param>
-        /// <param name="Wert"></param>
-        /// <returns></returns>
+        /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
+        /// <param name="Name">der Name des Eintrages</param>
+        /// <param name="Wert">ein default-Wert, wenn der Eintrag nicht existiert</param>
+        /// <returns>den Wert des Eintrages oder den Default-Wert</returns>
         public static String LadeString(Dictionary<String, String> Dict, String Name, String Wert)
         {
             if (Dict.ContainsKey(Name))
@@ -203,11 +210,12 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Lädt eine Vector2-Variable mit entsprechendem Namen
         /// </summary>
-        /// <param name="Dict"></param>
-        /// <param name="Name"></param>
-        /// <param name="Wert"></param>
-        /// <returns></returns>
+        /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
+        /// <param name="Name">der Name des Eintrages</param>
+        /// <param name="Wert">ein default-Wert, wenn der Eintrag nicht existiert</param>
+        /// <returns>den Wert des Eintrages oder den Default-Wert</returns>
         public static Vector2 LadeVector2(Dictionary<String, String> Dict, String Name, Vector2 Wert)
         {
             if (Dict.ContainsKey(Name))

@@ -145,6 +145,7 @@
     <Compile Include="Objekte\Effekte\EffectPacket.cs" />
     <Compile Include="Karte\Kartenformat.cs" />
     <Compile Include="Daten\Waffendaten.cs" />
+    <Compile Include="Tools\KoerperObjekt.cs" />
     <Compile Include="Unbenutztes\Schrift.cs" />
     <Compile Include="Sonstiges\Optimierung.cs" />
     <Compile Include="Sonstiges\Sounddatei.cs" />

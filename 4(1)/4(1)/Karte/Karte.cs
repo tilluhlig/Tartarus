@@ -130,9 +130,8 @@ namespace _4_1_
         /// </summary>
         private Random rand = new Random();
 
-        // Explosion einer Waffe zünden
         /// <summary>
-        /// Explosion_einer_s the waffe_zünden.
+        /// Explosion einer Waffe zünden.
         /// </summary>
         /// <param name="Spielfeld">The spielfeld.</param>
         /// <param name="gameTime">The game time.</param>
