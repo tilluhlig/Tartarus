@@ -61,7 +61,7 @@ namespace _4_1_
             Vector2 neuerPunkt = Vector2.Zero;
             for (int i = 0; i < Bereiche.Count; i++)
             {
-                float m = Bereiche[i].Z - Bereiche[i].Y;
+                float m = Bereiche[i].Z - Bereiche[i].Y+1;
                 neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y + m / 2) * m;
                 neueMasse += m;
             }
@@ -83,13 +83,16 @@ namespace _4_1_
             Vector2 neuerPunkt = Vector2.Zero;
             for (int i = 0; i < Bereiche.Count; i++)
             {
-                float m = Bereiche[i].Z-Bereiche[i].Y;
-                neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y+m/2) * -m;
+                float m = Bereiche[i].Z-Bereiche[i].Y+1;
+                m = -m;
+                neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y+m/2) * m;
                     neueMasse += m;
             }
             neuerPunkt /= neueMasse;
-            ObjektSchwerpunkt += neuerPunkt;
-            SchwerpunktMasse -= neueMasse;
+            ObjektSchwerpunkt = ObjektSchwerpunkt * SchwerpunktMasse + neuerPunkt * neueMasse;
+            SchwerpunktMasse += neueMasse;
+            ObjektSchwerpunkt /= SchwerpunktMasse;
+
         }
 
         #endregion Methods

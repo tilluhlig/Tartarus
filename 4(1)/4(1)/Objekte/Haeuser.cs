@@ -102,6 +102,8 @@ namespace _4_1_
         /// </summary>
         public List<ZerstörungsObjekt> Zerstörung = new List<ZerstörungsObjekt>();
 
+        public List<KoerperObjekt> Koerper = new List<KoerperObjekt>();
+
         #endregion Fields
 
         #region Methods
@@ -319,6 +321,7 @@ namespace _4_1_
                 // Häuser malen
                 spriteBatch.Draw(Spiel2.Haeuser.Bild[i], new Vector2(xPos, yPos), null, Color.White, 0,
                     new Vector2(0, Texturen.haus[id].Height), Gebäudedaten.SKALIERUNG.Wert[id], SpriteEffects.None, 1);
+
                 spriteBatch.End();
 
                 bool treffer = false;
@@ -333,6 +336,14 @@ namespace _4_1_
                             }
 
                 spriteBatch.Begin();
+                if (Game1.DEBUG_AKTIV.Wert)
+                {
+                    // Zeichne Schwerpunkt
+                    Vector2 Schwerpunkt = Spiel2.Haeuser.Koerper[i].objektSchwerpunkt.ObjektSchwerpunkt;
+                    Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)(xPos + Schwerpunkt.X - 2), (int)(yPos - Texturen.haus[id].Height * Gebäudedaten.SKALIERUNG.Wert[id] + Schwerpunkt.Y - 2), 4, 4),
+                        Color.Red, 1);
+                }
+
                 // erobern malen
                 if (Spiel2.Haeuser.BesitzerPunkte[i] < Allgemein.MaxBesitzerPunkte)
                 {
@@ -476,6 +487,9 @@ namespace _4_1_
                     Bild[Besitzer.Count - 1].Width, Bild[Besitzer.Count - 1].Height,
                     Gebäudedaten.SKALIERUNG.Wert[HausTyp[Besitzer.Count - 1]], false, false, false, new Vector2(0, 0));
                 load(Besitzer.Count - 1);
+
+                Koerper.Add(new KoerperObjekt());
+                Koerper[Besitzer.Count - 1].objektSchwerpunkt.BerechneSchwerpunkt(Kollision[Besitzer.Count - 1].Bild);
             }
 
             if (HAEUSER_ZERSTOERUNG)
@@ -571,7 +585,12 @@ namespace _4_1_
         public int IsExplode(int i, Vector2 Explosion, int Energie)
         {
             if (Zerstörung[i] == null) return 0;
-            return Zerstörung[i].BerechneZerstörung(Bild[i], Explosion, Energie, Position[i]);
+
+            List<Vector3> Bereiche = new List<Vector3>();
+            int result = Zerstörung[i].BerechneZerstörung(Bild[i], Explosion, Energie, Position[i],Bereiche);
+            if (result == 0) return 0;
+            Koerper[i].objektSchwerpunkt.VerringereSchwerpunktmasse(Bereiche);
+            return result;
         }
 
         public void Laden(List<String> Text, int id)

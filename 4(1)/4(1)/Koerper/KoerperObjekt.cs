@@ -12,7 +12,7 @@ namespace _4_1_
         /// <summary>
         ///  der Schwerpunkt des Objektes
         /// </summary>
-        private Schwerpunkt objektSchwerpunkt = new Schwerpunkt();
+        public Schwerpunkt objektSchwerpunkt = new Schwerpunkt();
 
     }
 }

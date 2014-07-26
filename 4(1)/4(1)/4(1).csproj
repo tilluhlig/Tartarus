@@ -113,6 +113,8 @@
     <Compile Include="FMOD\fmod_memoryinfo.cs" />
     <Compile Include="KI\KI.cs" />
     <Compile Include="Karte\Kollision.cs" />
+    <Compile Include="Koerper\Kraft.cs" />
+    <Compile Include="Koerper\Schwerpunkt.cs" />
     <Compile Include="Menus\ComboBox2.cs" />
     <Compile Include="Daten\Allgemein.cs" />
     <Compile Include="Editor.cs" />
@@ -145,7 +147,7 @@
     <Compile Include="Objekte\Effekte\EffectPacket.cs" />
     <Compile Include="Karte\Kartenformat.cs" />
     <Compile Include="Daten\Waffendaten.cs" />
-    <Compile Include="Tools\KoerperObjekt.cs" />
+    <Compile Include="Koerper\KoerperObjekt.cs" />
     <Compile Include="Unbenutztes\Schrift.cs" />
     <Compile Include="Sonstiges\Optimierung.cs" />
     <Compile Include="Sonstiges\Sounddatei.cs" />

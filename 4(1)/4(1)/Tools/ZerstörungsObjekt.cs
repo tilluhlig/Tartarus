@@ -116,7 +116,19 @@ namespace _4_1_
         /// <returns>System.Int32.</returns>
         public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position)
         {
-            return BerechneZerstörung(Bild, Explosion, Energie, Object_Position, false, 0);
+            return BerechneZerstörung(Bild, Explosion, Energie, Object_Position, false, 0, null);
+        }
+
+        public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position, List<Vector3> Bereiche)
+        {
+            return BerechneZerstörung(Bild, Explosion, Energie, Object_Position, false, 0, Bereiche);
+        }
+
+        public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position,
+            bool overreach, float angle)
+        {
+            return BerechneZerstörung(Bild, Explosion, Energie, Object_Position,
+             overreach, angle, null);
         }
 
         /// <summary>
@@ -130,58 +142,69 @@ namespace _4_1_
         /// <param name="angle">The angle.</param>
         /// <returns>System.Int32.</returns>
         public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position,
-            bool overreach, float angle)
+            bool overreach, float angle, List<Vector3> Bereiche)
         {
             // Triviale ignorieren (zu weit weg)
-            var abstand = (int) Help.Abstand(new Vector2(0, 0), new Vector2(BildBreite*Skalierung, BildHöhe*Skalierung));
-            if (Help.Abstand(Explosion, Object_Position) > Energie + 4*abstand)
+            var abstand = (int)Help.Abstand(new Vector2(0, 0), new Vector2(BildBreite * Skalierung, BildHöhe * Skalierung));
+            if (Help.Abstand(Explosion, Object_Position) > Energie + 4 * abstand)
                 return 0;
-                    //new Vector2(Object_Position.X + Bild_Width * scale / 2, Object_Position.Y + Bild_Height * scale / 2)
+            //new Vector2(Object_Position.X + Bild_Width * scale / 2, Object_Position.Y + Bild_Height * scale / 2)
 
             // Rotateable korrektur
             if (Drehbar)
                 Explosion = Help.RotatePosition(Object_Position, MathHelper.ToRadians(360) - angle, Explosion);
 
             // Bringe Object und Eindringling relativ zueinander
-            var x = (int) (Explosion.X - Object_Position.X);
-            var y = (int) (Explosion.Y - Object_Position.Y);
+            var x = (int)(Explosion.X - Object_Position.X);
+            var y = (int)(Explosion.Y - Object_Position.Y);
 
             // Korrektur für Bilder, die nach ihrem Mittelpunkt ausgerichtet wurden
-            if (Zentriert) x += (int) (BildBreite*Skalierung/2);
+            if (Zentriert) x += (int)(BildBreite * Skalierung / 2);
 
             // Korrektur (Bild wurde verschoben)
-            y += (int) (BildHöhe*Skalierung);
+            y += (int)(BildHöhe * Skalierung);
 
             // Korrektur der Skalierung
-            x = (int) (x/Skalierung);
-            y = (int) (y/Skalierung);
+            x = (int)(x / Skalierung);
+            y = (int)(y / Skalierung);
 
             // Korrektur des Overreach
             if (overreach) x = BildBreite - x;
 
-            var Picture = new Color[BildBreite*BildHöhe];
+            var Picture = new Color[BildBreite * BildHöhe];
             Bild.GetData(Picture);
 
             // Punkte berechnen
             int found = 0;
-            Energie = (int) (Energie/Skalierung);
-            var aa = (int) (Math.Log((((Energie) - 0)*Math.PI), Math.E)*Math.Sqrt(Energie));
+            Energie = (int)(Energie / Skalierung);
+            var aa = (int)(Math.Log((((Energie) - 0) * Math.PI), Math.E) * Math.Sqrt(Energie));
             for (int i = -aa; i < aa; i++)
             {
                 int dist = i;
                 if (dist < 0) dist = -dist;
-                var add = (int) (Math.Log((((aa) - dist)*Math.PI), Math.E)*Math.Sqrt(Energie));
+                var add = (int)(Math.Log((((aa) - dist) * Math.PI), Math.E) * Math.Sqrt(Energie));
+
+                Vector3 tempZerstoert = new Vector3(x+i,-1,-1);
                 for (int b = -add; b < add; b++)
                 {
                     var Delete = new Vector2(x + i, y + b);
                     if (Delete.X < 0 || Delete.Y < 0 || Delete.X >= BildBreite || Delete.Y >= BildHöhe) continue;
 
-                    if (Picture[(int) (Delete.X + Delete.Y*BildBreite)] != Color.Transparent)
+                    if (Picture[(int)(Delete.X + Delete.Y * BildBreite)] != Color.Transparent)
                     {
                         found++;
-                        Picture[(int) (Delete.X + Delete.Y*BildBreite)] = Color.Transparent;
+                        Picture[(int)(Delete.X + Delete.Y * BildBreite)] = Color.Transparent;
+                        if (tempZerstoert.Y == -1)
+                        {
+                            tempZerstoert.Y = Delete.Y;
+                            tempZerstoert.Z = Delete.Y;
+                        }
+                        else
+                            tempZerstoert.Z++;
                     }
                 }
+                if (Bereiche != null && tempZerstoert.Y != -1f)
+                    Bereiche.Add(tempZerstoert);
             }
 
             if (found > 0)
