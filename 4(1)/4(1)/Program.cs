@@ -1,19 +1,18 @@
 using Hauptfenster;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace _4_1_
 {
 #if WINDOWS || XBOX || LINUX
 
     /// <summary>
+    /// diese Klasse erzeugt das Spiel
     /// </summary>
     public static class Program
     {
         #region Fields
 
         /// <summary>
+        /// ein Zeiger auf das XNA Spielobjekt
         /// </summary>
         public static Game1 game;
 
@@ -22,8 +21,9 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
-        ///     The main entry point for the application.
+        /// Hier beginnt das Programm
         /// </summary>
+        /// <param name="args">eine Liste von übergebenen Parametern</param>
         private static void Main(string[] args)
         {
             /* using (game = new Game1())
