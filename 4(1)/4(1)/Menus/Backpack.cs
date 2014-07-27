@@ -188,25 +188,39 @@ namespace _4_1_
                         buttonPos[i] + aux, Color.Gold * Transparenz, Color.Black * Transparenz);
                 }
                 else // ist es munition?
-                    if (i + scrolled * length < mun + tre)
+                    if (i + scrolled*length < mun + tre)
                     {
-                        if (clickselected == i + scrolled * length)
+                        if (clickselected == i + scrolled*length)
                         {
-                            spriteBatch.Draw(Texturen.waffenbilder[(int)munlist[i + scrolled * length - tre].X],
-                                buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero,
+                            spriteBatch.Draw(Texturen.LeeresFeld,
+                                buttonPos[i], null, Color.White*Transparenz, 0f, Vector2.Zero,
                                 Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
-                            spriteBatch.Draw(Texturen.rahmen, buttonPos[i], null, Color.White * Transparenz, 0f,
+
+                            spriteBatch.Draw(Texturen.waffenbilder[(int) munlist[i + scrolled*length - tre].X],
+                                buttonPos[i], null, Color.White*Transparenz, 0f, Vector2.Zero,
+                                Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                            spriteBatch.Draw(Texturen.rahmen, buttonPos[i], null, Color.White*Transparenz, 0f,
                                 Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                         }
-                        else if (selected == i + scrolled * length)
-                            spriteBatch.Draw(Texturen.waffenbilder[(int)munlist[i + scrolled * length - tre].X],
-                                buttonPos[i], null, Color.Red * Transparenz, 0f, Vector2.Zero,
+                        else if (selected == i + scrolled*length)
+                        {
+                            spriteBatch.Draw(Texturen.LeeresFeld,
+                                buttonPos[i], null, Color.Red*Transparenz, 0f, Vector2.Zero,
                                 Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
-                        else
-                            spriteBatch.Draw(Texturen.waffenbilder[(int)munlist[i + scrolled * length - tre].X],
-                                buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero,
+                            spriteBatch.Draw(Texturen.waffenbilder[(int) munlist[i + scrolled*length - tre].X],
+                                buttonPos[i], null, Color.Red*Transparenz, 0f, Vector2.Zero,
                                 Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
-                        Help.DrawString(spriteBatch, Texturen.font2, munlist[i + scrolled * length - tre].Y.ToString(),
+                        }
+                        else {
+                            spriteBatch.Draw(Texturen.LeeresFeld,
+                             buttonPos[i], null, Color.White * Transparenz, 0f, Vector2.Zero,
+                             Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                            spriteBatch.Draw(Texturen.waffenbilder[(int) munlist[i + scrolled*length - tre].X],
+                                buttonPos[i], null, Color.White*Transparenz, 0f, Vector2.Zero,
+                                Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
+                    }
+
+                Help.DrawString(spriteBatch, Texturen.font2, munlist[i + scrolled * length - tre].Y.ToString(),
                             buttonPos[i] + aux, Color.Gold * Transparenz, Color.Black * Transparenz);
                     }
                     else //ist es ein upgrade?
