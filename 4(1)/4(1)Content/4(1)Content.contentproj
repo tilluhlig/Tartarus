@@ -651,16 +651,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\nachOben.png">
-      <Name>nachOben</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\nachUnten.png">
-      <Name>nachUnten</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\Comboboxbalken.png">
@@ -991,16 +981,6 @@
     </Compile>
     <Compile Include="Textures\MineGruenButton.png">
       <Name>MineGruenButton</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\nachLinks.png">
-      <Name>nachLinks</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Textures\nachRechts.png">
-      <Name>nachRechts</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
