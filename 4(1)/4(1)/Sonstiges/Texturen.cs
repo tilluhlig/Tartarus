@@ -207,7 +207,7 @@ namespace _4_1_
         /// <summary>
         ///     The comboboxbalken
         /// </summary>
-        public static Texture2D Comboboxbalken;
+        ///public static Texture2D Comboboxbalken;
 
         /// <summary>
         ///     The dot
@@ -701,7 +701,7 @@ namespace _4_1_
 
             tickboxOn = Content.Load<Texture2D>("Textures\\tickboxOn");
             tickboxOff = Content.Load<Texture2D>("Textures\\tickboxOff");
-            Comboboxbalken = Content.Load<Texture2D>("Textures\\Comboboxbalken");
+            //Comboboxbalken = Content.Load<Texture2D>("Textures\\Comboboxbalken");
             klotzchen = Content.Load<Texture2D>("Textures\\klotzchen");
             // Startmenu = Content.Load<Texture2D>("Textures\\Startmenu4"); ;
             pregamemenu = Content.Load<Texture2D>("Textures\\pregamemenu");

@@ -653,13 +653,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Comboboxbalken.png">
-      <Name>Comboboxbalken</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\pregamemenu.png">
       <Name>pregamemenu</Name>
       <Importer>TextureImporter</Importer>
