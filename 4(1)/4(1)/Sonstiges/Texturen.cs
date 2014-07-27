@@ -434,7 +434,7 @@ namespace _4_1_
         /// <summary>
         ///     The pregamemenu
         /// </summary>
-        public static Texture2D pregamemenu;
+        ///public static Texture2D pregamemenu;
 
         /// <summary>
         ///     The punkt
@@ -704,7 +704,7 @@ namespace _4_1_
             //Comboboxbalken = Content.Load<Texture2D>("Textures\\Comboboxbalken");
             ///klotzchen = Content.Load<Texture2D>("Textures\\klotzchen");
             // Startmenu = Content.Load<Texture2D>("Textures\\Startmenu4"); ;
-            pregamemenu = Content.Load<Texture2D>("Textures\\pregamemenu");
+            ///pregamemenu = Content.Load<Texture2D>("Textures\\pregamemenu");
             hausbutton = Content.Load<Texture2D>("Textures\\hausbutton");
             Button1 = Content.Load<Texture2D>("Textures\\Button1");
             // Pausenmenu = Content.Load<Texture2D>("Textures\\Pausenmenu");

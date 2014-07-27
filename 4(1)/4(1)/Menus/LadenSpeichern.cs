@@ -149,9 +149,9 @@ namespace _4_1_
         {
             if (!visible) return;
             //Durchläuft alle Menüpunkte und zeichnet den Menüpunkt mit den entsprechenden Eigenschaften
-            spriteBatch.Draw(Texturen.pregamemenu,
-                new Vector2(screenWidth / 2 - Texturen.pregamemenu.Width / 2, screenHeight / 2 - Texturen.pregamemenu.Height / 2),
-                Color.White);
+            ///spriteBatch.Draw(Texturen.pregamemenu,
+            ///    new Vector2(screenWidth / 2 - Texturen.pregamemenu.Width / 2, screenHeight / 2 - Texturen.pregamemenu.Height / 2),
+            ///    Color.White);
             for (int i = 0; i < menuItems.Length; i++)
                 menuItems[i].Draw(spriteBatch, selected, unselected);
             for (int i = 0; i < data.Count; i++)
