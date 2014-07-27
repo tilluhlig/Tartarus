@@ -85,8 +85,6 @@ namespace _4_1_
 
         #endregion DEBUG
 
-
-
         #region Methods
 
         /// <summary>
@@ -141,21 +139,21 @@ namespace _4_1_
         {
             for (int i = 0; i < pos.Count; i++)
             {
-                if (pos[i].X - Fenster.X + fahne.Width*scale < 0 ||
-                    pos[i].X - Fenster.X - fahne.Width*scale > Game1.screenWidth) continue;
+                if (pos[i].X - Fenster.X + fahne.Width * scale < 0 ||
+                    pos[i].X - Fenster.X - fahne.Width * scale > Game1.screenWidth) continue;
 
                 if (schreibend && i == selected)
                 {
-                    spriteBatch.Draw(fahne, pos[i] - Fenster - new Vector2(fahne.Width*scale/2, fahne.Height*scale),
+                    spriteBatch.Draw(fahne, pos[i] - Fenster - new Vector2(fahne.Width * scale / 2, fahne.Height * scale),
                         null, Color.Red, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
                 }
                 else if (i != selected)
                 {
-                    spriteBatch.Draw(fahne, pos[i] - Fenster - new Vector2(fahne.Width*scale/2, fahne.Height*scale),
-                        null, Color.Yellow*0.7f, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+                    spriteBatch.Draw(fahne, pos[i] - Fenster - new Vector2(fahne.Width * scale / 2, fahne.Height * scale),
+                        null, Color.Yellow * 0.7f, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
                 }
                 else
-                    spriteBatch.Draw(fahne, pos[i] - Fenster - new Vector2(fahne.Width*scale/2, fahne.Height*scale),
+                    spriteBatch.Draw(fahne, pos[i] - Fenster - new Vector2(fahne.Width * scale / 2, fahne.Height * scale),
                         null, Color.DarkGreen, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 
                 if (Tausch.SpielAktiv)
@@ -164,7 +162,7 @@ namespace _4_1_
                         if (Kollision.collision(Help.GetMousePos(), pos[i] - Fenster, false))
                         {
                             spriteBatch.Draw(Texturen.NotizmarkierungUmriss,
-                                pos[i] - Fenster - new Vector2(fahne.Width*scale/2, fahne.Height*scale), null,
+                                pos[i] - Fenster - new Vector2(fahne.Width * scale / 2, fahne.Height * scale), null,
                                 Color.DarkGreen, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
                             found = true;
                         }
@@ -231,7 +229,7 @@ namespace _4_1_
 
             for (int i = 0; i < pos.Count; i++)
             {
-                if (pos[i].X - Fenster.X + fahne.Width*scale < 0 || pos[i].X - Fenster.X > Game1.screenWidth)
+                if (pos[i].X - Fenster.X + fahne.Width * scale < 0 || pos[i].X - Fenster.X > Game1.screenWidth)
                     continue;
 
                 if (Kollision.collision(Help.GetMousePos(), pos[i] - Fenster, false))

@@ -50,26 +50,26 @@ namespace _4_1_
             switch (test.Interact(Game1.Spiel2.Fenster, true, oldmouseState))
             {
                 case 0:
+                {
+                    if (test.target > -1)
                     {
-                        if (test.target > -1)
-                        {
-                            notiz.delNotiz(test.target);
-                            test.target = -1;
-                            test.sichtbar = false;
-                        }
-                        return;
+                        notiz.delNotiz(test.target);
+                        test.target = -1;
+                        test.sichtbar = false;
                     }
+                    return;
+                }
                 case 1:
+                {
+                    if (test.target > -1)
                     {
-                        if (test.target > -1)
-                        {
-                            //schreibe mittels Kurznachricht die Fehlermeldung, dass hier schon eine Notiz vorhanden ist
-                            return;
-                        }
-                        // Vector2 temp = new Vector2(minscreen + Help.GetMouseState().X, Help.GetMouseState().Y);
-                        //notiz.AddNotiz(graphicsDevice, temp, "Neuer Eintrag");
+                        //schreibe mittels Kurznachricht die Fehlermeldung, dass hier schon eine Notiz vorhanden ist
                         return;
                     }
+                    // Vector2 temp = new Vector2(minscreen + Help.GetMouseState().X, Help.GetMouseState().Y);
+                    //notiz.AddNotiz(graphicsDevice, temp, "Neuer Eintrag");
+                    return;
+                }
                 default:
                     break;
             }

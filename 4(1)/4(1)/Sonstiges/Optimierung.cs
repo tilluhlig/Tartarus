@@ -75,7 +75,7 @@ namespace _4_1_
         /// <returns>System.Int32.</returns>
         public static int Optimiere_Fahrzeuge(bool Richtung)
         {
-            String[] Bilder = {"Artillerie2", "Panzer2", "Baufahrzeug2", "Scout2", "Geschuetz", "Geschuetz2"};
+            String[] Bilder = { "Artillerie2", "Panzer2", "Baufahrzeug2", "Scout2", "Geschuetz", "Geschuetz2" };
             for (int i = 0; i < Bilder.Count(); i++)
             {
                 Skaliere(Bilder[i], ".png", Fahrzeugdaten.SCALEP.oldWert[i], Richtung);
@@ -91,7 +91,7 @@ namespace _4_1_
                 Skaliere(Bilder2[i], ".png", Fahrzeugdaten.SCALEP.oldWert[i], Richtung);
             }
 
-            String[] Bilder3 = {"nichts", "nichts", "nichts", "ScoutReifen", "nichts", "nichts"};
+            String[] Bilder3 = { "nichts", "nichts", "nichts", "ScoutReifen", "nichts", "nichts" };
             for (int i = 0; i < Bilder3.Count(); i++)
             {
                 Skaliere(Bilder3[i], ".png", Fahrzeugdaten.SCALEP.oldWert[i], Richtung);
@@ -254,7 +254,7 @@ namespace _4_1_
                 }
 
                 // Skalieren
-                String SkalierungS = Convert.ToString(Skalierung*100).Replace(',', '.');
+                String SkalierungS = Convert.ToString(Skalierung * 100).Replace(',', '.');
                 String zo = "\"" + Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension + "\" -resize " +
                             SkalierungS + "% -quiet \"" + Path2 + "4(1)Content\\Textures\\" + Datei + Extension + "\"";
                 Process Prozess = Process.Start("..\\..\\..\\..\\ImageMagick\\convert.exe", zo);

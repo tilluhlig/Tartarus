@@ -20,49 +20,49 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    ///     Class Collision_Object
+    ///     ermöglicht die Kollisionsprüfung für Objekte
     /// </summary>
     public class KollisionsObjekt
     {
         #region Fields
 
         /// <summary>
-        ///     The bild
+        ///     die Texturmaske
         /// </summary>
         public List<int>[] Bild = null;
 
         /// <summary>
-        ///     The bild_ width
+        ///     die Bildbreite
         /// </summary>
         public int BildBreite = 0;
 
         /// <summary>
-        ///     The bild_ height
+        ///     die Bildhöhe
         /// </summary>
         public int BildHöhe = 0;
 
         /// <summary>
-        ///     The rotateable
+        ///     ist das Objekt drehbar?
         /// </summary>
         public bool Drehbar = false;
 
         /// <summary>
-        ///     The rotationpos
+        ///     der Drehpunkt
         /// </summary>
         public Vector2 Drehpunkt = new Vector2(0, 0);
 
         /// <summary>
-        ///     The scale
+        ///     die Skalierung der Textur
         /// </summary>
         public float Skalierung = 1.0f;
 
         /// <summary>
-        ///     The overreachable
+        ///     ist das Objekt spiegelbar?
         /// </summary>
         public bool Spiegelbar = false;
 
         /// <summary>
-        ///     The centered
+        ///     wird die Textur zentriert?
         /// </summary>
         public bool Zentriert = false;
 
@@ -71,16 +71,16 @@ namespace _4_1_
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="KollisionsObjekt" /> class.
+        /// Erzeugt ein neues KollisionsObjekt
         /// </summary>
-        /// <param name="_Bild">The _ bild.</param>
-        /// <param name="_BildBreite">Width of the _ bild_.</param>
-        /// <param name="BildHöhe">Height of the _ bild_.</param>
-        /// <param name="_Skalierung">The _scale.</param>
-        /// <param name="_Spiegelbar">if set to <c>true</c> [_overreachable].</param>
-        /// <param name="_Drehbar">if set to <c>true</c> [_rotateable].</param>
-        /// <param name="_Zentriert">if set to <c>true</c> [_centered].</param>
-        /// <param name="_Drehpunkt">The _rotationpos.</param>
+        /// <param name="_Bild">die Bildmaske</param>
+        /// <param name="_BildBreite">die Bildbreite</param>
+        /// <param name="_BildHöhe">die Bildhöhe</param>
+        /// <param name="_Skalierung">die Skalierung</param>
+        /// <param name="_Spiegelbar">ist das Objekt spiegelbar</param>
+        /// <param name="_Drehbar">ist das Objekt drehbar</param>
+        /// <param name="_Zentriert">wird die Textur zentriert</param>
+        /// <param name="_Drehpunkt">ist das Objekt drehbar</param>
         public KollisionsObjekt(List<int>[] _Bild, int _BildBreite, int _BildHöhe, float _Skalierung, bool _Spiegelbar,
             bool _Drehbar, bool _Zentriert, Vector2 _Drehpunkt)
         {
@@ -97,21 +97,23 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Erzeugt ein neues KollisionsObjekt
         /// </summary>
         public KollisionsObjekt()
         {
         }
 
         /// <summary>
+        /// Erzeugt ein neues KollisionsObjekt
         /// </summary>
-        /// <param name="_Bild"></param>
-        /// <param name="_BildBreite"></param>
-        /// <param name="_BildHöhe"></param>
-        /// <param name="_Skalierung"></param>
-        /// <param name="_Spiegelbar"></param>
-        /// <param name="_Drehbar"></param>
-        /// <param name="_Zentriert"></param>
-        /// <param name="_Drehpunkt"></param>
+        /// <param name="_Bild">die Textur</param>
+        /// <param name="_BildBreite">die Bildbreite</param>
+        /// <param name="_BildHöhe">die Bildhöhe</param>
+        /// <param name="_Skalierung">die Skalierung</param>
+        /// <param name="_Spiegelbar">ist das Objekt spiegelbar</param>
+        /// <param name="_Drehbar">ist das Objekt drehbar</param>
+        /// <param name="_Zentriert">wird die Textur zentriert</param>
+        /// <param name="_Drehpunkt">ist das Objekt drehbar</param>
         public KollisionsObjekt(Texture2D _Bild, int _BildBreite, int _BildHöhe, float _Skalierung, bool _Spiegelbar,
             bool _Drehbar, bool _Zentriert, Vector2 _Drehpunkt)
         {
@@ -133,9 +135,10 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
+        /// Erstellt ein KollisionsObjekt aus einer Textdarstellung
         /// </summary>
-        /// <param name="Text"></param>
-        /// <param name="Objekt"></param>
+        /// <param name="Text">die Textdarstellung des Objektes</param>
+        /// <param name="Objekt">null = erzeuge neues Objekt, sonst = wende es auf dieses Objekt an</param>
         /// <returns></returns>
         public static KollisionsObjekt Laden(List<String> Text, KollisionsObjekt Objekt)
         {
@@ -172,9 +175,9 @@ namespace _4_1_
         /// <summary>
         ///     Rotiert einen Vektor
         /// </summary>
-        /// <param name="Winkel">The winkel.</param>
-        /// <param name="u">The u.</param>
-        /// <param name="BB">The BB.</param>
+        /// <param name="Winkel">der Rotationswinkel</param>
+        /// <param name="u">die Rotationsachse</param>
+        /// <param name="BB">der Vektor, der gedreht werden soll</param>
         /// <returns>Vector3.</returns>
         public static Vector3 Rotiere(double Winkel, Vector3 u, Vector3 BB)
         {
@@ -192,16 +195,16 @@ namespace _4_1_
             {
                 (float) -s*u.Y + (1 - c)*u.X*u.Z, (float) s*u.X + (1 - c)*u.Y*u.Z, (float) c + (1 - c)*u.Z*u.Z
             };
-            return new Vector3((float)((float)A[0] * BB.X + A[1] * BB.Y + A[2] * BB.Z),
-                (float)((float)B[0] * BB.X + B[1] * BB.Y + B[2] * BB.Z), (float)((float)C[0] * BB.X + C[1] * BB.Y + C[2] * BB.Z));
+            return new Vector3((float) ((float) A[0]*BB.X + A[1]*BB.Y + A[2]*BB.Z),
+                (float) ((float) B[0]*BB.X + B[1]*BB.Y + B[2]*BB.Z), (float) ((float) C[0]*BB.X + C[1]*BB.Y + C[2]*BB.Z));
         }
 
         /// <summary>
-        ///     Rotates the specified winkel.
+        ///     Dreht einen Vektor
         /// </summary>
-        /// <param name="Winkel">The winkel.</param>
-        /// <param name="u">The u.</param>
-        /// <param name="B">The B.</param>
+        /// <param name="Winkel">der Drehwinkel</param>
+        /// <param name="u">die Rotationsachse</param>
+        /// <param name="B">der Vektor, welcher gedreht werden soll</param>
         /// <returns>Vector2.</returns>
         public static Vector2 Rotiere(double Winkel, Vector3 u, Vector2 B)
         {
@@ -210,90 +213,90 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Collisions the specified incoming_ position.
+        ///     Prüft, ob eine Punkt mit dem Objekt kollidiert
         /// </summary>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <param name="Object_Position">The object_ position.</param>
-        /// <param name="angle">The angle.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-        public bool collision(Vector2 Incoming_Position, Vector2 Object_Position, float angle)
+        /// <param name="Incoming_Position">die zu prüfende Position</param>
+        /// <param name="Object_Position">die Position des Objektes</param>
+        /// <param name="_Winkel">der Rotationswinkel des Objektes</param>
+        /// <returns>true = es gibt eine Kollision, false = keine Kollision</returns>
+        public bool collision(Vector2 Incoming_Position, Vector2 Object_Position, float _Winkel)
         {
-            return collision(Incoming_Position, Object_Position, angle, false);
+            return collision(Incoming_Position, Object_Position, _Winkel, false);
         }
 
         /// <summary>
-        ///     Collisions the specified incoming_ position.
+        ///     Prüft, ob eine Punkt mit dem Objekt kollidiert
         /// </summary>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <param name="Object_Position">The object_ position.</param>
-        /// <param name="overreach">if set to <c>true</c> [overreach].</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-        public bool collision(Vector2 Incoming_Position, Vector2 Object_Position, bool overreach)
+        /// <param name="Incoming_Position">die zu prüfende Position</param>
+        /// <param name="Object_Position">die Position des Objektes</param>
+        /// <param name="_Gespiegelt">ist das Objekt gespiegelt</param>
+        /// <returns>true = es gibt eine Kollision, false = keine Kollision</returns>
+        public bool collision(Vector2 Incoming_Position, Vector2 Object_Position, bool _Gespiegelt)
         {
-            return collision(Incoming_Position, Object_Position, 0, overreach);
+            return collision(Incoming_Position, Object_Position, 0, _Gespiegelt);
         }
 
         /// <summary>
-        ///     Collisions the specified incoming_ position.
+        ///     Prüft, ob eine Punkt mit dem Objekt kollidiert
         /// </summary>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <param name="Object_Position">The object_ position.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        /// <param name="Incoming_Position">die zu prüfende Position</param>
+        /// <param name="Object_Position">die Position des Objektes</param>
+        /// <returns>true = es gibt eine Kollision, false = keine Kollision</returns>
         public bool collision(Vector2 Incoming_Position, Vector2 Object_Position)
         {
             return collision(Incoming_Position, Object_Position, 0, false);
         }
 
         /// <summary>
-        ///     Collisions the specified incoming_ position.
+        ///     Prüft, ob eine Punkt mit dem Objekt kollidiert
         /// </summary>
-        /// <param name="Incoming_Position">The incoming_ position.</param>
-        /// <param name="Object_Position">The object_ position.</param>
-        /// <param name="angle">The angle.</param>
-        /// <param name="overreach">if set to <c>true</c> [overreach].</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
-        public bool collision(Vector2 Incoming_Position, Vector2 Object_Position, float angle, bool overreach)
+        /// <param name="Incoming_Position">die zu prüfende Position</param>
+        /// <param name="Object_Position">die Position des Objektes</param>
+        /// <param name="_Winkel">der Winkel des Objektes</param>
+        /// <param name="_Gespiegelt">ist das Objekt gespiegelt</param>
+        /// <returns>true = es gibt eine Kollision, false = keine Kollision</returns>
+        public bool collision(Vector2 Incoming_Position, Vector2 Object_Position, float _Winkel, bool _Gespiegelt)
         {
             if (Bild == null) return false;
 
             // Rotateable korrektur
             if (Drehbar)
-                Incoming_Position = Help.RotatePosition(Object_Position, MathHelper.ToRadians(360) - angle,
+                Incoming_Position = Help.RotatePosition(Object_Position, MathHelper.ToRadians(360) - _Winkel,
                     Incoming_Position);
 
             // Bringe Object und Eindringling relativ zueinander
-            var x = (int)(Incoming_Position.X - Object_Position.X);
-            var y = (int)(Incoming_Position.Y - Object_Position.Y);
+            var x = (int) (Incoming_Position.X - Object_Position.X);
+            var y = (int) (Incoming_Position.Y - Object_Position.Y);
 
             // Korrektur für Bilder, die nach ihrem Mittelpunkt ausgerichtet wurden
-            if (Zentriert) x += (int)(BildBreite * Skalierung / 2);
+            if (Zentriert) x += (int) (BildBreite*Skalierung/2);
 
             // Korrektur (Bild wurde verschoben)
-            y += (int)(BildHöhe * Skalierung);
+            y += (int) (BildHöhe*Skalierung);
 
             // eigentliche Kollisionsabfrage
-            return isSet(x, y, overreach);
+            return isSet(x, y, _Gespiegelt);
         }
 
         /// <summary>
-        ///     Determines whether the specified x is set.
+        ///     prüft, ob ein bestimmter Punkt der Textur gesetzt ist
         /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="overreach">if set to <c>true</c> [overreach].</param>
-        /// <returns><c>true</c> if the specified x is set; otherwise, <c>false</c>.</returns>
-        public bool isSet(int x, int y, bool overreach)
+        /// <param name="x">die X-Koordinate</param>
+        /// <param name="y">die y-Koordinate</param>
+        /// <param name="_Gespiegelt">gespiegelt?</param>
+        /// <returns>true = ist gesetzt, false = nicht gesetzt</returns>
+        public bool isSet(int x, int y, bool _Gespiegelt)
         {
             if (x < 0 || y < 0) return false;
-            if (x >= BildBreite * Skalierung || y >= BildHöhe * Skalierung) return false;
+            if (x >= BildBreite*Skalierung || y >= BildHöhe*Skalierung) return false;
             if (Bild == null) return false;
 
             // Korrektur der Skalierung
-            x = (int)(x / Skalierung);
-            y = (int)(y / Skalierung);
+            x = (int) (x/Skalierung);
+            y = (int) (y/Skalierung);
 
             // Korrektur des Overreach
-            if (overreach) x = BildBreite - x;
+            if (_Gespiegelt) x = BildBreite - x;
 
             if (!Help.isSet(Bild, x, y)) return false;
             //if (!Help.isSetInMask(Bild, x, y, Bild_Width)) return false;
@@ -301,8 +304,9 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// wandelt das Objekt in Text um
         /// </summary>
-        /// <returns></returns>
+        /// <returns>die Textdarstelung des Objektes</returns>
         public List<String> Speichern()
         {
             var data = new List<String>();
@@ -337,14 +341,14 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Uses the mask on texture2 D.
+        ///     wendet eine Maskierung auf eine Textur an
         /// </summary>
-        /// <param name="_Bild">The _ bild.</param>
-        /// <returns>Texture2D.</returns>
+        /// <param name="_Bild">die Textur</param>
+        /// <returns>die maskierte Textur</returns>
         public Texture2D UseMaskOnTexture2D(Texture2D _Bild)
         {
             if (Bild == null) return null;
-            var Data = new Color[_Bild.Width * _Bild.Height];
+            var Data = new Color[_Bild.Width*_Bild.Height];
             _Bild.GetData(Data);
 
             for (int i = 0; i < _Bild.Width; i++)
@@ -352,7 +356,7 @@ namespace _4_1_
                 {
                     if (!Help.isSet(Bild, i, b))
                     {
-                        Data[i + b * _Bild.Width] = Color.Transparent;
+                        Data[i + b*_Bild.Width] = Color.Transparent;
                     }
                 }
 

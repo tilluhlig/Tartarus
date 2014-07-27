@@ -147,7 +147,7 @@ namespace Update
             string postData = "";
             var list = new List<String>();
 
-            var myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            var myHttpWebRequest = (HttpWebRequest) WebRequest.Create(url);
             myHttpWebRequest.Method = "POST";
 
             byte[] data = Encoding.ASCII.GetBytes(postData);
@@ -161,7 +161,7 @@ namespace Update
                 requestStream.Write(data, 0, data.Length);
                 requestStream.Close();
 
-                var myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+                var myHttpWebResponse = (HttpWebResponse) myHttpWebRequest.GetResponse();
 
                 Stream responseStream = myHttpWebResponse.GetResponseStream();
                 list.Add(myHttpWebResponse.StatusDescription);
@@ -422,7 +422,7 @@ namespace Update
             }
 
             label1.Text = Bezeichner;
-            label1.Left = Width / 2 - label1.Width / 2;
+            label1.Left = Width/2 - label1.Width/2;
         }
 
         #endregion Methods

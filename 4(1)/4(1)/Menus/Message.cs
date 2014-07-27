@@ -91,10 +91,10 @@ namespace _4_1_
         {
             this.font = font;
             this.textur = textur;
-            ownPos = new Vector2((screenwidth - textur.Width)/2, (screenheight - textur.Height)/2);
+            ownPos = new Vector2((screenwidth - textur.Width) / 2, (screenheight - textur.Height) / 2);
             item = new Button(Texturen.hausbutton,
                 ownPos +
-                new Vector2((textur.Width - Texturen.hausbutton.Width)/2,
+                new Vector2((textur.Width - Texturen.hausbutton.Width) / 2,
                     textur.Height - Texturen.hausbutton.Height - border), "OK", font);
         }
 
@@ -147,7 +147,7 @@ namespace _4_1_
             this.content = new List<String>();
             contentPos = new List<Vector2>();
             this.head = head;
-            headPos = new Vector2((textur.Width - font.MeasureString(head).X)/2, ownPos.Y + 0);
+            headPos = new Vector2((textur.Width - font.MeasureString(head).X) / 2, ownPos.Y + 0);
             String[] aux = content.Split(' ');
             String auxitem = aux[0];
             for (int i = 1; i < aux.Length; i++)
@@ -157,12 +157,12 @@ namespace _4_1_
                 else
                 {
                     this.content.Add(auxitem);
-                    contentPos.Add(ownPos + new Vector2(border, this.content.Count*25));
+                    contentPos.Add(ownPos + new Vector2(border, this.content.Count * 25));
                     auxitem = aux[i];
                 }
             }
             this.content.Add(auxitem);
-            contentPos.Add(ownPos + new Vector2(border, this.content.Count*25));
+            contentPos.Add(ownPos + new Vector2(border, this.content.Count * 25));
         }
 
         /// <summary>

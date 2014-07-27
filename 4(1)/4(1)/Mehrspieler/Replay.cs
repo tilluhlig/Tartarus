@@ -92,20 +92,20 @@ namespace _4_1_
                 for (int i = 0; i < Raketen2.Count; i += 3)
                 {
                     int art = Convert.ToInt32(Raketen2[i + 2]);
-                    int xPos = Convert.ToInt32(Raketen2[i]) - (int) Spiel2.Fenster.X;
-                        // -(int)(Texturen.missle[art].Width * Rakete.Scale[art]) / 2;
-                    int yPos = Convert.ToInt32(Raketen2[i + 1]) - (int) Spiel2.Fenster.Y;
-                        // -(int)(Texturen.missle[art].Height * Rakete.Scale[art]) / 2;
+                    int xPos = Convert.ToInt32(Raketen2[i]) - (int)Spiel2.Fenster.X;
+                    // -(int)(Texturen.missle[art].Width * Rakete.Scale[art]) / 2;
+                    int yPos = Convert.ToInt32(Raketen2[i + 1]) - (int)Spiel2.Fenster.Y;
+                    // -(int)(Texturen.missle[art].Height * Rakete.Scale[art]) / 2;
                     Color farbe = Color.Lime;
                     int w = Texturen.dot2.Width;
                     float scale = 0.25f;
-                    spriteBatch.Draw(Texturen.dot2, new Vector2(xPos - w*scale/2, yPos - w*scale/2), null, farbe, 0,
+                    spriteBatch.Draw(Texturen.dot2, new Vector2(xPos - w * scale / 2, yPos - w * scale / 2), null, farbe, 0,
                         new Vector2(0, 0), scale, SpriteEffects.None, 1);
                 }
             }
 
             {
-                int i = (Spiel2.CurrentPlayer + 1)%Spiel2.players.Count();
+                int i = (Spiel2.CurrentPlayer + 1) % Spiel2.players.Count();
 
                 for (int b = 0; b < Spiel2.players[i].pos.Count; b++)
                 {
@@ -120,12 +120,12 @@ namespace _4_1_
                         spriteBatch.Draw(Texturen.Punkt, new Vector2(q2.X - 2, q2.Y - 2), null, Color.Lime, 0,
                             Vector2.Zero, 4.0f, SpriteEffects.None, 1);
 
-                        int xPos = (int) playerA[i].pos[b].X - (int) Spiel2.Fenster.X;
-                        int yPos = (int) playerA[i].pos[b].Y - (int) Spiel2.Fenster.Y;
+                        int xPos = (int)playerA[i].pos[b].X - (int)Spiel2.Fenster.X;
+                        int yPos = (int)playerA[i].pos[b].Y - (int)Spiel2.Fenster.Y;
                         float auxfliphelper = MathHelper.ToRadians(180);
                         var cannonOrigin = new Vector2(300, 40);
                         var cannonOrigin2 = new Vector2(160, 40);
-                        var xPos2 = (int) (Math.Sin(playerA[i].vehikleAngle[b])*-25);
+                        var xPos2 = (int)(Math.Sin(playerA[i].vehikleAngle[b]) * -25);
 
                         if (playerA[i].overreach[b])
                         {
@@ -138,7 +138,7 @@ namespace _4_1_
 
                             spriteBatch.Draw(Texturen.panzerumriss2[playerA[i].KindofTank[b]], new Vector2(xPos, yPos),
                                 null, Color.White, playerA[i].vehikleAngle[b],
-                                new Vector2(Texturen.panzerumriss2[playerA[i].KindofTank[b]].Width/2,
+                                new Vector2(Texturen.panzerumriss2[playerA[i].KindofTank[b]].Width / 2,
                                     Texturen.panzerumriss2[playerA[i].KindofTank[b]].Height), playerA[i].Size[b],
                                 SpriteEffects.FlipHorizontally, 0);
                         }
@@ -153,7 +153,7 @@ namespace _4_1_
 
                             spriteBatch.Draw(Texturen.panzerumriss2[playerA[i].KindofTank[b]], new Vector2(xPos, yPos),
                                 null, Color.White, playerA[i].vehikleAngle[b],
-                                new Vector2(Texturen.panzerumriss2[playerA[i].KindofTank[b]].Width/2,
+                                new Vector2(Texturen.panzerumriss2[playerA[i].KindofTank[b]].Width / 2,
                                     Texturen.panzerumriss2[playerA[i].KindofTank[b]].Height), playerA[i].Size[b],
                                 SpriteEffects.None, 0);
                         }
@@ -185,8 +185,8 @@ namespace _4_1_
         public static void Explosion(Vector2 pos, int Raketensorte)
         {
             // Explosion aufnehmen
-            Raketen.Add(((int) pos.X).ToString());
-            Raketen.Add(((int) pos.Y).ToString());
+            Raketen.Add(((int)pos.X).ToString());
+            Raketen.Add(((int)pos.Y).ToString());
             Raketen.Add(Raketensorte.ToString());
         }
 
@@ -204,8 +204,8 @@ namespace _4_1_
                     list.Add(playerA[i].Angle[b].ToString());
                     list.Add(playerA[i].isthere[b].ToString());
                     list.Add(playerA[i].overreach[b].ToString());
-                    list.Add(((int) playerA[i].pos[b].X).ToString());
-                    list.Add(((int) playerA[i].pos[b].Y).ToString());
+                    list.Add(((int)playerA[i].pos[b].X).ToString());
+                    list.Add(((int)playerA[i].pos[b].Y).ToString());
                     list.Add(playerA[i].vehikleAngle[b].ToString());
                     list.Add(playerA[i].KindofTank[b].ToString());
                 }
@@ -223,8 +223,8 @@ namespace _4_1_
                     /*list.Add(playerB[i].Angle[b].ToString());
                     list.Add(playerB[i].isthere[b].ToString());
                     list.Add(playerB[i].overreach[b].ToString());*/
-                    list.Add(((int) playerB[i].pos[b].X).ToString());
-                    list.Add(((int) playerB[i].pos[b].Y).ToString());
+                    list.Add(((int)playerB[i].pos[b].X).ToString());
+                    list.Add(((int)playerB[i].pos[b].Y).ToString());
                     /* list.Add(playerB[i].vehikleAngle[b].ToString());
                      list.Add(playerB[i].KindofTank[b].ToString());*/
                 }
@@ -268,7 +268,7 @@ namespace _4_1_
             if (!File.Exists(Datei)) return;
             var datei = new StreamReader(Datei);
             var Data = new List<String>();
-            for (; !datei.EndOfStream;) Data.Add(datei.ReadLine());
+            for (; !datei.EndOfStream; ) Data.Add(datei.ReadLine());
 
             // Begin
             {
@@ -297,7 +297,7 @@ namespace _4_1_
                         playerA[i].SizeOfCannon[b] = Fahrzeugdaten.SCALER.Wert[playerA[i].KindofTank[b]];
 
                         playerA[i].shootingPower = 2f;
-                        playerA[i].MaxTimeout = 180*60;
+                        playerA[i].MaxTimeout = 180 * 60;
                     }
                 }
             }
@@ -380,7 +380,7 @@ namespace _4_1_
 
         private static float FLOAT(String data)
         {
-            return (float) (Convert.ToDouble(data));
+            return (float)(Convert.ToDouble(data));
         }
 
         private static int INT(String data)

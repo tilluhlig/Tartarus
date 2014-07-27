@@ -78,7 +78,7 @@ namespace Minesweeper
             ResetSchritte();
             if (Bilder != null)
             {
-                for (int i = 0; i < Breite*Hoehe; i++)
+                for (int i = 0; i < Breite * Hoehe; i++)
                 {
                     Bilder[i].Dispose();
                 }
@@ -86,45 +86,45 @@ namespace Minesweeper
 
             Breite = _Breite;
             Hoehe = _Hoehe;
-            Spielfeld = new Feld[Breite*Hoehe];
+            Spielfeld = new Feld[Breite * Hoehe];
             for (int i = 0; i < Spielfeld.Count(); i++) Spielfeld[i] = new Feld();
-            Bilder = new PictureBox[Breite*Hoehe + 8];
+            Bilder = new PictureBox[Breite * Hoehe + 8];
 
             // die Felder, die man anklicken kann initialisieren
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 Bilder[i] = new PictureBox();
                 Bilder[i].Parent = frm;
                 Bilder[i].Height = 32;
                 Bilder[i].Width = 32;
                 Bilder[i].Image = GetBild(i);
-                Bilder[i].Top = (i/Breite - 4)*32 + Zeichenflaeche.Top;
-                Bilder[i].Left = (i%Breite)*32 + Zeichenflaeche.Left;
+                Bilder[i].Top = (i / Breite - 4) * 32 + Zeichenflaeche.Top;
+                Bilder[i].Left = (i % Breite) * 32 + Zeichenflaeche.Left;
                 Bilder[i].Hide();
             }
 
             for (int i = 0; i < 4; i++)
             {
-                Bilder[i + Breite*Hoehe] = new PictureBox();
-                Bilder[i + Breite*Hoehe].Parent = frm;
-                Bilder[i + Breite*Hoehe].Height = 32;
-                Bilder[i + Breite*Hoehe].Width = 32;
-                Bilder[i + Breite*Hoehe].Image = GetBild(i);
-                Bilder[i + Breite*Hoehe].Top = 0;
-                Bilder[i + Breite*Hoehe].Left = (Breite - 4)*32 + (i%Breite)*32 + Zeichenflaeche.Left;
-                Bilder[i + Breite*Hoehe].Hide();
+                Bilder[i + Breite * Hoehe] = new PictureBox();
+                Bilder[i + Breite * Hoehe].Parent = frm;
+                Bilder[i + Breite * Hoehe].Height = 32;
+                Bilder[i + Breite * Hoehe].Width = 32;
+                Bilder[i + Breite * Hoehe].Image = GetBild(i);
+                Bilder[i + Breite * Hoehe].Top = 0;
+                Bilder[i + Breite * Hoehe].Left = (Breite - 4) * 32 + (i % Breite) * 32 + Zeichenflaeche.Left;
+                Bilder[i + Breite * Hoehe].Hide();
             }
 
             for (int i = 0; i < 4; i++)
             {
-                Bilder[i + Breite*Hoehe + 4] = new PictureBox();
-                Bilder[i + Breite*Hoehe + 4].Parent = frm;
-                Bilder[i + Breite*Hoehe + 4].Height = 32;
-                Bilder[i + Breite*Hoehe + 4].Width = 32;
-                Bilder[i + Breite*Hoehe + 4].Image = GetBild(i);
-                Bilder[i + Breite*Hoehe + 4].Top = 32;
-                Bilder[i + Breite*Hoehe + 4].Left = (Breite - 4)*32 + (i%Breite)*32 + Zeichenflaeche.Left;
-                Bilder[i + Breite*Hoehe + 4].Hide();
+                Bilder[i + Breite * Hoehe + 4] = new PictureBox();
+                Bilder[i + Breite * Hoehe + 4].Parent = frm;
+                Bilder[i + Breite * Hoehe + 4].Height = 32;
+                Bilder[i + Breite * Hoehe + 4].Width = 32;
+                Bilder[i + Breite * Hoehe + 4].Image = GetBild(i);
+                Bilder[i + Breite * Hoehe + 4].Top = 32;
+                Bilder[i + Breite * Hoehe + 4].Left = (Breite - 4) * 32 + (i % Breite) * 32 + Zeichenflaeche.Left;
+                Bilder[i + Breite * Hoehe + 4].Hide();
             }
 
             frm.KeyDown += KeyDown;
@@ -133,8 +133,8 @@ namespace Minesweeper
             // Fenster an Spielfeld anpassen
             int disty = frm.Height - Zeichenflaeche.Height;
             int distx = frm.Width - Zeichenflaeche.Width;
-            frm.Height = (Hoehe*Breite/Breite)*32 + disty;
-            frm.Width = (Breite*32) + distx;
+            frm.Height = (Hoehe * Breite / Breite) * 32 + disty;
+            frm.Width = (Breite * 32) + distx;
             if (frm.Width < 491) frm.Width = 491;
 
             // Den "Wieviel Sekunden wird Gespielt" Timer initialisieren
@@ -148,7 +148,7 @@ namespace Minesweeper
             Geschw = 500;
             Warte = 15;
 
-            for (int i = Breite*4; i < Breite*Hoehe + 8; i++)
+            for (int i = Breite * 4; i < Breite * Hoehe + 8; i++)
             {
                 Bilder[i].Show();
             }
@@ -202,11 +202,11 @@ namespace Minesweeper
                 {
                     for (int b = 0; b < Breite; b++)
                     {
-                        int pos = i*Breite + b;
+                        int pos = i * Breite + b;
                         // jedes Element fällt einzeln
                         if (Spielfeld[pos].Bewegung)
                         {
-                            if (Spielfeld[(i + 1)*Breite + b].Art > 0 || i == Hoehe - 1)
+                            if (Spielfeld[(i + 1) * Breite + b].Art > 0 || i == Hoehe - 1)
                             {
                                 // unabhängiger stein stoppt
                                 Spielfeld[pos].Bewegung = false;
@@ -214,12 +214,12 @@ namespace Minesweeper
                             else
                             {
                                 // unabhängiger stein fällt weiter
-                                Spielfeld[(i + 1)*Breite + b].Art = Spielfeld[pos].Art;
+                                Spielfeld[(i + 1) * Breite + b].Art = Spielfeld[pos].Art;
                                 Spielfeld[pos].Art = 0;
                                 Spielfeld[pos].Bewegung = false;
-                                Spielfeld[(i + 1)*Breite + b].Bewegung = true;
+                                Spielfeld[(i + 1) * Breite + b].Bewegung = true;
                                 Bilder[pos].Image = GetBild(pos);
-                                Bilder[(i + 1)*Breite + b].Image = GetBild((i + 1)*Breite + b);
+                                Bilder[(i + 1) * Breite + b].Image = GetBild((i + 1) * Breite + b);
                             }
                         }
                     }
@@ -233,11 +233,11 @@ namespace Minesweeper
                 {
                     for (int b = 0; b < Breite && !found; b++)
                     {
-                        int pos = i*Breite + b;
+                        int pos = i * Breite + b;
                         if (Spielfeld[pos].Art > 0 && Spielfeld[pos].Bewegung)
                         {
                             if (i == Hoehe - 1 ||
-                                (Spielfeld[(i + 1)*Breite + b].Art > 0 && !Spielfeld[(i + 1)*Breite + b].Bewegung))
+                                (Spielfeld[(i + 1) * Breite + b].Art > 0 && !Spielfeld[(i + 1) * Breite + b].Bewegung))
                             {
                                 found = true; // es gibt eine Kollision
                             }
@@ -249,7 +249,7 @@ namespace Minesweeper
                 {
                     for (int b = 0; b < Breite; b++)
                     {
-                        int pos = i*Breite + b;
+                        int pos = i * Breite + b;
                         // jedes Element fällt einzeln
                         if (Spielfeld[pos].Bewegung)
                         {
@@ -262,12 +262,12 @@ namespace Minesweeper
                                 if (i < Hoehe - 1)
                                 {
                                     // ansonsten den Stein weiter fallen lassen
-                                    Spielfeld[(i + 1)*Breite + b].Art = Spielfeld[pos].Art;
-                                    Spielfeld[(i + 1)*Breite + b].Bewegung = true;
+                                    Spielfeld[(i + 1) * Breite + b].Art = Spielfeld[pos].Art;
+                                    Spielfeld[(i + 1) * Breite + b].Bewegung = true;
                                     Spielfeld[pos].Art = 0;
                                     Spielfeld[pos].Bewegung = false;
                                     Bilder[pos].Image = GetBild(pos);
-                                    Bilder[(i + 1)*Breite + b].Image = GetBild((i + 1)*Breite + b);
+                                    Bilder[(i + 1) * Breite + b].Image = GetBild((i + 1) * Breite + b);
                                 }
                             }
                         }
@@ -294,7 +294,7 @@ namespace Minesweeper
             {
                 for (int b = Breite - 1; b >= 0; b--)
                 {
-                    int pos = i*Breite + b;
+                    int pos = i * Breite + b;
                     if (Spielfeld[pos].Art > 0 && Spielfeld[pos].Bewegung)
                     {
                         Objekt.Add(new Point(b, i));
@@ -313,8 +313,8 @@ namespace Minesweeper
                 x += Objekt[i].X;
                 y += Objekt[i].Y;
             }
-            var Mitte = new Point((int) Math.Round((decimal) x/Objekt.Count, 0),
-                (int) Math.Round((decimal) y/Objekt.Count));
+            var Mitte = new Point((int)Math.Round((decimal)x / Objekt.Count, 0),
+                (int)Math.Round((decimal)y / Objekt.Count));
 
             // Drehe Objekt
             for (int i = 0; i < Objekt.Count; i++)
@@ -328,14 +328,14 @@ namespace Minesweeper
             {
                 if (ObjektNeu[i].Y < 0 || ObjektNeu[i].Y >= Hoehe) return;
                 if (ObjektNeu[i].X < 0 || ObjektNeu[i].X >= Breite) return;
-                int pos = ObjektNeu[i].Y*Breite + ObjektNeu[i].X;
+                int pos = ObjektNeu[i].Y * Breite + ObjektNeu[i].X;
                 if (Spielfeld[pos].Art > 0 && !Spielfeld[pos].Bewegung) return;
             }
 
             // lösche altes Objekt
             for (int i = 0; i < Objekt.Count; i++)
             {
-                int pos = Objekt[i].Y*Breite + Objekt[i].X;
+                int pos = Objekt[i].Y * Breite + Objekt[i].X;
                 Spielfeld[pos].Art = 0;
                 Spielfeld[pos].Bewegung = false;
                 Bilder[pos].Image = GetBild(pos);
@@ -344,7 +344,7 @@ namespace Minesweeper
             // setze neues Objekt
             for (int i = 0; i < ObjektNeu.Count; i++)
             {
-                int pos = ObjektNeu[i].Y*Breite + ObjektNeu[i].X;
+                int pos = ObjektNeu[i].Y * Breite + ObjektNeu[i].X;
                 Spielfeld[pos].Art = Farbe;
                 Spielfeld[pos].Bewegung = true;
                 Bilder[pos].Image = GetBild(pos);
@@ -369,7 +369,7 @@ namespace Minesweeper
             {
                 for (int b = 0; b < Breite; b++)
                 {
-                    int pos = i*Breite + b;
+                    int pos = i * Breite + b;
                     if (Spielfeld[pos].Art > 0 && Spielfeld[pos].Bewegung)
                     {
                         // ja, den gibt es!!!
@@ -448,7 +448,7 @@ namespace Minesweeper
 
             // Wähle einen Stein zufällig und setzen ihn entsprechend aufs Feld
             int temp = nextStein;
-            int begin = Breite/2 - 2 + Breite*2;
+            int begin = Breite / 2 - 2 + Breite * 2;
 
             int pp = 0;
             for (int i = begin; i < begin + 4; i++, pp++)
@@ -475,7 +475,7 @@ namespace Minesweeper
             // fertig gesetzt
 
             temp = nextStein;
-            begin = Breite*Hoehe;
+            begin = Breite * Hoehe;
 
             pp = 0;
             for (int i = begin; i < begin + 4; i++, pp++)
@@ -506,7 +506,7 @@ namespace Minesweeper
         private static void PrüfeNiederlage()
         {
             // Prüfe ob sich ein "fester" Baustein im oberen "unsichtbaren" Bereich findet, also das Spielfeld bis oben reicht
-            for (int i = Breite*3; i < Breite*4; i++)
+            for (int i = Breite * 3; i < Breite * 4; i++)
             {
                 if (Spielfeld[i].Art > 0 && !Spielfeld[i].Bewegung)
                 {
@@ -529,7 +529,7 @@ namespace Minesweeper
                 bool found = false;
                 for (int b = 0; b < Breite; b++)
                 {
-                    int pos = i*Breite + b;
+                    int pos = i * Breite + b;
                     if (Spielfeld[pos].Art == 0 || Spielfeld[pos].Bewegung)
                     {
                         found = true; // nein, Zeile ist nicht voll
@@ -543,7 +543,7 @@ namespace Minesweeper
                     // ja, lösche Zeile
                     for (int b = 0; b < Breite; b++)
                     {
-                        int pos = i*Breite + b;
+                        int pos = i * Breite + b;
                         Spielfeld[pos].Art = 0;
                         Spielfeld[pos].Bewegung = false;
                         Bilder[pos].Image = GetBild(pos);
@@ -552,7 +552,7 @@ namespace Minesweeper
                     ErhoeheZeilen(); // erhöht score
 
                     // damit sind alle Zeile darüber in Bewegung (aufrücken)
-                    for (int b = 0; b < i*Breite; b++)
+                    for (int b = 0; b < i * Breite; b++)
                     {
                         Spielfeld[b].Bewegung = true;
                         Bilder[b].Image = GetBild(b);
@@ -579,7 +579,7 @@ namespace Minesweeper
                     Warte--;
                     if (Warte == 0)
                     {
-                        Geschw = (int) ((double) Geschw*0.9f);
+                        Geschw = (int)((double)Geschw * 0.9f);
                         Warte = 15;
                     }
                 }
@@ -606,9 +606,9 @@ namespace Minesweeper
             {
                 for (int b = 0; b < Breite; b++)
                 {
-                    int pos = i*Breite + b;
+                    int pos = i * Breite + b;
                     if (Spielfeld[pos].Art > 0 && Spielfeld[pos].Bewegung &&
-                        (b == 0 || Spielfeld[i*Breite + b - 1].Art > 0 && !Spielfeld[i*Breite + b - 1].Bewegung))
+                        (b == 0 || Spielfeld[i * Breite + b - 1].Art > 0 && !Spielfeld[i * Breite + b - 1].Bewegung))
                     {
                         return;
                     }
@@ -620,15 +620,15 @@ namespace Minesweeper
             {
                 for (int b = 1; b < Breite; b++)
                 {
-                    int pos = i*Breite + b;
-                    if (Spielfeld[pos].Art > 0 && Spielfeld[pos].Bewegung && Spielfeld[i*Breite + b - 1].Art == 0)
+                    int pos = i * Breite + b;
+                    if (Spielfeld[pos].Art > 0 && Spielfeld[pos].Bewegung && Spielfeld[i * Breite + b - 1].Art == 0)
                     {
-                        Spielfeld[i*Breite + b - 1].Art = Spielfeld[pos].Art;
+                        Spielfeld[i * Breite + b - 1].Art = Spielfeld[pos].Art;
                         Spielfeld[pos].Art = 0;
-                        Spielfeld[i*Breite + b - 1].Bewegung = true;
+                        Spielfeld[i * Breite + b - 1].Bewegung = true;
                         Spielfeld[pos].Bewegung = false;
                         Bilder[pos].Image = GetBild(pos);
-                        Bilder[(i)*Breite + b - 1].Image = GetBild((i)*Breite + b - 1);
+                        Bilder[(i) * Breite + b - 1].Image = GetBild((i) * Breite + b - 1);
                     }
                 }
             }
@@ -643,9 +643,9 @@ namespace Minesweeper
             {
                 for (int b = Breite - 1; b >= 0; b--)
                 {
-                    int pos = i*Breite + b;
+                    int pos = i * Breite + b;
                     if (Spielfeld[pos].Art > 0 && Spielfeld[pos].Bewegung &&
-                        (b == Breite - 1 || Spielfeld[i*Breite + b + 1].Art > 0 && !Spielfeld[i*Breite + b + 1].Bewegung))
+                        (b == Breite - 1 || Spielfeld[i * Breite + b + 1].Art > 0 && !Spielfeld[i * Breite + b + 1].Bewegung))
                     {
                         return;
                     }
@@ -657,16 +657,16 @@ namespace Minesweeper
             {
                 for (int b = Breite - 2; b >= 0; b--)
                 {
-                    int pos = i*Breite + b;
+                    int pos = i * Breite + b;
                     if (Spielfeld[pos].Art > 0 && Spielfeld[pos].Bewegung)
                     {
-                        Spielfeld[i*Breite + b + 1].Art = Spielfeld[pos].Art;
+                        Spielfeld[i * Breite + b + 1].Art = Spielfeld[pos].Art;
                         Spielfeld[pos].Art = 0;
-                        Spielfeld[i*Breite + b + 1].Bewegung = true;
+                        Spielfeld[i * Breite + b + 1].Bewegung = true;
                         Spielfeld[pos].Bewegung = false;
                         ;
                         Bilder[pos].Image = GetBild(pos);
-                        Bilder[(i)*Breite + b + 1].Image = GetBild((i)*Breite + b + 1);
+                        Bilder[(i) * Breite + b + 1].Image = GetBild((i) * Breite + b + 1);
                     }
                 }
             }

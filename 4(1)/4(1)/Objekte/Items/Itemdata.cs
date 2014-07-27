@@ -108,7 +108,7 @@ namespace _4_1_
         /// <summary>
         ///     Die Liste der Konsumitems
         /// </summary>
-        public static Item[] Konsumierbares = { Heilen };
+        public static Item[] Konsumierbares = {Heilen};
 
         /// <summary>
         ///     Die Liste der Upgrades

@@ -178,7 +178,7 @@ namespace _4_1_
             int _Art = 1;
 
             // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos[id], (int)Waffendaten.Daten[_Art].Y,
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos[id], (int) Waffendaten.Daten[_Art].Y,
                 Waffendaten.Daten[_Art].Z, Waffendaten.Daten[_Art].W, gameTime,
                 Waffendaten.Farben[_Art], _Art, 0);
 
@@ -186,22 +186,22 @@ namespace _4_1_
             Spiel2.Karte.explode_missile(Spielfeld, pos[id], Spiel2.Fenster, _Art);
 
             // Rauchstelle
-            for (int j = -(int)Waffendaten.Daten[_Art].X / 2;
-                j < Waffendaten.Daten[_Art].X / 2;
+            for (int j = -(int) Waffendaten.Daten[_Art].X/2;
+                j < Waffendaten.Daten[_Art].X/2;
                 j += Waffendaten.BrandAbstand[_Art])
             {
                 if (pos[id].X + j < 0 || pos[id].X + j >= Spielfeld.Length) continue;
                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke,
                     new Vector2(pos[id].X + j, Kartenformat.BottomOf(pos[id])), 4,
-                    Waffendaten.Daten[_Art].Z / 10, Waffendaten.Daten[_Art].W * 10, gameTime,
+                    Waffendaten.Daten[_Art].Z/10, Waffendaten.Daten[_Art].W*10, gameTime,
                     Waffendaten.Farben[_Art], _Art, 2);
             }
 
             var a = new Karte();
             Replay.Explosion(pos[id], _Art);
-            list.AddRange(a.Explode(Spielfeld, (int)pos[id].X, (int)pos[id].Y, (int)(Waffendaten.Daten[_Art].X)));
-            list.AddRange(Spiel2.Explosionsschäden(gameTime, pos[id], (int)(Waffendaten.Daten[_Art].X), _Art,
-                new[] { -1, -1 }));
+            list.AddRange(a.Explode(Spielfeld, (int) pos[id].X, (int) pos[id].Y, (int) (Waffendaten.Daten[_Art].X)));
+            list.AddRange(Spiel2.Explosionsschäden(gameTime, pos[id], (int) (Waffendaten.Daten[_Art].X), _Art,
+                new[] {-1, -1}));
             return list;
         }
 
@@ -227,7 +227,7 @@ namespace _4_1_
         {
             if (Zerstörung == null) return 0;
             var tmp = new Texture2D(Bild.GraphicsDevice, Bild.Width, Bild.Height);
-            var temp = new Color[Bild.Width * Bild.Height];
+            var temp = new Color[Bild.Width*Bild.Height];
             Bild.GetData(temp);
             tmp.SetData(temp);
             return Zerstörung.BerechneZerstörung(tmp, Explosion, Energie, pos[id]);

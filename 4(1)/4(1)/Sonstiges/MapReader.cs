@@ -79,7 +79,7 @@ namespace _4_1_
 
             var datei = new StreamReader(Map);
             var Data = new List<String>();
-            for (; !datei.EndOfStream;) Data.Add(datei.ReadLine());
+            for (; !datei.EndOfStream; ) Data.Add(datei.ReadLine());
             datei.Close();
 
             // Game1.Spiel2 = null;
@@ -157,7 +157,7 @@ namespace _4_1_
         /// <returns>System.Single.</returns>
         private float FLOAT(String data)
         {
-            return (float) (System.Convert.ToDouble(data));
+            return (float)(System.Convert.ToDouble(data));
         }
 
         /// <summary>

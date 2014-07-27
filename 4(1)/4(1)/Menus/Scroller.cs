@@ -9,29 +9,28 @@ namespace _4_1_
     {
         #region Fields
 
-        public float clickY;
-        public int items = 0;
-        public int maxItems;
-        public bool visible = false;
-        private readonly Texture2D balken;
         private readonly Color Balken = Color.Gray;
+        private readonly Texture2D balken;
         private readonly int breite;
         private readonly int hoehe;
         private readonly Texture2D oben;
         private readonly float obenscale;
         private readonly Texture2D unten;
         private readonly bool vertikal;
-        private int _oberstes;
         private BoundingBox Balkenbox;
+        private Color Hintergrund = Color.Green;
+        private int _oberstes;
         private Vector2 balkenpos;
+        public float clickY;
         private int counter = 15;
         private GraphicsDevice graphicsDevice;
-        private Color Hintergrund = Color.Green;
         private bool holding;
         private bool holdingo;
         private bool holdingu;
-        private int maxcounter = 15;
+        public int items = 0;
+        public int maxItems;
         private float maxY;
+        private int maxcounter = 15;
         private float minY;
         private BoundingBox obenBox;
         private Vector2 pos;
@@ -40,6 +39,7 @@ namespace _4_1_
         private Vector2 scrollerpos;
         private BoundingBox untenBox;
         private Vector2 untenpos;
+        public bool visible = false;
 
         #endregion Fields
 
@@ -63,44 +63,44 @@ namespace _4_1_
             {
                 oben = Content.Load<Texture2D>("Textures\\alt_oben");
                 unten = Content.Load<Texture2D>("Textures\\alt_unten");
-                obenscale = (float)breite / oben.Width;
+                obenscale = (float) breite/oben.Width;
 
-                balken = new Texture2D(graphicsDevice, breite, (int)(hoehe - 2 * oben.Height * obenscale));
-                var color = new Color[breite * (int)(hoehe - 2 * oben.Height * obenscale)]; //
+                balken = new Texture2D(graphicsDevice, breite, (int) (hoehe - 2*oben.Height*obenscale));
+                var color = new Color[breite*(int) (hoehe - 2*oben.Height*obenscale)]; //
                 for (int i = 0; i < color.Length; i++) color[i] = Hintergrund;
                 balken.SetData(color);
 
-                minY = pos.Y + oben.Height * obenscale;
-                untenpos = pos + new Vector2(0, oben.Height * obenscale + balken.Height);
-                balkenpos = pos + new Vector2(0, oben.Height * obenscale);
+                minY = pos.Y + oben.Height*obenscale;
+                untenpos = pos + new Vector2(0, oben.Height*obenscale + balken.Height);
+                balkenpos = pos + new Vector2(0, oben.Height*obenscale);
 
-                Balkenbox = new BoundingBox(new Vector3(pos + new Vector2(0, oben.Height) * obenscale, 0),
-                    new Vector3(untenpos + new Vector2(oben.Width, 0) * obenscale, 0));
+                Balkenbox = new BoundingBox(new Vector3(pos + new Vector2(0, oben.Height)*obenscale, 0),
+                    new Vector3(untenpos + new Vector2(oben.Width, 0)*obenscale, 0));
             }
             else
             {
                 oben = Content.Load<Texture2D>("Textures\\nachLinks");
                 unten = Content.Load<Texture2D>("Textures\\nachRechts");
-                obenscale = (float)hoehe / oben.Height;
+                obenscale = (float) hoehe/oben.Height;
 
-                balken = new Texture2D(graphicsDevice, (int)(breite - 2 * oben.Width * obenscale), hoehe);
-                var color = new Color[hoehe * (int)(breite - 2 * oben.Width * obenscale)];
+                balken = new Texture2D(graphicsDevice, (int) (breite - 2*oben.Width*obenscale), hoehe);
+                var color = new Color[hoehe*(int) (breite - 2*oben.Width*obenscale)];
                 for (int i = 0; i < color.Length; i++) color[i] = Hintergrund;
                 balken.SetData(color);
 
-                minY = pos.X + oben.Width * obenscale;
-                untenpos = pos + new Vector2(oben.Width * obenscale + balken.Width, 0);
+                minY = pos.X + oben.Width*obenscale;
+                untenpos = pos + new Vector2(oben.Width*obenscale + balken.Width, 0);
 
-                balkenpos = pos + new Vector2(oben.Width * obenscale, 0);
+                balkenpos = pos + new Vector2(oben.Width*obenscale, 0);
 
-                Balkenbox = new BoundingBox(new Vector3(pos + new Vector2(oben.Width, 0) * obenscale, 0),
-                    new Vector3(untenpos + new Vector2(0, oben.Height) * obenscale, 0));
+                Balkenbox = new BoundingBox(new Vector3(pos + new Vector2(oben.Width, 0)*obenscale, 0),
+                    new Vector3(untenpos + new Vector2(0, oben.Height)*obenscale, 0));
             }
 
             obenBox = new BoundingBox(new Vector3(pos, 0),
-                new Vector3(pos + new Vector2(oben.Width, oben.Height) * obenscale, 0));
+                new Vector3(pos + new Vector2(oben.Width, oben.Height)*obenscale, 0));
             untenBox = new BoundingBox(new Vector3(untenpos, 0),
-                new Vector3(untenpos + new Vector2(oben.Width, oben.Height) * obenscale, 0));
+                new Vector3(untenpos + new Vector2(oben.Width, oben.Height)*obenscale, 0));
 
             scrollerpos = balkenpos;
             updateScroller(items, graphicsDevice);
@@ -120,11 +120,11 @@ namespace _4_1_
 
                 if (vertikal)
                 {
-                    scrollerpos.Y = minY + ((maxY - minY) / (items - maxItems) * value);
+                    scrollerpos.Y = minY + ((maxY - minY)/(items - maxItems)*value);
                 }
                 else
                 {
-                    scrollerpos.X = minY + ((maxY - minY) / (items - maxItems) * value);
+                    scrollerpos.X = minY + ((maxY - minY)/(items - maxItems)*value);
                 }
 
                 UpdatePos(pos);
@@ -194,7 +194,7 @@ namespace _4_1_
                         else
                         {
                             scrollerpos.Y = clickY + diff;
-                            oberstes = (int)((scrollerpos.Y - minY) / (maxY - minY) * (items - maxItems));
+                            oberstes = (int) ((scrollerpos.Y - minY)/(maxY - minY)*(items - maxItems));
                         }
                     }
                 }
@@ -217,7 +217,7 @@ namespace _4_1_
                         else
                         {
                             scrollerpos.X = clickY + diff;
-                            oberstes = (int)((scrollerpos.X - minY) / (maxY - minY) * (items - maxItems));
+                            oberstes = (int) ((scrollerpos.X - minY)/(maxY - minY)*(items - maxItems));
                         }
                     }
                 }
@@ -249,8 +249,8 @@ namespace _4_1_
                     if (oberstes == 0)
                         return false;
                     oberstes--;
-                    if (vertikal) scrollerpos.Y = minY + (maxY - minY) * oberstes / (items - maxItems);
-                    else scrollerpos.X = minY + (maxY - minY) * oberstes / (items - maxItems);
+                    if (vertikal) scrollerpos.Y = minY + (maxY - minY)*oberstes/(items - maxItems);
+                    else scrollerpos.X = minY + (maxY - minY)*oberstes/(items - maxItems);
                     counter = maxcounter;
                     if (maxcounter > 1) maxcounter--;
                 }
@@ -272,8 +272,8 @@ namespace _4_1_
                     if (oberstes == items - maxItems)
                         return false;
                     oberstes++;
-                    if (vertikal) scrollerpos.Y = minY + (maxY - minY) * oberstes / (items - maxItems);
-                    else scrollerpos.X = minY + (maxY - minY) * oberstes / (items - maxItems);
+                    if (vertikal) scrollerpos.Y = minY + (maxY - minY)*oberstes/(items - maxItems);
+                    else scrollerpos.X = minY + (maxY - minY)*oberstes/(items - maxItems);
                     counter = maxcounter;
                     if (maxcounter > 1) maxcounter--;
                 }
@@ -334,13 +334,13 @@ namespace _4_1_
                 {
                     if (vertikal)
                     {
-                        oberstes = (int)((Help.GetMouseState().Y - minY) / (maxY - minY) * (items - maxItems));
-                        scrollerpos.Y = minY + (float)balken.Height * oberstes / (items - maxItems + 2);
+                        oberstes = (int) ((Help.GetMouseState().Y - minY)/(maxY - minY)*(items - maxItems));
+                        scrollerpos.Y = minY + (float) balken.Height*oberstes/(items - maxItems + 2);
                     }
                     else
                     {
-                        oberstes = (int)((Help.GetMouseState().X - minY) / (maxY - minY) * (items - maxItems));
-                        scrollerpos.X = minY + (float)balken.Width * oberstes / (items - maxItems + 2);
+                        oberstes = (int) ((Help.GetMouseState().X - minY)/(maxY - minY)*(items - maxItems));
+                        scrollerpos.X = minY + (float) balken.Width*oberstes/(items - maxItems + 2);
                     }
                     holding = true;
                     return true;
@@ -365,29 +365,29 @@ namespace _4_1_
 
             if (vertikal)
             {
-                minY = pos.Y + oben.Height * obenscale;
-                untenpos = pos + new Vector2(0, oben.Height * obenscale + balken.Height);
-                balkenpos = pos + new Vector2(0, oben.Height * obenscale);
+                minY = pos.Y + oben.Height*obenscale;
+                untenpos = pos + new Vector2(0, oben.Height*obenscale + balken.Height);
+                balkenpos = pos + new Vector2(0, oben.Height*obenscale);
                 maxY = untenpos.Y - scroller.Height;
 
-                Balkenbox = new BoundingBox(new Vector3(pos + new Vector2(0, oben.Height) * obenscale, 0),
-                    new Vector3(untenpos + new Vector2(oben.Width, 0) * obenscale, 0));
+                Balkenbox = new BoundingBox(new Vector3(pos + new Vector2(0, oben.Height)*obenscale, 0),
+                    new Vector3(untenpos + new Vector2(oben.Width, 0)*obenscale, 0));
             }
             else
             {
-                minY = pos.X + oben.Width * obenscale;
-                untenpos = pos + new Vector2(oben.Width * obenscale + balken.Width, 0);
-                balkenpos = pos + new Vector2(oben.Width * obenscale, 0);
+                minY = pos.X + oben.Width*obenscale;
+                untenpos = pos + new Vector2(oben.Width*obenscale + balken.Width, 0);
+                balkenpos = pos + new Vector2(oben.Width*obenscale, 0);
                 maxY = untenpos.X - scroller.Width;
 
-                Balkenbox = new BoundingBox(new Vector3(pos + new Vector2(oben.Width, 0) * obenscale, 0),
-                    new Vector3(untenpos + new Vector2(0, oben.Height) * obenscale, 0));
+                Balkenbox = new BoundingBox(new Vector3(pos + new Vector2(oben.Width, 0)*obenscale, 0),
+                    new Vector3(untenpos + new Vector2(0, oben.Height)*obenscale, 0));
             }
 
             obenBox = new BoundingBox(new Vector3(pos, 0),
-                new Vector3(pos + new Vector2(oben.Width, oben.Height) * obenscale, 0));
+                new Vector3(pos + new Vector2(oben.Width, oben.Height)*obenscale, 0));
             untenBox = new BoundingBox(new Vector3(untenpos, 0),
-                new Vector3(untenpos + new Vector2(oben.Width, oben.Height) * obenscale, 0));
+                new Vector3(untenpos + new Vector2(oben.Width, oben.Height)*obenscale, 0));
 
             scrollerpos += move;
             updateBox();
@@ -400,18 +400,18 @@ namespace _4_1_
             this.graphicsDevice = graphicsDevice;
 
             if (items < maxItems + 1)
-            //scroller nicht noetig
+                //scroller nicht noetig
             {
                 Color[] color;
                 if (vertikal)
                 {
                     scroller = new Texture2D(graphicsDevice, breite, balken.Height);
-                    color = new Color[breite * (int)(hoehe - 2 * oben.Height * obenscale)];
+                    color = new Color[breite*(int) (hoehe - 2*oben.Height*obenscale)];
                 }
                 else
                 {
                     scroller = new Texture2D(graphicsDevice, balken.Width, hoehe);
-                    color = new Color[(int)(breite - 2 * oben.Width * obenscale) * hoehe];
+                    color = new Color[(int) (breite - 2*oben.Width*obenscale)*hoehe];
                 }
                 for (int i = 0; i < color.Length; i++) color[i] = Balken;
                 scroller.SetData(color);
@@ -421,7 +421,7 @@ namespace _4_1_
                 Color[] color;
                 if (vertikal)
                 {
-                    int size = balken.Height / (items - maxItems);
+                    int size = balken.Height/(items - maxItems);
                     //ist update notwendig?
                     if (size < 10)
                     {
@@ -429,18 +429,18 @@ namespace _4_1_
                         if (scroller != null) if (scroller.Height == 10) return;
                     }
                     scroller = new Texture2D(graphicsDevice, breite, size);
-                    color = new Color[breite * size];
+                    color = new Color[breite*size];
                 }
                 else
                 {
-                    int size = balken.Width / (items - maxItems);
+                    int size = balken.Width/(items - maxItems);
                     if (size < 10)
                     {
                         size = 10;
                         if (scroller != null) if (scroller.Width == 10) return;
                     }
                     scroller = new Texture2D(graphicsDevice, size, hoehe);
-                    color = new Color[hoehe * size];
+                    color = new Color[hoehe*size];
                 }
                 for (int i = 0; i < color.Length; i++) color[i] = Balken;
                 scroller.SetData(color);

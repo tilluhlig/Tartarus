@@ -59,14 +59,14 @@ namespace _4_1_
         #region Fields
 
         /// <summary>
-        ///     Gibt an, wie weit der Fahrzeugtyp maximal in der Runde nach rechts/links fahren kann
-        /// </summary>
-        public static Var<int[]> ARBEITSBEREICH = new Var<int[]>("ARBEITSBEREICH", new[] { 1000, 1000, 1000, 1000, 0, 0 });
-
-        /// <summary>
         ///     wie viel Maximalgesundheit welcher Art von Fahrzeug zustehen
         /// </summary>
-        public static Var<int[]> _MAXHP = new Var<int[]>("_MAXHP", new[] { 10000, 10000, 10000, 5000, 5000, 5000 });
+        public static Var<int[]> _MAXHP = new Var<int[]>("_MAXHP", new[] {10000, 10000, 10000, 5000, 5000, 5000});
+
+        /// <summary>
+        ///     Gibt an, wie weit der Fahrzeugtyp maximal in der Runde nach rechts/links fahren kann
+        /// </summary>
+        public static Var<int[]> ARBEITSBEREICH = new Var<int[]>("ARBEITSBEREICH", new[] {1000, 1000, 1000, 1000, 0, 0});
 
         /// <summary>
         ///     gibt an, wieviel Exp bei Abschuss dieses Fahrzeugs gibt
@@ -76,43 +76,43 @@ namespace _4_1_
         /// <summary>
         ///     Enthält, wieviel Erfahrung für die Zerstörung des Fahrzeugtyps zusteht
         /// </summary>
-        public static Var<int[]> EXPREWARDED = new Var<int[]>("EXPREWARDED", new[] { 80, 90, 70, 60, 60, 60 });
+        public static Var<int[]> EXPREWARDED = new Var<int[]>("EXPREWARDED", new[] {80, 90, 70, 60, 60, 60});
 
         /// <summary>
         ///     Enthält, wieviel Erfahrung die ARTILLERIE braucht, um die nächste Stufe aufzusteigen
         ///     Jeweils für Stufe 1, 2 und 3
         /// </summary>
-        public static Var<int[]> EXPTOLVUP0 = new Var<int[]>("EXPTOLVUP0", new[] { 100, 100, 100 });
+        public static Var<int[]> EXPTOLVUP0 = new Var<int[]>("EXPTOLVUP0", new[] {100, 100, 100});
 
         /// <summary>
         ///     Enthält, wieviel Erfahrung der PANZER braucht, um die nächste Stufe aufzusteigen
         ///     Jeweils für Stufe 1, 2 und 3
         /// </summary>
-        public static Var<int[]> EXPTOLVUP1 = new Var<int[]>("EXPTOLVUP1", new[] { 100, 100, 100 });
+        public static Var<int[]> EXPTOLVUP1 = new Var<int[]>("EXPTOLVUP1", new[] {100, 100, 100});
 
         /// <summary>
         ///     Enthält, wieviel Erfahrung das BAUFAHRZEUG braucht, um die nächste Stufe aufzusteigen
         ///     Jeweils für Stufe 1, 2 und 3
         /// </summary>
-        public static Var<int[]> EXPTOLVUP2 = new Var<int[]>("EXPTOLVUP2", new[] { 100, 100, 100 });
+        public static Var<int[]> EXPTOLVUP2 = new Var<int[]>("EXPTOLVUP2", new[] {100, 100, 100});
 
         /// <summary>
         ///     Enthält, wieviel Erfahrung der SCOUT braucht, um die nächste Stufe aufzusteigen
         ///     Jeweils für Stufe 1, 2 und 3
         /// </summary>
-        public static Var<int[]> EXPTOLVUP3 = new Var<int[]>("EXPTOLVUP3", new[] { 100, 100, 100 });
+        public static Var<int[]> EXPTOLVUP3 = new Var<int[]>("EXPTOLVUP3", new[] {100, 100, 100});
 
         /// <summary>
         ///     Enthält, wieviel Erfahrung das RAKETEN-GESCHÜTZ braucht, um die nächste Stufe aufzusteigen
         ///     Jeweils für Stufe 1, 2 und 3
         /// </summary>
-        public static Var<int[]> EXPTOLVUP4 = new Var<int[]>("EXPTOLVUP4", new[] { 100, 100, 100 });
+        public static Var<int[]> EXPTOLVUP4 = new Var<int[]>("EXPTOLVUP4", new[] {100, 100, 100});
 
         /// <summary>
         ///     Enthält, wieviel Erfahrung das MG-GESCHÜTZ braucht, um die nächste Stufe aufzusteigen
         ///     Jeweils für Stufe 1, 2 und 3
         /// </summary>
-        public static Var<int[]> EXPTOLVUP5 = new Var<int[]>("EXPTOLVUP5", new[] { 100, 100, 100 });
+        public static Var<int[]> EXPTOLVUP5 = new Var<int[]>("EXPTOLVUP5", new[] {100, 100, 100});
 
         /// <summary>
         ///     gibt an, wieviel Exp das Fahrzeug braucht, um ein Level aufzusteigen
@@ -122,27 +122,27 @@ namespace _4_1_
         /// <summary>
         ///     Gibt an, wo bei den Fahrzeug die Mitte ist
         /// </summary>
-        public static Var<int[]> FAHRM = new Var<int[]>("FAHRM", new[] { 32, 34, 32, 32, 32, 32 });
+        public static Var<int[]> FAHRM = new Var<int[]>("FAHRM", new[] {32, 34, 32, 32, 32, 32});
 
         /// <summary>
         ///     Enthält Fallgeschwindigkeit für jeden Fahrzeugtyp
         /// </summary>
-        public static Var<float[]> FALLG = new Var<float[]>("FALLG", new[] { 1.00f, 1.00f, 1.00f, 1.5f, 1.5f, 1.5f });
+        public static Var<float[]> FALLG = new Var<float[]>("FALLG", new[] {1.00f, 1.00f, 1.00f, 1.5f, 1.5f, 1.5f});
 
         /// <summary>
         ///     ???
         /// </summary>
-        public static Var<float[]> FALLW = new Var<float[]>("FALLW", new[] { 0.03f, 0.03f, 0.025f, 0.25f, 0.25f, 0.25f });
+        public static Var<float[]> FALLW = new Var<float[]>("FALLW", new[] {0.03f, 0.03f, 0.025f, 0.25f, 0.25f, 0.25f});
 
         /// <summary>
         ///     Enthält die Geländegeschwindigkeit für alle Fahrzeugarten (Rückwärts)
         /// </summary>
-        public static Var<float[]> GESCHWR = new Var<float[]>("GESCHWR", new[] { 0.50f, 0.75f, 0.9f, 1.5f, 0f, 0f });
+        public static Var<float[]> GESCHWR = new Var<float[]>("GESCHWR", new[] {0.50f, 0.75f, 0.9f, 1.5f, 0f, 0f});
 
         /// <summary>
         ///     Enthält die Geländegeschwindigkeit für alle Fahrzeugarten (Vorwärts)
         /// </summary>
-        public static Var<float[]> GESCHWV = new Var<float[]>("GESCHWV", new[] { 1.0f, 1.5f, 1.8f, 3f, 0f, 0f });
+        public static Var<float[]> GESCHWV = new Var<float[]>("GESCHWV", new[] {1.0f, 1.5f, 1.8f, 3f, 0f, 0f});
 
         /// <summary>
         ///     Enthält den "default" Inventar je Fahrzeug
@@ -191,12 +191,12 @@ namespace _4_1_
         /// <summary>
         ///     Stellt fest, welche Fahrzeuge in einer Fabrik angeferigt werden können
         /// </summary>
-        public static Var<int[]> KANNGEBAUTWERDEN = new Var<int[]>("KANNGEBAUTWERDEN", new[] { 1, 1, 1, 1, 0, 0 });
+        public static Var<int[]> KANNGEBAUTWERDEN = new Var<int[]>("KANNGEBAUTWERDEN", new[] {1, 1, 1, 1, 0, 0});
 
         /// <summary>
         ///     Stellt fest, ob dieses Fahrzeug/Geschütz mit anderen Fahrzeugen/Geschützen/Händlern Items tauschen kann
         /// </summary>
-        public static Var<int[]> KANNHANDELN = new Var<int[]>("KANNHANDELN", new[] { 1, 1, 1, 1, 0, 0 });
+        public static Var<int[]> KANNHANDELN = new Var<int[]>("KANNHANDELN", new[] {1, 1, 1, 1, 0, 0});
 
         /// <summary>
         ///     Zeigt den maximalen Ausschwenkungsgrad des Zielrohres des Fahrzeugs (gegen Uhrzeigersinn)
@@ -228,7 +228,7 @@ namespace _4_1_
         /// <summary>
         ///     Enthält die Kosten eines neuen Fahrzeugs dieser Art
         /// </summary>
-        public static Var<int[]> PREIS = new Var<int[]>("PREIS", new[] { 1000, 1000, 1000, 1000, 0, 0 });
+        public static Var<int[]> PREIS = new Var<int[]>("PREIS", new[] {1000, 1000, 1000, 1000, 0, 0});
 
         /// <summary>
         ///     Enthält, was das Fahrzeug an Items pro Runde bekommt
@@ -276,48 +276,48 @@ namespace _4_1_
         /// <summary>
         ///     wie stark die Fahrzeuge auf den Feld skaliert werden (Korpus)
         /// </summary>
-        public static Var<float[]> SCALEP = new Var<float[]>("SCALEP", new[] { 0.25f, 0.19f, 0.32f, 0.11f, 0.45f, 0.45f });
+        public static Var<float[]> SCALEP = new Var<float[]>("SCALEP", new[] {0.25f, 0.19f, 0.32f, 0.11f, 0.45f, 0.45f});
 
         /// <summary>
         ///     wie stark die Fahrzeuge auf den Feld skaliert werden (Zielrohr)
         /// </summary>
-        public static Var<float[]> SCALER = new Var<float[]>("SCALER", new[] { 0.25f, 0.19f, 0.32f, 0.11f, 0.45f, 0.45f });
+        public static Var<float[]> SCALER = new Var<float[]>("SCALER", new[] {0.25f, 0.19f, 0.32f, 0.11f, 0.45f, 0.45f});
 
         /// <summary>
         ///     Enthält, welche Muntionsklassen von der ARTILLERIE verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE0 = new Var<int[]>("SHOOTABLE0",
-            new[] { 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 });
+            new[] {1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1});
 
         /// <summary>
         ///     Enthält, welche Muntionsklassen von den PANZER verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE1 = new Var<int[]>("SHOOTABLE1",
-            new[] { 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 });
+            new[] {1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1});
 
         /// <summary>
         ///     Enthält, welche Muntionsklassen von dem BAUFAHRZEUG verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE2 = new Var<int[]>("SHOOTABLE2",
-            new[] { 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1 });
+            new[] {0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1});
 
         /// <summary>
         ///     Enthält, welche Muntionsklassen von dem SCOUT verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE3 = new Var<int[]>("SHOOTABLE3",
-            new[] { 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 });
+            new[] {0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1});
 
         /// <summary>
         ///     Enthält, welche Muntionsklassen von dem RAKETEN-GESCHÜTZ verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE4 = new Var<int[]>("SHOOTABLE4",
-            new[] { 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+            new[] {1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
 
         /// <summary>
         ///     Enthält, welche Muntionsklassen von dem MG-GESCHÜTZ verschossen werden können
         /// </summary>
         public static Var<int[]> SHOOTABLE5 = new Var<int[]>("SHOOTABLE5",
-            new[] { 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+            new[] {0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
 
         /// <summary>
         ///     Beinhaltet die verschießbare Munition (alle Fahrzeuge, alle Munitionsarten)
@@ -327,7 +327,7 @@ namespace _4_1_
         /// <summary>
         ///     Id des Blubb-Sounds, der benutz wird, ween das fahrzeug ins Wasser fällt
         /// </summary>
-        public static Var<int[]> SINKSOUND = new Var<int[]>("SINKSOUND", new[] { 0, 0, 1, 1, 0, 0 });
+        public static Var<int[]> SINKSOUND = new Var<int[]>("SINKSOUND", new[] {0, 0, 1, 1, 0, 0});
 
         /// <summary>
         ///     Diese Items bekommt man zusätzlich zum normalen Inventar (mit dem Anteil von 0 bis 100%)
@@ -375,17 +375,17 @@ namespace _4_1_
         /// <summary>
         ///     Enthält den Sprittverbrauch für alle Fahrzeugarten
         /// </summary>
-        public static Var<float[]> VERBRAUCH = new Var<float[]>("VERBRAUCH", new[] { 2.625f, 2.4375f, 0f, 1.875f, 0f, 0f });
+        public static Var<float[]> VERBRAUCH = new Var<float[]>("VERBRAUCH", new[] {2.625f, 2.4375f, 0f, 1.875f, 0f, 0f});
 
         /// <summary>
         ///     Die Lautstärke (Motor) je Fahrzeugtyp
         /// </summary>
-        public static Var<float[]> VOLUMES = new Var<float[]>("VOLUMES", new[] { 0.3f, 0.6f, 0.4f, 0.7f, 0f, 0f });
+        public static Var<float[]> VOLUMES = new Var<float[]>("VOLUMES", new[] {0.3f, 0.6f, 0.4f, 0.7f, 0f, 0f});
 
         /// <summary>
         ///     Enthält, welche Geländesteigung (in Grad) das Fahrzeug erklimmen kann
         /// </summary>
-        public static Var<int[]> WINKEL = new Var<int[]>("WINKEL", new[] { 040, 040, 050, 070, 0, 0 });
+        public static Var<int[]> WINKEL = new Var<int[]>("WINKEL", new[] {040, 040, 050, 070, 0, 0});
 
         #endregion Fields
 

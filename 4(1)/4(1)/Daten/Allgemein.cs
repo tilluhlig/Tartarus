@@ -91,7 +91,7 @@
         /// <summary>
         ///     MOD-Variable, wielange wird eine Minenexplosion verzögert
         /// </summary>
-        private static Var<int> MOD_Minenverzögerung = new Var<int>("MINENVERZOEGERUNG", 60*60*5, ref Minenverzögerung);
+        private static Var<int> MOD_Minenverzögerung = new Var<int>("MINENVERZOEGERUNG", 60 * 60 * 5, ref Minenverzögerung);
 
         /// <summary>
         ///     MOD-Variable, wieviel Kostet der Kauf einer Einheit Treibstoff

@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -156,7 +157,7 @@ namespace _4_1_
             Gespiegelt.Add(_Gespiegelt);
             Skalierung.Add(_Skalierung);
 
-            var temp = new Color[_Bild.Width * _Bild.Height];
+            var temp = new Color[_Bild.Width*_Bild.Height];
             _Bild.GetData(temp);
             var tmp = new Texture2D(_Bild.GraphicsDevice, _Bild.Width, _Bild.Height);
             tmp.SetData(temp);
@@ -189,7 +190,7 @@ namespace _4_1_
             if (Text2.Count == 0) return;
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
-            String Typ = TextLaden.LadeString(Liste, "Bild", (id == -1 ? "Textures\\nichts" : (String)Bild[id].Tag));
+            String Typ = TextLaden.LadeString(Liste, "Bild", (id == -1 ? "Textures\\nichts" : (String) Bild[id].Tag));
 
             int altid = id;
             if (id == -1)
@@ -198,7 +199,7 @@ namespace _4_1_
                 id = Position.Count - 1;
             }
 
-            if (((String)Bild[id].Tag) == Typ && altid == id)
+            if (((String) Bild[id].Tag) == Typ && altid == id)
             {
                 Bild[id] = Content.Load<Texture2D>(Typ);
                 Bild[id].Tag = Typ;
@@ -303,14 +304,14 @@ namespace _4_1_
             for (int i = 0; i < Position.Count; i++)
             {
                 float scale = Skalierung[i];
-                var xPos = (int)(Position[i].X - Spiel2.Fenster.X);
-                var yPos = (int)(Position[i].Y - Spiel2.Fenster.Y);
+                var xPos = (int) (Position[i].X - Spiel2.Fenster.X);
+                var yPos = (int) (Position[i].Y - Spiel2.Fenster.Y);
 
-                if (xPos + Bild[i].Width * scale / 2 < 0 || xPos - Bild[i].Width * scale / 2 > Game1.screenWidth) continue;
+                if (xPos + Bild[i].Width*scale/2 < 0 || xPos - Bild[i].Width*scale/2 > Game1.screenWidth) continue;
 
                 spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
-                spriteBatch.Draw(Bild[i], new Vector2(xPos - (Bild[i].Width * scale) / 2, yPos - Bild[i].Height * scale), null,
+                spriteBatch.Draw(Bild[i], new Vector2(xPos - (Bild[i].Width*scale)/2, yPos - Bild[i].Height*scale), null,
                     Color.White, Winkel[i], new Vector2(0, 0), scale,
                     Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
                 spriteBatch.End();
@@ -318,7 +319,7 @@ namespace _4_1_
                 if (Editor.visible && Editor.mouseover == 2 && Editor.mouseoverid == i)
                 {
                     spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
-                    spriteBatch.Draw(Bild[i], new Vector2(xPos - (Bild[i].Width * scale) / 2, yPos - Bild[i].Height * scale),
+                    spriteBatch.Draw(Bild[i], new Vector2(xPos - (Bild[i].Width*scale)/2, yPos - Bild[i].Height*scale),
                         null, Color.Blue, Winkel[i], new Vector2(0, 0), scale,
                         Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
                     spriteBatch.End();

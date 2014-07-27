@@ -48,7 +48,7 @@ namespace _4_1_
 
             byteArray = reader.ReadBytes(dataSize);
 
-            dynamicSound = new DynamicSoundEffectInstance(sampleRate, (AudioChannels) channels);
+            dynamicSound = new DynamicSoundEffectInstance(sampleRate, (AudioChannels)channels);
             count = dynamicSound.GetSampleSizeInBytes(TimeSpan.FromMilliseconds(100));
             dynamicSound.BufferNeeded += DynamicSound_BufferNeeded;
             dynamicSound.IsLooped = false;
@@ -102,8 +102,8 @@ namespace _4_1_
 
         private void DynamicSound_BufferNeeded(object sender, EventArgs e)
         {
-            dynamicSound.SubmitBuffer(byteArray, position, count/2);
-            dynamicSound.SubmitBuffer(byteArray, position + count/2, count/2);
+            dynamicSound.SubmitBuffer(byteArray, position, count / 2);
+            dynamicSound.SubmitBuffer(byteArray, position + count / 2, count / 2);
 
             position += count;
             if (position + count > byteArray.Length)

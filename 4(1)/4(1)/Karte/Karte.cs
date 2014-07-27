@@ -50,27 +50,25 @@ namespace _4_1_
         ///     The MATERIA l_ BLUR
         /// </summary>
         public static Var<bool[]> MATERIAL_BLUR = new Var<bool[]>("MATERIAL_BLUR",
-            new[]
-            {false, true, false, false, true, true, true, true, false, false, false, false, false, false, false, false});
+            new[] { false, true, false, false, true, true, true, true, false, false, false, false, false, false, false, false });
 
         /// <summary>
         ///     The MATERIA l_ COLLISION
         /// </summary>
         public static Var<bool[]> MATERIAL_COLLISION = new Var<bool[]>("MATERIAL_COLLISION",
-            new[]
-            {false, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false});
+            new[] { false, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false });
 
         /// <summary>
         ///     The MATERIA l_ FOLGEID
         /// </summary>
         public static Var<int[]> MATERIAL_FOLGEID = new Var<int[]>("MATERIAL_FOLGEID",
-            new[] {0, 0, 3, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 0, 0});
+            new[] { 0, 0, 3, 0, 0, 0, 7, 0, 0, 0, 10, 0, 0, 0, 0, 0 });
 
         /// <summary>
         ///     The MATERIA l_ I s_ TEXTUR
         /// </summary>
         public static Var<bool[]> MATERIAL_IS_TEXTUR = new Var<bool[]>("MATERIAL_IS_TEXTUR",
-            new[] {false, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false});
+            new[] { false, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false });
 
         /// <summary>
         ///     The MATERIA l_ TEXTUR
@@ -118,11 +116,6 @@ namespace _4_1_
         #endregion Privat
 
         /// <summary>
-        ///     Der interne Zufallszahlengenerator
-        /// </summary>
-        private readonly Random rand = new Random();
-
-        /// <summary>
         ///     The particle farbe
         /// </summary>
         public List<Vector3> particleFarbe = new List<Vector3>();
@@ -153,6 +146,11 @@ namespace _4_1_
         public List<Vector3> particleMapSmokeData = new List<Vector3>();
 
         /// <summary>
+        ///     Der interne Zufallszahlengenerator
+        /// </summary>
+        private readonly Random rand = new Random();
+
+        /// <summary>
         ///     Explosion einer Waffe zünden.
         /// </summary>
         /// <param name="Spielfeld">The spielfeld.</param>
@@ -168,7 +166,7 @@ namespace _4_1_
             int _Art = Waffenart;
 
             // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int) Waffendaten.Daten[_Art].Y,
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
                 Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
                 Waffendaten.Farben[_Art], _Art, 0);
 
@@ -186,9 +184,9 @@ namespace _4_1_
 
             var a = new Karte();
             Replay.Explosion(pos, _Art);
-            list.AddRange(a.Explode(Spielfeld, (int) pos.X, (int) pos.Y, (int) (Waffendaten.Daten[_Art].X)));
-            list.AddRange(Spiel2.Explosionsschäden(gameTime, pos, (int) (Waffendaten.Daten[_Art].X), _Art,
-                new[] {-1, -1}));
+            list.AddRange(a.Explode(Spielfeld, (int)pos.X, (int)pos.Y, (int)(Waffendaten.Daten[_Art].X)));
+            list.AddRange(Spiel2.Explosionsschäden(gameTime, pos, (int)(Waffendaten.Daten[_Art].X), _Art,
+                new[] { -1, -1 }));
             Vordergrund.AktualisiereVordergrund(list);
         }
 
@@ -207,7 +205,7 @@ namespace _4_1_
             int _Art = Waffenart;
 
             // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int) Waffendaten.Daten[_Art].Y,
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
                 Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
                 Waffendaten.Farben[_Art], _Art, 0);
 
@@ -230,7 +228,7 @@ namespace _4_1_
             int _Art = Waffenart;
 
             // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int) Waffendaten.Daten[_Art].Y,
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, pos, (int)Waffendaten.Daten[_Art].Y,
                 Waffendaten.Daten[_Art].X, Waffendaten.Daten[_Art].W, gameTime,
                 Waffendaten.Farben[_Art], _Art, 0);
 
@@ -339,7 +337,7 @@ namespace _4_1_
             {
                 if (Missile[i].verzoegerung > 0) continue; //  Rakete hat bereits etwas getroffen
                 if (!Missile[i].missleShot) continue; // Rakete noch nicht abgefeuert
-                if ((int) Missile[i].misslePosition.X < 0 || (int) Missile[i].misslePosition.X >= Spielfeld.Length)
+                if ((int)Missile[i].misslePosition.X < 0 || (int)Missile[i].misslePosition.X >= Spielfeld.Length)
                     continue; // Rakete ausserhalb des Spielfelds
                 bool Treffer = false;
 
@@ -443,10 +441,10 @@ namespace _4_1_
                 {
                     // Raketenexplosion zünden
                     if (Missile[i].RaktnSpitze().Y <= screenHeight - 10)
-                        // nur zünden, wenn rakete nicht ausserhalb des spielfeldes
+                    // nur zünden, wenn rakete nicht ausserhalb des spielfeldes
                     {
                         AddExplosion(particleListExp, Missile[i].RaktnSpitze(),
-                            (int) (Waffendaten.Daten[Missile[i].Art].Y),
+                            (int)(Waffendaten.Daten[Missile[i].Art].Y),
                             Waffendaten.Daten[Missile[i].Art].X, Waffendaten.Daten[Missile[i].Art].W, gameTime,
                             Waffendaten.Farben[Missile[i].Art], Missile[i].Art, 0);
 
@@ -456,7 +454,7 @@ namespace _4_1_
 
                         explode_missile(Spielfeld, Missile[i].RaktnSpitze(), Fenster, Missile[i].Art);
 
-                        Missile[i].verzoegerung = (int) Waffendaten.Daten2[Missile[i].Art].Y;
+                        Missile[i].verzoegerung = (int)Waffendaten.Daten2[Missile[i].Art].Y;
                         if (Server.isRunning) Server.Send("VERZOEGERUNG " + i + " " + Missile[i].verzoegerung);
                     }
                     else
@@ -501,14 +499,14 @@ namespace _4_1_
             int lastmove = 1;
             int dist = 0;
             var rnd = new Random();
-            array[0].Add((UInt16) (start + Kartenformat.SortenFaktor(LUFT)));
-            array[0].Add((UInt16) (screenHeight - start + Kartenformat.SortenFaktor(ERDE)));
-            for (int i = 1; i < (symmetrisch ? array.Length/2 : array.Length); i++)
+            array[0].Add((UInt16)(start + Kartenformat.SortenFaktor(LUFT)));
+            array[0].Add((UInt16)(screenHeight - start + Kartenformat.SortenFaktor(ERDE)));
+            for (int i = 1; i < (symmetrisch ? array.Length / 2 : array.Length); i++)
             {
                 if (m <= 0)
                 {
                     lastmove = move;
-                    for (;;)
+                    for (; ; )
                     {
                         move = rnd.Next(-1, 2);
                         if (!((lastmove == -1 && move == 1) || (lastmove == 1 && move == -1))) break;
@@ -529,7 +527,7 @@ namespace _4_1_
                     move = 0;
                 }
 
-                if (i + 50 >= (symmetrisch ? array.Length/2 : array.Length))
+                if (i + 50 >= (symmetrisch ? array.Length / 2 : array.Length))
                 {
                     move = 0;
                     m = 25;
@@ -545,15 +543,15 @@ namespace _4_1_
                     if (dist <= 0)
                     {
                         pos--;
-                        dist = (int) Math.Log(max - m + 1, Math.E);
-                        array[i].Add((UInt16) (array[i - 1][0] + move + Kartenformat.SortenFaktor(LUFT)));
+                        dist = (int)Math.Log(max - m + 1, Math.E);
+                        array[i].Add((UInt16)(array[i - 1][0] + move + Kartenformat.SortenFaktor(LUFT)));
                         array[i].Add(
-                            (UInt16) (screenHeight - (array[i - 1][0] + move) + Kartenformat.SortenFaktor(ERDE)));
+                            (UInt16)(screenHeight - (array[i - 1][0] + move) + Kartenformat.SortenFaktor(ERDE)));
                     }
                     else
                     {
-                        array[i].Add((UInt16) (array[i - 1][0] + Kartenformat.SortenFaktor(LUFT)));
-                        array[i].Add((UInt16) (screenHeight - array[i - 1][0] + Kartenformat.SortenFaktor(ERDE)));
+                        array[i].Add((UInt16)(array[i - 1][0] + Kartenformat.SortenFaktor(LUFT)));
+                        array[i].Add((UInt16)(screenHeight - array[i - 1][0] + Kartenformat.SortenFaktor(ERDE)));
                     }
                 }
                 else if (move == -1)
@@ -561,15 +559,15 @@ namespace _4_1_
                     if (dist <= 0)
                     {
                         pos--;
-                        dist = (int) Math.Log(m, Math.E);
-                        array[i].Add((UInt16) (array[i - 1][0] + move + Kartenformat.SortenFaktor(LUFT)));
+                        dist = (int)Math.Log(m, Math.E);
+                        array[i].Add((UInt16)(array[i - 1][0] + move + Kartenformat.SortenFaktor(LUFT)));
                         array[i].Add(
-                            (UInt16) (screenHeight - (array[i - 1][0] + move) + Kartenformat.SortenFaktor(ERDE)));
+                            (UInt16)(screenHeight - (array[i - 1][0] + move) + Kartenformat.SortenFaktor(ERDE)));
                     }
                     else
                     {
-                        array[i].Add((UInt16) (array[i - 1][0] + Kartenformat.SortenFaktor(LUFT)));
-                        array[i].Add((UInt16) (screenHeight - array[i - 1][0] + Kartenformat.SortenFaktor(ERDE)));
+                        array[i].Add((UInt16)(array[i - 1][0] + Kartenformat.SortenFaktor(LUFT)));
+                        array[i].Add((UInt16)(screenHeight - array[i - 1][0] + Kartenformat.SortenFaktor(ERDE)));
                     }
                 }
 
@@ -585,7 +583,7 @@ namespace _4_1_
                             (screenHeight - Kartenformat.Laenge(array[i][b]) +
                              Kartenformat.SortenFaktor(Kartenformat.Material(array[i][b])));
 
-            var arraysymm = new List<UInt16>[array.Length/2];
+            var arraysymm = new List<UInt16>[array.Length / 2];
             if (symmetrisch)
             {
                 for (int i = 0; i < arraysymm.Length; i++)
@@ -704,14 +702,14 @@ namespace _4_1_
             int max = 0;
             int lastmove = 1;
             int dist = 0;
-            array[0].Add((UInt16) (start + Kartenformat.SortenFaktor(LUFT)));
-            array[0].Add((UInt16) (screenHeight - start + Kartenformat.SortenFaktor(ERDE)));
-            for (int i = 1; i < (symmetrisch ? array.Length/2 : array.Length); i++)
+            array[0].Add((UInt16)(start + Kartenformat.SortenFaktor(LUFT)));
+            array[0].Add((UInt16)(screenHeight - start + Kartenformat.SortenFaktor(ERDE)));
+            for (int i = 1; i < (symmetrisch ? array.Length / 2 : array.Length); i++)
             {
                 if (i == Haus.Orte[ort].X)
                 {
                     lastmove = move;
-                    m = (int) Haus.Orte[ort].Y;
+                    m = (int)Haus.Orte[ort].Y;
                     pos = m;
                     dist = 0;
                     max = m;
@@ -722,7 +720,7 @@ namespace _4_1_
                 if (m <= 0)
                 {
                     lastmove = move;
-                    for (;;)
+                    for (; ; )
                     {
                         move = rnd.Next(-1, 2);
                         if (!((lastmove == -1 && move == 1) || (lastmove == 1 && move == -1))) break;
@@ -743,7 +741,7 @@ namespace _4_1_
                     move = 0;
                 }
 
-                if (i + 50 >= (symmetrisch ? array.Length/2 : array.Length))
+                if (i + 50 >= (symmetrisch ? array.Length / 2 : array.Length))
                 {
                     move = 0;
                     m = 25;
@@ -759,15 +757,15 @@ namespace _4_1_
                     if (dist <= 0)
                     {
                         pos--;
-                        dist = (int) Math.Log(max - m + 1, Math.E);
-                        array[i].Add((UInt16) (array[i - 1][0] + move + Kartenformat.SortenFaktor(LUFT)));
+                        dist = (int)Math.Log(max - m + 1, Math.E);
+                        array[i].Add((UInt16)(array[i - 1][0] + move + Kartenformat.SortenFaktor(LUFT)));
                         array[i].Add(
-                            (UInt16) (screenHeight - (array[i - 1][0] + move) + Kartenformat.SortenFaktor(ERDE)));
+                            (UInt16)(screenHeight - (array[i - 1][0] + move) + Kartenformat.SortenFaktor(ERDE)));
                     }
                     else
                     {
-                        array[i].Add((UInt16) (array[i - 1][0] + Kartenformat.SortenFaktor(LUFT)));
-                        array[i].Add((UInt16) (screenHeight - array[i - 1][0] + Kartenformat.SortenFaktor(ERDE)));
+                        array[i].Add((UInt16)(array[i - 1][0] + Kartenformat.SortenFaktor(LUFT)));
+                        array[i].Add((UInt16)(screenHeight - array[i - 1][0] + Kartenformat.SortenFaktor(ERDE)));
                     }
                 }
                 else if (move == -1)
@@ -775,15 +773,15 @@ namespace _4_1_
                     if (dist <= 0)
                     {
                         pos--;
-                        dist = (int) Math.Log(m, Math.E);
-                        array[i].Add((UInt16) (array[i - 1][0] + move + Kartenformat.SortenFaktor(LUFT)));
+                        dist = (int)Math.Log(m, Math.E);
+                        array[i].Add((UInt16)(array[i - 1][0] + move + Kartenformat.SortenFaktor(LUFT)));
                         array[i].Add(
-                            (UInt16) (screenHeight - (array[i - 1][0] + move) + Kartenformat.SortenFaktor(ERDE)));
+                            (UInt16)(screenHeight - (array[i - 1][0] + move) + Kartenformat.SortenFaktor(ERDE)));
                     }
                     else
                     {
-                        array[i].Add((UInt16) (array[i - 1][0] + Kartenformat.SortenFaktor(LUFT)));
-                        array[i].Add((UInt16) (screenHeight - array[i - 1][0] + Kartenformat.SortenFaktor(ERDE)));
+                        array[i].Add((UInt16)(array[i - 1][0] + Kartenformat.SortenFaktor(LUFT)));
+                        array[i].Add((UInt16)(screenHeight - array[i - 1][0] + Kartenformat.SortenFaktor(ERDE)));
                     }
                 }
 
@@ -800,7 +798,7 @@ namespace _4_1_
                              Kartenformat.SortenFaktor(Kartenformat.Material(array[i][b])));
 
             // bei symmetrischer Karte, wird hier die Karte verdoppelt
-            var arraysymm = new List<UInt16>[array.Length/2];
+            var arraysymm = new List<UInt16>[array.Length / 2];
             if (symmetrisch)
             {
                 for (int i = 0; i < arraysymm.Length; i++)
@@ -872,14 +870,14 @@ namespace _4_1_
         public List<Vector3> Explode(List<UInt16>[] Daten, int x, int y, int width) // errechnet zerstörungen der Karte
         {
             var list = new List<Vector3>();
-            var aa = (int) (Math.Log((((width) - 0)*Math.PI), Math.E)*Math.Sqrt(width));
+            var aa = (int)(Math.Log((((width) - 0) * Math.PI), Math.E) * Math.Sqrt(width));
             for (int i = -aa; i < aa; i++)
             {
                 if (i + x < 0 || i + x >= Daten.Length) continue;
 
                 int dist = i;
                 if (dist < 0) dist = -dist;
-                var add = (int) (Math.Log((((aa) - dist)*Math.PI), Math.E)*Math.Sqrt(width));
+                var add = (int)(Math.Log((((aa) - dist) * Math.PI), Math.E) * Math.Sqrt(width));
                 int add2 = y + add;
                 if (add2 > Game1.screenHeight) add2 = Game1.screenHeight;
                 list.AddRange(Kartenformat.DeleteFromTo(x + i, y - add, add2));
@@ -905,15 +903,15 @@ namespace _4_1_
         /// <param name="Fenster">The fenster.</param>
         /// <param name="Art">The art.</param>
         public void explode_missile(List<UInt16>[] Spielfeld, Vector2 pos, Vector2 Fenster, int Art)
-            // Spielt den Explosionssound ab
+        // Spielt den Explosionssound ab
         {
             if (Waffendaten.Explosionen[Art] >= 0)
             {
                 Soundsystem[] expo = Sounds.Explosion;
-                var dist = (int) (pos.X - (Fenster.X));
+                var dist = (int)(pos.X - (Fenster.X));
                 if (dist < 0) dist = -dist;
                 expo[Waffendaten.Explosionen[Art]].PlaySoundAny(false,
-                    ((float) (1.0d - ((double) dist/Spielfeld.Length))));
+                    ((float)(1.0d - ((double)dist / Spielfeld.Length))));
             }
         }
 
@@ -948,21 +946,21 @@ namespace _4_1_
                             switch (id)
                             {
                                 case 0:
-                                {
-                                    particleFarbe.RemoveRange(found + 1, particleList.Count - (found) - 1);
-                                    break;
-                                }
+                                    {
+                                        particleFarbe.RemoveRange(found + 1, particleList.Count - (found) - 1);
+                                        break;
+                                    }
                                 case 1:
-                                {
-                                    particleFarbeS.RemoveRange(found + 1, particleList.Count - (found) - 1);
-                                    break;
-                                }
+                                    {
+                                        particleFarbeS.RemoveRange(found + 1, particleList.Count - (found) - 1);
+                                        break;
+                                    }
                                 case 2:
-                                {
-                                    particleFarbeS2.RemoveRange(found + 1, particleList.Count - (found) - 1);
-                                    particleMapSmokeData.RemoveRange(found + 1, particleList.Count - (found) - 1);
-                                    break;
-                                }
+                                    {
+                                        particleFarbeS2.RemoveRange(found + 1, particleList.Count - (found) - 1);
+                                        particleMapSmokeData.RemoveRange(found + 1, particleList.Count - (found) - 1);
+                                        break;
+                                    }
                             }
                         }
                     }
@@ -1031,7 +1029,7 @@ namespace _4_1_
         /// <param name="id">The id.</param>
         public void UpdateParticles(List<ParticleData> particleList, GameTime gameTime, int id) // geändert
         {
-            var now = (float) gameTime.TotalGameTime.TotalMilliseconds;
+            var now = (float)gameTime.TotalGameTime.TotalMilliseconds;
             for (int i = particleList.Count - 1; i >= 0; i--)
             {
                 ParticleData particle = particleList[i];
@@ -1043,49 +1041,49 @@ namespace _4_1_
                     switch (id)
                     {
                         case 2:
-                        {
-                            if (particleMapSmokeData[i].Z > 0)
                             {
-                                particleMapSmokeData[i] = new Vector3(particleMapSmokeData[i].X,
-                                    Kartenformat.BottomOf(particleMapSmokeData[i].X, particleMapSmokeData[i].Y),
-                                    particleMapSmokeData[i].Z - 1);
-                                int idet = particle.art;
-                                particle.set = false;
-                                var maxAge = (int) (Waffendaten.Daten[0].W*8); // /20 *(20-fakt)
-
-                                particle.OrginalPosition = new Vector2(particleMapSmokeData[i].X,
-                                    particleMapSmokeData[i].Y);
-                                particle.Position = particle.OrginalPosition;
-
-                                particle.BirthTime = (float) gameTime.TotalGameTime.TotalMilliseconds;
-                                if (particleMapSmokeData[i].Z >= 0)
+                                if (particleMapSmokeData[i].Z > 0)
                                 {
-                                    particle.MaxAge = maxAge - ((float) rand.Next(0, (int) (maxAge*0.2)));
+                                    particleMapSmokeData[i] = new Vector3(particleMapSmokeData[i].X,
+                                        Kartenformat.BottomOf(particleMapSmokeData[i].X, particleMapSmokeData[i].Y),
+                                        particleMapSmokeData[i].Z - 1);
+                                    int idet = particle.art;
+                                    particle.set = false;
+                                    var maxAge = (int)(Waffendaten.Daten[0].W * 8); // /20 *(20-fakt)
+
+                                    particle.OrginalPosition = new Vector2(particleMapSmokeData[i].X,
+                                        particleMapSmokeData[i].Y);
+                                    particle.Position = particle.OrginalPosition;
+
+                                    particle.BirthTime = (float)gameTime.TotalGameTime.TotalMilliseconds;
+                                    if (particleMapSmokeData[i].Z >= 0)
+                                    {
+                                        particle.MaxAge = maxAge - ((float)rand.Next(0, (int)(maxAge * 0.2)));
+                                    }
+                                    else
+                                        particle.MaxAge = maxAge - ((float)rand.Next(0, (int)(maxAge * 0.6)));
+
+                                    particle.Scaling = 0.25f;
+                                    particle.ModColor = Color.White;
+                                    particle.alive = true;
+                                    float particleDistance = (float)rand.NextDouble() * Waffendaten.Daten[0].Z;
+                                    var displacement = new Vector2(particleDistance, 0);
+                                    float angle = 0;
+                                    angle = MathHelper.ToRadians(rand.Next(225, 315));
+                                    displacement = Vector2.Transform(displacement, Matrix.CreateRotationZ(angle));
+
+                                    particle.Direction = displacement * 2.0f;
+                                    particle.Accelaration = -particle.Direction;
+                                    particleList[i] = particle;
                                 }
                                 else
-                                    particle.MaxAge = maxAge - ((float) rand.Next(0, (int) (maxAge*0.6)));
+                                {
+                                    particle.alive = false;
+                                    particleList[i] = particle;
+                                }
 
-                                particle.Scaling = 0.25f;
-                                particle.ModColor = Color.White;
-                                particle.alive = true;
-                                float particleDistance = (float) rand.NextDouble()*Waffendaten.Daten[0].Z;
-                                var displacement = new Vector2(particleDistance, 0);
-                                float angle = 0;
-                                angle = MathHelper.ToRadians(rand.Next(225, 315));
-                                displacement = Vector2.Transform(displacement, Matrix.CreateRotationZ(angle));
-
-                                particle.Direction = displacement*2.0f;
-                                particle.Accelaration = -particle.Direction;
-                                particleList[i] = particle;
+                                break;
                             }
-                            else
-                            {
-                                particle.alive = false;
-                                particleList[i] = particle;
-                            }
-
-                            break;
-                        }
                     }
                     if (id != 2)
                     {
@@ -1095,8 +1093,8 @@ namespace _4_1_
                 }
                 else
                 {
-                    float relAge = timeAlive/particle.MaxAge;
-                    particle.Position = 0.5f*particle.Accelaration*relAge*relAge + particle.Direction*relAge +
+                    float relAge = timeAlive / particle.MaxAge;
+                    particle.Position = 0.5f * particle.Accelaration * relAge * relAge + particle.Direction * relAge +
                                         particle.OrginalPosition;
 
                     float invAge = 1.0f - relAge;
@@ -1106,27 +1104,27 @@ namespace _4_1_
                     switch (id)
                     {
                         case 0:
-                        {
-                            particle.ModColor = new Color(new Vector4(invAge*particleFarbe[i].X,
-                                invAge*particleFarbe[i].Y, invAge*particleFarbe[i].Z, 10f*invAge));
-                            particle.Scaling = (Waffendaten.Explosionscale[particle.art] + distance)/200.0f;
-                            break;
-                        }
+                            {
+                                particle.ModColor = new Color(new Vector4(invAge * particleFarbe[i].X,
+                                    invAge * particleFarbe[i].Y, invAge * particleFarbe[i].Z, 10f * invAge));
+                                particle.Scaling = (Waffendaten.Explosionscale[particle.art] + distance) / 200.0f;
+                                break;
+                            }
                         case 1:
-                        {
-                            particle.ModColor =
-                                new Color(new Vector4(Waffendaten.Daten4[particle.art].X*invAge,
-                                    Waffendaten.Daten4[particle.art].Y*invAge, Waffendaten.Daten4[particle.art].Z*invAge,
-                                    Waffendaten.Daten3[particle.art].W*invAge));
-                            particle.Scaling = (2.0f + distance)/200.0f;
-                            break;
-                        }
+                            {
+                                particle.ModColor =
+                                    new Color(new Vector4(Waffendaten.Daten4[particle.art].X * invAge,
+                                        Waffendaten.Daten4[particle.art].Y * invAge, Waffendaten.Daten4[particle.art].Z * invAge,
+                                        Waffendaten.Daten3[particle.art].W * invAge));
+                                particle.Scaling = (2.0f + distance) / 200.0f;
+                                break;
+                            }
                         case 2:
-                        {
-                            particle.ModColor = new Color(new Vector4(0.5f*invAge, 0.5f*invAge, 0.5f*invAge, 8f*invAge));
-                            particle.Scaling = (2.0f + distance)/200.0f;
-                            break;
-                        }
+                            {
+                                particle.ModColor = new Color(new Vector4(0.5f * invAge, 0.5f * invAge, 0.5f * invAge, 8f * invAge));
+                                particle.Scaling = (2.0f + distance) / 200.0f;
+                                break;
+                            }
                     }
 
                     particleList[i] = particle;
@@ -1151,12 +1149,12 @@ namespace _4_1_
             var particle = new ParticleData();
             particle.OrginalPosition = explosionPos;
             particle.Position = particle.OrginalPosition;
-            particle.BirthTime = (float) gameTime.TotalGameTime.TotalMilliseconds;
+            particle.BirthTime = (float)gameTime.TotalGameTime.TotalMilliseconds;
 
             if (id == 2)
             {
                 // maxAge *= 0.5f;
-                particle.MaxAge = maxAge - rand.Next(0, (int) (maxAge*0.9));
+                particle.MaxAge = maxAge - rand.Next(0, (int)(maxAge * 0.9));
             }
             else
                 particle.MaxAge = maxAge;
@@ -1166,31 +1164,31 @@ namespace _4_1_
             particle.Scaling = 0.25f;
             particle.ModColor = Color.White;
 
-            float particleDistance = (float) rand.NextDouble()*explosionSize;
+            float particleDistance = (float)rand.NextDouble() * explosionSize;
             var displacement = new Vector2(particleDistance, 0);
             float angle = 0;
 
             switch (id)
             {
                 case 0:
-                {
-                    angle = MathHelper.ToRadians(rand.Next(360));
-                    break;
-                }
+                    {
+                        angle = MathHelper.ToRadians(rand.Next(360));
+                        break;
+                    }
                 case 1:
-                {
-                    angle = MathHelper.ToRadians(rand.Next(360));
-                    break;
-                }
+                    {
+                        angle = MathHelper.ToRadians(rand.Next(360));
+                        break;
+                    }
                 case 2:
-                {
-                    angle = MathHelper.ToRadians(rand.Next(225, 315));
-                    break;
-                }
+                    {
+                        angle = MathHelper.ToRadians(rand.Next(225, 315));
+                        break;
+                    }
             }
             displacement = Vector2.Transform(displacement, Matrix.CreateRotationZ(angle));
 
-            particle.Direction = displacement*2.0f;
+            particle.Direction = displacement * 2.0f;
             particle.Accelaration = -particle.Direction;
             particle.alive = true;
             int position = find_dead_particle(particleList, id);
@@ -1201,21 +1199,21 @@ namespace _4_1_
                 switch (id)
                 {
                     case 0:
-                    {
-                        particleFarbe.Add(Farben);
-                        break;
-                    }
+                        {
+                            particleFarbe.Add(Farben);
+                            break;
+                        }
                     case 1:
-                    {
-                        particleFarbeS.Add(Farben);
-                        break;
-                    }
+                        {
+                            particleFarbeS.Add(Farben);
+                            break;
+                        }
                     case 2:
-                    {
-                        particleFarbeS2.Add(Farben);
-                        particleMapSmokeData.Add(new Vector3(explosionPos.X, explosionPos.Y, 7));
-                        break;
-                    }
+                        {
+                            particleFarbeS2.Add(Farben);
+                            particleMapSmokeData.Add(new Vector3(explosionPos.X, explosionPos.Y, 7));
+                            break;
+                        }
                 }
             }
             else
@@ -1224,21 +1222,21 @@ namespace _4_1_
                 switch (id)
                 {
                     case 0:
-                    {
-                        particleFarbe[position] = Farben;
-                        break;
-                    }
+                        {
+                            particleFarbe[position] = Farben;
+                            break;
+                        }
                     case 1:
-                    {
-                        particleFarbeS[position] = Farben;
-                        break;
-                    }
+                        {
+                            particleFarbeS[position] = Farben;
+                            break;
+                        }
                     case 2:
-                    {
-                        particleFarbeS2[position] = Farben;
-                        particleMapSmokeData[position] = new Vector3(explosionPos.X, explosionPos.Y, 7);
-                        break;
-                    }
+                        {
+                            particleFarbeS2[position] = Farben;
+                            particleMapSmokeData[position] = new Vector3(explosionPos.X, explosionPos.Y, 7);
+                            break;
+                        }
                 }
             }
         }
@@ -1254,6 +1252,16 @@ namespace _4_1_
             ///     Beschleunigung des Partikels (x- und y Richtung)
             /// </summary>
             public Vector2 Accelaration;
+
+            /// <summary>
+            ///     The alive
+            /// </summary>
+            public bool alive;
+
+            /// <summary>
+            ///     enthält die munitionsart ID, 0 bis ...
+            /// </summary>
+            public int art;
 
             /// <summary>
             ///     wann Partikel erschaffen wurde
@@ -1289,16 +1297,6 @@ namespace _4_1_
             ///     Die Skalierung des Partikels
             /// </summary>
             public float Scaling;
-
-            /// <summary>
-            ///     The alive
-            /// </summary>
-            public bool alive;
-
-            /// <summary>
-            ///     enthält die munitionsart ID, 0 bis ...
-            /// </summary>
-            public int art;
 
             /// <summary>
             ///     The set

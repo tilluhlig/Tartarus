@@ -85,13 +85,13 @@ namespace _4_1_
             selected = selectedColor;
             unselected = unselectedColor;
 
-            aux = new Vector2((screenWidth - Texturen.Button1.Width)/2, 90);
+            aux = new Vector2((screenWidth - Texturen.Button1.Width) / 2, 90);
 
-            menuItems[0] = new Button(Texturen.Button1, aux + new Vector2(0, 80*0), "Neues", "Spiel", font);
-            menuItems[1] = new Button(Texturen.Button1, aux + new Vector2(0, 80*1), "Speichern", "Laden", font);
-            menuItems[2] = new Button(Texturen.Button1, aux + new Vector2(0, 80*2), "Optionen", font);
-            menuItems[3] = new Button(Texturen.Button1, aux + new Vector2(0, 80*3), "Zuruck", "zum Spiel", font);
-            menuItems[4] = new Button(Texturen.Button1, aux + new Vector2(0, 80*4), "Spiel", "beenden", font);
+            menuItems[0] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 0), "Neues", "Spiel", font);
+            menuItems[1] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 1), "Speichern", "Laden", font);
+            menuItems[2] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 2), "Optionen", font);
+            menuItems[3] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 3), "Zuruck", "zum Spiel", font);
+            menuItems[4] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 4), "Spiel", "beenden", font);
         }
 
         #endregion Constructors
@@ -137,12 +137,12 @@ namespace _4_1_
 
             // davor
             for (int i = -2; i < 0; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
 
             // danach
-            int Danach = (int) Math.Ceiling((float) Game1.screenHeight/80) - 6;
+            int Danach = (int)Math.Ceiling((float)Game1.screenHeight / 80) - 6;
             for (int i = menuItems.Length; i < menuItems.Length + Danach; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
         }
 
         /// <summary>

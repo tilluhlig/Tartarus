@@ -58,21 +58,6 @@ namespace _4_1_
         public static Vector2[] temppos = new Vector2[9];
 
         /// <summary>
-        ///     The back pack
-        /// </summary>
-        public Backpack backPack;
-
-        /// <summary>
-        ///     The intrade
-        /// </summary>
-        public bool intrade = false;
-
-        /// <summary>
-        ///     The visible
-        /// </summary>
-        public bool visible = false;
-
-        /// <summary>
         ///     The aux
         /// </summary>
         private static string aux = "";
@@ -128,6 +113,16 @@ namespace _4_1_
         private Inventar Tauschrucksack;
 
         /// <summary>
+        ///     The back pack
+        /// </summary>
+        public Backpack backPack;
+
+        /// <summary>
+        ///     The intrade
+        /// </summary>
+        public bool intrade = false;
+
+        /// <summary>
         ///     The temp
         /// </summary>
         private int temp = -1;
@@ -136,6 +131,11 @@ namespace _4_1_
         ///     The tradebackpack
         /// </summary>
         private Backpack tradebackpack;
+
+        /// <summary>
+        ///     The visible
+        /// </summary>
+        public bool visible = false;
 
         #endregion Fields
 
@@ -155,12 +155,12 @@ namespace _4_1_
         {
             if (!visible) return;
             Schrift = font;
-            spriteBatch.Draw(spielermenu, ownPos, null, Color.White * Transparenz, 0, Vector2.Zero,
+            spriteBatch.Draw(spielermenu, ownPos, null, Color.White*Transparenz, 0, Vector2.Zero,
                 Optimierung.Skalierung(0.5f), SpriteEffects.None, 0);
-            spriteBatch.Draw(spielermenutextbox, textboxpos, null, Color.White * Transparenz, 0, Vector2.Zero,
+            spriteBatch.Draw(spielermenutextbox, textboxpos, null, Color.White*Transparenz, 0, Vector2.Zero,
                 Optimierung.Skalierung(0.5f), SpriteEffects.None, 0);
             if (intrade)
-                spriteBatch.Draw(spielermenu, ownPos + new Vector2(500, 0), null, Color.White * Transparenz, 0,
+                spriteBatch.Draw(spielermenu, ownPos + new Vector2(500, 0), null, Color.White*Transparenz, 0,
                     Vector2.Zero, Optimierung.Skalierung(0.5f), SpriteEffects.None, 0);
 
             // Spieler zeichnen
@@ -175,7 +175,7 @@ namespace _4_1_
                 Spiel2.players[i2].DrawPlayer(b2, spriteBatch, MathHelper.ToRadians(175), MathHelper.ToRadians(0),
                     scaleP, scaleR,
                     new Vector2(tankbox.Min.X, tankbox.Min.Y) +
-                    new Vector2(104, 50 + Texturen.panzerindex[kindof].Height * scaleP / 2), new Vector2(0, 0), true, false,
+                    new Vector2(104, 50 + Texturen.panzerindex[kindof].Height*scaleP/2), new Vector2(0, 0), true, false,
                     1.5f, 0.5f, Color.White, true);
                 spriteBatch.Begin();
             }
@@ -186,7 +186,7 @@ namespace _4_1_
                 if (handelspartner.X == 0)
                 {
                     int i2 = Spiel2.CurrentPlayer;
-                    var b2 = (int)handelspartner.Y;
+                    var b2 = (int) handelspartner.Y;
                     int kindof = Spiel2.players[i2].KindofTank[b2];
                     float scaleP = Fahrzeugdaten.SCALEP.Wert[kindof];
                     float scaleR = Fahrzeugdaten.SCALER.Wert[kindof];
@@ -194,19 +194,19 @@ namespace _4_1_
                     Spiel2.players[i2].DrawPlayer(b2, spriteBatch, MathHelper.ToRadians(175), MathHelper.ToRadians(0),
                         scaleP, scaleR,
                         new Vector2(tankbox.Min.X, tankbox.Min.Y) +
-                        new Vector2(605, 50 + Texturen.panzerindex[kindof].Height * scaleP / 2), new Vector2(0, 0), true,
+                        new Vector2(605, 50 + Texturen.panzerindex[kindof].Height*scaleP/2), new Vector2(0, 0), true,
                         false, 1.5f, 0.5f, Color.White, true);
                     spriteBatch.Begin();
                 }
                 else if (handelspartner.X == 1)
                 {
-                    var id = (int)handelspartner.Y;
+                    var id = (int) handelspartner.Y;
                     spriteBatch.Draw(Texturen.haus[id],
                         new Vector2(tankbox.Min.X, tankbox.Min.Y) +
-                        new Vector2(605 - Texturen.haus[id].Width * Gebäudedaten.SKALIERUNG.Wert[id] * 0.5f / 2,
-                            50 - Texturen.haus[id].Height * Gebäudedaten.SKALIERUNG.Wert[id] * 0.5f / 2),
+                        new Vector2(605 - Texturen.haus[id].Width*Gebäudedaten.SKALIERUNG.Wert[id]*0.5f/2,
+                            50 - Texturen.haus[id].Height*Gebäudedaten.SKALIERUNG.Wert[id]*0.5f/2),
                         new Rectangle(0, 0, Texturen.haus[id].Width, Texturen.haus[id].Height), Color.White, 0,
-                        Vector2.Zero, Gebäudedaten.SKALIERUNG.Wert[id] * 0.5f, SpriteEffects.None, 0);
+                        Vector2.Zero, Gebäudedaten.SKALIERUNG.Wert[id]*0.5f, SpriteEffects.None, 0);
                 }
             }
 
@@ -215,28 +215,28 @@ namespace _4_1_
             if (Effekte == null || Rucksack == null) return;
             for (int i = 0; i < 3; i++)
             {
-                spriteBatch.Draw(Texturen.LeeresFeld, temppos[i], null, Color.White * Transparenz, 0f, Vector2.Zero,
+                spriteBatch.Draw(Texturen.LeeresFeld, temppos[i], null, Color.White*Transparenz, 0f, Vector2.Zero,
                     Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                 if (i < Effekte.Konsumierbares.Count)
-                    spriteBatch.Draw(Effekte.Konsumierbares[i].Bild, temppos[i], null, Color.White * Transparenz, 0f,
+                    spriteBatch.Draw(Effekte.Konsumierbares[i].Bild, temppos[i], null, Color.White*Transparenz, 0f,
                         Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
             }
 
             for (int i = 0; i < 3; i++)
             {
-                spriteBatch.Draw(Texturen.LeeresFeld, temppos[i + 3], null, Color.White * Transparenz, 0f, Vector2.Zero,
+                spriteBatch.Draw(Texturen.LeeresFeld, temppos[i + 3], null, Color.White*Transparenz, 0f, Vector2.Zero,
                     Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                 if (i < Effekte.Status.Count)
-                    spriteBatch.Draw(Effekte.Status[i].Bild, temppos[i + 3], null, Color.White * Transparenz, 0f,
+                    spriteBatch.Draw(Effekte.Status[i].Bild, temppos[i + 3], null, Color.White*Transparenz, 0f,
                         Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
             }
 
             for (int i = 0; i < 3; i++)
             {
-                spriteBatch.Draw(Texturen.LeeresFeld, temppos[i + 6], null, Color.White * Transparenz, 0f, Vector2.Zero,
+                spriteBatch.Draw(Texturen.LeeresFeld, temppos[i + 6], null, Color.White*Transparenz, 0f, Vector2.Zero,
                     Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
                 if (i < Effekte.Upgrades.Count)
-                    spriteBatch.Draw(Effekte.Upgrades[i].Bild, temppos[i + 6], null, Color.White * Transparenz, 0f,
+                    spriteBatch.Draw(Effekte.Upgrades[i].Bild, temppos[i + 6], null, Color.White*Transparenz, 0f,
                         Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0f);
             }
 
@@ -250,7 +250,7 @@ namespace _4_1_
                 if (clickselected > 250)
                     switch (clickselected)
                     {
-                        /*  case 255:
+                            /*  case 255:
                           {
                               //gebe panzerdaten aus
                               spriteBatch.DrawString(font, "asdasdasd", stringpos, Color.Red * Transparenz); //> fahrzeugbox gewahlt!
@@ -264,94 +264,94 @@ namespace _4_1_
                               return;
                           }*/
                         case 253:
-                            {
-                                spriteBatch.DrawString(font, aux, stringpos, Color.Red * Transparenz);
+                        {
+                            spriteBatch.DrawString(font, aux, stringpos, Color.Red*Transparenz);
 
-                                return;
-                            }
+                            return;
+                        }
                         default:
-                            {
-                                int fahrzeuge = Spiel2.players[Spiel2.CurrentPlayer].GibArtillerie() +
-                                                Spiel2.players[Spiel2.CurrentPlayer].GibPanzer() +
-                                                Spiel2.players[Spiel2.CurrentPlayer].GibBaufahrzeuge() +
-                                                Spiel2.players[Spiel2.CurrentPlayer].GibScout();
-                                int geschütze = Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz() +
-                                                Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz2();
+                        {
+                            int fahrzeuge = Spiel2.players[Spiel2.CurrentPlayer].GibArtillerie() +
+                                            Spiel2.players[Spiel2.CurrentPlayer].GibPanzer() +
+                                            Spiel2.players[Spiel2.CurrentPlayer].GibBaufahrzeuge() +
+                                            Spiel2.players[Spiel2.CurrentPlayer].GibScout();
+                            int geschütze = Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz() +
+                                            Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz2();
 
-                                aux = "Credits/Runde: " +
-                                      Spiel2.players[Spiel2.CurrentPlayer].Generate_Credits(Spiel2.Haeuser,
-                                          Spiel2.CurrentPlayer) + "\n" +
-                                      "Haeuser: " +
-                                      Spiel2.players[Spiel2.CurrentPlayer].GibHäuser(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
-                                      "\n" +
-                                      "Fabriken: " +
-                                      Spiel2.players[Spiel2.CurrentPlayer].GibFabriken(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
-                                      "\n" +
-                                      "Haendler: " +
-                                      Spiel2.players[Spiel2.CurrentPlayer].GibHändler(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
-                                      "\n" +
-                                      "Tunnel: " + Spiel2.players[Spiel2.CurrentPlayer].TunnelAnlage.Count + "/" +
-                                      Allgemein.MaxTunnel + "\n" +
-                                      "\n" +
-                                      "Fahrzeuge: " + fahrzeuge + "/" + Allgemein.MaxFahrzeug + "\n" +
-                                      "Artillerie: " + Spiel2.players[Spiel2.CurrentPlayer].GibArtillerie() + "\n" +
-                                      "Panzer: " + Spiel2.players[Spiel2.CurrentPlayer].GibPanzer() + "\n" +
-                                      "Baufahrzeug: " + Spiel2.players[Spiel2.CurrentPlayer].GibBaufahrzeuge() + "\n" +
-                                      "Spaeher: " + Spiel2.players[Spiel2.CurrentPlayer].GibScout() + "\n" +
-                                      "\n" +
-                                      "Geschuetze: " + geschütze + "/" + Allgemein.MaxGeschuetze + "\n" +
-                                      "Geschuetz I: " + Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz() + "\n" +
-                                      "Geschuetz II: " + Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz2() + "\n";
-                                spriteBatch.DrawString(font, aux, stringpos, Color.Red * Transparenz);
+                            aux = "Credits/Runde: " +
+                                  Spiel2.players[Spiel2.CurrentPlayer].Generate_Credits(Spiel2.Haeuser,
+                                      Spiel2.CurrentPlayer) + "\n" +
+                                  "Haeuser: " +
+                                  Spiel2.players[Spiel2.CurrentPlayer].GibHäuser(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
+                                  "\n" +
+                                  "Fabriken: " +
+                                  Spiel2.players[Spiel2.CurrentPlayer].GibFabriken(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
+                                  "\n" +
+                                  "Haendler: " +
+                                  Spiel2.players[Spiel2.CurrentPlayer].GibHändler(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
+                                  "\n" +
+                                  "Tunnel: " + Spiel2.players[Spiel2.CurrentPlayer].TunnelAnlage.Count + "/" +
+                                  Allgemein.MaxTunnel + "\n" +
+                                  "\n" +
+                                  "Fahrzeuge: " + fahrzeuge + "/" + Allgemein.MaxFahrzeug + "\n" +
+                                  "Artillerie: " + Spiel2.players[Spiel2.CurrentPlayer].GibArtillerie() + "\n" +
+                                  "Panzer: " + Spiel2.players[Spiel2.CurrentPlayer].GibPanzer() + "\n" +
+                                  "Baufahrzeug: " + Spiel2.players[Spiel2.CurrentPlayer].GibBaufahrzeuge() + "\n" +
+                                  "Spaeher: " + Spiel2.players[Spiel2.CurrentPlayer].GibScout() + "\n" +
+                                  "\n" +
+                                  "Geschuetze: " + geschütze + "/" + Allgemein.MaxGeschuetze + "\n" +
+                                  "Geschuetz I: " + Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz() + "\n" +
+                                  "Geschuetz II: " + Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz2() + "\n";
+                            spriteBatch.DrawString(font, aux, stringpos, Color.Red*Transparenz);
 
-                                aux = "\n\n\n\n" +
-                                      "Bunker: " +
-                                      Spiel2.players[Spiel2.CurrentPlayer].GibBunker(Spiel2.Bunker, Spiel2.CurrentPlayer) +
-                                      "/" + Allgemein.MaxBunker + "\n";
-                                spriteBatch.DrawString(font, aux, stringpos + new Vector2(140, 0), Color.Red * Transparenz);
+                            aux = "\n\n\n\n" +
+                                  "Bunker: " +
+                                  Spiel2.players[Spiel2.CurrentPlayer].GibBunker(Spiel2.Bunker, Spiel2.CurrentPlayer) +
+                                  "/" + Allgemein.MaxBunker + "\n";
+                            spriteBatch.DrawString(font, aux, stringpos + new Vector2(140, 0), Color.Red*Transparenz);
 
-                                return;
-                            }
+                            return;
+                        }
                     }
 
                 if (clickselected > 239)
-                    switch ((clickselected - 240) / 3)
+                    switch ((clickselected - 240)/3)
                     {
                         case 0:
-                            {
-                                if (clickselected - 240 < Effekte.Konsumierbares.Count)
-                                    spriteBatch.DrawString(font,
-                                        "> Konsumitem " + Effekte.Konsumierbares[clickselected - 240].Name + "\n" +
-                                        Effekte.Konsumierbares[clickselected - 240].Beschreibungstext(), stringpos,
-                                        Color.Red * Transparenz);
-                                return;
-                            }
+                        {
+                            if (clickselected - 240 < Effekte.Konsumierbares.Count)
+                                spriteBatch.DrawString(font,
+                                    "> Konsumitem " + Effekte.Konsumierbares[clickselected - 240].Name + "\n" +
+                                    Effekte.Konsumierbares[clickselected - 240].Beschreibungstext(), stringpos,
+                                    Color.Red*Transparenz);
+                            return;
+                        }
                             ;
                         case 1:
-                            {
-                                if (clickselected - 243 < Effekte.Status.Count)
-                                    spriteBatch.DrawString(font,
-                                        "> Status " + Effekte.Status[clickselected - 243].Name + "\n" +
-                                        Effekte.Status[clickselected - 243].Beschreibungstext(), stringpos,
-                                        Color.Red * Transparenz);
-                                return;
-                            }
+                        {
+                            if (clickselected - 243 < Effekte.Status.Count)
+                                spriteBatch.DrawString(font,
+                                    "> Status " + Effekte.Status[clickselected - 243].Name + "\n" +
+                                    Effekte.Status[clickselected - 243].Beschreibungstext(), stringpos,
+                                    Color.Red*Transparenz);
+                            return;
+                        }
                             ;
                         case 2:
-                            {
-                                if (clickselected - 246 < Effekte.Upgrades.Count)
-                                    spriteBatch.DrawString(font,
-                                        "> Upgrade " + Effekte.Upgrades[clickselected - 246].Name + "\n" +
-                                        Effekte.Upgrades[clickselected - 246].Beschreibungstext(), stringpos,
-                                        Color.Red * Transparenz);
-                                return;
-                            }
+                        {
+                            if (clickselected - 246 < Effekte.Upgrades.Count)
+                                spriteBatch.DrawString(font,
+                                    "> Upgrade " + Effekte.Upgrades[clickselected - 246].Name + "\n" +
+                                    Effekte.Upgrades[clickselected - 246].Beschreibungstext(), stringpos,
+                                    Color.Red*Transparenz);
+                            return;
+                        }
                             ;
                         default:
-                            {
-                                spriteBatch.DrawString(font, "> FEHLER", stringpos, Color.Red * Transparenz);
-                                return;
-                            }
+                        {
+                            spriteBatch.DrawString(font, "> FEHLER", stringpos, Color.Red*Transparenz);
+                            return;
+                        }
                     }
             }
 
@@ -361,20 +361,20 @@ namespace _4_1_
                     switch (clickselected2)
                     {
                         case 253:
-                            {
-                                spriteBatch.DrawString(font, aux, stringpos, Color.Red * Transparenz);
-                                return;
-                            }
+                        {
+                            spriteBatch.DrawString(font, aux, stringpos, Color.Red*Transparenz);
+                            return;
+                        }
                         default:
-                            {
-                                aux = "";
-                                spriteBatch.DrawString(font, aux, stringpos, Color.Red * Transparenz);
-                                return;
-                            }
+                        {
+                            aux = "";
+                            spriteBatch.DrawString(font, aux, stringpos, Color.Red*Transparenz);
+                            return;
+                        }
                     }
             }
 
-            spriteBatch.DrawString(font, aux, stringpos, Color.Red * Transparenz);
+            spriteBatch.DrawString(font, aux, stringpos, Color.Red*Transparenz);
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace _4_1_
             Texturen.Bilddateien.Add("spielermenutextbox", 0.5f);
             spielermenutextbox = Content.Load<Texture2D>("Textures\\spielermenutextbox");
 
-            Position = new Vector2(Game1.screenWidth / 2 - spielermenu.Width / 2 * Optimierung.Skalierung(0.5f), 0);
+            Position = new Vector2(Game1.screenWidth/2 - spielermenu.Width/2*Optimierung.Skalierung(0.5f), 0);
 
             ownPos = new Vector2(0, 0) + Position - new Vector2(150, 0);
             textboxpos = ownPos + new Vector2(220, 6);
@@ -431,7 +431,7 @@ namespace _4_1_
             textbox = new BoundingBox(new Vector3(textboxpos, 0),
                 new Vector3(
                     textboxpos +
-                    new Vector2(spielermenutextbox.Width, spielermenutextbox.Height) * Optimierung.Skalierung(0.5f), 0));
+                    new Vector2(spielermenutextbox.Width, spielermenutextbox.Height)*Optimierung.Skalierung(0.5f), 0));
             stringpos = textboxpos + new Vector2(10, 6);
 
             backPack = new Backpack(ownPos + new Vector2(3, 268), 18, 6, 2);
@@ -439,14 +439,14 @@ namespace _4_1_
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j < 3; j++)
                 {
-                    temppos[i * 3 + j] = new Vector2(3, 105) + ownPos +
-                                       new Vector2((Texturen.LeeresFeld.Width * Optimierung.Skalierung(0.25f) + 5 / 4) * j,
-                                           (Texturen.LeeresFeld.Height * Optimierung.Skalierung(0.25f)) * i);
-                    tempbox[i * 3 + j] = new BoundingBox(new Vector3(temppos[i * 3 + j], 0),
+                    temppos[i*3 + j] = new Vector2(3, 105) + ownPos +
+                                       new Vector2((Texturen.LeeresFeld.Width*Optimierung.Skalierung(0.25f) + 5/4)*j,
+                                           (Texturen.LeeresFeld.Height*Optimierung.Skalierung(0.25f))*i);
+                    tempbox[i*3 + j] = new BoundingBox(new Vector3(temppos[i*3 + j], 0),
                         new Vector3(
-                            temppos[i * 3 + j] +
-                            new Vector2(Texturen.LeeresFeld.Width * Optimierung.Skalierung(0.25f),
-                                Texturen.LeeresFeld.Height * Optimierung.Skalierung(0.25f)), 0));
+                            temppos[i*3 + j] +
+                            new Vector2(Texturen.LeeresFeld.Width*Optimierung.Skalierung(0.25f),
+                                Texturen.LeeresFeld.Height*Optimierung.Skalierung(0.25f)), 0));
                 }
         }
 
@@ -475,7 +475,7 @@ namespace _4_1_
                     aux = " ";
                 else if (clickselected < mun + tre)
                 {
-                    var which = (int)munlist[clickselected - tre].X;
+                    var which = (int) munlist[clickselected - tre].X;
                     if (Schrift != null)
                         aux =
                             Help.ListeZuString(Help.ZerhackeTextAufFesteBreite(Schrift, Waffendaten.GibWaffentext(which),
@@ -483,18 +483,18 @@ namespace _4_1_
 
                     aux = aux + "\n" +
                           "Maximalschaden: " + Waffendaten.Zentrumschaden[which] + "\n" +
-                          "Radius: " + (Waffendaten.Daten[which].X * Waffendaten.Energiefaktor[which]) + "\n" +
+                          "Radius: " + (Waffendaten.Daten[which].X*Waffendaten.Energiefaktor[which]) + "\n" +
                           "AP Verbrauch: " + Waffendaten.APKosten[which];
                 }
                 else if (clickselected < mun + upg + tre)
                 {
-                    var temp = (int)upglist[clickselected - mun - tre].X;
+                    var temp = (int) upglist[clickselected - mun - tre].X;
                     aux = "> Upgrade " + Rucksack.Upgrades[temp].Name + "\n" +
                           Rucksack.Upgrades[temp].Effekt.Beschreibungstext();
                 }
                 else if (clickselected < mun + upg + kon + tre)
                 {
-                    var temp = (int)konlist[clickselected - mun - upg - tre].X;
+                    var temp = (int) konlist[clickselected - mun - upg - tre].X;
                     aux = "> Konsumitem " + Rucksack.Konsumierbares[temp].Name + "\n" +
                           Rucksack.Konsumierbares[temp].Effekt.Beschreibungstext();
                 }
@@ -514,25 +514,25 @@ namespace _4_1_
                     aux = ""; //Treibstoff
                 else if (clickselected2 < mun2 + tre2)
                 {
-                    var which = (int)munlist2[clickselected2 - tre2].X;
+                    var which = (int) munlist2[clickselected2 - tre2].X;
                     if (Schrift != null)
                         aux =
                             Help.ListeZuString(Help.ZerhackeTextAufFesteBreite(Schrift, Waffendaten.GibWaffentext(which),
                                 257, false));
                     aux = aux + "\n" +
                           "Maximalschaden: " + Waffendaten.Zentrumschaden[which] + "\n" +
-                          "Radius: " + (Waffendaten.Daten[which].X * Waffendaten.Energiefaktor[which]) + "\n" +
+                          "Radius: " + (Waffendaten.Daten[which].X*Waffendaten.Energiefaktor[which]) + "\n" +
                           "AP Verbrauch: " + Waffendaten.APKosten[which];
                 }
                 else if (clickselected2 < mun2 + upg2 + tre2)
                 {
-                    var temp = (int)upglist2[clickselected2 - mun2 - tre2].X;
+                    var temp = (int) upglist2[clickselected2 - mun2 - tre2].X;
                     aux = "> Upgrade " + Rucksack.Upgrades[temp].Name + "\n" +
                           Rucksack.Upgrades[temp].Effekt.Beschreibungstext();
                 }
                 else if (clickselected2 < mun2 + upg2 + kon2 + tre2)
                 {
-                    var temp = (int)konlist2[clickselected2 - mun2 - upg2 - tre2].X;
+                    var temp = (int) konlist2[clickselected2 - mun2 - upg2 - tre2].X;
                     aux = "> Konsumitem " + Rucksack.Konsumierbares[temp].Name + "\n" +
                           Rucksack.Konsumierbares[temp].Effekt.Beschreibungstext();
                 }
@@ -545,7 +545,7 @@ namespace _4_1_
                     {
                         focused = 0;
                         clickselected2 = 255;
-                        clickselected = (byte)(240 + i);
+                        clickselected = (byte) (240 + i);
                         return true;
                     }
 
@@ -599,7 +599,7 @@ namespace _4_1_
                         else if (selected < mun + tre)
                         {
                             // munition ausgewählt
-                            var which = (int)munlist[selected - tre].X;
+                            var which = (int) munlist[selected - tre].X;
                             if (
                                 Fahrzeugdaten.ShootableAmmunition[
                                     Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].KindofTank[
@@ -610,7 +610,7 @@ namespace _4_1_
                         }
                         else if (selected < mun + tre + upg)
                         {
-                            var which = (int)upglist[selected - tre - mun].X;
+                            var which = (int) upglist[selected - tre - mun].X;
                             // Upgrade gewählt
                             Rucksack.BenutzenUpgrade(Effekte, which);
                             backPack.selected = 255;
@@ -618,7 +618,7 @@ namespace _4_1_
                         }
                         else if (selected < mun + tre + upg + kon)
                         {
-                            var which = (int)konlist[selected - tre - mun - upg].X;
+                            var which = (int) konlist[selected - tre - mun - upg].X;
                             // Konsumitem gewählt
                             Rucksack.BenutzenKonsumierbares(Effekte, which);
                             backPack.selected = 255;
@@ -641,18 +641,18 @@ namespace _4_1_
                             Rucksack.HinzufügenTreibstoff(result);
 
                             if (handelspartner.X == 1)
-                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits += transferiert *
+                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits += transferiert*
                                                                                             Allgemein.TreibstoffPreis;
                         }
                         else if (selected < mun + tre)
                         {
                             // munition schicken
-                            var which = (int)munlist[selected - tre].X;
+                            var which = (int) munlist[selected - tre].X;
 
                             int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift)
                                 ? Waffendaten.Fachgröße[which]
                                 : Waffendaten.Austauschgröße[which];
-                            if (munlist[selected - tre].Y < schritt) schritt = (int)munlist[selected - tre].Y;
+                            if (munlist[selected - tre].Y < schritt) schritt = (int) munlist[selected - tre].Y;
 
                             int result = Rucksack.EntnehmenMunition(which, schritt);
                             float transferiert = result;
@@ -661,16 +661,16 @@ namespace _4_1_
                             Rucksack.HinzufügenMunition(which, result);
 
                             if (handelspartner.X == 1)
-                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits += transferiert *
+                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits += transferiert*
                                                                                             Waffendaten.Preis[which];
                         }
                         else if (selected < mun + tre + upg)
                         {
-                            var which = (int)upglist[selected - tre - mun].X;
+                            var which = (int) upglist[selected - tre - mun].X;
                             // Upgrade schicken
                             int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgroesse : 1;
                             if (upglist[selected - tre - mun].Y < schritt)
-                                schritt = (int)upglist[selected - tre - mun].Y;
+                                schritt = (int) upglist[selected - tre - mun].Y;
 
                             Item temp = Inventar.Neu(Rucksack.Upgrades[which]);
                             int result = Rucksack.EntnehmenUpgrade(which, schritt);
@@ -681,11 +681,11 @@ namespace _4_1_
                         }
                         else if (selected < mun + tre + upg + kon)
                         {
-                            var which = (int)konlist[selected - tre - mun - upg].X;
+                            var which = (int) konlist[selected - tre - mun - upg].X;
                             // Konsumitem schicken
                             int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgroesse : 1;
                             if (konlist[selected - tre - mun - upg].Y < schritt)
-                                schritt = (int)konlist[selected - tre - mun - upg].Y;
+                                schritt = (int) konlist[selected - tre - mun - upg].Y;
                             Item temp = Inventar.Neu(Rucksack.Konsumierbares[which]);
                             int result = Rucksack.EntnehmenUpgrade(which, schritt);
                             temp.Anzahl = result;
@@ -727,8 +727,8 @@ namespace _4_1_
                             // Treibstoff schicken
                             float schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? 500 : 100;
                             if (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits <
-                                schritt * Allgemein.TreibstoffPreis)
-                                schritt = Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits /
+                                schritt*Allgemein.TreibstoffPreis)
+                                schritt = Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits/
                                           Allgemein.TreibstoffPreis;
 
                             float result = Tauschrucksack.EntnehmenTreibstoff(schritt);
@@ -738,25 +738,25 @@ namespace _4_1_
                             Tauschrucksack.HinzufügenTreibstoff(result);
 
                             if (handelspartner.X == 1)
-                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits -= transferiert *
+                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits -= transferiert*
                                                                                             Allgemein.TreibstoffPreis;
                         }
                         else if (selected < mun + tre)
                         {
                             // munition schicken
-                            var which = (int)munlist[selected - tre].X;
+                            var which = (int) munlist[selected - tre].X;
 
                             // Treibstoff schicken
                             int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift)
                                 ? Waffendaten.Fachgröße[which]
                                 : Waffendaten.Austauschgröße[which];
-                            if (munlist[selected - tre].Y < schritt) schritt = (int)munlist[selected - tre].Y;
+                            if (munlist[selected - tre].Y < schritt) schritt = (int) munlist[selected - tre].Y;
 
                             if (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits <
-                                schritt * Waffendaten.Preis[which])
+                                schritt*Waffendaten.Preis[which])
                                 schritt =
                                     (int)
-                                        (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits /
+                                        (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits/
                                          Waffendaten.Preis[which]);
 
                             int result = Tauschrucksack.EntnehmenMunition(which, schritt);
@@ -766,21 +766,21 @@ namespace _4_1_
                             Tauschrucksack.HinzufügenMunition(which, result);
 
                             if (handelspartner.X == 1)
-                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits -= transferiert *
+                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits -= transferiert*
                                                                                             Waffendaten.Preis[which];
                         }
                         else if (selected < mun + tre + upg)
                         {
-                            var which = (int)upglist[selected - tre - mun].X;
+                            var which = (int) upglist[selected - tre - mun].X;
                             // Upgrade schicken
                             int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgroesse : 1;
                             if (upglist[selected - tre - mun].Y < schritt)
-                                schritt = (int)upglist[selected - tre - mun].Y;
+                                schritt = (int) upglist[selected - tre - mun].Y;
 
                             Item temp = Inventar.Neu(Tauschrucksack.Upgrades[which]);
 
-                            if (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits < schritt * temp.Preis)
-                                schritt = (int)(Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits / temp.Preis);
+                            if (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits < schritt*temp.Preis)
+                                schritt = (int) (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits/temp.Preis);
 
                             int result = Tauschrucksack.EntnehmenUpgrade(which, schritt);
                             float transferiert = result;
@@ -791,20 +791,20 @@ namespace _4_1_
                             Tauschrucksack.Hinzufügen(temp);
 
                             if (handelspartner.X == 1)
-                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits -= transferiert * temp.Preis;
+                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits -= transferiert*temp.Preis;
                         }
                         else if (selected < mun + tre + upg + kon)
                         {
-                            var which = (int)konlist[selected - tre - mun - upg].X;
+                            var which = (int) konlist[selected - tre - mun - upg].X;
                             // Konsumitem schicken
                             int schritt = Keyboard.GetState().IsKeyDown(Keys.LeftShift) ? Rucksack.Fachgroesse : 1;
                             if (konlist[selected - tre - mun - upg].Y < schritt)
-                                schritt = (int)konlist[selected - tre - mun - upg].Y;
+                                schritt = (int) konlist[selected - tre - mun - upg].Y;
 
                             Item temp = Inventar.Neu(Tauschrucksack.Konsumierbares[which]);
 
-                            if (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits < schritt * temp.Preis)
-                                schritt = (int)(Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits / temp.Preis);
+                            if (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits < schritt*temp.Preis)
+                                schritt = (int) (Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits/temp.Preis);
 
                             int result = Tauschrucksack.EntnehmenUpgrade(which, schritt);
                             float transferiert = result;
@@ -815,7 +815,7 @@ namespace _4_1_
                             Tauschrucksack.Hinzufügen(temp);
 
                             if (handelspartner.X == 1)
-                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits -= transferiert * temp.Preis;
+                                Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].Credits -= transferiert*temp.Preis;
                         }
                     }
                     return true;

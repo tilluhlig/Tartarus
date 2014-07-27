@@ -53,8 +53,8 @@ namespace _4_1_
             else
                 longest = Breite;
 
-            menu = new Texture2D(graphicsDevice, (int) longest, (int) (fHohe*Inhalt.Count)); // + Inhalt.Count * 4
-            var color = new Color[(int) longest*(int) (fHohe*Inhalt.Count)]; // + Inhalt.Count * 4
+            menu = new Texture2D(graphicsDevice, (int)longest, (int)(fHohe * Inhalt.Count)); // + Inhalt.Count * 4
+            var color = new Color[(int)longest * (int)(fHohe * Inhalt.Count)]; // + Inhalt.Count * 4
             for (int i = 0; i < color.Length; i++) color[i] = Hintergrundfarbe;
             menu.SetData(color);
             // teilmenu = 1.0f / 3;
@@ -70,7 +70,7 @@ namespace _4_1_
             {
                 if (rand)
                     Help.DrawRectangle(spriteBatch, graphicsDevice,
-                        new Rectangle((int) (pos.X - Fenster.X - 1), (int) (pos.Y - Fenster.Y - 1), menu.Width + 2,
+                        new Rectangle((int)(pos.X - Fenster.X - 1), (int)(pos.Y - Fenster.Y - 1), menu.Width + 2,
                             menu.Height + 2), Randfarbe, 1.0f);
 
                 spriteBatch.Draw(menu, pos - Fenster, Color.White);
@@ -80,10 +80,10 @@ namespace _4_1_
                 for (int i = 0; i < Inhalt.Count; i++)
                 {
                     if (i == over)
-                        spriteBatch.DrawString(font, Inhalt[i], textpos + new Vector2(0, i*(font.MeasureString("A").Y)),
+                        spriteBatch.DrawString(font, Inhalt[i], textpos + new Vector2(0, i * (font.MeasureString("A").Y)),
                             SchriftfarbeAusgewählt);
                     else
-                        spriteBatch.DrawString(font, Inhalt[i], textpos + new Vector2(0, i*(font.MeasureString("A").Y)),
+                        spriteBatch.DrawString(font, Inhalt[i], textpos + new Vector2(0, i * (font.MeasureString("A").Y)),
                             Schriftfarbe);
                 }
             }
@@ -111,7 +111,7 @@ namespace _4_1_
 
                     for (int i = 0; i < Inhalt.Count; i++)
                     {
-                        if (temp < abstand*(i + 1) && temp >= abstand*i)
+                        if (temp < abstand * (i + 1) && temp >= abstand * i)
                         {
                             gewahlt = i;
                             over = i;

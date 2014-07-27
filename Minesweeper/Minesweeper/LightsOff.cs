@@ -46,7 +46,7 @@ namespace Minesweeper
             ResetSchritte();
             if (Bilder != null)
             {
-                for (int i = 0; i < Breite * Hoehe; i++)
+                for (int i = 0; i < Breite*Hoehe; i++)
                 {
                     Bilder[i].Dispose();
                 }
@@ -54,32 +54,32 @@ namespace Minesweeper
 
             Breite = _Breite;
             Hoehe = _Hoehe;
-            Spielfeld = new bool[Breite * Hoehe];
-            Bilder = new PictureBox[Breite * Hoehe];
+            Spielfeld = new bool[Breite*Hoehe];
+            Bilder = new PictureBox[Breite*Hoehe];
 
             // Minen setzen
             var rnd = new Random();
-            var anz = (int)Math.Sqrt(Breite * Hoehe);
+            var anz = (int) Math.Sqrt(Breite*Hoehe);
             for (int i = 0; i < anz; i++)
             {
                 int x;
                 do
                 {
-                    x = rnd.Next(0, Breite * Hoehe);
+                    x = rnd.Next(0, Breite*Hoehe);
                 } while (Spielfeld[x]);
                 Spielfeld[x] = true;
             }
 
             // die Felder, die man anklicken kann initialisieren
-            for (int i = 0; i < Breite * Hoehe; i++)
+            for (int i = 0; i < Breite*Hoehe; i++)
             {
                 Bilder[i] = new PictureBox();
                 Bilder[i].Parent = frm;
                 Bilder[i].Height = 32;
                 Bilder[i].Width = 32;
                 Bilder[i].Image = GetBild(i);
-                Bilder[i].Top = (i / Breite) * 32 + Zeichenflaeche.Top;
-                Bilder[i].Left = (i % Breite) * 32 + Zeichenflaeche.Left;
+                Bilder[i].Top = (i/Breite)*32 + Zeichenflaeche.Top;
+                Bilder[i].Left = (i%Breite)*32 + Zeichenflaeche.Left;
                 Bilder[i].MouseClick += Bilder_Click;
                 Bilder[i].Hide();
             }
@@ -87,11 +87,11 @@ namespace Minesweeper
             // Fenster an Spielfeld anpassen
             int disty = frm.Height - Zeichenflaeche.Height;
             int distx = frm.Width - Zeichenflaeche.Width;
-            frm.Height = (Hoehe * Breite / Breite) * 32 + disty;
-            frm.Width = (Breite * 32) + distx;
+            frm.Height = (Hoehe*Breite/Breite)*32 + disty;
+            frm.Width = (Breite*32) + distx;
             if (frm.Width < 491) frm.Width = 491;
 
-            for (int i = 0; i < Breite * Hoehe; i++)
+            for (int i = 0; i < Breite*Hoehe; i++)
             {
                 Bilder[i].Show();
             }
@@ -102,7 +102,7 @@ namespace Minesweeper
             if (Bilder == null) return;
 
             // alle Felder zerstören
-            for (int i = 0; i < Breite * Hoehe; i++)
+            for (int i = 0; i < Breite*Hoehe; i++)
             {
                 if (Bilder[i] == null) continue;
                 Bilder[i].Dispose();
@@ -128,7 +128,7 @@ namespace Minesweeper
 
         private static void Bilder_Click(object sender, MouseEventArgs e)
         {
-            for (int i = 0; i < Breite * Hoehe; i++)
+            for (int i = 0; i < Breite*Hoehe; i++)
             {
                 if (sender == Bilder[i])
                 {
@@ -138,14 +138,14 @@ namespace Minesweeper
                         ChangeBild(i);
 
                         // Nun befreie 0er Felder
-                        int x = i % Breite;
-                        int y = i / Breite;
+                        int x = i%Breite;
+                        int y = i/Breite;
 
-                        if (x > 0) ChangeBild((x - 1) + (y + 0) * Breite);
-                        if (x < Breite - 1) ChangeBild((x + 1) + (y + 0) * Breite);
+                        if (x > 0) ChangeBild((x - 1) + (y + 0)*Breite);
+                        if (x < Breite - 1) ChangeBild((x + 1) + (y + 0)*Breite);
 
-                        if (y > 0) ChangeBild((x - 0) + (y - 1) * Breite);
-                        if (y < Hoehe - 1) ChangeBild((x + 0) + (y + 1) * Breite);
+                        if (y > 0) ChangeBild((x - 0) + (y - 1)*Breite);
+                        if (y < Hoehe - 1) ChangeBild((x + 0) + (y + 1)*Breite);
                     }
                     PrüfeSieg();
                     break;
@@ -181,7 +181,7 @@ namespace Minesweeper
         private static void PrüfeSieg()
         {
             // Prüfe ob es noch ein Feld gibt, das man noch anklicken könnte (ohne zu verlieren)
-            for (int i = 0; i < Breite * Hoehe; i++)
+            for (int i = 0; i < Breite*Hoehe; i++)
             {
                 if (Spielfeld[i]) return;
             }

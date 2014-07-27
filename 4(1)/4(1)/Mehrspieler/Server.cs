@@ -38,7 +38,7 @@ namespace _4_1_
                         break;
 
                     case NetIncomingMessageType.StatusChanged:
-                        var status = (NetConnectionStatus)im.ReadByte();
+                        var status = (NetConnectionStatus) im.ReadByte();
                         string reason = im.ReadString();
                         // Output(NetUtility.ToHexString(im.SenderConnection.RemoteUniqueIdentifier) + " " + status + ": " + reason);
                         // Neuer hinzugefügt
@@ -87,14 +87,14 @@ namespace _4_1_
                                                 Spiel2.players[Spiel2.CurrentPlayer].Angle[
                                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                                 Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
-                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 25;
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank])*75 + 25;
                                     a.X -=
                                         (float)
                                             Math.Cos(
                                                 Spiel2.players[Spiel2.CurrentPlayer].Angle[
                                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                                 Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
-                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank])*75;
 
                                     var up = new Vector2(0, -1);
                                     Matrix rotMatrix =
@@ -103,12 +103,12 @@ namespace _4_1_
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                             Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] -
-                                            (float)MathHelper.PiOver2);
+                                            MathHelper.PiOver2);
                                     Vector2 b = Vector2.Transform(up, rotMatrix);
-                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
-                                         (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
+                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower/
+                                         (float) Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
 
-                                    Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, a, b, 300 * 4,
+                                    Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, a, b, 300*4,
                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
                                     //Program.game.CurrentMissle
@@ -125,14 +125,14 @@ namespace _4_1_
                                                 Spiel2.players[Spiel2.CurrentPlayer].Angle[
                                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                                 Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
-                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 50;
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank])*75 + 50;
                                     a.X -=
                                         (float)
                                             Math.Cos(
                                                 Spiel2.players[Spiel2.CurrentPlayer].Angle[
                                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                                 Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
-                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
+                                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank])*75;
 
                                     up = new Vector2(0, -1);
                                     rotMatrix =
@@ -141,10 +141,10 @@ namespace _4_1_
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                             Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] -
-                                            (float)MathHelper.PiOver2);
+                                            MathHelper.PiOver2);
                                     b = Vector2.Transform(up, rotMatrix);
-                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
-                                         (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
+                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower/
+                                         (float) Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
 
                                     Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, a, 4, 50, 1800,
                                         Program.game.Time, new Vector3(0.7f, 1f, 1.2f), 0, 0);
@@ -183,7 +183,7 @@ namespace _4_1_
                                     a.X = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
                                     Spiel2.CurrentMissile = Spiel2.AddRakete(3,
                                         new Vector2(a.X, Spiel.rand.Next(-1100, -200)),
-                                        new Vector2(Spiel.rand.Next(-100, 100) / 25, -1), 300 * 4,
+                                        new Vector2(Spiel.rand.Next(-100, 100)/25, -1), 300*4,
                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
                                     if (Spiel2.CurrentMissile != -1)

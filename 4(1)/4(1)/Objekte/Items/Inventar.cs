@@ -362,7 +362,7 @@ namespace _4_1_
         {
             int result = 0;
             for (int i = 0; i < Konsumierbares.Count; i++)
-                result += (int)(Math.Ceiling((double)Konsumierbares[i].Anzahl / Fachgroesse));
+                result += (int) (Math.Ceiling((double) Konsumierbares[i].Anzahl/Fachgroesse));
             return result;
         }
 
@@ -376,15 +376,15 @@ namespace _4_1_
             for (int i = 0; i < Konsumierbares.Count; i++)
             {
                 int a = Konsumierbares[i].Anzahl;
-                var temp = (int)(Math.Ceiling((double)a / Fachgroesse));
+                var temp = (int) (Math.Ceiling((double) a/Fachgroesse));
                 for (int b = 0; b < temp - 1; b++)
                     list.Add(new Vector2(i, Fachgroesse));
 
                 if (a > 0)
                 {
-                    if (a % Fachgroesse != 0)
+                    if (a%Fachgroesse != 0)
                     {
-                        list.Add(new Vector2(i, a % Fachgroesse));
+                        list.Add(new Vector2(i, a%Fachgroesse));
                     }
                     else
                         list.Add(new Vector2(i, Fachgroesse));
@@ -473,7 +473,7 @@ namespace _4_1_
             {
                 if (Munition[i] <= 0 || Waffendaten.Verschiessbar[i] == 0 || Waffendaten.Verschiessbar[i] == 5)
                     continue;
-                result += (int)(Math.Ceiling((double)Munition[i] / Waffendaten.Fachgröße[i]));
+                result += (int) (Math.Ceiling((double) Munition[i]/Waffendaten.Fachgröße[i]));
             }
 
             return result;
@@ -489,7 +489,7 @@ namespace _4_1_
             for (int i = 0; i < Munition.Count; i++)
             {
                 if (Munition[i] <= 0) continue;
-                result += (int)(Math.Ceiling((double)Munition[i] / Waffendaten.Fachgröße[i]));
+                result += (int) (Math.Ceiling((double) Munition[i]/Waffendaten.Fachgröße[i]));
             }
 
             return result;
@@ -507,15 +507,15 @@ namespace _4_1_
                 if (Munition[i] <= 0 || Waffendaten.Verschiessbar[i] == 0 || Waffendaten.Verschiessbar[i] == 5)
                     continue;
                 int a = Munition[i];
-                var temp = (int)(Math.Ceiling((double)a / Waffendaten.Fachgröße[i]));
+                var temp = (int) (Math.Ceiling((double) a/Waffendaten.Fachgröße[i]));
                 for (int b = 0; b < temp - 1; b++)
                     list.Add(new Vector2(i, Waffendaten.Fachgröße[i]));
 
                 if (a > 0)
                 {
-                    if (a % Waffendaten.Fachgröße[i] != 0)
+                    if (a%Waffendaten.Fachgröße[i] != 0)
                     {
-                        list.Add(new Vector2(i, a % Waffendaten.Fachgröße[i]));
+                        list.Add(new Vector2(i, a%Waffendaten.Fachgröße[i]));
                     }
                     else
                         list.Add(new Vector2(i, Waffendaten.Fachgröße[i]));
@@ -535,15 +535,15 @@ namespace _4_1_
             {
                 if (Munition[i] <= 0) continue;
                 int a = Munition[i];
-                var temp = (int)(Math.Ceiling((double)a / Waffendaten.Fachgröße[i]));
+                var temp = (int) (Math.Ceiling((double) a/Waffendaten.Fachgröße[i]));
                 for (int b = 0; b < temp - 1; b++)
                     list.Add(new Vector2(i, Waffendaten.Fachgröße[i]));
 
                 if (a > 0)
                 {
-                    if (a % Waffendaten.Fachgröße[i] != 0)
+                    if (a%Waffendaten.Fachgröße[i] != 0)
                     {
-                        list.Add(new Vector2(i, a % Waffendaten.Fachgröße[i]));
+                        list.Add(new Vector2(i, a%Waffendaten.Fachgröße[i]));
                     }
                     else
                         list.Add(new Vector2(i, Waffendaten.Fachgröße[i]));
@@ -562,15 +562,15 @@ namespace _4_1_
             for (int i = 0; i < Upgrades.Count; i++)
             {
                 int a = Upgrades[i].Anzahl;
-                var temp = (int)(Math.Ceiling((double)a / Fachgroesse));
+                var temp = (int) (Math.Ceiling((double) a/Fachgroesse));
                 for (int b = 0; b < temp - 1; b++)
                     list.Add(new Vector2(i, Fachgroesse));
 
                 if (a > 0)
                 {
-                    if (a % Fachgroesse != 0)
+                    if (a%Fachgroesse != 0)
                     {
-                        list.Add(new Vector2(i, a % Fachgroesse));
+                        list.Add(new Vector2(i, a%Fachgroesse));
                     }
                     else
                         list.Add(new Vector2(i, Fachgroesse));
@@ -607,7 +607,7 @@ namespace _4_1_
         {
             int result = 0;
             for (int i = 0; i < Upgrades.Count; i++)
-                result += (int)(Math.Ceiling((double)Upgrades[i].Anzahl / Fachgroesse));
+                result += (int) (Math.Ceiling((double) Upgrades[i].Anzahl/Fachgroesse));
             return result;
         }
 

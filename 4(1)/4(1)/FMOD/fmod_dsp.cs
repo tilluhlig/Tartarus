@@ -312,8 +312,7 @@ namespace FMOD
 
         public DSP_GETPARAMCALLBACK getparameter;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-        public char[] name;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public char[] name;
 
         /* [in] Name of the unit to be displayed in the network. */
 
@@ -354,16 +353,14 @@ namespace FMOD
         public float defaultval;
         public string description;
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public char[] label;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)] public char[] label;
 
         public float max;
         public float min; /* [in] Minimum value of the parameter (ie 100.0). */
         /* [in] Maximum value of the parameter (ie 22050.0). */
         /* [in] Default value of parameter. */
 
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public char[] name;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)] public char[] name;
 
         #endregion Fields
 

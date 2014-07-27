@@ -75,10 +75,10 @@ namespace _4_1_
             {
                 int x = 0;
                 int anze = 0;
-                for (int i = 0;; i++)
+                for (int i = 0; ; i++)
                 {
                     x += Spiel.rand.Next(70, 400);
-                    if (x >= (symmetrisch ? Spielfeld.Length/2 : Spielfeld.Length)) break;
+                    if (x >= (symmetrisch ? Spielfeld.Length / 2 : Spielfeld.Length)) break;
                     int id = Spiel.rand.Next(0, Texturen.baum.Length);
                     Nutzloses.Hinzufügen(Texturen.baum[id], new Vector2(x, Kartenformat.BottomOf(x, 0) + 7), 0, false,
                         Baumdata.SKALIERUNG.Wert[id], BAEUME_KOLLISION, BAEUME_ZERSTOERUNG);
@@ -88,7 +88,7 @@ namespace _4_1_
                 if (symmetrisch)
                 {
                     int anz = anze;
-                    int middle = Spielfeld.Length/2;
+                    int middle = Spielfeld.Length / 2;
                     int max = Nutzloses.GibAnzahl();
                     for (int i = 0; i < anz; i++)
                     {

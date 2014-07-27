@@ -90,13 +90,13 @@ namespace _4_1_
             {
                 Skalierung = _Skalierung;
                 Bild = Texturen.FromFile("Content\\Textures\\" + Bilddatei + ".jpg");
-                    //Content.Load<Texture2D>("Textures\\" + Bilddatei);
-                CBild = new Color[Bild.Width*Bild.Height];
+                //Content.Load<Texture2D>("Textures\\" + Bilddatei);
+                CBild = new Color[Bild.Width * Bild.Height];
                 Bild.GetData(CBild);
 
-                var rt = new RenderTarget2D(Game1.device, (int) (Bild.Width*Skalierung), (int) (Bild.Height*Skalierung));
+                var rt = new RenderTarget2D(Game1.device, (int)(Bild.Width * Skalierung), (int)(Bild.Height * Skalierung));
                 Game1.device.SetRenderTarget(rt);
-                var rect = new Rectangle(0, 0, (int) (Bild.Width*Skalierung), (int) (Bild.Height*Skalierung));
+                var rect = new Rectangle(0, 0, (int)(Bild.Width * Skalierung), (int)(Bild.Height * Skalierung));
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(Bild, rect, Color.White);

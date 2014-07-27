@@ -132,7 +132,7 @@ namespace ReaderStream
 
                 if (q != '\n' && q != '\r')
                 {
-                    data = data + (char) q;
+                    data = data + (char)q;
                 }
                 else
                 {

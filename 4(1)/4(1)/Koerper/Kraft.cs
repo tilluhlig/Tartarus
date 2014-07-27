@@ -44,7 +44,7 @@ namespace _4_1_
         {
             float tempLaenge = (_PositionB - _PositionA).Length();
             Vector2 tempVector = _PositionB - _PositionA;
-            Wert = new Vector2(Laenge*tempVector.X/tempLaenge, Laenge*tempVector.Y/tempLaenge);
+            Wert = new Vector2(Laenge * tempVector.X / tempLaenge, Laenge * tempVector.Y / tempLaenge);
             Position = _PositionB;
         }
 

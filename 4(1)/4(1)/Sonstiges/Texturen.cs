@@ -56,11 +56,11 @@ namespace _4_1_
             {
 #if DEBUG
                 if (Baumdata.SKALIERUNG.Wert[i] == 1.0f) continue;
-                var rt = new RenderTarget2D(Game1.device, (int) (baum[i].Width*Baumdata.SKALIERUNG.Wert[i]),
-                    (int) (baum[i].Height*Baumdata.SKALIERUNG.Wert[i]));
+                var rt = new RenderTarget2D(Game1.device, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]),
+                    (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
                 Game1.device.SetRenderTarget(rt);
-                var rect = new Rectangle(0, 0, (int) (baum[i].Width*Baumdata.SKALIERUNG.Wert[i]),
-                    (int) (baum[i].Height*Baumdata.SKALIERUNG.Wert[i]));
+                var rect = new Rectangle(0, 0, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]),
+                    (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(baum[i], rect, Color.White);
@@ -82,11 +82,11 @@ namespace _4_1_
             {
 #if DEBUG
                 if (Fahrzeugdaten.SCALEP.Wert[i] == 1.0f) continue;
-                var rt = new RenderTarget2D(Game1.device, (int) (panzerindex[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
-                    (int) (panzerindex[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                var rt = new RenderTarget2D(Game1.device, (int)(panzerindex[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int)(panzerindex[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
                 Game1.device.SetRenderTarget(rt);
-                var rect = new Rectangle(0, 0, (int) (panzerindex[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
-                    (int) (panzerindex[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                var rect = new Rectangle(0, 0, (int)(panzerindex[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int)(panzerindex[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(panzerindex[i], rect, Color.White);
@@ -95,11 +95,11 @@ namespace _4_1_
                 rt.Tag = panzerindex[i].Tag;
                 panzerindex[i] = rt;
 
-                rt = new RenderTarget2D(Game1.device, (int) (panzerindexreifen[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
-                    (int) (panzerindexreifen[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                rt = new RenderTarget2D(Game1.device, (int)(panzerindexreifen[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int)(panzerindexreifen[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
                 Game1.device.SetRenderTarget(rt);
-                rect = new Rectangle(0, 0, (int) (panzerindexreifen[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
-                    (int) (panzerindexreifen[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                rect = new Rectangle(0, 0, (int)(panzerindexreifen[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int)(panzerindexreifen[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(panzerindexreifen[i], rect, Color.White);
@@ -108,11 +108,11 @@ namespace _4_1_
                 rt.Tag = panzerindexreifen[i].Tag;
                 panzerindexreifen[i] = rt;
 
-                rt = new RenderTarget2D(Game1.device, (int) (panzerruine[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
-                    (int) (panzerruine[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                rt = new RenderTarget2D(Game1.device, (int)(panzerruine[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int)(panzerruine[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
                 Game1.device.SetRenderTarget(rt);
-                rect = new Rectangle(0, 0, (int) (panzerruine[i].Width*Fahrzeugdaten.SCALEP.Wert[i]),
-                    (int) (panzerruine[i].Height*Fahrzeugdaten.SCALEP.Wert[i]));
+                rect = new Rectangle(0, 0, (int)(panzerruine[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
+                    (int)(panzerruine[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(panzerruine[i], rect, Color.White);
@@ -127,15 +127,15 @@ namespace _4_1_
             for (int i = 0; i < panzerrohrindex.Count(); i++)
             {
 #if DEBUG
-                if ((int) (panzerrohrindex[i].Width*Fahrzeugdaten.SCALER.Wert[i]) > 0 &&
-                    (int) (panzerrohrindex[i].Height*Fahrzeugdaten.SCALER.Wert[i]) > 0)
+                if ((int)(panzerrohrindex[i].Width * Fahrzeugdaten.SCALER.Wert[i]) > 0 &&
+                    (int)(panzerrohrindex[i].Height * Fahrzeugdaten.SCALER.Wert[i]) > 0)
                 {
                     var rt = new RenderTarget2D(Game1.device,
-                        (int) (panzerrohrindex[i].Width*Fahrzeugdaten.SCALER.Wert[i]),
-                        (int) (panzerrohrindex[i].Height*Fahrzeugdaten.SCALER.Wert[i]));
+                        (int)(panzerrohrindex[i].Width * Fahrzeugdaten.SCALER.Wert[i]),
+                        (int)(panzerrohrindex[i].Height * Fahrzeugdaten.SCALER.Wert[i]));
                     Game1.device.SetRenderTarget(rt);
-                    var rect = new Rectangle(0, 0, (int) (panzerrohrindex[i].Width*Fahrzeugdaten.SCALER.Wert[i]),
-                        (int) (panzerrohrindex[i].Height*Fahrzeugdaten.SCALER.Wert[i]));
+                    var rect = new Rectangle(0, 0, (int)(panzerrohrindex[i].Width * Fahrzeugdaten.SCALER.Wert[i]),
+                        (int)(panzerrohrindex[i].Height * Fahrzeugdaten.SCALER.Wert[i]));
                     Game1.spriteBatch.Begin();
                     Game1.device.Clear(Color.Transparent);
                     Game1.spriteBatch.Draw(panzerrohrindex[i], rect, Color.White);
@@ -555,11 +555,11 @@ namespace _4_1_
             {
 #if DEBUG
                 if (Gebäudedaten.SKALIERUNG.Wert[i] == 1.0f) continue;
-                var rt = new RenderTarget2D(Game1.device, (int) (haus[i].Width*Gebäudedaten.SKALIERUNG.Wert[i]),
-                    (int) (haus[i].Height*Gebäudedaten.SKALIERUNG.Wert[i]));
+                var rt = new RenderTarget2D(Game1.device, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]),
+                    (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
                 Game1.device.SetRenderTarget(rt);
-                var rect = new Rectangle(0, 0, (int) (haus[i].Width*Gebäudedaten.SKALIERUNG.Wert[i]),
-                    (int) (haus[i].Height*Gebäudedaten.SKALIERUNG.Wert[i]));
+                var rect = new Rectangle(0, 0, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]),
+                    (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(haus[i], rect, Color.White);
@@ -572,11 +572,11 @@ namespace _4_1_
             }
 
 #if DEBUG
-            var rt2 = new RenderTarget2D(Game1.device, (int) (tunnel.Width*Tunnel.SKALIERUNG),
-                (int) (tunnel.Height*Tunnel.SKALIERUNG));
+            var rt2 = new RenderTarget2D(Game1.device, (int)(tunnel.Width * Tunnel.SKALIERUNG),
+                (int)(tunnel.Height * Tunnel.SKALIERUNG));
             Game1.device.SetRenderTarget(rt2);
-            var rect2 = new Rectangle(0, 0, (int) (tunnel.Width*Tunnel.SKALIERUNG),
-                (int) (tunnel.Height*Tunnel.SKALIERUNG));
+            var rect2 = new Rectangle(0, 0, (int)(tunnel.Width * Tunnel.SKALIERUNG),
+                (int)(tunnel.Height * Tunnel.SKALIERUNG));
             Game1.spriteBatch.Begin();
             Game1.device.Clear(Color.Transparent);
             Game1.spriteBatch.Draw(tunnel, rect2, Color.White);
@@ -604,7 +604,7 @@ namespace _4_1_
             Radpositionen[0] = new Vector2[0];
             Radpositionen[1] = new Vector2[0];
             Radpositionen[2] = new Vector2[0];
-            Radpositionen[3] = new[] {new Vector2(-18, 6), new Vector2(16, 6)};
+            Radpositionen[3] = new[] { new Vector2(-18, 6), new Vector2(16, 6) };
             Radpositionen[4] = new Vector2[0];
             Radpositionen[5] = new Vector2[0];
 

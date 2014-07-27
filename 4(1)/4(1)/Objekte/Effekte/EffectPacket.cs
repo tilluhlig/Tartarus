@@ -97,7 +97,7 @@ namespace _4_1_
         /// <returns>System.Int32.</returns>
         public int GetHP(int _HP)
         {
-            return (int) ((_HP + EffektSumme.HP)*((float) (100 + EffektSumme.HPProzent)/100));
+            return (int)((_HP + EffektSumme.HP) * ((float)(100 + EffektSumme.HPProzent) / 100));
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace _4_1_
         /// <returns>System.Int32.</returns>
         public int GetMaxHP(int _MaxHP)
         {
-            return (int) ((_MaxHP + EffektSumme.MaxHP)*((float) (100 + EffektSumme.MaxHPProzent)/100));
+            return (int)((_MaxHP + EffektSumme.MaxHP) * ((float)(100 + EffektSumme.MaxHPProzent) / 100));
         }
 
         /// <summary>
@@ -128,8 +128,8 @@ namespace _4_1_
         {
             return
                 (int)
-                    ((_Arbeitsbereich + EffektSumme.Arbeitsbereich)*
-                     ((float) (100 + EffektSumme.ArbeitsbereichProzent)/100));
+                    ((_Arbeitsbereich + EffektSumme.Arbeitsbereich) *
+                     ((float)(100 + EffektSumme.ArbeitsbereichProzent) / 100));
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace _4_1_
         public int GibEingehendenSchaden(int _Damage)
         {
             var result =
-                (int) ((_Damage - EffektSumme.Verteidigung)*((float) (100 - EffektSumme.VerteidigungProzent)/100));
+                (int)((_Damage - EffektSumme.Verteidigung) * ((float)(100 - EffektSumme.VerteidigungProzent) / 100));
             return result < 0 ? 0 : result;
         }
 
@@ -152,7 +152,7 @@ namespace _4_1_
         public int GibFeuerSchaden(int _Schaden)
         {
             var result =
-                (int) ((_Schaden - EffektSumme.FeuerResistenz)*((float) (100 - EffektSumme.FeuerResistenzProzent)/100));
+                (int)((_Schaden - EffektSumme.FeuerResistenz) * ((float)(100 - EffektSumme.FeuerResistenzProzent) / 100));
             return result < 0 ? 0 : result;
         }
 
@@ -163,7 +163,7 @@ namespace _4_1_
         /// <returns>System.Single.</returns>
         public float GibGeschwR(float _GeschwR)
         {
-            return (_GeschwR + EffektSumme.GeschwR)*((float) (100 + EffektSumme.GeschwRProzent)/100);
+            return (_GeschwR + EffektSumme.GeschwR) * ((float)(100 + EffektSumme.GeschwRProzent) / 100);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace _4_1_
         /// <returns>System.Single.</returns>
         public float GibGeschwV(float _GeschwV)
         {
-            return (_GeschwV + EffektSumme.GeschwV)*((float) (100 + EffektSumme.GeschwVProzent)/100);
+            return (_GeschwV + EffektSumme.GeschwV) * ((float)(100 + EffektSumme.GeschwVProzent) / 100);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace _4_1_
         public int GibGiftSchaden(int _Schaden)
         {
             var result =
-                (int) ((_Schaden - EffektSumme.GiftResistenz)*((float) (100 - EffektSumme.GiftResistenzProzent)/100));
+                (int)((_Schaden - EffektSumme.GiftResistenz) * ((float)(100 - EffektSumme.GiftResistenzProzent) / 100));
             return result < 0 ? 0 : result;
         }
 
@@ -195,13 +195,13 @@ namespace _4_1_
         /// <returns>System.Int32.</returns>
         public int GibSchaden(int _Schaden)
         {
-            var result = (int) ((_Schaden + EffektSumme.Schaden)*((float) (100 + EffektSumme.SchadenProzent)/100));
+            var result = (int)((_Schaden + EffektSumme.Schaden) * ((float)(100 + EffektSumme.SchadenProzent) / 100));
             return result < 0 ? 0 : result;
         }
 
         public float GibTreibstoffverbrauch(float Verbrauch)
         {
-            float result = (1.0f + EffektSumme.VerbrauchProzent)*Verbrauch;
+            float result = (1.0f + EffektSumme.VerbrauchProzent) * Verbrauch;
             return result < 0.0f ? 0.0f : result;
         }
 
@@ -255,7 +255,7 @@ namespace _4_1_
         ///     Prüfes the effektdauer.
         /// </summary>
         public void PrüfeEffektdauer()
-            // Prüft für gespeicherte Effekte, ob diese Abgelaufen sind ud entfernt diese dann
+        // Prüft für gespeicherte Effekte, ob diese Abgelaufen sind ud entfernt diese dann
         {
             for (int i = 0; i < Status.Count; i++)
                 if (Status[i].Dauer > 0)

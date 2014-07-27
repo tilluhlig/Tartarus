@@ -58,14 +58,9 @@ namespace _4_1_
         #region Fields
 
         /// <summary>
-        ///     The lokal
+        ///     The tickbox lokal
         /// </summary>
-        public bool lokal = false;
-
-        /// <summary>
-        ///     The visible
-        /// </summary>
-        public bool visible = false;
+        private readonly TickBox TickboxLokal;
 
         /// <summary>
         ///     The buttons
@@ -87,21 +82,11 @@ namespace _4_1_
         /// </summary>
         private readonly List<Textfeld> textBoxen = new List<Textfeld>();
 
-        /// <summary>
-        ///     The tickbox lokal
-        /// </summary>
-        private readonly TickBox TickboxLokal;
-
         //Passwort andern
         /// <summary>
         ///     The current passwort
         /// </summary>
         private Textfeld CurrentPasswort;
-
-        /// <summary>
-        ///     The e mail
-        /// </summary>
-        private Textfeld eMail;
 
         /// <summary>
         ///     The login button
@@ -119,24 +104,9 @@ namespace _4_1_
         private Textfeld Passwort;
 
         /// <summary>
-        ///     The passwort bestatigen
-        /// </summary>
-        private Textfeld passwortBestatigen;
-
-        /// <summary>
         ///     The passwortbestatigen
         /// </summary>
         private Textfeld Passwortbestatigen;
-
-        /// <summary>
-        ///     The set
-        /// </summary>
-        private Button set;
-
-        /// <summary>
-        ///     The set passwort
-        /// </summary>
-        private Textfeld setPasswort;
 
         /// <summary>
         ///     The set player
@@ -149,11 +119,41 @@ namespace _4_1_
         /// </summary>
         private Textfeld Spieler;
 
+        /// <summary>
+        ///     The e mail
+        /// </summary>
+        private Textfeld eMail;
+
+        /// <summary>
+        ///     The lokal
+        /// </summary>
+        public bool lokal = false;
+
+        /// <summary>
+        ///     The passwort bestatigen
+        /// </summary>
+        private Textfeld passwortBestatigen;
+
+        /// <summary>
+        ///     The set
+        /// </summary>
+        private Button set;
+
+        /// <summary>
+        ///     The set passwort
+        /// </summary>
+        private Textfeld setPasswort;
+
         //neuer Spieler
         /// <summary>
         ///     The spieler name
         /// </summary>
         private Textfeld spielerName;
+
+        /// <summary>
+        ///     The visible
+        /// </summary>
+        public bool visible = false;
 
         #endregion Fields
 

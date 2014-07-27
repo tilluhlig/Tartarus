@@ -53,7 +53,7 @@ namespace Upload
             try
             {
                 WebRequest.DefaultWebProxy = null;
-                var ftpWebRequest = (FtpWebRequest)WebRequest.Create(new Uri("ftp://" + Adress + "/"));
+                var ftpWebRequest = (FtpWebRequest) WebRequest.Create(new Uri("ftp://" + Adress + "/"));
                 ftpWebRequest.Credentials = new NetworkCredential(User, Password);
 
                 //Als Methode muss ListDirectory gewählt werden!
@@ -77,7 +77,7 @@ namespace Upload
             try
             {
                 var ftpWebRequest =
-                    (FtpWebRequest)WebRequest.Create(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + folder));
+                    (FtpWebRequest) WebRequest.Create(new Uri("ftp://" + Adress + "/" + remoteFolder + "/" + folder));
                 ftpWebRequest.UseBinary = true;
                 ftpWebRequest.Credentials = new NetworkCredential(User, Password);
                 ftpWebRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
@@ -213,7 +213,7 @@ namespace Upload
         /// <returns></returns>
         public List<string> GetFileList(string remoteFolder)
         {
-            var ftpWebRequest = (FtpWebRequest)WebRequest.Create("ftp://" + Adress + "/" + remoteFolder);
+            var ftpWebRequest = (FtpWebRequest) WebRequest.Create("ftp://" + Adress + "/" + remoteFolder);
             ftpWebRequest.Method = WebRequestMethods.Ftp.ListDirectory;
 
             WebResponse webResponse = null;

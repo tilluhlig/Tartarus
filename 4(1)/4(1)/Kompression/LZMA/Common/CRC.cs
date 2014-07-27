@@ -47,12 +47,12 @@ namespace SevenZip
         public void Update(byte[] data, uint offset, uint size)
         {
             for (uint i = 0; i < size; i++)
-                _value = Table[(((byte) (_value)) ^ data[offset + i])] ^ (_value >> 8);
+                _value = Table[(((byte)(_value)) ^ data[offset + i])] ^ (_value >> 8);
         }
 
         public void UpdateByte(byte b)
         {
-            _value = Table[(((byte) (_value)) ^ b)] ^ (_value >> 8);
+            _value = Table[(((byte)(_value)) ^ b)] ^ (_value >> 8);
         }
 
         private static uint CalculateDigest(byte[] data, uint offset, uint size)

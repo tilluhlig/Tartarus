@@ -59,7 +59,7 @@ namespace _4_1_
 
         public Vector2 GetAntriebsVector(int rad, float angle, Vector2 Bezugspunkt)
         {
-            float Anteil = Drehzahl / MaxDrehzahl;
+            float Anteil = Drehzahl/MaxDrehzahl;
             // float Beschleunigungsanteil = GetRad(rad,angle,Bezugspunkt) ? 1 : 0; //GetRadAnteil(angle, Bezugspunkt);
             float Bremswert = GetRad(rad, angle, Bezugspunkt) ? Raeder[rad].Reibung : 0;
             //GetBremswert(angle, Bezugspunkt);
@@ -83,7 +83,7 @@ namespace _4_1_
             {
                 if (Anteil > 0 && GetRad(rad, angle, Bezugspunkt))
                 {
-                    Result2.X += MaxGeschwindigkeit * Anteil;
+                    Result2.X += MaxGeschwindigkeit*Anteil;
                     //   if (result.X > MaxGeschwindigkeit * Anteil) result.X = MaxGeschwindigkeit * Anteil;
                 }
                 /* else

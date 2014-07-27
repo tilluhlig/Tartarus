@@ -48,13 +48,13 @@ namespace _4_1_
 
             for (int c = 0; c < Spiel2.foreground.Length; c++)
             {
-                if (Vierecke[0].X + Vierecke[0].Z < c * 2048 || Vierecke[0].X > c * 2048 + 2048) continue;
+                if (Vierecke[0].X + Vierecke[0].Z < c*2048 || Vierecke[0].X > c*2048 + 2048) continue;
                 int Bildbreite = 2048;
 
-                for (int x = 2048 * c; x < Spiel2.Spielfeld.Length && x < 2048 * (c + 1); x++)
+                for (int x = 2048*c; x < Spiel2.Spielfeld.Length && x < 2048*(c + 1); x++)
                 {
                     if (x < Vierecke[0].X || x > Vierecke[0].X + Vierecke[0].Z) continue;
-                    int h = (x - c * 2048);
+                    int h = (x - c*2048);
 
                     int sum = 0;
                     for (int y = 0;
@@ -76,21 +76,21 @@ namespace _4_1_
                             else
                                 t =
                                     Karte.Material[sorte].CBild[
-                                        (x % Karte.Material[sorte].Bild.Width) +
-                                        ((sum + d) % Karte.Material[sorte].Bild.Height) * Karte.Material[sorte].Bild.Width];
+                                        (x%Karte.Material[sorte].Bild.Width) +
+                                        ((sum + d)%Karte.Material[sorte].Bild.Height)*Karte.Material[sorte].Bild.Width];
                             if (!Kartenformat.isSet(x, sum + d) && sum + d > screenHeight - 20)
                             {
-                                t = water[x % Texturen.wasser.Width, (sum + d) % Texturen.wasser.Height];
+                                t = water[x%Texturen.wasser.Width, (sum + d)%Texturen.wasser.Height];
                             }
                             else if ((!Kartenformat.isSet(x, sum + d - 5) || !Kartenformat.isSet(x + 5, sum + d) ||
                                       !Kartenformat.isSet(x, sum + d + 5) || !Kartenformat.isSet(x - 5, sum + d)) &&
                                      Karte.Material[sorte].Abdunkeln)
                             {
-                                t.R /= (int)2f;
-                                t.G /= (int)2f;
-                                t.B /= (int)2f;
+                                t.R /= (int) 2f;
+                                t.G /= (int) 2f;
+                                t.B /= (int) 2f;
                             }
-                            Spiel2.foregroundColors[c][h + (sum + d) * Bildbreite] = t;
+                            Spiel2.foregroundColors[c][h + (sum + d)*Bildbreite] = t;
                         }
                     }
                 }
@@ -130,10 +130,10 @@ namespace _4_1_
                 if (Bereiche[i].Z >= screenHeight)
                     Bereiche[i] = new Vector3(Bereiche[i].X, Bereiche[i].Y, screenHeight - 1);
 
-                var c = (int)(Bereiche[i].X / Bildbreite);
+                var c = (int) (Bereiche[i].X/Bildbreite);
                 ischanged[c] = true;
-                var x = (int)Bereiche[i].X;
-                int h = (x - c * 2048);
+                var x = (int) Bereiche[i].X;
+                int h = (x - c*2048);
                 int sum = 0;
                 for (int y = 0; y < Spiel2.Spielfeld[x].Count; sum += Kartenformat.Laenge(Spiel2.Spielfeld[x][y]), y++)
                 {
@@ -154,22 +154,22 @@ namespace _4_1_
                         else
                             t =
                                 Karte.Material[sorte].CBild[
-                                    (x % Karte.Material[sorte].Bild.Width) +
-                                    ((sum + d) % Karte.Material[sorte].Bild.Height) * Karte.Material[sorte].Bild.Width];
+                                    (x%Karte.Material[sorte].Bild.Width) +
+                                    ((sum + d)%Karte.Material[sorte].Bild.Height)*Karte.Material[sorte].Bild.Width];
                         if (!Kartenformat.isSet(x, sum + d) && sum + d > screenHeight - 20)
                         {
-                            t = water[x % Texturen.wasser.Width, (sum + d) % Texturen.wasser.Height];
+                            t = water[x%Texturen.wasser.Width, (sum + d)%Texturen.wasser.Height];
                         }
                         else if (!Editor.visible &&
                                  (!Kartenformat.isSet(x, sum + d - 5) || !Kartenformat.isSet(x + 5, sum + d) ||
                                   !Kartenformat.isSet(x, sum + d + 5) || !Kartenformat.isSet(x - 5, sum + d)) &&
                                  Karte.Material[sorte].Abdunkeln)
                         {
-                            t.R /= (int)2f;
-                            t.G /= (int)2f;
-                            t.B /= (int)2f;
+                            t.R /= (int) 2f;
+                            t.G /= (int) 2f;
+                            t.B /= (int) 2f;
                         }
-                        Spiel2.foregroundColors[c][h + (sum + d) * Bildbreite] = t;
+                        Spiel2.foregroundColors[c][h + (sum + d)*Bildbreite] = t;
                     }
                 }
             }
@@ -197,11 +197,11 @@ namespace _4_1_
                 Color[,] water = Game1.Farbwahl(Texturen.wasser);
 
                 int Bildbreite = 2048;
-                Spiel2.foregroundColors[c] = new Color[Bildbreite * screenHeight];
+                Spiel2.foregroundColors[c] = new Color[Bildbreite*screenHeight];
 
-                for (int x = 2048 * c; x < Spiel2.Spielfeld.Length && x < 2048 * (c + 1); x++)
+                for (int x = 2048*c; x < Spiel2.Spielfeld.Length && x < 2048*(c + 1); x++)
                 {
-                    int h = (x - c * 2048);
+                    int h = (x - c*2048);
 
                     int sum = 0;
                     for (int y = 0;
@@ -220,21 +220,21 @@ namespace _4_1_
                             else
                                 t =
                                     Karte.Material[sorte].CBild[
-                                        (x % Karte.Material[sorte].Bild.Width) +
-                                        ((sum + d) % Karte.Material[sorte].Bild.Height) * Karte.Material[sorte].Bild.Width];
+                                        (x%Karte.Material[sorte].Bild.Width) +
+                                        ((sum + d)%Karte.Material[sorte].Bild.Height)*Karte.Material[sorte].Bild.Width];
                             if (!Kartenformat.isSet(x, sum + d) && sum + d > screenHeight - 20)
                             {
-                                t = water[x % Texturen.wasser.Width, (sum + d) % Texturen.wasser.Height];
+                                t = water[x%Texturen.wasser.Width, (sum + d)%Texturen.wasser.Height];
                             }
                             else if ((!Kartenformat.isSet(x, sum + d - 5) || !Kartenformat.isSet(x + 5, sum + d) ||
                                       !Kartenformat.isSet(x, sum + d + 5) || !Kartenformat.isSet(x - 5, sum + d)) &&
                                      Karte.Material[sorte].Abdunkeln)
                             {
-                                t.R /= (int)2f;
-                                t.G /= (int)2f;
-                                t.B /= (int)2f;
+                                t.R /= (int) 2f;
+                                t.G /= (int) 2f;
+                                t.B /= (int) 2f;
                             }
-                            Spiel2.foregroundColors[c][h + (sum + d) * Bildbreite] = t;
+                            Spiel2.foregroundColors[c][h + (sum + d)*Bildbreite] = t;
                         }
                     }
                 }
@@ -262,16 +262,16 @@ namespace _4_1_
                 if (i == -1) b = Spiel2.foreground.Length - 1;
                 if (i == Spiel2.foreground.Length) b = 0;
 
-                if (Spiel2.Fenster.X > (i + 1) * 2048 || Spiel2.Fenster.X + screenWidth < i * 2048) continue;
-                if ((int)Spiel2.Fenster.X + screenWidth < i * 2048) continue;
-                int x = (int)Spiel2.Fenster.X - i * 2048;
-                var y = (int)Spiel2.Fenster.Y;
+                if (Spiel2.Fenster.X > (i + 1)*2048 || Spiel2.Fenster.X + screenWidth < i*2048) continue;
+                if ((int) Spiel2.Fenster.X + screenWidth < i*2048) continue;
+                int x = (int) Spiel2.Fenster.X - i*2048;
+                var y = (int) Spiel2.Fenster.Y;
 
                 Rectangle a;
                 if (x < 0)
                 {
                     //continue;
-                    x = (i * 2048 - (int)Spiel2.Fenster.X);
+                    x = (i*2048 - (int) Spiel2.Fenster.X);
                     screen = new Rectangle(0, 0, screenWidth, screenHeight);
                     a = new Rectangle(0, y, screenWidth, screenHeight);
                     spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(-x, 0),

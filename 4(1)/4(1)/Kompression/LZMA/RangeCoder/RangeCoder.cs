@@ -25,14 +25,14 @@ namespace SevenZip.Compression.RangeCoder
 
         public void Decode(uint start, uint size, uint total)
         {
-            Code -= start*Range;
+            Code -= start * Range;
             Range *= size;
             Normalize();
         }
 
         public uint DecodeBit(uint size0, int numTotalBits)
         {
-            uint newBound = (Range >> numTotalBits)*size0;
+            uint newBound = (Range >> numTotalBits) * size0;
             uint symbol;
             if (Code < newBound)
             {
@@ -71,7 +71,7 @@ namespace SevenZip.Compression.RangeCoder
 
                 if (range < kTopValue)
                 {
-                    code = (code << 8) | (byte) Stream.ReadByte();
+                    code = (code << 8) | (byte)Stream.ReadByte();
                     range <<= 8;
                 }
             }
@@ -82,7 +82,7 @@ namespace SevenZip.Compression.RangeCoder
 
         public uint GetThreshold(uint total)
         {
-            return Code/(Range /= total);
+            return Code / (Range /= total);
         }
 
         public void Init(Stream stream)
@@ -93,14 +93,14 @@ namespace SevenZip.Compression.RangeCoder
             Code = 0;
             Range = 0xFFFFFFFF;
             for (int i = 0; i < 5; i++)
-                Code = (Code << 8) | (byte) Stream.ReadByte();
+                Code = (Code << 8) | (byte)Stream.ReadByte();
         }
 
         public void Normalize()
         {
             while (Range < kTopValue)
             {
-                Code = (Code << 8) | (byte) Stream.ReadByte();
+                Code = (Code << 8) | (byte)Stream.ReadByte();
                 Range <<= 8;
             }
         }
@@ -109,7 +109,7 @@ namespace SevenZip.Compression.RangeCoder
         {
             if (Range < kTopValue)
             {
-                Code = (Code << 8) | (byte) Stream.ReadByte();
+                Code = (Code << 8) | (byte)Stream.ReadByte();
                 Range <<= 8;
             }
         }
@@ -149,7 +149,7 @@ namespace SevenZip.Compression.RangeCoder
 
         public void Encode(uint start, uint size, uint total)
         {
-            Low += start*(Range /= total);
+            Low += start * (Range /= total);
             Range *= size;
             while (Range < kTopValue)
             {
@@ -160,7 +160,7 @@ namespace SevenZip.Compression.RangeCoder
 
         public void EncodeBit(uint size0, int numTotalBits, uint symbol)
         {
-            uint newBound = (Range >> numTotalBits)*size0;
+            uint newBound = (Range >> numTotalBits) * size0;
             if (symbol == 0)
                 Range = newBound;
             else
@@ -230,18 +230,18 @@ namespace SevenZip.Compression.RangeCoder
 
         public void ShiftLow()
         {
-            if ((uint) Low < 0xFF000000 || (uint) (Low >> 32) == 1)
+            if ((uint)Low < 0xFF000000 || (uint)(Low >> 32) == 1)
             {
                 byte temp = _cache;
                 do
                 {
-                    Stream.WriteByte((byte) (temp + (Low >> 32)));
+                    Stream.WriteByte((byte)(temp + (Low >> 32)));
                     temp = 0xFF;
                 } while (--_cacheSize != 0);
-                _cache = (byte) (((uint) Low) >> 24);
+                _cache = (byte)(((uint)Low) >> 24);
             }
             _cacheSize++;
-            Low = ((uint) Low) << 8;
+            Low = ((uint)Low) << 8;
         }
 
         #endregion Methods

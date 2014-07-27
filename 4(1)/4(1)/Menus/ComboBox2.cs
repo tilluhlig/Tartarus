@@ -64,16 +64,16 @@ namespace _4_1_
                 switch (Titel.Interact(Fenster, true, oldmouseState))
                 {
                     case 0:
-                    {
-                        if (Optionen.sichtbar)
                         {
-                            Optionen.hide();
-                        }
-                        else
-                            Optionen.show(Pos + new Vector2(0, Texturen.font2.MeasureString("A").Y + 7), 0);
+                            if (Optionen.sichtbar)
+                            {
+                                Optionen.hide();
+                            }
+                            else
+                                Optionen.show(Pos + new Vector2(0, Texturen.font2.MeasureString("A").Y + 7), 0);
 
-                        return;
-                    }
+                            return;
+                        }
 
                     default:
                         Optionen.hide();

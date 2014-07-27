@@ -43,7 +43,7 @@ namespace SevenZip.Compression.RangeCoder
             uint m = 1;
             for (int bitIndex = NumBitLevels; bitIndex > 0; bitIndex--)
                 m = (m << 1) + Models[m].Decode(rangeDecoder);
-            return m - ((uint)1 << NumBitLevels);
+            return m - ((uint) 1 << NumBitLevels);
         }
 
         public void Init()
@@ -121,7 +121,7 @@ namespace SevenZip.Compression.RangeCoder
         public void Encode(Encoder rangeEncoder, UInt32 symbol)
         {
             UInt32 m = 1;
-            for (int bitIndex = NumBitLevels; bitIndex > 0; )
+            for (int bitIndex = NumBitLevels; bitIndex > 0;)
             {
                 bitIndex--;
                 UInt32 bit = (symbol >> bitIndex) & 1;
@@ -134,7 +134,7 @@ namespace SevenZip.Compression.RangeCoder
         {
             UInt32 price = 0;
             UInt32 m = 1;
-            for (int bitIndex = NumBitLevels; bitIndex > 0; )
+            for (int bitIndex = NumBitLevels; bitIndex > 0;)
             {
                 bitIndex--;
                 UInt32 bit = (symbol >> bitIndex) & 1;

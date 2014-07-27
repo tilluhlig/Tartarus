@@ -51,9 +51,9 @@ namespace _4_1_
 
                     if (Braende[b][i].Z <= 0)
                     {
-                        var W = (int)Braende[b][i].W;
-                        var X = (int)Braende[b][i].X;
-                        var Y = (int)Braende[b][i].Y;
+                        var W = (int) Braende[b][i].W;
+                        var X = (int) Braende[b][i].X;
+                        var Y = (int) Braende[b][i].Y;
                         list.AddRange(Kartenformat.SetMaterialFromTo(b, X, Y, W));
                         Braende[b].RemoveAt(i);
                         i--;
@@ -70,7 +70,7 @@ namespace _4_1_
         /// <returns>true = x,y Kollidiert mit einem Brandherd, false = keine Kollision</returns>
         public static bool check_Feuer(Vector2 Position)
         {
-            return check_Feuer((int)Position.X, (int)Position.Y);
+            return check_Feuer((int) Position.X, (int) Position.Y);
         }
 
         /// <summary>

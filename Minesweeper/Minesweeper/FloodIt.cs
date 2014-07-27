@@ -51,7 +51,7 @@ namespace Minesweeper
             // lösche das alte zeug
             if (Bilder != null)
             {
-                for (int i = 0; i < Breite*Hoehe; i++)
+                for (int i = 0; i < Breite * Hoehe; i++)
                 {
                     Bilder[i].Dispose();
                 }
@@ -76,23 +76,23 @@ namespace Minesweeper
             Hoehe = _Hoehe;
             Schrittanzeige = _Schrittanzeige;
             ResetSchritte();
-            Spielfeld = new int[Breite*Hoehe];
+            Spielfeld = new int[Breite * Hoehe];
 
-            Bilder = new PictureBox[Breite*Hoehe];
-            fertsch = new bool[Breite*Hoehe];
+            Bilder = new PictureBox[Breite * Hoehe];
+            fertsch = new bool[Breite * Hoehe];
             Farben = new PictureBox[6];
 
             if (data == null)
             {
                 var rnd = new Random();
-                for (int i = 0; i < Hoehe*Breite; i++)
+                for (int i = 0; i < Hoehe * Breite; i++)
                 {
                     Spielfeld[i] = rnd.Next(1, 7); // 1-6
                 }
             }
             else
             {
-                for (int i = 2; i < Hoehe*Breite + 2; i++)
+                for (int i = 2; i < Hoehe * Breite + 2; i++)
                 {
                     Spielfeld[i - 2] = data[i]; // 1-6
                 }
@@ -109,22 +109,22 @@ namespace Minesweeper
             Spielfeld[0] = 0;
 
             // die Felder, die man anklicken kann initialisieren
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 Bilder[i] = new PictureBox();
                 Bilder[i].Parent = frm;
                 Bilder[i].Height = 32;
                 Bilder[i].Width = 32;
                 Bilder[i].Image = GetBild(i);
-                Bilder[i].Top = (i/Breite)*32 + Zeichenflaeche.Top;
-                Bilder[i].Left = (i%Breite)*32 + Zeichenflaeche.Left;
+                Bilder[i].Top = (i / Breite) * 32 + Zeichenflaeche.Top;
+                Bilder[i].Left = (i % Breite) * 32 + Zeichenflaeche.Left;
                 Bilder[i].Hide();
             }
             // Fenster an Spielfeld anpassen
             int disty = frm.Height - Zeichenflaeche.Height;
             int distx = frm.Width - Zeichenflaeche.Width;
-            frm.Height = (Hoehe*Breite/Breite)*32 + disty;
-            frm.Width = (Breite*32) + distx;
+            frm.Height = (Hoehe * Breite / Breite) * 32 + disty;
+            frm.Width = (Breite * 32) + distx;
             if (frm.Width < 491) frm.Width = 491;
 
             for (int i = 0; i < 6; i++)
@@ -135,12 +135,12 @@ namespace Minesweeper
                 Farben[i].Width = 32;
                 Farben[i].Image = Pictures.Images[i];
                 Farben[i].Top = Farbenflaeche.Top + 10;
-                Farben[i].Left = (i%Breite)*32 + Bilder[0].Left;
+                Farben[i].Left = (i % Breite) * 32 + Bilder[0].Left;
                 Farben[i].MouseClick += Bilder_Click;
                 Farben[i].Hide();
             }
 
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 Bilder[i].Show();
             }
@@ -156,7 +156,7 @@ namespace Minesweeper
             if (Bilder == null) return;
 
             // alle Felder zerstören
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 if (Bilder[i] == null) continue;
                 Bilder[i].Dispose();
@@ -184,39 +184,39 @@ namespace Minesweeper
 
         private static void Berechnen(int x, int y)
         {
-            int pos = x + y*Breite;
+            int pos = x + y * Breite;
             if (Spielfeld[pos] == 0)
             {
                 Bilder[pos].Image = GetBild(pos);
-                if (x > 0 && !fertsch[(x - 1) + y*Breite] &&
-                    (Spielfeld[(x - 1) + y*Breite] == Farbe || Spielfeld[(x - 1) + (y)*Breite] == 0))
+                if (x > 0 && !fertsch[(x - 1) + y * Breite] &&
+                    (Spielfeld[(x - 1) + y * Breite] == Farbe || Spielfeld[(x - 1) + (y) * Breite] == 0))
                 {
-                    int temp = (x - 1) + (y)*Breite;
+                    int temp = (x - 1) + (y) * Breite;
                     fertsch[temp] = true;
                     Spielfeld[temp] = 0;
                     Berechnen(x - 1, y);
                 }
-                if (x < Breite - 1 && !fertsch[(x + 1) + y*Breite] &&
-                    (Spielfeld[(x + 1) + y*Breite] == Farbe || Spielfeld[(x + 1) + (y)*Breite] == 0))
+                if (x < Breite - 1 && !fertsch[(x + 1) + y * Breite] &&
+                    (Spielfeld[(x + 1) + y * Breite] == Farbe || Spielfeld[(x + 1) + (y) * Breite] == 0))
                 {
-                    int temp = (x + 1) + (y)*Breite;
+                    int temp = (x + 1) + (y) * Breite;
                     fertsch[temp] = true;
                     Spielfeld[temp] = 0;
                     Berechnen(x + 1, y);
                 }
 
-                if (y > 0 && !fertsch[(x) + (y - 1)*Breite] &&
-                    (Spielfeld[(x) + (y - 1)*Breite] == Farbe || Spielfeld[(x) + (y - 1)*Breite] == 0))
+                if (y > 0 && !fertsch[(x) + (y - 1) * Breite] &&
+                    (Spielfeld[(x) + (y - 1) * Breite] == Farbe || Spielfeld[(x) + (y - 1) * Breite] == 0))
                 {
-                    int temp = (x) + (y - 1)*Breite;
+                    int temp = (x) + (y - 1) * Breite;
                     fertsch[temp] = true;
                     Spielfeld[temp] = 0;
                     Berechnen(x, y - 1);
                 }
-                if (y < Hoehe - 1 && !fertsch[(x) + (y + 1)*Breite] &&
-                    (Spielfeld[(x) + (y + 1)*Breite] == Farbe || Spielfeld[(x) + (y + 1)*Breite] == 0))
+                if (y < Hoehe - 1 && !fertsch[(x) + (y + 1) * Breite] &&
+                    (Spielfeld[(x) + (y + 1) * Breite] == Farbe || Spielfeld[(x) + (y + 1) * Breite] == 0))
                 {
-                    int temp = (x) + (y + 1)*Breite;
+                    int temp = (x) + (y + 1) * Breite;
                     fertsch[temp] = true;
                     Spielfeld[temp] = 0;
                     Berechnen(x, y + 1);
@@ -236,7 +236,7 @@ namespace Minesweeper
                         int oldFarbe = Farbe;
                         Farbe = i + 1;
                         Berechnen(0, 0);
-                        for (int a = 0; a < Hoehe*Breite; a++) fertsch[a] = false;
+                        for (int a = 0; a < Hoehe * Breite; a++) fertsch[a] = false;
                     }
 
                     PrüfeSieg();
@@ -257,7 +257,7 @@ namespace Minesweeper
         private static void PrüfeSieg()
         {
             // Prüfe ob es noch ein Feld gibt, das man noch anklicken könnte (ohne zu verlieren)
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 if (Spielfeld[i] != 0) return;
             }

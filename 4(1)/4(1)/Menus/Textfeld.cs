@@ -44,14 +44,29 @@ namespace _4_1_
         public bool Ausgewählt = false;
 
         /// <summary>
+        ///     The border color
+        /// </summary>
+        public Color BorderColor = Color.Black;
+
+        /// <summary>
+        ///     The length
+        /// </summary>
+        public int Length = 30;
+
+        /// <summary>
+        ///     The visible
+        /// </summary>
+        public bool Sichtbar = false;
+
+        /// <summary>
         ///     The border
         /// </summary>
         public int border = 2;
 
         /// <summary>
-        ///     The border color
+        ///     The content
         /// </summary>
-        public Color BorderColor = Color.Black;
+        private string content;
 
         /// <summary>
         ///     The height
@@ -69,9 +84,9 @@ namespace _4_1_
         public bool ispassword = false;
 
         /// <summary>
-        ///     The length
+        ///     The item
         /// </summary>
-        public int Length = 30;
+        private Rectangle item;
 
         /// <summary>
         ///     The offsetx
@@ -89,9 +104,9 @@ namespace _4_1_
         public Vector2 pos;
 
         /// <summary>
-        ///     The visible
+        ///     The string pos
         /// </summary>
-        public bool Sichtbar = false;
+        private Vector2 stringPos;
 
         /// <summary>
         ///     The textfont
@@ -102,21 +117,6 @@ namespace _4_1_
         ///     The width
         /// </summary>
         public int width = 0;
-
-        /// <summary>
-        ///     The content
-        /// </summary>
-        private string content;
-
-        /// <summary>
-        ///     The item
-        /// </summary>
-        private Rectangle item;
-
-        /// <summary>
-        ///     The string pos
-        /// </summary>
-        private Vector2 stringPos;
 
         #endregion Fields
 
@@ -241,15 +241,15 @@ namespace _4_1_
             this.pos = pos;
             this.content = content;
             // stringPos = pos + new Vector2(10, (textbox.Height - Texturen.font2.MeasureString(content).Y) / 2);
-            height = (int)textfont.MeasureString(" ").Y;
-            width = (int)textfont.MeasureString(("").PadLeft(_Length, ' ')).X;
+            height = (int) textfont.MeasureString(" ").Y;
+            width = (int) textfont.MeasureString(("").PadLeft(_Length, ' ')).X;
             stringPos = pos + new Vector2(10, 5);
             Length = _Length;
             border = _border;
             BorderColor = _BorderColor;
 
-            item = new Rectangle((int)pos.X + border, (int)(pos.Y + border), width + 2 * offsetx - 2 * border,
-                (int)(height + 2 * offsety - border - 0.5f * border));
+            item = new Rectangle((int) pos.X + border, (int) (pos.Y + border), width + 2*offsetx - 2*border,
+                (int) (height + 2*offsety - border - 0.5f*border));
         }
 
         /// <summary>
@@ -310,11 +310,11 @@ namespace _4_1_
             if (!Sichtbar) return;
             if (Ausgewählt || input != "")
             {
-                spriteBatch.Draw(textbox, new Rectangle((int)pos.X, (int)pos.Y, width + 2 * offsetx, height + 2 * offsety),
+                spriteBatch.Draw(textbox, new Rectangle((int) pos.X, (int) pos.Y, width + 2*offsetx, height + 2*offsety),
                     new Rectangle(0, 0, textbox.Width, textbox.Height), BorderColor);
                 spriteBatch.Draw(textbox,
-                    new Rectangle((int)pos.X + border, (int)(pos.Y + border), width + 2 * offsetx - 2 * border,
-                        (int)(height + 2 * offsety - border - 0.5f * border)),
+                    new Rectangle((int) pos.X + border, (int) (pos.Y + border), width + 2*offsetx - 2*border,
+                        (int) (height + 2*offsety - border - 0.5f*border)),
                     new Rectangle(0, 0, textbox.Width, textbox.Height), Color.Brown);
                 String aus = input;
                 if (ispassword) aus = ("").PadLeft(aus.Length, '*');
@@ -323,11 +323,11 @@ namespace _4_1_
             }
             else
             {
-                spriteBatch.Draw(textbox, new Rectangle((int)pos.X, (int)pos.Y, width + 2 * offsetx, height + 2 * offsety),
+                spriteBatch.Draw(textbox, new Rectangle((int) pos.X, (int) pos.Y, width + 2*offsetx, height + 2*offsety),
                     new Rectangle(0, 0, textbox.Width, textbox.Height), BorderColor);
                 spriteBatch.Draw(textbox,
-                    new Rectangle((int)pos.X + border, (int)(pos.Y + 0.5f * border), width + 2 * offsetx - 2 * border,
-                        (int)(height + 2 * offsety - border - 0.5f * border)),
+                    new Rectangle((int) pos.X + border, (int) (pos.Y + 0.5f*border), width + 2*offsetx - 2*border,
+                        (int) (height + 2*offsety - border - 0.5f*border)),
                     new Rectangle(0, 0, textbox.Width, textbox.Height), Color.White);
                 String aus = content;
                 if (aus.Length > Length) aus = aus.Substring(aus.Length - Length, Length);

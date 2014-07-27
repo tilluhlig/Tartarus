@@ -284,7 +284,7 @@ namespace _4_1_
                     if (mA <= 0)
                     {
                         lastmoveA = moveA;
-                        for (;;)
+                        for (; ; )
                         {
                             moveA = Help.rnd.Next(-1, 2);
                             if (moveA == 0) continue;
@@ -297,13 +297,13 @@ namespace _4_1_
                         maxA = mA;
                     }
 
-                    if (maxbreite*hoehle.endA >= breite) moveA = -1;
+                    if (maxbreite * hoehle.endA >= breite) moveA = -1;
 
                     if (wertA >= hoehle.highA) // 50
                     {
                         moveA = -1;
                     }
-                    else if (wertA <= hoehle.lowA && maxbreite*hoehle.endA < breite) // 8 // 0.3f
+                    else if (wertA <= hoehle.lowA && maxbreite * hoehle.endA < breite) // 8 // 0.3f
                     {
                         moveA = 1;
                     }
@@ -317,7 +317,7 @@ namespace _4_1_
                         if (distA <= 0)
                         {
                             posA--;
-                            distA = (int) Math.Log(maxA - mA + 1, Math.E);
+                            distA = (int)Math.Log(maxA - mA + 1, Math.E);
                         }
                         else
                             wertA++;
@@ -327,7 +327,7 @@ namespace _4_1_
                         if (distA <= 0)
                         {
                             posA--;
-                            distA = (int) Math.Log(mA, Math.E);
+                            distA = (int)Math.Log(mA, Math.E);
                         }
                         else
                             wertA--;
@@ -343,7 +343,7 @@ namespace _4_1_
                     if (mB <= 0)
                     {
                         lastmoveB = moveB;
-                        for (;;)
+                        for (; ; )
                         {
                             moveB = Help.rnd.Next(-1, 2);
                             if (!((lastmoveB == -1 && moveB == 1) || (lastmoveB == 1 && moveB == -1))) break;
@@ -355,13 +355,13 @@ namespace _4_1_
                         maxB = mB;
                     }
 
-                    if (maxbreite*hoehle.endB >= breite) moveB = -1;
+                    if (maxbreite * hoehle.endB >= breite) moveB = -1;
 
                     if (wertB >= hoehle.highB) // 80
                     {
                         moveB = -1;
                     }
-                    else if (wertB <= hoehle.lowB && maxbreite*hoehle.endB < breite) // 8
+                    else if (wertB <= hoehle.lowB && maxbreite * hoehle.endB < breite) // 8
                     {
                         moveB = 1;
                     }
@@ -376,7 +376,7 @@ namespace _4_1_
                         {
                             posB--;
 
-                            distB = (int) Math.Log(mB, Math.E);
+                            distB = (int)Math.Log(mB, Math.E);
                         }
                         else
                             wertB++;
@@ -386,7 +386,7 @@ namespace _4_1_
                         if (distB <= 0)
                         {
                             posB--;
-                            distB = (int) Math.Log(maxB - mB + 1, Math.E);
+                            distB = (int)Math.Log(maxB - mB + 1, Math.E);
                         }
                         else
                             wertB--;
@@ -402,7 +402,7 @@ namespace _4_1_
                     if (mC <= 0)
                     {
                         lastmoveC = moveC;
-                        for (;;)
+                        for (; ; )
                         {
                             moveC = Help.rnd.Next(-1, 2);
                             if (!((lastmoveC == -1 && moveC == 1) || (lastmoveC == 1 && moveC == -1))) break;
@@ -414,13 +414,13 @@ namespace _4_1_
                         maxC = mC;
                     }
 
-                    if (maxbreite*hoehle.endC >= breite) moveC = -1;
+                    if (maxbreite * hoehle.endC >= breite) moveC = -1;
 
                     if (wertC >= hoehle.highC)
                     {
                         moveC = -1;
                     }
-                    else if (wertC <= hoehle.lowC && maxbreite*hoehle.endC < breite)
+                    else if (wertC <= hoehle.lowC && maxbreite * hoehle.endC < breite)
                     {
                         moveC = 1;
                     }
@@ -434,7 +434,7 @@ namespace _4_1_
                         if (distC <= 0)
                         {
                             posC--;
-                            distC = (int) Math.Log(maxC - mC + 1, Math.E);
+                            distC = (int)Math.Log(maxC - mC + 1, Math.E);
                         }
                         else
                             wertC++;
@@ -444,7 +444,7 @@ namespace _4_1_
                         if (distC <= 0)
                         {
                             posC--;
-                            distC = (int) Math.Log(mC, Math.E);
+                            distC = (int)Math.Log(mC, Math.E);
                         }
                         else
                             wertC--;
@@ -486,7 +486,7 @@ namespace _4_1_
                         }
                     }
 
-                    if (maxbreite*((hoehle.endA + hoehle.endB)/2) >= breite && wertA == 0 && wertB == 0)
+                    if (maxbreite * ((hoehle.endA + hoehle.endB) / 2) >= breite && wertA == 0 && wertB == 0)
                     {
                         breite = 0;
                     }

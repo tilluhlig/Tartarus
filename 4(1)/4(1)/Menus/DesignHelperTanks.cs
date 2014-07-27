@@ -255,7 +255,7 @@ namespace _4_1_
         public void UpdateBoundingBox(int at)
         {
             Texturbox[at] = new BoundingBox(new Vector3(pos[at], 0),
-                new Vector3(pos[at].X + Textur[at].Width*scales[at], pos[at].Y + Textur[at].Height*scales[at], 0));
+                new Vector3(pos[at].X + Textur[at].Width * scales[at], pos[at].Y + Textur[at].Height * scales[at], 0));
         }
 
         /// <summary>

@@ -146,7 +146,7 @@ namespace _4_1_
                 float temp = Wert;
                 try
                 {
-                    temp = (float) Convert.ToDouble(Dict[Name]);
+                    temp = (float)Convert.ToDouble(Dict[Name]);
                 }
                 catch (Exception)
                 {
@@ -227,8 +227,8 @@ namespace _4_1_
                     zwischen = zwischen.TrimStart('{');
                     zwischen = zwischen.TrimEnd('}');
                     String[] zw = zwischen.Split(' ');
-                    temp = new Vector2((float) Convert.ToDouble(zw[0].Substring(2, zw[0].Length - 2)),
-                        (float) Convert.ToDouble(zw[1].Substring(2, zw[1].Length - 2)));
+                    temp = new Vector2((float)Convert.ToDouble(zw[0].Substring(2, zw[0].Length - 2)),
+                        (float)Convert.ToDouble(zw[1].Substring(2, zw[1].Length - 2)));
                     ;
                 }
                 catch (Exception)

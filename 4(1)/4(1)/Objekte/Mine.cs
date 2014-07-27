@@ -66,7 +66,7 @@ namespace _4_1_
         /// <summary>
         ///     der Anzeigeradius, der nach dem Setzen der Mine sichtbar ist
         /// </summary>
-        public int RadiusAnzeige = 60*10;
+        public int RadiusAnzeige = 60 * 10;
 
         /// <summary>
         ///     die Skalierung der Textur
@@ -209,7 +209,7 @@ namespace _4_1_
         public Texture2D ErmittleBild()
         {
             Texture2D res;
-            if (mode%60 < 10)
+            if (mode % 60 < 10)
             {
                 res = Bild[Typ + 1];
             }
@@ -242,7 +242,7 @@ namespace _4_1_
         {
             if (Zerstörung == null) return 0;
             var tmp = new Texture2D(Bild[0].GraphicsDevice, Bild[0].Width, Bild[0].Height);
-            var temp = new Color[Bild[0].Width*Bild[0].Height];
+            var temp = new Color[Bild[0].Width * Bild[0].Height];
             Bild[0].GetData(temp);
             tmp.SetData(temp);
             return Zerstörung.BerechneZerstörung(tmp, Explosion, Energie, Position);
@@ -284,7 +284,7 @@ namespace _4_1_
             int _Art = Waffenart;
 
             // Explosion
-            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, Position, (int) Waffendaten.Daten[_Art].Y,
+            Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, Position, (int)Waffendaten.Daten[_Art].Y,
                 Waffendaten.Daten[_Art].Z, Waffendaten.Daten[_Art].W, gameTime,
                 Waffendaten.Farben[_Art], _Art, 0);
 
@@ -292,22 +292,22 @@ namespace _4_1_
             Spiel2.Karte.explode_missile(Spielfeld, Position, Spiel2.Fenster, _Art);
 
             // Rauchstelle
-            for (int j = -(int) Waffendaten.Daten[_Art].X/2;
-                j < Waffendaten.Daten[_Art].X/2;
+            for (int j = -(int)Waffendaten.Daten[_Art].X / 2;
+                j < Waffendaten.Daten[_Art].X / 2;
                 j += Waffendaten.BrandAbstand[_Art])
             {
                 if (Position.X + j < 0 || Position.X + j >= Spielfeld.Length) continue;
                 Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListMapSmoke,
                     new Vector2(Position.X + j, Kartenformat.BottomOf(Position)), 4,
-                    Waffendaten.Daten[_Art].Z/10, Waffendaten.Daten[_Art].W*10, gameTime,
+                    Waffendaten.Daten[_Art].Z / 10, Waffendaten.Daten[_Art].W * 10, gameTime,
                     Waffendaten.Farben[_Art], _Art, 2);
             }
 
             var a = new Karte();
             Replay.Explosion(Position, _Art);
-            list.AddRange(a.Explode(Spielfeld, (int) Position.X, (int) Position.Y, (int) (Waffendaten.Daten[_Art].X)));
-            list.AddRange(Spiel2.Explosionsschäden(gameTime, Position, (int) (Waffendaten.Daten[_Art].X), _Art,
-                new[] {-1, -1}));
+            list.AddRange(a.Explode(Spielfeld, (int)Position.X, (int)Position.Y, (int)(Waffendaten.Daten[_Art].X)));
+            list.AddRange(Spiel2.Explosionsschäden(gameTime, Position, (int)(Waffendaten.Daten[_Art].X), _Art,
+                new[] { -1, -1 }));
             return list;
         }
 

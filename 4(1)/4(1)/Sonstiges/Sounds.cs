@@ -25,8 +25,6 @@ namespace _4_1_
     {
         #region Fields
 
-        public List<Channel> Channel = new List<Channel>();
-
         //private static bool playing = false;
         //private static bool paused = false;
         private static int channelsplaying = 0;
@@ -39,10 +37,11 @@ namespace _4_1_
 
         private static FMOD.System system;
         private readonly List<float> originalfrequenz = new List<float>();
+        public List<Channel> Channel = new List<Channel>();
+        private Sound Sound;
         private bool first = true;
         private float frequenzfaktor = 1.0f;
         private bool loop;
-        private Sound Sound;
         private float volume = 1.0f;
 
         #endregion Fields
@@ -157,7 +156,7 @@ namespace _4_1_
                     originalfrequenz[_Channel] = wert;
                 }
 
-                Channel[_Channel].setFrequency(originalfrequenz[_Channel] * _frequenzfaktor);
+                Channel[_Channel].setFrequency(originalfrequenz[_Channel]*_frequenzfaktor);
                 Channel[_Channel].setVolume(_volume);
 
                 if (_loop)
@@ -181,7 +180,7 @@ namespace _4_1_
 
         public void PlaySoundAny(bool _loop, float _volume)
         {
-            PlaySoundAny(_loop, frequenzfaktor, volume * _volume);
+            PlaySoundAny(_loop, frequenzfaktor, volume*_volume);
         }
 
         public void PlaySoundAny(bool _loop, float _frequenzfaktor, float _volume)
@@ -204,7 +203,7 @@ namespace _4_1_
                         originalfrequenz[i] = wert;
                     }
 
-                    Channel[i].setFrequency(originalfrequenz[i] * _frequenzfaktor);
+                    Channel[i].setFrequency(originalfrequenz[i]*_frequenzfaktor);
                     Channel[i].setVolume(_volume);
 
                     if (_loop)
@@ -265,7 +264,7 @@ namespace _4_1_
             {
             }
 
-            system.init(32, INITFLAGS.NORMAL, (IntPtr)null);
+            system.init(32, INITFLAGS.NORMAL, (IntPtr) null);
 
             //system.createSound("Content\\Sounds\\battle1_ambient.ogg", FMOD.MODE.HARDWARE, ref sound1);
             //  system.playSound(FMOD.CHANNELINDEX.FREE, sound1, false, ref channel);
@@ -395,9 +394,9 @@ namespace _4_1_
                 "161343__qubodup__howitzer-artillery-gun-shot-sound-effect-01",
                 "67586__qubodup__machine-gun-shot-2"
             };
-            float[] Shots_frequenz = { 1, 1, 1, 1, 1, 2f, 1.5f, 1f, 1 };
-            float[] Shots_volume = { 1, 1, 1, 0.5f, 1, 0.7f, 0.25f, 0.25f, 0.15f };
-            int[] Shots_initial = { 5, 5, 5, 5, 5, 5, 5, 5, 150 };
+            float[] Shots_frequenz = {1, 1, 1, 1, 1, 2f, 1.5f, 1f, 1};
+            float[] Shots_volume = {1, 1, 1, 0.5f, 1, 0.7f, 0.25f, 0.25f, 0.15f};
+            int[] Shots_initial = {5, 5, 5, 5, 5, 5, 5, 5, 150};
 
             for (int i = 0; i < Shots_Dateien.Count(); i++)
             {
@@ -420,9 +419,9 @@ namespace _4_1_
                 "explodemini.ogg", // geschoss2 = 7; //
                 "null"
             }; // mg = 8;
-            float[] Explosion_frequenz = { 1f, 1, 0.5f, 1, 0.8f, 1f, 1f, 1f, 1f };
-            float[] Explosion_volume = { .8f, .8f, 0.35f, 1, 0.75f, 1f, 1f, 1f, .30f };
-            int[] Explosion_initial = { 5, 5, 5, 5, 5, 5, 5, 5, 0 };
+            float[] Explosion_frequenz = {1f, 1, 0.5f, 1, 0.8f, 1f, 1f, 1f, 1f};
+            float[] Explosion_volume = {.8f, .8f, 0.35f, 1, 0.75f, 1f, 1f, 1f, .30f};
+            int[] Explosion_initial = {5, 5, 5, 5, 5, 5, 5, 5, 0};
 
             for (int i = 0; i < Explosion_Dateien.Count(); i++)
             {
@@ -444,7 +443,7 @@ namespace _4_1_
                 "Sounds\\vehicle084", "Sounds\\vehicle077_2", "Sounds\\vehicle069", "Sounds\\vehicle121",
                 "null", "null"
             };
-            float[] Dateien_volume = { 0.6f, 0.7f, 0.6f, 1f, 0.0f, 0.0f };
+            float[] Dateien_volume = {0.6f, 0.7f, 0.6f, 1f, 0.0f, 0.0f};
 
             for (int i = 0; i < Dateien.Count(); i++)
             {
@@ -453,17 +452,17 @@ namespace _4_1_
                         true);
             }
 
-            String[] Panzer_begin = { "rohr_begin0", "rohr_begin0", "null", "null", "rohr_begin0", "rohr_begin0" };
-            float[] Panzer_begin_frequenz = { 1, 1.5f, 1, 1, 2, 2.5f };
-            float[] Panzer_begin_volume = { .75f, 1, .75f, .75f, 1, 1 };
+            String[] Panzer_begin = {"rohr_begin0", "rohr_begin0", "null", "null", "rohr_begin0", "rohr_begin0"};
+            float[] Panzer_begin_frequenz = {1, 1.5f, 1, 1, 2, 2.5f};
+            float[] Panzer_begin_volume = {.75f, 1, .75f, .75f, 1, 1};
 
-            String[] Panzer_end = { "rohr_end0", "rohr_end0", "null", "null", "rohr_end0", "rohr_end0" };
-            float[] Panzer_end_frequenz = { 1, 1.5f, 1, 1, 2, 2.5f };
-            float[] Panzer_end_volume = { .1f, .75f, .5f, .5f, .75f, .75f };
+            String[] Panzer_end = {"rohr_end0", "rohr_end0", "null", "null", "rohr_end0", "rohr_end0"};
+            float[] Panzer_end_frequenz = {1, 1.5f, 1, 1, 2, 2.5f};
+            float[] Panzer_end_volume = {.1f, .75f, .5f, .5f, .75f, .75f};
 
-            String[] Panzer_loop = { "rohr_loop0", "rohr_loop0", "null", "null", "rohr_loop0", "rohr_loop0" };
-            float[] Panzer_loop_frequenz = { 1, 1.5f, 1, 1, 2, 2.5f };
-            float[] Panzer_loop_volume = { .75f, 1, .75f, .75f, 1, 1 };
+            String[] Panzer_loop = {"rohr_loop0", "rohr_loop0", "null", "null", "rohr_loop0", "rohr_loop0"};
+            float[] Panzer_loop_frequenz = {1, 1.5f, 1, 1, 2, 2.5f};
+            float[] Panzer_loop_volume = {.75f, 1, .75f, .75f, 1, 1};
 
             for (int i = 0; i < Panzer_begin.Count(); i++)
             {
@@ -472,10 +471,10 @@ namespace _4_1_
                 if (Panzer_begin[i] != "null")
                 {
                     Panzer_rohr_begin[i] = new Soundsystem("Sounds\\" + Panzer_begin[i] + Typ,
-                        Panzer_begin_volume[i] * 0.65f, Panzer_begin_frequenz[i], false);
-                    Panzer_rohr_end[i] = new Soundsystem("Sounds\\" + Panzer_end[i] + Typ, Panzer_end_volume[i] * 0.65f,
+                        Panzer_begin_volume[i]*0.65f, Panzer_begin_frequenz[i], false);
+                    Panzer_rohr_end[i] = new Soundsystem("Sounds\\" + Panzer_end[i] + Typ, Panzer_end_volume[i]*0.65f,
                         Panzer_end_frequenz[i], false);
-                    Panzer_rohr_loop[i] = new Soundsystem("Sounds\\" + Panzer_loop[i] + Typ, Panzer_loop_volume[i] * 0.65f,
+                    Panzer_rohr_loop[i] = new Soundsystem("Sounds\\" + Panzer_loop[i] + Typ, Panzer_loop_volume[i]*0.65f,
                         Panzer_loop_frequenz[i], true);
                 }
             }

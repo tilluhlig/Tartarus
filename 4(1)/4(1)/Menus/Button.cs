@@ -101,8 +101,8 @@ namespace _4_1_
             ButtonBox = new BoundingBox(new Vector3(pos, 0),
                 new Vector3(pos.X + button.Width, pos.Y + button.Height - 10, 0));
             stringPos = pos +
-                        new Vector2((button.Width - font.MeasureString(description).X)/2,
-                            (button.Height - font.MeasureString(description).Y)/2);
+                        new Vector2((button.Width - font.MeasureString(description).X) / 2,
+                            (button.Height - font.MeasureString(description).Y) / 2);
         }
 
         /// <summary>
@@ -124,9 +124,9 @@ namespace _4_1_
             ButtonBox = new BoundingBox(new Vector3(pos, 0),
                 new Vector3(pos.X + button.Width, pos.Y + button.Height - 10, 0));
             stringPos = pos +
-                        new Vector2((button.Width - font.MeasureString(description).X)/2,
-                            button.Height/2 - font.MeasureString(description).Y);
-            stringPos2 = pos + new Vector2((button.Width - font.MeasureString(description2).X)/2, button.Height/2);
+                        new Vector2((button.Width - font.MeasureString(description).X) / 2,
+                            button.Height / 2 - font.MeasureString(description).Y);
+            stringPos2 = pos + new Vector2((button.Width - font.MeasureString(description2).X) / 2, button.Height / 2);
 
             zweiStrings = true;
         }
@@ -184,7 +184,7 @@ namespace _4_1_
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
         public bool MouseKeys()
         {
-//gibt true zurück, wenn gedrückt
+            //gibt true zurück, wenn gedrückt
             if (ButtonBox.Contains(new Vector3(Help.GetMouseState().X, Help.GetMouseState().Y, 0)) ==
                 ContainmentType.Contains)
             {

@@ -95,8 +95,8 @@ namespace _4_1_
 
                 Eingabe =
                     new Textfeld(
-                        new Vector2(500 - Texturen.font3.MeasureString(("").PadLeft(30, ' ')).X / 2,
-                            Game1.screenHeight / 2 - Texturen.font3.MeasureString((" ")).Y / 2), "", 30, 10, 5, 2,
+                        new Vector2(500 - Texturen.font3.MeasureString(("").PadLeft(30, ' ')).X/2,
+                            Game1.screenHeight/2 - Texturen.font3.MeasureString((" ")).Y/2), "", 30, 10, 5, 2,
                         Color.Gray, Texturen.font3);
             }
         }
@@ -245,15 +245,15 @@ namespace _4_1_
 
                             int anz = able.Count;
                             if (anz >= 10) anz = 10;
-                            int y = Eingabe.height + 2 * Eingabe.offsety;
-                            var size = (int)Texturen.font2.MeasureString(" ").Y;
-                            int height = anz * (size + 1) + 6;
+                            int y = Eingabe.height + 2*Eingabe.offsety;
+                            var size = (int) Texturen.font2.MeasureString(" ").Y;
+                            int height = anz*(size + 1) + 6;
 
                             if (anz > 0)
                             {
                                 spriteBatch.Draw(Textfeld.textbox,
-                                    new Rectangle((int)Eingabe.pos.X, (int)(Eingabe.pos.Y + y),
-                                        Eingabe.width + 2 * Eingabe.offsetx, height),
+                                    new Rectangle((int) Eingabe.pos.X, (int) (Eingabe.pos.Y + y),
+                                        Eingabe.width + 2*Eingabe.offsetx, height),
                                     new Rectangle(0, 0, Textfeld.textbox.Width, Textfeld.textbox.Height), Color.DimGray);
 
                                 for (int i = 0; i < able.Count && i < 10; i++)
@@ -261,7 +261,7 @@ namespace _4_1_
                                     String aus = able[i];
                                     if (aus.Length > Eingabe.Length) aus = aus.Substring(0, Eingabe.Length - 3) + "...";
                                     spriteBatch.DrawString(Texturen.font2, aus,
-                                        new Vector2((int)Eingabe.pos.X, (int)(Eingabe.pos.Y + y + 3 + (size + 1) * i)),
+                                        new Vector2((int) Eingabe.pos.X, (int) (Eingabe.pos.Y + y + 3 + (size + 1)*i)),
                                         Color.Black);
                                 }
                             }

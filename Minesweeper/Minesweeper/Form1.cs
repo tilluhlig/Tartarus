@@ -39,17 +39,17 @@ namespace Minesweeper
             if (Program.Fehlertext != "")
             {
                 label5.Text = Program.Fehlertext;
-                label5.Left = Width / 2 - label5.Width / 2;
+                label5.Left = Width/2 - label5.Width/2;
                 label5.Show();
 
-                button5.Left = Width / 2 - button5.Width / 2;
+                button5.Left = Width/2 - button5.Width/2;
                 button5.Show();
             }
 
             if (Program.Fehlertext2 != "")
             {
                 label6.Text = Program.Fehlertext2;
-                label6.Left = Width / 2 - label6.Width / 2;
+                label6.Left = Width/2 - label6.Width/2;
                 label6.Show();
             }
         }
@@ -120,7 +120,7 @@ namespace Minesweeper
                 Tetris.InitSpielfeld(12, 22, this, pictureBox1, imageList2, label1, button1, comboBox2);
 
                 label8.Left = pictureBox1.Left;
-                label8.Top = (22 - 4) * 32 + pictureBox1.Top;
+                label8.Top = (22 - 4)*32 + pictureBox1.Top;
                 label8.Text = "Sie erhalten Punkte indem Sie eine Reihe\n" +
                               "des Spielfeldes komplett auffüllen.\n\n" +
                               "Tasten:\n" +
@@ -130,13 +130,13 @@ namespace Minesweeper
                               "Leertaste = Stein drehen";
                 label8.Show();
 
-                label9.Top = (22 - 4) * 32 + pictureBox1.Top + label8.Height / 2;
+                label9.Top = (22 - 4)*32 + pictureBox1.Top + label8.Height/2;
                 label9.Left = label8.Width + 50;
                 label9.Show();
             }
 
-            Left = SWidth / 2 - Width / 2;
-            Top = SHeight / 2 - Height / 2;
+            Left = SWidth/2 - Width/2;
+            Top = SHeight/2 - Height/2;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -179,13 +179,13 @@ namespace Minesweeper
                 label8.Show();
             }
 
-            Left = SWidth / 2 - Width / 2;
-            Top = SHeight / 2 - Height / 2;
+            Left = SWidth/2 - Width/2;
+            Top = SHeight/2 - Height/2;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            String[] Namen = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
+            String[] Namen = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
             for (int i = 0; i < 10; i++)
             {
                 var datei = new StreamWriter("Maps\\" + Namen[i] + ".map");

@@ -240,7 +240,7 @@ namespace _4_1_
         public Spieler() // Initialisiert einen neuen Spieler
         {
             // Eigentlich total sinnlos   löschen???
-            if (Spiel.TIMEOUT.Wert) MaxTimeout = 60*60; // Maximale Zeit zum feuern
+            if (Spiel.TIMEOUT.Wert) MaxTimeout = 60 * 60; // Maximale Zeit zum feuern
             shootingPower = 2;
             if (Spiel.SCHUESSE.Wert) MaxSchuesse = 1; // Maximale anzahl an Schuessen
         }
@@ -286,7 +286,7 @@ namespace _4_1_
                     {
                         int begin = 0;
                         CurrentWeaponNow2 = 0;
-                        for (; Fahrzeugdaten.ShootableAmmunition[KindofTank[CurrentTankNow2], CurrentWeaponNow2] <= 0;)
+                        for (; Fahrzeugdaten.ShootableAmmunition[KindofTank[CurrentTankNow2], CurrentWeaponNow2] <= 0; )
                         {
                             CurrentWeaponNow2--;
                             if (CurrentWeaponNow2 < 0) CurrentWeaponNow2 = Waffendaten.Daten.Count() - 1;
@@ -310,7 +310,7 @@ namespace _4_1_
                             if (!Spiel2.Moving_Map) Spiel2.Set_Focus(new Vector2(shootingPower, pos[_CurrentTank].Y));
                         }
                         else
-                            //  if (!Spiel2.increaseairstrike)
+                        //  if (!Spiel2.increaseairstrike)
                         {
                             Spiel2.players[Spiel2.CurrentPlayer].shootingPower = 0;
                             Spiel2.increaseairstrike = false;
@@ -360,15 +360,15 @@ namespace _4_1_
             scaleR *= faktor;
 
             int b = tankid;
-            Color r = Color.White*Transparenz;
-            if (Effekte[b].GetVergiftet()) r = Color.Lime*Transparenz;
-            if (Effekte[b].GetEingefroren()) r = Color.Aquamarine*Transparenz;
+            Color r = Color.White * Transparenz;
+            if (Effekte[b].GetVergiftet()) r = Color.Lime * Transparenz;
+            if (Effekte[b].GetEingefroren()) r = Color.Aquamarine * Transparenz;
 
-            Color r2 = Farbe*Transparenz*0.5f;
+            Color r2 = Farbe * Transparenz * 0.5f;
             // r2 *= 1f;
 
-            int xPos = (int) Position.X - (int) Fenster.X;
-            int yPos = (int) Position.Y - (int) Fenster.Y;
+            int xPos = (int)Position.X - (int)Fenster.X;
+            int yPos = (int)Position.Y - (int)Fenster.Y;
             int Kindof = KindofTank[tankid];
 
             if (Kindof != 4)
@@ -376,7 +376,7 @@ namespace _4_1_
                 int id2 = Kindof;
                 Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
                     new Vector2((overreach ? Texturen.RohrPos[KindofTank[b]].X : -Texturen.RohrPos[KindofTank[b]].X),
-                        Texturen.RohrPos[KindofTank[b]].Y)*faktor);
+                        Texturen.RohrPos[KindofTank[b]].Y) * faktor);
                 spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, r, Angle + vehikleAngle,
@@ -389,7 +389,7 @@ namespace _4_1_
                     if (iscurrent)
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, CurrentColor*Transparenz,
+                        spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, CurrentColor * Transparenz,
                             Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR,
                             overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
                         spriteBatch.End();
@@ -406,16 +406,16 @@ namespace _4_1_
                     new Vector2(
                         (overreach
                             ? Texturen.Radpositionen[KindofTank[b]][i].X
-                            : -Texturen.Radpositionen[KindofTank[b]][i].X), Texturen.Radpositionen[KindofTank[b]][i].Y)*
+                            : -Texturen.Radpositionen[KindofTank[b]][i].X), Texturen.Radpositionen[KindofTank[b]][i].Y) *
                     faktor);
 
                 spriteBatch.Draw(Texturen.panzerindexreifen[Kindof], p, null, r, vehikleAngle,
-                    new Vector2(Texturen.panzerindexreifen[Kindof].Width/2, Texturen.panzerindexreifen[Kindof].Height/2),
+                    new Vector2(Texturen.panzerindexreifen[Kindof].Width / 2, Texturen.panzerindexreifen[Kindof].Height / 2),
                     scaleP, SpriteEffects.None, 0);
             }
 
             spriteBatch.Draw(Texturen.panzerindex[Kindof], new Vector2(xPos, yPos), null, r, vehikleAngle,
-                new Vector2(Texturen.panzerindex[Kindof].Width/2, Texturen.panzerindex[Kindof].Height), scaleP,
+                new Vector2(Texturen.panzerindex[Kindof].Width / 2, Texturen.panzerindex[Kindof].Height), scaleP,
                 overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
 
             spriteBatch.End();
@@ -425,13 +425,13 @@ namespace _4_1_
                 if (iscurrent)
                 {
                     spriteBatch.Draw(Texturen.panzerumriss[Kindof], new Vector2(xPos, yPos), null,
-                        CurrentColor*Transparenz, vehikleAngle,
-                        new Vector2(Texturen.panzerumriss[Kindof].Width/2, Texturen.panzerumriss[Kindof].Height), scaleP,
+                        CurrentColor * Transparenz, vehikleAngle,
+                        new Vector2(Texturen.panzerumriss[Kindof].Width / 2, Texturen.panzerumriss[Kindof].Height), scaleP,
                         overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
 
                     spriteBatch.Draw(Texturen.panzerindex[Kindof], new Vector2(xPos, yPos), null,
-                        CurrentColor*Transparenz, vehikleAngle,
-                        new Vector2(Texturen.panzerindex[Kindof].Width/2, Texturen.panzerindex[Kindof].Height), scaleP,
+                        CurrentColor * Transparenz, vehikleAngle,
+                        new Vector2(Texturen.panzerindex[Kindof].Width / 2, Texturen.panzerindex[Kindof].Height), scaleP,
                         overreach ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
                 }
             }
@@ -441,8 +441,8 @@ namespace _4_1_
             {
                 int id2 = Kindof;
                 Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
-                    new Vector2((overreach ? Texturen.RohrPos[Kindof].X*faktor : -Texturen.RohrPos[Kindof].X*faktor),
-                        Texturen.RohrPos[Kindof].Y*faktor));
+                    new Vector2((overreach ? Texturen.RohrPos[Kindof].X * faktor : -Texturen.RohrPos[Kindof].X * faktor),
+                        Texturen.RohrPos[Kindof].Y * faktor));
                 spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, r, Angle + vehikleAngle,
@@ -455,7 +455,7 @@ namespace _4_1_
                     if (iscurrent)
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, CurrentColor*Transparenz,
+                        spriteBatch.Draw(Texturen.panzerrohrindex[id2], p, null, CurrentColor * Transparenz,
                             Angle + vehikleAngle, Texturen.CannonOrigin[id2][0], scaleR,
                             overreach ? SpriteEffects.FlipVertically : SpriteEffects.None, 1); //
                         spriteBatch.End();
@@ -477,10 +477,10 @@ namespace _4_1_
                 for (int f = 0; f < CurrentLv[b]; f++)
                 {
                     Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
-                        new Vector2((overreach ? leveloffset[id].X : -leveloffset[id].X + 8), leveloffset[id].Y - f*4)*
+                        new Vector2((overreach ? leveloffset[id].X : -leveloffset[id].X + 8), leveloffset[id].Y - f * 4) *
                         faktor);
-                    spriteBatch.DrawString(Texturen.font2, "^", p, Color.Gold*Transparenz, vehikleAngle, Vector2.Zero,
-                        1.0f*faktor, SpriteEffects.None, 0);
+                    spriteBatch.DrawString(Texturen.font2, "^", p, Color.Gold * Transparenz, vehikleAngle, Vector2.Zero,
+                        1.0f * faktor, SpriteEffects.None, 0);
                 }
 
                 // Spielerfarbe zeichnen
@@ -491,9 +491,9 @@ namespace _4_1_
                 };
                 id = Kindof;
                 Vector2 p2 = Help.RotatePositionOffset(new Vector2(xPos, yPos), vehikleAngle,
-                    new Vector2((overreach ? spieleroffset[id].X : -spieleroffset[id].X + 8), spieleroffset[id].Y)*
+                    new Vector2((overreach ? spieleroffset[id].X : -spieleroffset[id].X + 8), spieleroffset[id].Y) *
                     faktor);
-                spriteBatch.Draw(Texturen.Spielerkennzeichnung, p2, null, r2, vehikleAngle, Vector2.Zero, 0.3f*faktor,
+                spriteBatch.Draw(Texturen.Spielerkennzeichnung, p2, null, r2, vehikleAngle, Vector2.Zero, 0.3f * faktor,
                     SpriteEffects.None, 1);
                 spriteBatch.End();
             }
@@ -593,7 +593,7 @@ namespace _4_1_
             if (anzahl > 0)
             {
                 anzahl++; // korrektur, damit log1.1 (1) = 0 nicht vorkommt
-                Cred += (int) Math.Log(anzahl, 1.1f)*25.0f;
+                Cred += (int)Math.Log(anzahl, 1.1f) * 25.0f;
             }
 
             return Cred;
@@ -752,7 +752,7 @@ namespace _4_1_
                     }
                 }
             }
-            return TunnelAnlage[min].Position + new Vector2(TunnelAnlage[min].Bild.Width/2, 0);
+            return TunnelAnlage[min].Position + new Vector2(TunnelAnlage[min].Bild.Width / 2, 0);
         }
 
         public int GibPanzer()
@@ -791,7 +791,7 @@ namespace _4_1_
                     }
                 }
             }
-            return TunnelAnlage[min].Position + new Vector2(TunnelAnlage[min].Bild.Width/2, 0);
+            return TunnelAnlage[min].Position + new Vector2(TunnelAnlage[min].Bild.Width / 2, 0);
         }
 
         public int GibScout()
@@ -836,7 +836,7 @@ namespace _4_1_
             int id = KindofTank[i];
             Kollision[i] = new KollisionsObjekt(Texturen.panzerindex[id], Texturen.panzerindex[id].Width,
                 Texturen.panzerindex[id].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true,
-                new Vector2((Texturen.panzerindex[id].Width*Fahrzeugdaten.SCALEP.Wert[id])/2, 0));
+                new Vector2((Texturen.panzerindex[id].Width * Fahrzeugdaten.SCALEP.Wert[id]) / 2, 0));
             MaxPixel.Add(Help.GetPixelAnzahl(Texturen.panzerindex[id]));
         }
 
@@ -920,7 +920,7 @@ namespace _4_1_
                 Vector2 po = GibLinkenTunnel();
                 if (po !=
                     TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position +
-                    new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width/2, 0))
+                    new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width / 2, 0))
                 {
                     pos[id] = po;
                     ActionPoints -= Allgemein.TunnelAPKosten;
@@ -931,10 +931,10 @@ namespace _4_1_
 
             if (vehikleAngle[id] >= MathHelper.ToRadians(Fahrzeugdaten.WINKEL.Wert[KindofTank[id]])) return false;
             if (pos[id].Y - 40 >
-                Kartenformat.BottomOf((int) pos[id].X - Fahrzeugdaten.FAHRM.Wert[KindofTank[id]] - 1, (int) pos[id].Y))
+                Kartenformat.BottomOf((int)pos[id].X - Fahrzeugdaten.FAHRM.Wert[KindofTank[id]] - 1, (int)pos[id].Y))
                 return false;
             var x1 =
-                (int) (oldpos[id].X - Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
+                (int)(oldpos[id].X - Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
             if (pos[id].X < x1)
             {
                 return false;
@@ -1016,7 +1016,7 @@ namespace _4_1_
         {
             if (Zerstörung[i] == null) return 0;
             int id = KindofTank[i];
-            var temp = new Color[Texturen.panzerindex[id].Width*Texturen.panzerindex[id].Height];
+            var temp = new Color[Texturen.panzerindex[id].Width * Texturen.panzerindex[id].Height];
             Texturen.panzerindex[id].GetData(temp);
             var tmp = new Texture2D(Texturen.panzerindex[id].GraphicsDevice, Texturen.panzerindex[id].Width,
                 Texturen.panzerindex[id].Height);
@@ -1047,7 +1047,7 @@ namespace _4_1_
                 Vector2 po = GibRechtenTunnel();
                 if (po !=
                     TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position +
-                    new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width/2, 0))
+                    new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width / 2, 0))
                 {
                     pos[id] = po;
                     ActionPoints -= Allgemein.TunnelAPKosten;
@@ -1058,11 +1058,11 @@ namespace _4_1_
 
             if (vehikleAngle[id] <= MathHelper.ToRadians(-Fahrzeugdaten.WINKEL.Wert[KindofTank[id]])) return false;
             if (pos[id].Y - 40 >
-                Kartenformat.BottomOf((int) pos[id].X + Fahrzeugdaten.FAHRM.Wert[KindofTank[id]] + 1, (int) pos[id].Y))
+                Kartenformat.BottomOf((int)pos[id].X + Fahrzeugdaten.FAHRM.Wert[KindofTank[id]] + 1, (int)pos[id].Y))
                 return false;
 
             var x2 =
-                (int) (oldpos[id].X + Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
+                (int)(oldpos[id].X + Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
             if (pos[id].X > x2)
             {
                 return false;
@@ -1167,7 +1167,7 @@ namespace _4_1_
             Vector2 posi = pos[c] +
                            new Vector2(welcher == 1 ? -Texturen.RohrPos[kind].X : Texturen.RohrPos[kind].X,
                                -Texturen.RohrPos[kind].Y);
-            float temp2 = Texturen.CannonOrigin[kind][0].Y/2;
+            float temp2 = Texturen.CannonOrigin[kind][0].Y / 2;
 
             Vector2 p = Help.RotatePositionOffset(posi, Angle[c],
                 new Vector2(

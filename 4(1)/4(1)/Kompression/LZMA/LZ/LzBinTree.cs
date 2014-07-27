@@ -14,8 +14,9 @@ namespace SevenZip.Compression.LZ
         private const UInt32 kHash2Size = 1 << 10;
         private const UInt32 kHash3Offset = kHash2Size;
         private const UInt32 kHash3Size = 1 << 16;
-        private const UInt32 kMaxValForNormalize = ((UInt32)1 << 31) - 1;
+        private const UInt32 kMaxValForNormalize = ((UInt32) 1 << 31) - 1;
         private const UInt32 kStartMaxLen = 1;
+        private bool HASH_ARRAY = true;
         private UInt32 _cutValue = 0xFF;
         private UInt32 _cyclicBufferPos;
         private UInt32 _cyclicBufferSize;
@@ -24,7 +25,6 @@ namespace SevenZip.Compression.LZ
         private UInt32 _hashSizeSum;
         private UInt32 _matchMaxLen;
         private UInt32[] _son;
-        private bool HASH_ARRAY = true;
         private UInt32 kFixHashSize = kHash2Size + kHash3Size;
         private UInt32 kMinMatchCheck = 4;
         private UInt32 kNumHashDirectBytes;
@@ -41,7 +41,7 @@ namespace SevenZip.Compression.LZ
             _cutValue = 16 + (matchMaxLen >> 1);
 
             UInt32 windowReservSize = (historySize + keepAddBufferBefore +
-                                       matchMaxLen + keepAddBufferAfter) / 2 + 256;
+                                       matchMaxLen + keepAddBufferAfter)/2 + 256;
 
             base.Create(historySize + keepAddBufferBefore, matchMaxLen + keepAddBufferAfter, windowReservSize);
 
@@ -49,7 +49,7 @@ namespace SevenZip.Compression.LZ
 
             UInt32 cyclicBufferSize = historySize + 1;
             if (_cyclicBufferSize != cyclicBufferSize)
-                _son = new UInt32[(_cyclicBufferSize = cyclicBufferSize) * 2];
+                _son = new UInt32[(_cyclicBufferSize = cyclicBufferSize)*2];
 
             UInt32 hs = kBT2HashSize;
 
@@ -102,12 +102,12 @@ namespace SevenZip.Compression.LZ
             {
                 UInt32 temp = CRC.Table[_bufferBase[cur]] ^ _bufferBase[cur + 1];
                 hash2Value = temp & (kHash2Size - 1);
-                temp ^= ((UInt32)(_bufferBase[cur + 2]) << 8);
+                temp ^= ((UInt32) (_bufferBase[cur + 2]) << 8);
                 hash3Value = temp & (kHash3Size - 1);
                 hashValue = (temp ^ (CRC.Table[_bufferBase[cur + 3]] << 5)) & _hashMask;
             }
             else
-                hashValue = _bufferBase[cur] ^ ((UInt32)(_bufferBase[cur + 1]) << 8);
+                hashValue = _bufferBase[cur] ^ ((UInt32) (_bufferBase[cur + 1]) << 8);
 
             UInt32 curMatch = _hash[kFixHashSize + hashValue];
             if (HASH_ARRAY)
@@ -230,45 +230,14 @@ namespace SevenZip.Compression.LZ
             ReduceOffsets(-1);
         }
 
-        public new void MovePos()
-        {
-            if (++_cyclicBufferPos >= _cyclicBufferSize)
-                _cyclicBufferPos = 0;
-            base.MovePos();
-            if (_pos == kMaxValForNormalize)
-                Normalize();
-        }
-
         public new void ReleaseStream()
         {
             base.ReleaseStream();
         }
 
-        public void SetCutValue(UInt32 cutValue)
-        {
-            _cutValue = cutValue;
-        }
-
         public new void SetStream(Stream stream)
         {
             base.SetStream(stream);
-        }
-
-        public void SetType(int numHashBytes)
-        {
-            HASH_ARRAY = (numHashBytes > 2);
-            if (HASH_ARRAY)
-            {
-                kNumHashDirectBytes = 0;
-                kMinMatchCheck = 4;
-                kFixHashSize = kHash2Size + kHash3Size;
-            }
-            else
-            {
-                kNumHashDirectBytes = 2;
-                kMinMatchCheck = 2 + 1;
-                kFixHashSize = 0;
-            }
         }
 
         public void Skip(UInt32 num)
@@ -298,13 +267,13 @@ namespace SevenZip.Compression.LZ
                     UInt32 temp = CRC.Table[_bufferBase[cur]] ^ _bufferBase[cur + 1];
                     UInt32 hash2Value = temp & (kHash2Size - 1);
                     _hash[hash2Value] = _pos;
-                    temp ^= ((UInt32)(_bufferBase[cur + 2]) << 8);
+                    temp ^= ((UInt32) (_bufferBase[cur + 2]) << 8);
                     UInt32 hash3Value = temp & (kHash3Size - 1);
                     _hash[kHash3Offset + hash3Value] = _pos;
                     hashValue = (temp ^ (CRC.Table[_bufferBase[cur + 3]] << 5)) & _hashMask;
                 }
                 else
-                    hashValue = _bufferBase[cur] ^ ((UInt32)(_bufferBase[cur + 1]) << 8);
+                    hashValue = _bufferBase[cur] ^ ((UInt32) (_bufferBase[cur + 1]) << 8);
 
                 UInt32 curMatch = _hash[kFixHashSize + hashValue];
                 _hash[kFixHashSize + hashValue] = _pos;
@@ -362,12 +331,43 @@ namespace SevenZip.Compression.LZ
             } while (--num != 0);
         }
 
+        public new void MovePos()
+        {
+            if (++_cyclicBufferPos >= _cyclicBufferSize)
+                _cyclicBufferPos = 0;
+            base.MovePos();
+            if (_pos == kMaxValForNormalize)
+                Normalize();
+        }
+
+        public void SetCutValue(UInt32 cutValue)
+        {
+            _cutValue = cutValue;
+        }
+
+        public void SetType(int numHashBytes)
+        {
+            HASH_ARRAY = (numHashBytes > 2);
+            if (HASH_ARRAY)
+            {
+                kNumHashDirectBytes = 0;
+                kMinMatchCheck = 4;
+                kFixHashSize = kHash2Size + kHash3Size;
+            }
+            else
+            {
+                kNumHashDirectBytes = 2;
+                kMinMatchCheck = 2 + 1;
+                kFixHashSize = 0;
+            }
+        }
+
         private void Normalize()
         {
             UInt32 subValue = _pos - _cyclicBufferSize;
-            NormalizeLinks(_son, _cyclicBufferSize * 2, subValue);
+            NormalizeLinks(_son, _cyclicBufferSize*2, subValue);
             NormalizeLinks(_hash, _hashSizeSum, subValue);
-            ReduceOffsets((Int32)subValue);
+            ReduceOffsets((Int32) subValue);
         }
 
         private void NormalizeLinks(UInt32[] items, UInt32 numItems, UInt32 subValue)

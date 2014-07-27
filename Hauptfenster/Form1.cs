@@ -75,12 +75,12 @@ namespace Hauptfenster
         /// <summary>
         ///     The screenheight
         /// </summary>
-        public static int screenheight = (int) (Screen.PrimaryScreen.Bounds.Height*1f);
+        public static int screenheight = (int)(Screen.PrimaryScreen.Bounds.Height * 1f);
 
         /// <summary>
         ///     The screenwidth
         /// </summary>
-        public static int screenwidth = (int) (Screen.PrimaryScreen.Bounds.Width*1f);
+        public static int screenwidth = (int)(Screen.PrimaryScreen.Bounds.Width * 1f);
 
         /// <summary>
         ///     The spiel aktiv
@@ -174,8 +174,8 @@ namespace Hauptfenster
             Left = 0;
             Top = 0;
 
-            progressBar1.Left = Width/2 - progressBar1.Width/2;
-            progressBar1.Top = Height/2 - progressBar1.Height/2;
+            progressBar1.Left = Width / 2 - progressBar1.Width / 2;
+            progressBar1.Top = Height / 2 - progressBar1.Height / 2;
             label31.ForeColor = Color.Green;
             label31.AutoSize = true;
 
@@ -245,7 +245,7 @@ namespace Hauptfenster
             label31.BringToFront();
             label31.Text = Text;
             label31.Top = progressBar1.Top - label31.Height; // + progressBar1.Height
-            label31.Left = Width/2 - label31.Width/2;
+            label31.Left = Width / 2 - label31.Width / 2;
             if (!label31.Visible) label31.Show();
         }
 
@@ -388,7 +388,7 @@ namespace Hauptfenster
             }
 
             if (listBox2.SelectedIndex < 0) return;
-            HTTP.HTTP.gameid = HTTP.HTTP.ogames[listBox2.SelectedIndex*3].Trim(' ');
+            HTTP.HTTP.gameid = HTTP.HTTP.ogames[listBox2.SelectedIndex * 3].Trim(' ');
             List<String> list = HTTP.HTTP.join_game();
             if (!HTTP.HTTP.IsFailure(list))
             {
@@ -807,7 +807,7 @@ namespace Hauptfenster
                 // Spiel starten
                 var datei = new StreamReader(Pfad + "GameInfo.dat");
                 var list = new List<String>();
-                for (; !datei.EndOfStream;) list.Add(datei.ReadLine());
+                for (; !datei.EndOfStream; ) list.Add(datei.ReadLine());
                 datei.Close();
 
                 if (!HTTP.HTTP.IsFailure(list))
@@ -935,8 +935,8 @@ namespace Hauptfenster
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void Form1_Resize(object sender, EventArgs e)
         {
-            progressBar1.Left = Width/2 - progressBar1.Width/2;
-            progressBar1.Top = Height/2 - progressBar1.Height/2;
+            progressBar1.Left = Width / 2 - progressBar1.Width / 2;
+            progressBar1.Top = Height / 2 - progressBar1.Height / 2;
         }
 
         /// <summary>

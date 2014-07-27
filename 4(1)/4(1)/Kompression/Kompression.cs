@@ -38,7 +38,7 @@ namespace _4_1_.Kompression
                 int v = inStream.ReadByte();
                 if (v < 0)
                     throw (new Exception("Can't Read 1"));
-                outSize |= ((long) (byte) v) << (8*i);
+                outSize |= ((long)(byte)v) << (8 * i);
             }
             long compressedSize = inStream.Length - inStream.Position;
 
@@ -123,7 +123,7 @@ namespace _4_1_.Kompression
             fileSize = inStream.Length;
 
             for (int i = 0; i < 8; i++)
-                outStream.WriteByte((Byte) (fileSize >> (8*i)));
+                outStream.WriteByte((Byte)(fileSize >> (8 * i)));
 
             encoder.Code(inStream, outStream, -1, -1, null);
 

@@ -70,7 +70,7 @@ namespace Minesweeper
             ResetZeit();
             if (Bilder != null)
             {
-                for (int i = 0; i < Breite*Hoehe; i++)
+                for (int i = 0; i < Breite * Hoehe; i++)
                 {
                     Bilder[i].Dispose();
                 }
@@ -84,15 +84,15 @@ namespace Minesweeper
             Minenanzeige = _Minenanzeige;
             AddMinenanzeige(0);
             Zeitanzeige = _Zeitanzeige;
-            Spielfeld = new bool[Breite*Hoehe];
+            Spielfeld = new bool[Breite * Hoehe];
 
-            Bilder = new PictureBox[Breite*Hoehe];
-            GesetzteBilder = new int[Breite*Hoehe];
-            Zahlen = new int[Breite*Hoehe];
-            Text = new String[Breite*Hoehe];
+            Bilder = new PictureBox[Breite * Hoehe];
+            GesetzteBilder = new int[Breite * Hoehe];
+            Zahlen = new int[Breite * Hoehe];
+            Text = new String[Breite * Hoehe];
 
             // die Felder, die man anklicken kann initialisieren
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 GesetzteBilder[i] = 0;
                 Bilder[i] = new PictureBox();
@@ -100,8 +100,8 @@ namespace Minesweeper
                 Bilder[i].Height = 32;
                 Bilder[i].Width = 32;
                 Bilder[i].Image = Pictures.Images[0];
-                Bilder[i].Top = (i/Breite)*32 + Zeichenflaeche.Top;
-                Bilder[i].Left = (i%Breite)*32 + Zeichenflaeche.Left;
+                Bilder[i].Top = (i / Breite) * 32 + Zeichenflaeche.Top;
+                Bilder[i].Left = (i % Breite) * 32 + Zeichenflaeche.Left;
                 Bilder[i].MouseMove += Bilder_MouseMove;
                 Bilder[i].MouseClick += Bilder_Click;
                 Bilder[i].Hide();
@@ -114,8 +114,8 @@ namespace Minesweeper
                 int x;
                 do
                 {
-                    x = rnd.Next(0, Breite*Hoehe);
-                } while (x/Breite == 0 || x/Breite == Hoehe - 1 || x%Breite == 0 || x%Breite == Breite - 1 ||
+                    x = rnd.Next(0, Breite * Hoehe);
+                } while (x / Breite == 0 || x / Breite == Hoehe - 1 || x % Breite == 0 || x % Breite == Breite - 1 ||
                          Spielfeld[x]);
                 Spielfeld[x] = true;
             }
@@ -124,7 +124,7 @@ namespace Minesweeper
             for (int i = 0; i < Breite; i++)
                 for (int b = 0; b < Hoehe; b++)
                 {
-                    int pos = i + b*Breite;
+                    int pos = i + b * Breite;
                     if (Spielfeld[pos])
                     {
                         Zahlen[pos] = -1;
@@ -132,17 +132,17 @@ namespace Minesweeper
                     else
                     {
                         int anz = 0;
-                        if (i > 0 && Spielfeld[(i - 1) + b*Breite]) anz++;
-                        if (i < Breite - 1 && Spielfeld[(i + 1) + b*Breite]) anz++;
+                        if (i > 0 && Spielfeld[(i - 1) + b * Breite]) anz++;
+                        if (i < Breite - 1 && Spielfeld[(i + 1) + b * Breite]) anz++;
 
-                        if (b > 0 && Spielfeld[(i) + (b - 1)*Breite]) anz++;
-                        if (b < Hoehe - 1 && Spielfeld[(i) + (b + 1)*Breite]) anz++;
+                        if (b > 0 && Spielfeld[(i) + (b - 1) * Breite]) anz++;
+                        if (b < Hoehe - 1 && Spielfeld[(i) + (b + 1) * Breite]) anz++;
 
-                        if (i > 0 && b > 0 && Spielfeld[(i - 1) + (b - 1)*Breite]) anz++;
-                        if (i > 0 && b < Hoehe - 1 && Spielfeld[(i - 1) + (b + 1)*Breite]) anz++;
+                        if (i > 0 && b > 0 && Spielfeld[(i - 1) + (b - 1) * Breite]) anz++;
+                        if (i > 0 && b < Hoehe - 1 && Spielfeld[(i - 1) + (b + 1) * Breite]) anz++;
 
-                        if (i < Breite - 1 && b > 0 && Spielfeld[(i + 1) + (b - 1)*Breite]) anz++;
-                        if (i < Breite - 1 && b < Hoehe - 1 && Spielfeld[(i + 1) + (b + 1)*Breite]) anz++;
+                        if (i < Breite - 1 && b > 0 && Spielfeld[(i + 1) + (b - 1) * Breite]) anz++;
+                        if (i < Breite - 1 && b < Hoehe - 1 && Spielfeld[(i + 1) + (b + 1) * Breite]) anz++;
 
                         Zahlen[pos] = anz;
                         if (Schwer.Checked)
@@ -174,9 +174,9 @@ namespace Minesweeper
                 }
 
             // äußeren Ring sichtbar machen
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
-                if (i/Breite == 0 || i/Breite == Hoehe - 1 || i%Breite == 0 || i%Breite == Breite - 1)
+                if (i / Breite == 0 || i / Breite == Hoehe - 1 || i % Breite == 0 || i % Breite == Breite - 1)
                 {
                     // GesetzteBilder[i] = 1; // als sichtbar markieren
 
@@ -189,8 +189,8 @@ namespace Minesweeper
             // Fenster an Spielfeld anpassen
             int disty = frm.Height - Zeichenflaeche.Height;
             int distx = frm.Width - Zeichenflaeche.Width;
-            frm.Height = (Hoehe*Breite/Breite)*32 + disty;
-            frm.Width = (Breite*32) + distx;
+            frm.Height = (Hoehe * Breite / Breite) * 32 + disty;
+            frm.Width = (Breite * 32) + distx;
 
             // Den "Wieviel Sekunden wird Gespielt" Timer initialisieren
             if (Zeitgeber != null) Zeitgeber.Dispose();
@@ -199,7 +199,7 @@ namespace Minesweeper
             Zeitgeber.Interval = 1000;
             Zeitgeber.Enabled = true;
 
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 Bilder[i].Show();
             }
@@ -211,7 +211,7 @@ namespace Minesweeper
             if (Bilder == null) return;
 
             // alle Felder zerstören
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 if (Bilder[i] == null) continue;
                 Bilder[i].Dispose();
@@ -238,7 +238,7 @@ namespace Minesweeper
             if (Bilder == null) return;
 
             // alle Felder sichtbar machen
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 if (Bilder[i] == null) continue;
                 if (GesetzteBilder[i] == 1) continue; // wenn bereits sichtbar, aufdecken nicht nötig
@@ -252,7 +252,7 @@ namespace Minesweeper
 
         private static void Bilder_Click(object sender, MouseEventArgs e)
         {
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 if (sender == Bilder[i])
                 {
@@ -284,30 +284,30 @@ namespace Minesweeper
                             if (i == over) over = -1;
 
                             // Nun befreie 0er Felder
-                            int x = i%Breite;
-                            int y = i/Breite;
-                            if (Zahlen[(x) + (y)*Breite] == 0)
+                            int x = i % Breite;
+                            int y = i / Breite;
+                            if (Zahlen[(x) + (y) * Breite] == 0)
                             {
-                                if (x > 0 && Zahlen[(x - 1) + (y + 0)*Breite] != -1)
-                                    Bilder_Click(Bilder[(x - 1) + (y + 0)*Breite], e);
-                                if (x < Breite - 1 && Zahlen[(x + 1) + (y + 0)*Breite] != -1)
-                                    Bilder_Click(Bilder[(x + 1) + (y + 0)*Breite], e);
+                                if (x > 0 && Zahlen[(x - 1) + (y + 0) * Breite] != -1)
+                                    Bilder_Click(Bilder[(x - 1) + (y + 0) * Breite], e);
+                                if (x < Breite - 1 && Zahlen[(x + 1) + (y + 0) * Breite] != -1)
+                                    Bilder_Click(Bilder[(x + 1) + (y + 0) * Breite], e);
 
-                                if (y > 0 && Zahlen[(x) + (y - 1)*Breite] != -1)
-                                    Bilder_Click(Bilder[(x - 0) + (y - 1)*Breite], e);
-                                if (y < Hoehe - 1 && Zahlen[(x) + (y + 1)*Breite] != -1)
-                                    Bilder_Click(Bilder[(x + 0) + (y + 1)*Breite], e);
+                                if (y > 0 && Zahlen[(x) + (y - 1) * Breite] != -1)
+                                    Bilder_Click(Bilder[(x - 0) + (y - 1) * Breite], e);
+                                if (y < Hoehe - 1 && Zahlen[(x) + (y + 1) * Breite] != -1)
+                                    Bilder_Click(Bilder[(x + 0) + (y + 1) * Breite], e);
 
                                 // sollen auch diagonale frei gemacht werden???
-                                if (x > 0 && y > 0 && Zahlen[(x - 1) + (y - 1)*Breite] >= 0)
-                                    Bilder_Click(Bilder[(x - 1) + (y - 1)*Breite], e);
-                                if (x > 0 && y < Hoehe - 1 && Zahlen[(x - 1) + (y + 1)*Breite] >= 0)
-                                    Bilder_Click(Bilder[(x - 1) + (y + 1)*Breite], e);
+                                if (x > 0 && y > 0 && Zahlen[(x - 1) + (y - 1) * Breite] >= 0)
+                                    Bilder_Click(Bilder[(x - 1) + (y - 1) * Breite], e);
+                                if (x > 0 && y < Hoehe - 1 && Zahlen[(x - 1) + (y + 1) * Breite] >= 0)
+                                    Bilder_Click(Bilder[(x - 1) + (y + 1) * Breite], e);
 
-                                if (x < Breite - 1 && y > 0 && Zahlen[(x + 1) + (y - 1)*Breite] >= 0)
-                                    Bilder_Click(Bilder[(x + 1) + (y - 1)*Breite], e);
-                                if (x < Breite - 1 && y < Hoehe - 1 && Zahlen[(x + 1) + (y + 1)*Breite] >= 0)
-                                    Bilder_Click(Bilder[(x + 1) + (y + 1)*Breite], e);
+                                if (x < Breite - 1 && y > 0 && Zahlen[(x + 1) + (y - 1) * Breite] >= 0)
+                                    Bilder_Click(Bilder[(x + 1) + (y - 1) * Breite], e);
+                                if (x < Breite - 1 && y < Hoehe - 1 && Zahlen[(x + 1) + (y + 1) * Breite] >= 0)
+                                    Bilder_Click(Bilder[(x + 1) + (y + 1) * Breite], e);
                             }
                         }
                     }
@@ -320,7 +320,7 @@ namespace Minesweeper
         private static void Bilder_MouseMove(object sender, MouseEventArgs e)
         {
             // Die Maus wird übers Spielfeld bewegt
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 if (sender == Bilder[i])
                 {
@@ -382,7 +382,7 @@ namespace Minesweeper
                 else
                     blackBrush = new SolidBrush(Farbe[Zahlen[position] - 1]);
 
-                g.DrawString(q, fntFont, blackBrush, new PointF(16 - q.Length*5, 16 - 7));
+                g.DrawString(q, fntFont, blackBrush, new PointF(16 - q.Length * 5, 16 - 7));
                 blackBrush.Dispose();
             }
             return temp;
@@ -391,7 +391,7 @@ namespace Minesweeper
         private static void PrüfeSieg()
         {
             // Prüfe ob es noch ein Feld gibt, das man noch anklicken könnte (ohne zu verlieren)
-            for (int i = 0; i < Breite*Hoehe; i++)
+            for (int i = 0; i < Breite * Hoehe; i++)
             {
                 if (GesetzteBilder[i] == 0 && !Spielfeld[i]) return;
             }

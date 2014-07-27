@@ -47,11 +47,6 @@ namespace _4_1_
         public int Energie; // kraterbreite
 
         /// <summary>
-        ///     The focused
-        /// </summary>
-        public bool focused = false;
-
-        /// <summary>
         ///     The ID
         /// </summary>
         public int ID;
@@ -65,6 +60,11 @@ namespace _4_1_
         ///     The lebensdauer
         /// </summary>
         public int Lebensdauer;
+
+        /// <summary>
+        ///     The focused
+        /// </summary>
+        public bool focused = false;
 
         /// <summary>
         ///     The missle angle
@@ -140,7 +140,7 @@ namespace _4_1_
         /// <param name="Spielfeld">The spielfeld.</param>
         /// <param name="MaxHeight">Height of the max.</param>
         public void check_Rakete(List<UInt16>[] Spielfeld, int MaxHeight)
-        // prüft Lebensdauer einer Rakete um fehlern vorzubeugen
+            // prüft Lebensdauer einer Rakete um fehlern vorzubeugen
         {
             if (Besitzer[0] != -1)
             {
@@ -177,7 +177,7 @@ namespace _4_1_
             // Rakete zünden
             var a = new Karte();
             Replay.Explosion(RaktnSpitze(), Art);
-            return a.Explode(Spielfeld, (int)RaktnSpitze().X, (int)RaktnSpitze().Y, Energie);
+            return a.Explode(Spielfeld, (int) RaktnSpitze().X, (int) RaktnSpitze().Y, Energie);
         }
 
         /// <summary>
@@ -188,8 +188,8 @@ namespace _4_1_
         {
             int MissleLength = Texturen.missle[Art].Width;
             return
-                new Vector2((float)(misslePosition.X + MissleLength * Waffendaten.Skalierung[Art] * Math.Cos(missleAngle)),
-                    (float)(misslePosition.Y + MissleLength * Waffendaten.Skalierung[Art] * Math.Sin(missleAngle)));
+                new Vector2((float) (misslePosition.X + MissleLength*Waffendaten.Skalierung[Art]*Math.Cos(missleAngle)),
+                    (float) (misslePosition.Y + MissleLength*Waffendaten.Skalierung[Art]*Math.Sin(missleAngle)));
         }
 
         /// <summary>
@@ -230,8 +230,8 @@ namespace _4_1_
             if (missleShot)
             {
                 Wind.Y = 0;
-                missleDirection += gravity / 10.0f + (Spiel.WIND.Wert ? Wind / 60.0f : Vector2.Zero);
-                missleAngle = (float)Math.Atan2(missleDirection.Y, missleDirection.X);
+                missleDirection += gravity/10.0f + (Spiel.WIND.Wert ? Wind/60.0f : Vector2.Zero);
+                missleAngle = (float) Math.Atan2(missleDirection.Y, missleDirection.X);
                 misslePosition += missleDirection;
                 misslePosition = Spiel.Position(misslePosition);
                 Last_Position[Last_Position.Length - 1] = misslePosition;

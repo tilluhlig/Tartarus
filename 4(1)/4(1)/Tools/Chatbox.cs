@@ -73,7 +73,7 @@ namespace _4_1_
         {
             ownPos = Pos;
             for (int i = 0; i < 6; i++)
-                pos[i] = ownPos + new Vector2(0, i*15);
+                pos[i] = ownPos + new Vector2(0, i * 15);
         }
 
         #endregion Constructors
@@ -107,12 +107,12 @@ namespace _4_1_
         {
             if (scrolling)
                 for (int i = 0; i < messages.Count && i < 6; i++)
-                    spriteBatch.DrawString(font, messages[firstmessage + i], pos[i], Color.Lime*(timeoutscroll/480.0f));
+                    spriteBatch.DrawString(font, messages[firstmessage + i], pos[i], Color.Lime * (timeoutscroll / 480.0f));
             else
                 for (byte i = 0; i < timeout.Count; i++)
                 {
                     spriteBatch.DrawString(font, messages[messages.Count - timeout.Count + i], pos[i],
-                        Color.Lime*(timeout[i]/480.0f));
+                        Color.Lime * (timeout[i] / 480.0f));
                 }
         }
 
@@ -174,13 +174,13 @@ namespace _4_1_
             if (!status && scrolling)
             {
                 scrolling = false;
-                firstmessage = (byte) (messages.Count - timeout.Count);
+                firstmessage = (byte)(messages.Count - timeout.Count);
             }
             else if (status && !scrolling)
             {
                 scrolling = true;
                 if (messages.Count > 6)
-                    firstmessage = (byte) (messages.Count - 6);
+                    firstmessage = (byte)(messages.Count - 6);
                 else firstmessage = 0;
             }
         }

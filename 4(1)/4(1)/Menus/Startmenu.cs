@@ -11,6 +11,7 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -26,16 +27,6 @@ namespace _4_1_
         #region vars
 
         /// <summary>
-        ///     eine Liste der Menüpunkte
-        /// </summary>
-        public Button[] menuItems = new Button[4];
-
-        /// <summary>
-        ///     Sichtbarkeit, true = sichtbar, false = unsichtbar
-        /// </summary>
-        public bool visible = false;
-
-        /// <summary>
         ///     die Farbe der selektierten Menüpunkte
         /// </summary>
         private readonly Color selected;
@@ -49,6 +40,16 @@ namespace _4_1_
         ///     die Schrift für Beschriftungen
         /// </summary>
         private SpriteFont font;
+
+        /// <summary>
+        ///     eine Liste der Menüpunkte
+        /// </summary>
+        public Button[] menuItems = new Button[4];
+
+        /// <summary>
+        ///     Sichtbarkeit, true = sichtbar, false = unsichtbar
+        /// </summary>
+        public bool visible = false;
 
         #endregion vars
 
@@ -69,8 +70,8 @@ namespace _4_1_
         #region Constructors
 
         /// <summary>
-        ///             Constructor des Menüs
-        /// Initialisiert Standardwerte
+        ///     Constructor des Menüs
+        ///     Initialisiert Standardwerte
         /// </summary>
         /// <param name="unselectedColor">die Färbung der nicht gewählten Menüpunkte</param>
         /// <param name="selectedColor">die Färbung des gewählten Menüpunktes</param>
@@ -86,11 +87,11 @@ namespace _4_1_
             unselected = unselectedColor;
             selected = selectedColor;
 
-            var aux = new Vector2((screenWidth - Texturen.Button1.Width) / 2, 80);
+            var aux = new Vector2((screenWidth - Texturen.Button1.Width)/2, 80);
             menuItems[0] = new Button(Texturen.Button1, aux, "Neues", "Spiel", font);
-            menuItems[1] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 1), "Spiel", "Laden", font);
-            menuItems[2] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 2), "Optionen", font);
-            menuItems[3] = new Button(Texturen.Button1, aux + new Vector2(0, 80 * 3), "Spiel", "Verlassen", font);
+            menuItems[1] = new Button(Texturen.Button1, aux + new Vector2(0, 80*1), "Spiel", "Laden", font);
+            menuItems[2] = new Button(Texturen.Button1, aux + new Vector2(0, 80*2), "Optionen", font);
+            menuItems[3] = new Button(Texturen.Button1, aux + new Vector2(0, 80*3), "Spiel", "Verlassen", font);
         }
 
         #endregion Constructors
@@ -118,16 +119,16 @@ namespace _4_1_
                 menuItems[i].Draw(spriteBatch, selected, unselected);
             }
 
-            var aux = new Vector2((screenWidth - Texturen.Button1.Width) / 2, 80);
+            var aux = new Vector2((screenWidth - Texturen.Button1.Width)/2, 80);
 
             // davor auffüllen
             for (int i = -2; i < 0; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
 
             // danach auffüllen
-            int Danach = (int)Math.Ceiling((float)Game1.screenHeight / 80) - 4;
+            int Danach = (int) Math.Ceiling((float) Game1.screenHeight/80) - 4;
             for (int i = menuItems.Length; i < menuItems.Length + Danach; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
         }
 
         /// <summary>

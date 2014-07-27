@@ -22,6 +22,16 @@ namespace _4_1_
         #region Fields
 
         /// <summary>
+        ///     The scrollbar
+        /// </summary>
+        public Scroller Scrollbar = null;
+
+        /// <summary>
+        ///     The text
+        /// </summary>
+        public List<string> Text = new List<string>();
+
+        /// <summary>
         ///     The cursor
         /// </summary>
         public int cursor = 0;
@@ -47,24 +57,14 @@ namespace _4_1_
         public String originalText = "";
 
         /// <summary>
-        ///     The scrollbar
+        ///     The position
         /// </summary>
-        public Scroller Scrollbar = null;
-
-        /// <summary>
-        ///     The text
-        /// </summary>
-        public List<string> Text = new List<string>();
+        private Vector2 pos;
 
         /// <summary>
         ///     The visible
         /// </summary>
         public bool visible = false;
-
-        /// <summary>
-        ///     The position
-        /// </summary>
-        private Vector2 pos;
 
         #endregion Fields
 
@@ -85,7 +85,7 @@ namespace _4_1_
             this.maxPixelInZeile = maxPixelInZeile;
             this.maxZeilen = maxZeilen;
 
-            Scrollbar = new Scroller(40, (int)(font.MeasureString("a").Y * maxZeilen + 14), Vector2.Zero, maxZeilen, 1,
+            Scrollbar = new Scroller(40, (int) (font.MeasureString("a").Y*maxZeilen + 14), Vector2.Zero, maxZeilen, 1,
                 true, graphicsDevice, Content, Color.LightGoldenrodYellow, Color.Black);
         }
 
@@ -124,12 +124,12 @@ namespace _4_1_
             }
 
             Help.DrawRectangle(spriteBatch, graphicsDevice,
-                new Rectangle((int)(temppos.X - 7 - Fenster.X), (int)(temppos.Y - 7 - Fenster.Y), (int)(Maße.X + 14),
-                    (int)(Maße.Y + 14)), Randfarbe, 1f);
+                new Rectangle((int) (temppos.X - 7 - Fenster.X), (int) (temppos.Y - 7 - Fenster.Y), (int) (Maße.X + 14),
+                    (int) (Maße.Y + 14)), Randfarbe, 1f);
 
             Help.DrawRectangle(spriteBatch, graphicsDevice,
-                new Rectangle((int)(temppos.X - 5 - Fenster.X), (int)(temppos.Y - 5 - Fenster.Y), (int)(Maße.X + 10),
-                    (int)(Maße.Y + 10)), Feldfarbe, 1f);
+                new Rectangle((int) (temppos.X - 5 - Fenster.X), (int) (temppos.Y - 5 - Fenster.Y), (int) (Maße.X + 10),
+                    (int) (Maße.Y + 10)), Feldfarbe, 1f);
 
             // Text zeichnen
 
@@ -139,7 +139,7 @@ namespace _4_1_
                 String draw = Text[i];
                 if (draw.Length >= 1 && draw[draw.Length - 1] == '\n') draw = draw.Substring(0, draw.Length - 1);
                 spriteBatch.DrawString(font, draw,
-                    temppos + new Vector2(0, font.MeasureString("a").Y * (i - Scrollbar.oberstes)) - Fenster, Color.Black);
+                    temppos + new Vector2(0, font.MeasureString("a").Y*(i - Scrollbar.oberstes)) - Fenster, Color.Black);
             }
 
             // Cursor zeichnen
@@ -173,7 +173,7 @@ namespace _4_1_
             if (y - Scrollbar.oberstes >= 0 && y - Scrollbar.oberstes < maxZeilen)
                 spriteBatch.DrawString(font, "_",
                     temppos +
-                    new Vector2(font.MeasureString(cursortext).X, font.MeasureString("a").Y * (y - Scrollbar.oberstes)) -
+                    new Vector2(font.MeasureString(cursortext).X, font.MeasureString("a").Y*(y - Scrollbar.oberstes)) -
                     Fenster, Color.Red, 0, Vector2.Zero, 1.1f, SpriteEffects.None, 1);
 
             Scrollbar.UpdatePos(temppos + new Vector2(Maße.X + 7, -7));
@@ -201,7 +201,7 @@ namespace _4_1_
         {
             if (!visible) return false;
             var a = new BoundingBox(new Vector3(pos, 0),
-                new Vector3(pos + new Vector2(maxPixelInZeile, maxZeilen * font.MeasureString("a").Y), 0));
+                new Vector3(pos + new Vector2(maxPixelInZeile, maxZeilen*font.MeasureString("a").Y), 0));
             if (a.Contains(new Vector3(Help.GetMouseState().X + Fenster.X, Help.GetMouseState().Y + Fenster.Y, 0)) ==
                 ContainmentType.Contains)
             {

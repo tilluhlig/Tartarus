@@ -451,7 +451,7 @@ namespace HTTP
                             + HttpUtility.UrlEncode(postParameters[key]) + "&";
             }
 
-            var myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            var myHttpWebRequest = (HttpWebRequest) WebRequest.Create(url);
             myHttpWebRequest.Method = "POST";
 
             byte[] data = Encoding.ASCII.GetBytes(postData);
@@ -465,7 +465,7 @@ namespace HTTP
                 requestStream.Write(data, 0, data.Length);
                 requestStream.Close();
 
-                var myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
+                var myHttpWebResponse = (HttpWebResponse) myHttpWebRequest.GetResponse();
 
                 Stream responseStream = myHttpWebResponse.GetResponseStream();
                 list.Add(myHttpWebResponse.StatusDescription);

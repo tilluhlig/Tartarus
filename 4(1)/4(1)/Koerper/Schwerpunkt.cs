@@ -5,19 +5,19 @@ using Microsoft.Xna.Framework;
 namespace _4_1_
 {
     /// <summary>
-    /// Diese Klasse erlaubt Operationen auf Schwerpunkte
+    ///     Diese Klasse erlaubt Operationen auf Schwerpunkte
     /// </summary>
     public class Schwerpunkt
     {
         #region Fields
 
         /// <summary>
-        /// die Position des Schwerpunktes (von Links-Oben)
+        ///     die Position des Schwerpunktes (von Links-Oben)
         /// </summary>
         public Vector2 ObjektSchwerpunkt = Vector2.Zero;
 
         /// <summary>
-        /// die Masse des Schwerpunktes
+        ///     die Masse des Schwerpunktes
         /// </summary>
         public float SchwerpunktMasse = 0f;
 
@@ -26,7 +26,7 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
-        /// Berechnet den Schwerpunkt einer Textur (von Links-Oben)
+        ///     Berechnet den Schwerpunkt einer Textur (von Links-Oben)
         /// </summary>
         /// <param name="Bild">eine Texturmaske</param>
         public void BerechneSchwerpunkt(List<int>[] Bild)
@@ -39,10 +39,10 @@ namespace _4_1_
                 int summe = 0;
                 for (int b = 0; b < Bild[i].Count; b++)
                 {
-                    if (b % 2 == 1)
+                    if (b%2 == 1)
                     {
                         SchwerpunktMasse += Bild[i][b];
-                        ObjektSchwerpunkt += new Vector2(i, summe + Bild[i][b] / 2f) * Bild[i][b];
+                        ObjektSchwerpunkt += new Vector2(i, summe + Bild[i][b]/2f)*Bild[i][b];
                     }
                     summe += Bild[i][b];
                 }
@@ -51,7 +51,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Hängt neue Massepunkte an das Objekt
+        ///     Hängt neue Massepunkte an das Objekt
         /// </summary>
         /// <param name="Bereiche">
         ///     Ist eine Liste von zu aktualisierenden Bereichen.
@@ -64,7 +64,7 @@ namespace _4_1_
             for (int i = 0; i < Bereiche.Count; i++)
             {
                 float m = Bereiche[i].Z - Bereiche[i].Y + 1;
-                neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y + m / 2) * m;
+                neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y + m/2)*m;
                 neueMasse += m;
             }
             neuerPunkt /= neueMasse;
@@ -73,7 +73,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Entfernt Masse vom Objekt
+        ///     Entfernt Masse vom Objekt
         /// </summary>
         /// <param name="Bereiche">
         ///     Ist eine Liste von zu aktualisierenden Bereichen.
@@ -87,11 +87,11 @@ namespace _4_1_
             {
                 float m = Bereiche[i].Z - Bereiche[i].Y + 1;
                 m = -m;
-                neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y + -m / 2) * m;
+                neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y + -m/2)*m;
                 neueMasse += m;
             }
             neuerPunkt /= neueMasse;
-            ObjektSchwerpunkt = ObjektSchwerpunkt * SchwerpunktMasse + neuerPunkt * neueMasse;
+            ObjektSchwerpunkt = ObjektSchwerpunkt*SchwerpunktMasse + neuerPunkt*neueMasse;
             SchwerpunktMasse += neueMasse;
             ObjektSchwerpunkt /= SchwerpunktMasse;
         }

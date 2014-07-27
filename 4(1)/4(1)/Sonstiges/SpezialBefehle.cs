@@ -220,7 +220,7 @@ namespace _4_1_
                                                                                                               .screenHeight));
                                                                                     //- Help.rnd.Next(0,1000
                                                                                     Game1.Spiel2.AddRakete(0, Pos,
-                                                                                        Vector2.Zero, 300 * 4,
+                                                                                        Vector2.Zero, 300*4,
                                                                                         Waffendaten.mg, 0);
                                                                                     // }
                                                                                 }

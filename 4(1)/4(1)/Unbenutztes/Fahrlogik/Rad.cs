@@ -27,7 +27,7 @@ namespace _4_1_
             pos = _pos;
             Reibung = _Reibung;
             Bild = _Bild;
-            AddAntriebspunkt(new Vector2(0, Bild.Height/2 + 1));
+            AddAntriebspunkt(new Vector2(0, Bild.Height / 2 + 1));
         }
 
         #endregion Constructors

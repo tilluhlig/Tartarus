@@ -124,9 +124,9 @@ namespace _4_1_
             int HintenVorne = 150; // 150;
             int AbstandGebäude = 0;
 
-            int breite = (symmetrisch ? array.Length / 2 : array.Length);
+            int breite = (symmetrisch ? array.Length/2 : array.Length);
             bool dorf = true;
-            for (int i = Abstand / 2; i < breite - Abstand / 2; i++)
+            for (int i = Abstand/2; i < breite - Abstand/2; i++)
             {
                 if (dorf)
                 {
@@ -144,13 +144,13 @@ namespace _4_1_
                         else
                             temp[b] = Gebäudedaten.DORF.Wert[b];
                         temp2[b] = i;
-                        i += (int)(Texturen.haus[temp[b]].Width * Gebäudedaten.SKALIERUNG.Wert[temp[b]]);
+                        i += (int) (Texturen.haus[temp[b]].Width*Gebäudedaten.SKALIERUNG.Wert[temp[b]]);
                         i += AbstandGebäude;
                     }
                     i -= AbstandGebäude;
                     i += HintenVorne;
                     temp[temp.Count() - 1] = i - temp[temp.Count() - 2];
-                    if (i < breite - Abstand / 2)
+                    if (i < breite - Abstand/2)
                     {
                         Doerfer.Add(temp);
                         DoerferPos.Add(temp2);
@@ -175,13 +175,13 @@ namespace _4_1_
                         else
                             temp[b] = Gebäudedaten.STADT.Wert[b];
                         temp2[b] = i;
-                        i += (int)(Texturen.haus[temp[b]].Width * Gebäudedaten.SKALIERUNG.Wert[temp[b]]);
+                        i += (int) (Texturen.haus[temp[b]].Width*Gebäudedaten.SKALIERUNG.Wert[temp[b]]);
                         i += AbstandGebäude;
                     }
                     i -= AbstandGebäude;
                     i += HintenVorne;
                     temp[temp.Count() - 1] = i - temp[temp.Count() - 2];
-                    if (i < breite - Abstand / 2)
+                    if (i < breite - Abstand/2)
                     {
                         Staedte.Add(temp);
                         StaedtePos.Add(temp2);
@@ -274,11 +274,11 @@ namespace _4_1_
             {
                 int id = Spiel2.Haeuser.HausTyp[i];
                 if (Spiel2.Haeuser.Position[i].X == -1) continue;
-                if (Spiel2.Haeuser.Position[i].X + Texturen.haus[id].Width * Gebäudedaten.SKALIERUNG.Wert[id] <
+                if (Spiel2.Haeuser.Position[i].X + Texturen.haus[id].Width*Gebäudedaten.SKALIERUNG.Wert[id] <
                     Spiel2.Fenster.X || Spiel2.Fenster.X + Game1.screenWidth + 10 < Spiel2.Haeuser.Position[i].X)
                     continue;
-                var xPos = (int)(Spiel2.Haeuser.Position[i].X - (int)Spiel2.Fenster.X);
-                var yPos = (int)(Spiel2.Haeuser.Position[i].Y - Spiel2.Fenster.Y); // - (baum[i].Width / 2)
+                var xPos = (int) (Spiel2.Haeuser.Position[i].X - (int) Spiel2.Fenster.X);
+                var yPos = (int) (Spiel2.Haeuser.Position[i].Y - Spiel2.Fenster.Y); // - (baum[i].Width / 2)
 
                 spriteBatch.Begin();
                 // Lebenslinie Zeichnen
@@ -306,11 +306,11 @@ namespace _4_1_
                         Spiel2.Haeuser.BesitzerPunkte[i] >= Allgemein.MinBesitzerPunkte)
                         spriteBatch.Draw(Texturen.fahne,
                             new Vector2(
-                                xPos + Spiel2.Haeuser.Bild[i].Width / 2 * Gebäudedaten.SKALIERUNG.Wert[id] +
+                                xPos + Spiel2.Haeuser.Bild[i].Width/2*Gebäudedaten.SKALIERUNG.Wert[id] +
                                 Gebäudedaten.POSITIONX.Wert[Spiel2.Haeuser.HausTyp[i]],
-                                yPos - Texturen.fahne.Height * scale2 +
+                                yPos - Texturen.fahne.Height*scale2 +
                                 Gebäudedaten.POSITIONY.Wert[Spiel2.Haeuser.HausTyp[i]] -
-                                Spiel2.Haeuser.Bild[i].Height * Gebäudedaten.SKALIERUNG.Wert[id]), null,
+                                Spiel2.Haeuser.Bild[i].Height*Gebäudedaten.SKALIERUNG.Wert[id]), null,
                             Spiel2.players[Spiel2.Haeuser.Besitzer[i]].Farbe, 0, new Vector2(0, 0), scale2,
                             SpriteEffects.None, 1); // haus.Width / 2
                 }
@@ -340,7 +340,10 @@ namespace _4_1_
                 {
                     // Zeichne Schwerpunkt
                     Vector2 Schwerpunkt = Spiel2.Haeuser.Koerper[i].objektSchwerpunkt.ObjektSchwerpunkt;
-                    Help.DrawRectangle(spriteBatch, graphicsDevice, new Rectangle((int)(xPos + Schwerpunkt.X - 2), (int)(yPos - Texturen.haus[id].Height * Gebäudedaten.SKALIERUNG.Wert[id] + Schwerpunkt.Y - 2), 4, 4),
+                    Help.DrawRectangle(spriteBatch, graphicsDevice,
+                        new Rectangle((int) (xPos + Schwerpunkt.X - 2),
+                            (int) (yPos - Texturen.haus[id].Height*Gebäudedaten.SKALIERUNG.Wert[id] + Schwerpunkt.Y - 2),
+                            4, 4),
                         Color.Red, 1);
                 }
 
@@ -354,7 +357,7 @@ namespace _4_1_
                         farb = Spiel2.players[Spiel2.Haeuser.BesitzerEroberer[i]].Farbe;
                     }
 
-                    var y = (int)(float)(((float)Spiel2.Haeuser.BesitzerPunkte[i] / 1000.0f) * Texturen.haus[id].Height);
+                    var y = (int) ((Spiel2.Haeuser.BesitzerPunkte[i]/1000.0f)*Texturen.haus[id].Height);
                     spriteBatch.Draw(Spiel2.Haeuser.Bild[i], new Vector2(xPos, yPos),
                         new Rectangle(0, y, Texturen.haus[id].Width, Texturen.haus[id].Height - y), farb, 0,
                         new Vector2(0, Texturen.haus[id].Height - y), Gebäudedaten.SKALIERUNG.Wert[id],
@@ -404,23 +407,23 @@ namespace _4_1_
                             //
                             Vector2 pos = new Vector2(xPos, yPos) +
                                           new Vector2(
-                                              +(Spiel2.Haeuser.Bild[i].Width * Gebäudedaten.SKALIERUNG.Wert[id] / 2) -
-                                              (Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Width * 0.75f *
-                                               Optimierung.Skalierung(0.25f)) / 2,
-                                              -Texturen.haus[id].Height * Gebäudedaten.SKALIERUNG.Wert[id] / 2);
+                                              +(Spiel2.Haeuser.Bild[i].Width*Gebäudedaten.SKALIERUNG.Wert[id]/2) -
+                                              (Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Width*0.75f*
+                                               Optimierung.Skalierung(0.25f))/2,
+                                              -Texturen.haus[id].Height*Gebäudedaten.SKALIERUNG.Wert[id]/2);
 
                             Help.DrawRectangle(spriteBatch, graphicsDevice,
-                                new Rectangle((int)pos.X - 1, (int)pos.Y - 1,
+                                new Rectangle((int) pos.X - 1, (int) pos.Y - 1,
                                     (int)
-                                        (Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Width * specialscale *
+                                        (Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Width*specialscale*
                                          Optimierung.Skalierung(0.25f) + 2),
                                     (int)
-                                        (Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Height * specialscale *
+                                        (Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]].Height*specialscale*
                                          Optimierung.Skalierung(0.25f) + 2)),
                                 Spiel2.players[Spiel2.Haeuser.Besitzer[i]].Farbe, 0.3f);
 
                             spriteBatch.Draw(Texturen.panzerbutton[Spiel2.Haeuser.Produktion[i]], pos, null, Color.White,
-                                0, Vector2.Zero, Optimierung.Skalierung(0.25f) * specialscale, SpriteEffects.None, 1);
+                                0, Vector2.Zero, Optimierung.Skalierung(0.25f)*specialscale, SpriteEffects.None, 1);
                         }
 
                 spriteBatch.End();
@@ -430,7 +433,7 @@ namespace _4_1_
                 {
                     // Häuser malen
                     spriteBatch.Draw(Texturen.haus[Spiel2.Haeuser.HausTyp[i]], new Vector2(xPos, yPos), null,
-                        Color.Blue * 255, 0, new Vector2(0, Texturen.haus[id].Height), Gebäudedaten.SKALIERUNG.Wert[id],
+                        Color.Blue*255, 0, new Vector2(0, Texturen.haus[id].Height), Gebäudedaten.SKALIERUNG.Wert[id],
                         SpriteEffects.None, 0);
                 }
 
@@ -465,13 +468,13 @@ namespace _4_1_
             BesitzerEroberer.Add(-1);
             //Lebenslinien.Add(new Rectangle(0, 0, 100, Texturen.leben.Height));
             // UpdateHausSchaden(Lebenslinien.Count - 1, 0);
-            var temp = new Color[Texturen.haus[Typ].Width * Texturen.haus[Typ].Height];
+            var temp = new Color[Texturen.haus[Typ].Width*Texturen.haus[Typ].Height];
             Texturen.haus[Typ].GetData(temp);
             Bild[Besitzer.Count - 1] = new Texture2D(Game1.device, Texturen.haus[Typ].Width, Texturen.haus[Typ].Height);
             Bild[Besitzer.Count - 1].SetData(temp);
 
             //MaxPixel.Add(Help.GetPixelAnzahl(Bild[Besitzer.Count - 1]));
-            MaximaleLebenspunkte.Add((int)(Help.GetPixelAnzahl(Bild[Besitzer.Count - 1]) * 0.6f));
+            MaximaleLebenspunkte.Add((int) (Help.GetPixelAnzahl(Bild[Besitzer.Count - 1])*0.6f));
             if (_hp != -9999)
             {
                 Lebenspunkte.Add(_hp);
@@ -586,7 +589,7 @@ namespace _4_1_
         {
             if (Zerstörung[i] == null) return 0;
 
-            List<Vector3> Bereiche = new List<Vector3>();
+            var Bereiche = new List<Vector3>();
             int result = Zerstörung[i].BerechneZerstörung(Bild[i], Explosion, Energie, Position[i], Bereiche);
             if (result == 0) return 0;
             Koerper[i].objektSchwerpunkt.VerringereSchwerpunktmasse(Bereiche);
@@ -629,7 +632,7 @@ namespace _4_1_
                 BesitzerPunkte[id] = TextLaden.LadeInt(Liste, "BesitzerPunkte", BesitzerPunkte[id]);
                 BesitzerEroberer[id] = TextLaden.LadeInt(Liste, "BesitzerEroberer", BesitzerEroberer[id]);
                 Position[id] = TextLaden.LadeVector2(Liste, "Position", Position[id]);
-                MaximaleLebenspunkte[id] = ((int)(Help.GetPixelAnzahl(Bild[id]) * 0.6f));
+                MaximaleLebenspunkte[id] = ((int) (Help.GetPixelAnzahl(Bild[id])*0.6f));
 
                 Lebenspunkte[id] = MaximaleLebenspunkte[id];
             }
@@ -675,7 +678,7 @@ namespace _4_1_
         public void set_Haeuser(List<UInt16>[] Spielfeld, bool symmetrisch) // setzt zufällig Häuser auf der Karte
         {
             int x = 0;
-            for (; x < (symmetrisch ? Spielfeld.Length / 2 : Spielfeld.Length); x++)
+            for (; x < (symmetrisch ? Spielfeld.Length/2 : Spielfeld.Length); x++)
             {
                 int setnext = Help.rnd.Next(0, Texturen.haus.Count());
                 // setnext = 17;
@@ -683,8 +686,8 @@ namespace _4_1_
                 int find = 0;
                 int begin = Kartenformat.BottomOf(x, 0);
                 for (int b = x + 1;
-                    b < (symmetrisch ? Spielfeld.Length / 2 : Spielfeld.Length) &&
-                    find < Texturen.haus[setnext].Width * Gebäudedaten.SKALIERUNG.Wert[setnext];
+                    b < (symmetrisch ? Spielfeld.Length/2 : Spielfeld.Length) &&
+                    find < Texturen.haus[setnext].Width*Gebäudedaten.SKALIERUNG.Wert[setnext];
                     b++)
                 {
                     if (begin == Kartenformat.BottomOf(b, 0)) // Spielfeld[b][0]
@@ -695,22 +698,22 @@ namespace _4_1_
                         break;
                 }
 
-                if (find >= Texturen.haus[setnext].Width * Gebäudedaten.SKALIERUNG.Wert[setnext])
+                if (find >= Texturen.haus[setnext].Width*Gebäudedaten.SKALIERUNG.Wert[setnext])
                 {
                     Add(new Vector2(x, Kartenformat.BottomOf(x, 0)), -9999, setnext, Spiel.rand.Next(-1, -1));
-                    x += (int)(Texturen.haus[setnext].Width * Gebäudedaten.SKALIERUNG.Wert[setnext] + 130);
+                    x += (int) (Texturen.haus[setnext].Width*Gebäudedaten.SKALIERUNG.Wert[setnext] + 130);
                 }
             }
 
             if (symmetrisch)
             {
                 int anz = Position.Count;
-                int middle = Spielfeld.Length / 2;
+                int middle = Spielfeld.Length/2;
                 for (int i = 0; i < anz; i++)
                 {
                     Add(
                         new Vector2(
-                            middle + (middle - Position[i].X) - Bild[i].Width * Gebäudedaten.SKALIERUNG.Wert[HausTyp[i]],
+                            middle + (middle - Position[i].X) - Bild[i].Width*Gebäudedaten.SKALIERUNG.Wert[HausTyp[i]],
                             Position[i].Y), Lebenspunkte[i], HausTyp[i], Besitzer[i]);
                 }
             }
@@ -722,7 +725,7 @@ namespace _4_1_
         /// <param name="Spielfeld">The spielfeld.</param>
         /// <param name="symmetrisch">if set to <c>true</c> [symmetrisch].</param>
         public void set_Haeuser_staedte_doerfer(List<UInt16>[] Spielfeld, bool symmetrisch)
-        // setzt zufällig Häuser auf der Karte
+            // setzt zufällig Häuser auf der Karte
         {
             Orte.Clear();
             Ortemaxheight.Clear();
@@ -739,7 +742,7 @@ namespace _4_1_
                     Add(new Vector2(x, Kartenformat.BottomOf(x, 0)), -9999, setnext, -1);
 
                     float y = Kartenformat.BottomOf(x, 0) -
-                              Texturen.haus[setnext].Height * Gebäudedaten.SKALIERUNG.Wert[setnext];
+                              Texturen.haus[setnext].Height*Gebäudedaten.SKALIERUNG.Wert[setnext];
                     if (y < min) min = y;
                 }
 
@@ -747,7 +750,7 @@ namespace _4_1_
                 Orte.Add(new Vector2(Staedte[i][ma - 2], Staedte[i][ma - 1]));
 
                 if (min < 25 + 25 || min > Game1.screenHeight) min = 25 + 25;
-                Ortemaxheight.Add((int)min);
+                Ortemaxheight.Add((int) min);
             }
 
             for (int i = 0; i < Doerfer.Count; i++)
@@ -761,7 +764,7 @@ namespace _4_1_
                     Add(new Vector2(x, Kartenformat.BottomOf(x, 0)), -9999, setnext, -1);
 
                     float y = Kartenformat.BottomOf(x, 0) -
-                              Texturen.haus[setnext].Height * Gebäudedaten.SKALIERUNG.Wert[setnext];
+                              Texturen.haus[setnext].Height*Gebäudedaten.SKALIERUNG.Wert[setnext];
                     if (y < min) min = y;
                 }
 
@@ -769,18 +772,18 @@ namespace _4_1_
                 Orte.Add(new Vector2(Doerfer[i][ma - 2], Doerfer[i][ma - 1]));
 
                 if (min < 25 + 25 || min > Game1.screenHeight) min = 25 + 25;
-                Ortemaxheight.Add((int)min);
+                Ortemaxheight.Add((int) min);
             }
 
             if (symmetrisch)
             {
                 int anz = Position.Count;
-                int middle = Spielfeld.Length / 2;
+                int middle = Spielfeld.Length/2;
                 for (int i = 0; i < anz; i++)
                 {
                     Add(
                         new Vector2(
-                            middle + (middle - Position[i].X) - Bild[i].Width * Gebäudedaten.SKALIERUNG.Wert[HausTyp[i]],
+                            middle + (middle - Position[i].X) - Bild[i].Width*Gebäudedaten.SKALIERUNG.Wert[HausTyp[i]],
                             Position[i].Y), Lebenspunkte[i], HausTyp[i], Besitzer[i]);
                 }
 

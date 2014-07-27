@@ -205,7 +205,7 @@ namespace _4_1_
         /// <param name="A">das Effektobjekt, dessen Eigenschaften übernommen werden sollen</param>
         public Effekt(Effekt A)
         {
-            init(A.Name, (String)A.Bild.Tag, A.Dauer, A.Sorte, A.HP, A.HPProzent, A.MaxHP, A.MaxHPProzent,
+            init(A.Name, (String) A.Bild.Tag, A.Dauer, A.Sorte, A.HP, A.HPProzent, A.MaxHP, A.MaxHPProzent,
                 A.Arbeitsbereich, A.ArbeitsbereichProzent, A.GeschwV, A.GeschwVProzent, A.GeschwR, A.GeschwRProzent,
                 A.Schaden, A.SchadenProzent, A.FeuerResistenz, A.FeuerResistenzProzent, A.GiftResistenz,
                 A.GiftResistenzProzent, A.Verteidigung, A.VerteidigungProzent, A.Eingefroren, A.Vergiftet,

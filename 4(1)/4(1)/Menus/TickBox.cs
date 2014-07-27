@@ -90,7 +90,7 @@ namespace _4_1_
             onOff[1] = Texturen.tickboxOff;
 
             itembox = new BoundingBox(new Vector3(ownPos.X, ownPos.Y, 0),
-                new Vector3(ownPos.X + scale*onOff[1].Width, ownPos.Y + onOff[1].Height*scale, 0));
+                new Vector3(ownPos.X + scale * onOff[1].Width, ownPos.Y + onOff[1].Height * scale, 0));
         }
 
         #endregion Constructors

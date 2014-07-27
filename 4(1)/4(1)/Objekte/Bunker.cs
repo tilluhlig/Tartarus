@@ -250,7 +250,7 @@ namespace _4_1_
         public int PrüfeObZerstörung(int id, Vector2 Explosionspunkt, int Explosionsradius)
         {
             if (Zerstörung[id] == null) return 0;
-            var temp = new Color[Texturen.bunker[0].Width*Texturen.bunker[0].Height];
+            var temp = new Color[Texturen.bunker[0].Width * Texturen.bunker[0].Height];
             Texturen.bunker[0].GetData(temp);
             var tmp = new Texture2D(Texturen.bunker[0].GraphicsDevice, Texturen.bunker[0].Width,
                 Texturen.bunker[0].Height);

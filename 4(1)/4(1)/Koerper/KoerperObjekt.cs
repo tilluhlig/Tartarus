@@ -1,14 +1,14 @@
 ﻿namespace _4_1_
 {
     /// <summary>
-    /// Verwaltet einen Körper
+    ///     Verwaltet einen Körper
     /// </summary>
     public class KoerperObjekt
     {
         #region Fields
 
         /// <summary>
-        ///  der Schwerpunkt des Objektes
+        ///     der Schwerpunkt des Objektes
         /// </summary>
         public Schwerpunkt objektSchwerpunkt = new Schwerpunkt();
 

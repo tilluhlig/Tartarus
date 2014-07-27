@@ -60,9 +60,9 @@ namespace _4_1_
         #region Fields
 
         /// <summary>
-        ///     The visible
+        ///     The parent directory
         /// </summary>
-        public bool visible = false;
+        private readonly DirectoryInfo ParentDirectory = new DirectoryInfo("Content\\Savegames");
 
         /// <summary>
         ///     The data
@@ -73,11 +73,6 @@ namespace _4_1_
         ///     The menu items
         /// </summary>
         private readonly Button[] menuItems = new Button[3];
-
-        /// <summary>
-        ///     The parent directory
-        /// </summary>
-        private readonly DirectoryInfo ParentDirectory = new DirectoryInfo("Content\\Savegames");
 
         /// <summary>
         ///     The screen height
@@ -108,6 +103,11 @@ namespace _4_1_
         ///     The active string
         /// </summary>
         private int activeString;
+
+        /// <summary>
+        ///     The visible
+        /// </summary>
+        public bool visible = false;
 
         #endregion Fields
 

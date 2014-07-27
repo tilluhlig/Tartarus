@@ -20,39 +20,39 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    ///     Class Destruction_Object
+    ///     diese Klasse bietet die Möglichkeit, Objekte zu zerstören
     /// </summary>
     public class ZerstörungsObjekt
     {
         #region Fields
 
         /// <summary>
-        ///     The bild_ width
+        ///     die Breite des Bildes
         /// </summary>
         public int BildBreite = 0;
 
         /// <summary>
-        ///     The bild_ height
+        ///     die Höhe des Bildes
         /// </summary>
         public int BildHöhe = 0;
 
         /// <summary>
-        ///     The rotateable
+        ///     ob das Objekt drehbar ist
         /// </summary>
         public bool Drehbar = false;
 
         /// <summary>
-        ///     The scale
+        ///     die Skalierung der Textur
         /// </summary>
         public float Skalierung = 1.0f;
 
         /// <summary>
-        ///     The overreachable
+        ///     ob das Objekt gespiegelt wird
         /// </summary>
         public bool Spiegelbar = false;
 
         /// <summary>
-        ///     The centered
+        ///     ob der Betrachtungspunkt mittig ausgerichtet wird
         /// </summary>
         public bool Zentriert = false;
 
@@ -61,25 +61,28 @@ namespace _4_1_
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ZerstörungsObjekt" /> class.
+        ///     Initialisiert ein ZerstörungsObjekt
         /// </summary>
-        /// <param name="_Bild_Width">Width of the _ bild_.</param>
-        /// <param name="_Bild_Height">Height of the _ bild_.</param>
-        /// <param name="_scale">The _scale.</param>
-        /// <param name="_centered">if set to <c>true</c> [_centered].</param>
-        /// <param name="_overreachable">if set to <c>true</c> [_overreachable].</param>
-        /// <param name="_rotateable">if set to <c>true</c> [_rotateable].</param>
-        public ZerstörungsObjekt(int _Bild_Width, int _Bild_Height, float _scale, bool _centered, bool _overreachable,
-            bool _rotateable)
+        /// <param name="_Bild_Width">die Bildbreite</param>
+        /// <param name="_Bild_Height">die Bildhöhe</param>
+        /// <param name="_Skalierung">The _Skalierung.</param>
+        /// <param name="_Zentriert">ob zentriert, true = ja, false = nein</param>
+        /// <param name="_Spiegelbar">ob spiegelbar, true = ja, false = nein </param>
+        /// <param name="_Drehbar">ob drehbar, true = ja, false = nein</param>
+        public ZerstörungsObjekt(int _Bild_Width, int _Bild_Height, float _Skalierung, bool _Zentriert, bool _Spiegelbar,
+            bool _Drehbar)
         {
             BildBreite = _Bild_Width;
             BildHöhe = _Bild_Height;
-            Skalierung = _scale;
-            Zentriert = _centered;
-            Spiegelbar = _overreachable;
-            Drehbar = _rotateable;
+            Skalierung = _Skalierung;
+            Zentriert = _Zentriert;
+            Spiegelbar = _Spiegelbar;
+            Drehbar = _Drehbar;
         }
 
+        /// <summary>
+        /// Erstellt ein leeres ZerstörungsObjekt
+        /// </summary>
         public ZerstörungsObjekt()
         {
         }
@@ -88,6 +91,12 @@ namespace _4_1_
 
         #region Methods
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Text">eine Textliste, welche das serialisierte Objekt darstellt</param>
+        /// <param name="Objekt">auf dieses Objekt werden die in Text enthaltenen Werte angewendet (null erzeugt neues Objekt)</param>
+        /// <returns>das Zerstörungsobjekt</returns>
         public static ZerstörungsObjekt Laden(List<String> Text, ZerstörungsObjekt Objekt)
         {
             ZerstörungsObjekt temp = Objekt;
@@ -107,42 +116,65 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Explodes the specified bild.
+        ///     berechnet die Zerstörung
         /// </summary>
-        /// <param name="Bild">The bild.</param>
-        /// <param name="Explosion">The explosion.</param>
-        /// <param name="Energie">The energie.</param>
-        /// <param name="Object_Position">The object_ position.</param>
-        /// <returns>System.Int32.</returns>
+        /// <param name="Bild">die Textur</param>
+        /// <param name="Explosion">der Explosionspunkt</param>
+        /// <param name="Energie">der Energiewert</param>
+        /// <param name="Object_Position">die Position des zu zerstörenden Objektes</param>
+        /// <returns>die Anzahl der zerstörten Pixel</returns>
         public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position)
         {
             return BerechneZerstörung(Bild, Explosion, Energie, Object_Position, false, 0, null);
         }
 
+        /// <summary>
+        ///     berechnet die Zerstörung
+        /// </summary>
+        /// <param name="Bild">die Textur</param>
+        /// <param name="Explosion">der Explosionspunkt</param>
+        /// <param name="Energie">der Energiewert</param>
+        /// <param name="Object_Position">die Position des zu zerstörenden Objektes</param>
+        /// <param name="Bereiche">eine Bereiche-Liste, wird mit zerstörten Bereichen gefüllt</param>
+        /// <returns>die Anzahl der zerstörten Pixel</returns>
         public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position, List<Vector3> Bereiche)
         {
             return BerechneZerstörung(Bild, Explosion, Energie, Object_Position, false, 0, Bereiche);
         }
 
+        /// <summary>
+        ///     berechnet die Zerstörung
+        /// </summary>
+        /// <param name="Bild">die Textur</param>
+        /// <param name="Explosion">der Explosionspunkt</param>
+        /// <param name="Energie">der Energiewert</param>
+        /// <param name="Object_Position">die Position des zu zerstörenden Objektes</param>
+        /// <param name="Bereiche">eine Bereiche-Liste, wird mit zerstörten Bereichen gefüllt</param>
+        /// <param name="Gespiegelt">gespiegelt?</param>
+        /// <param name="Winkel">Rotationswinkel</param>
+        /// <returns>die Anzahl der zerstörten Pixel</returns>
         public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position,
-            bool overreach, float angle)
+            bool Gespiegelt, float Winkel)
         {
             return BerechneZerstörung(Bild, Explosion, Energie, Object_Position,
-             overreach, angle, null);
+             Gespiegelt, Winkel, null);
         }
 
+
         /// <summary>
-        ///     Explodes the specified bild.
+        ///     berechnet die Zerstörung
         /// </summary>
-        /// <param name="Bild">The bild.</param>
-        /// <param name="Explosion">The explosion.</param>
-        /// <param name="Energie">The energie.</param>
-        /// <param name="Object_Position">The object_ position.</param>
-        /// <param name="overreach">if set to <c>true</c> [overreach].</param>
-        /// <param name="angle">The angle.</param>
-        /// <returns>System.Int32.</returns>
+        /// <param name="Bild">die Textur</param>
+        /// <param name="Explosion">der Explosionspunkt</param>
+        /// <param name="Energie">der Energiewert</param>
+        /// <param name="Object_Position">die Position des zu zerstörenden Objektes</param>
+        /// <param name="Bereiche">eine Bereiche-Liste, wird mit zerstörten Bereichen gefüllt</param>
+        /// <param name="Gespiegelt">gespiegelt?</param>
+        /// <param name="Winkel">Rotationswinkel</param>
+        /// <param name="Bereiche">eine Bereiche-Liste, wird mit zerstörten Bereichen gefüllt</param>
+        /// <returns>die Anzahl der zerstörten Pixel</returns>
         public int BerechneZerstörung(Texture2D Bild, Vector2 Explosion, int Energie, Vector2 Object_Position,
-            bool overreach, float angle, List<Vector3> Bereiche)
+            bool Gespiegelt, float Winkel, List<Vector3> Bereiche)
         {
             // Triviale ignorieren (zu weit weg)
             var abstand = (int)Help.Abstand(new Vector2(0, 0), new Vector2(BildBreite * Skalierung, BildHöhe * Skalierung));
@@ -152,7 +184,7 @@ namespace _4_1_
 
             // Rotateable korrektur
             if (Drehbar)
-                Explosion = Help.RotatePosition(Object_Position, MathHelper.ToRadians(360) - angle, Explosion);
+                Explosion = Help.RotatePosition(Object_Position, MathHelper.ToRadians(360) - Winkel, Explosion);
 
             // Bringe Object und Eindringling relativ zueinander
             var x = (int)(Explosion.X - Object_Position.X);
@@ -169,7 +201,7 @@ namespace _4_1_
             y = (int)(y / Skalierung);
 
             // Korrektur des Overreach
-            if (overreach) x = BildBreite - x;
+            if (Gespiegelt) x = BildBreite - x;
 
             var Picture = new Color[BildBreite * BildHöhe];
             Bild.GetData(Picture);
@@ -190,10 +222,10 @@ namespace _4_1_
                     var Delete = new Vector2(x + i, y + b);
                     if (Delete.X < 0 || Delete.Y < 0 || Delete.X >= BildBreite || Delete.Y >= BildHöhe) continue;
 
-                    if (Picture[(int) (Delete.X + Delete.Y*BildBreite)] != Color.Transparent)
+                    if (Picture[(int)(Delete.X + Delete.Y * BildBreite)] != Color.Transparent)
                     {
                         found++;
-                        Picture[(int) (Delete.X + Delete.Y*BildBreite)] = Color.Transparent;
+                        Picture[(int)(Delete.X + Delete.Y * BildBreite)] = Color.Transparent;
 
                         if (tempZerstoert.Y == -1)
                         {
@@ -210,10 +242,9 @@ namespace _4_1_
                             Bereiche.Add(tempZerstoert);
                             tempZerstoert = new Vector3(x + i, -1, -1);
                         }
-                        
                     }
                 }
-                
+
                 if (Bereiche != null && tempZerstoert.Y != -1f)
                     Bereiche.Add(tempZerstoert);
             }
@@ -227,6 +258,10 @@ namespace _4_1_
             return 0;
         }
 
+        /// <summary>
+        /// wandelt das Objekt in Text um
+        /// </summary>
+        /// <returns>die Textdarstellung des Objektes</returns>
         public List<String> Speichern()
         {
             var data = new List<String>();

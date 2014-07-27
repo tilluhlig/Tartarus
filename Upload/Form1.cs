@@ -323,7 +323,7 @@ namespace Upload
             }
 
             label1.Text = Bezeichner;
-            label1.Left = Width / 2 - label1.Width / 2;
+            label1.Left = Width/2 - label1.Width/2;
         }
 
         #endregion Methods
