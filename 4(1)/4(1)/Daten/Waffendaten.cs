@@ -250,7 +250,7 @@ namespace _4_1_
         /// </summary>
         public static Vector4[] Daten3 =
         {
-            new Vector4(10, 20, 150, 50), /*           */ new Vector4(10, 30, 200, 50),
+            new Vector4(10, 5, 400, 100), /*           */ new Vector4(10, 30, 200, 50),
             /*            */ new Vector4(10, 10, 300, 50), /*         */ new Vector4(10, 15, 200, 50),
             /*                */ new Vector4(20, 17, 600, 160), /*             */ new Vector4(10, 10, 400, 30),
             /*            */ new Vector4(3, 1, 1000, 30), /*             */ new Vector4(5, 1, 1000, 30),
@@ -268,7 +268,7 @@ namespace _4_1_
         /// </summary>
         public static Vector3[] Daten4 =
         {
-            new Vector3(2.8f, 2f, 2f), /*              */ new Vector3(2.8f, 2f, 2f),
+            new Vector3(4f, 4f, 4f), /*              */ new Vector3(2.8f, 2f, 2f),
             /*               */ new Vector3(0.8f, 1.6f, 3f), /*          */ new Vector3(2.0f, 1.2f, 0.4f),
             /*               */ new Vector3(2.8f, 2f, 2f), /*                 */ new Vector3(2.8f, 2f, 2f),
             /*               */ new Vector3(0.7f, 0.7f, 0.5f), /*           */ new Vector3(0.7f, 0.7f, 0.5f),
