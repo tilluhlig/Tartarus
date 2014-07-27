@@ -299,7 +299,7 @@ namespace _4_1_
         /// <summary>
         ///     The klotzchen
         /// </summary>
-        public static Texture2D klotzchen;
+        ///public static Texture2D klotzchen;
 
         /// <summary>
         ///     The kreis
@@ -702,7 +702,7 @@ namespace _4_1_
             tickboxOn = Content.Load<Texture2D>("Textures\\tickboxOn");
             tickboxOff = Content.Load<Texture2D>("Textures\\tickboxOff");
             //Comboboxbalken = Content.Load<Texture2D>("Textures\\Comboboxbalken");
-            klotzchen = Content.Load<Texture2D>("Textures\\klotzchen");
+            ///klotzchen = Content.Load<Texture2D>("Textures\\klotzchen");
             // Startmenu = Content.Load<Texture2D>("Textures\\Startmenu4"); ;
             pregamemenu = Content.Load<Texture2D>("Textures\\pregamemenu");
             hausbutton = Content.Load<Texture2D>("Textures\\hausbutton");
