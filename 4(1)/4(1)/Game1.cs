@@ -98,7 +98,7 @@ namespace _4_1_
         /// <summary>
         ///     Die Kartenbreite in Pixel
         /// </summary>
-        public int Kartengroesse = 2048 * 5;
+        public int Kartengroesse = 2048*5;
 
         /// <summary>
         ///     The sp menu fully deployed
@@ -256,7 +256,7 @@ namespace _4_1_
             Hauptfenster.Program.Formular.label31.BringToFront();
             Hauptfenster.Program.Formular.label31.Left = Hauptfenster.Program.Formular.progressBar1.Left;
             Hauptfenster.Program.Formular.label31.Text =
-                ("").PadRight((int)((Hauptfenster.Program.Formular.progressBar1.Width / 5.4f) + 0.5f), ' ');
+                ("").PadRight((int) ((Hauptfenster.Program.Formular.progressBar1.Width/5.4f) + 0.5f), ' ');
             Hauptfenster.Program.Formular.label31.Refresh();
             if (Ladebildschirmtexte == null)
             {
@@ -272,8 +272,8 @@ namespace _4_1_
             Hauptfenster.Program.Formular.label31.Top = Hauptfenster.Program.Formular.progressBar1.Top -
                                                         Hauptfenster.Program.Formular.label31.Height;
             // + progressBar1.Height
-            Hauptfenster.Program.Formular.label31.Left = Hauptfenster.Program.Formular.Width / 2 -
-                                                         Hauptfenster.Program.Formular.label31.Width / 2;
+            Hauptfenster.Program.Formular.label31.Left = Hauptfenster.Program.Formular.Width/2 -
+                                                         Hauptfenster.Program.Formular.label31.Width/2;
             if (!Hauptfenster.Program.Formular.label31.Visible) Hauptfenster.Program.Formular.label31.Show();
             Hauptfenster.Program.Formular.label31.Refresh();
             // System.Threading.Thread.Sleep(1000);
@@ -303,9 +303,9 @@ namespace _4_1_
             //Hauptfenster.Tausch.screenheight = Hauptfenster.Form1.ActiveForm.Height;
             baseScreenSize = new Vector2(Tausch.screenwidth, Tausch.screenheight);
 
-            screenWidth = (int)baseScreenSize.X;
-            screenHeight = (int)baseScreenSize.Y;
-            Kartengroesse = 2048 * Tausch.Kartengroesse;
+            screenWidth = (int) baseScreenSize.X;
+            screenHeight = (int) baseScreenSize.Y;
+            Kartengroesse = 2048*Tausch.Kartengroesse;
             SpielAktiv = Tausch.SpielAktiv;
             if (Spiel2 != null)
             {
@@ -426,8 +426,8 @@ namespace _4_1_
         {
             if (Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon == 5)
             {
-                int xPos = (int)Spiel2.players[Spiel2.CurrentPlayer].shootingPower - (int)Spiel2.Fenster.X;
-                int yPos = screenHeight / 2 - (int)Spiel2.Fenster.Y;
+                int xPos = (int) Spiel2.players[Spiel2.CurrentPlayer].shootingPower - (int) Spiel2.Fenster.X;
+                int yPos = screenHeight/2 - (int) Spiel2.Fenster.Y;
                 spriteBatch.Draw(Texturen.kreuz,
                     new Vector2(xPos, Kartenformat.BottomOf(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, 0)),
                     null, Color.White, 0, new Vector2(35, 35), 1f, SpriteEffects.None, 1);
@@ -449,18 +449,18 @@ namespace _4_1_
             if (Fahrzeugdaten.ARBEITSBEREICH.Wert[id] == 0) return;
             Vector2 pos = Spiel2.players[i].pos[b];
             Vector2 oldpos = Spiel2.players[i].oldpos[b];
-            var x1 = (int)(oldpos.X - Fahrzeugdaten.ARBEITSBEREICH.Wert[id] - Spiel2.Fenster.X);
-            var x2 = (int)(oldpos.X + Fahrzeugdaten.ARBEITSBEREICH.Wert[id] - Spiel2.Fenster.X);
+            var x1 = (int) (oldpos.X - Fahrzeugdaten.ARBEITSBEREICH.Wert[id] - Spiel2.Fenster.X);
+            var x2 = (int) (oldpos.X + Fahrzeugdaten.ARBEITSBEREICH.Wert[id] - Spiel2.Fenster.X);
             int size = 40;
             if (x1 >= 0 && x1 < Spiel2.Width)
             {
-                Help.DrawLine(spriteBatch, new Vector2(x1 + size / 2, 0), new Vector2(x1 + size / 2, Spiel2.Height),
-                    Color.Goldenrod * 0.2f, size);
+                Help.DrawLine(spriteBatch, new Vector2(x1 + size/2, 0), new Vector2(x1 + size/2, Spiel2.Height),
+                    Color.Goldenrod*0.2f, size);
             }
             if (x2 >= 0 && x2 < Spiel2.Width)
             {
-                Help.DrawLine(spriteBatch, new Vector2(x2 + size / 2, 0), new Vector2(x2 + size / 2, Spiel2.Height),
-                    Color.Goldenrod * 0.2f, size);
+                Help.DrawLine(spriteBatch, new Vector2(x2 + size/2, 0), new Vector2(x2 + size/2, Spiel2.Height),
+                    Color.Goldenrod*0.2f, size);
             }
         }
 
@@ -475,7 +475,7 @@ namespace _4_1_
             for (int i = 0; i < Spiel2.Bunker.Position.Count; i++)
             {
                 int check = -1;
-                var breite = (int)(Texturen.bunker[0].Width * scale);
+                var breite = (int) (Texturen.bunker[0].Width*scale);
                 if (Bunker.BUNKER_KOLLISION)
                 {
                     for (int b = 0; b < Spiel2.players.Length; b++)
@@ -491,14 +491,14 @@ namespace _4_1_
                     }
                 }
 
-                var xPos = (int)(Spiel2.Bunker.Position[i].X - (int)Spiel2.Fenster.X);
-                var yPos = (int)(Spiel2.Bunker.Position[i].Y - Spiel2.Fenster.Y);
+                var xPos = (int) (Spiel2.Bunker.Position[i].X - (int) Spiel2.Fenster.X);
+                var yPos = (int) (Spiel2.Bunker.Position[i].Y - Spiel2.Fenster.Y);
 
                 int Bild = 0;
                 if (Spiel2.Bunker.Lebenspunkte[i] > 0)
                 {
-                    if (Spiel2.Bunker.Lebenspunkte[i] / Spiel2.Bunker.MaximaleLebenspunkte[i] <= 0.75f) Bild = 1;
-                    if (Spiel2.Bunker.Lebenspunkte[i] / Spiel2.Bunker.MaximaleLebenspunkte[i] <= 0.5f) Bild = 2;
+                    if (Spiel2.Bunker.Lebenspunkte[i]/Spiel2.Bunker.MaximaleLebenspunkte[i] <= 0.75f) Bild = 1;
+                    if (Spiel2.Bunker.Lebenspunkte[i]/Spiel2.Bunker.MaximaleLebenspunkte[i] <= 0.5f) Bild = 2;
                 }
                 else
                     Bild = 2;
@@ -548,23 +548,23 @@ namespace _4_1_
                 spriteBatch.Begin();
                 if (Bunker.BUNKER_LEBENSLINIE)
                 {
-                    float Breite = Texturen.bunker[Bild].Width * scale;
+                    float Breite = Texturen.bunker[Bild].Width*scale;
 
-                    var leben = new Rectangle(0, 0, (int)(Breite * 1), Texturen.leben.Height / 4);
+                    var leben = new Rectangle(0, 0, (int) (Breite*1), Texturen.leben.Height/4);
                     spriteBatch.Draw(Texturen.leben,
-                        new Vector2(xPos, Spiel2.Bunker.Position[i].Y - Texturen.bunker[Bild].Height * scale - 10), leben,
-                        Color.DarkRed * 0.5f);
+                        new Vector2(xPos, Spiel2.Bunker.Position[i].Y - Texturen.bunker[Bild].Height*scale - 10), leben,
+                        Color.DarkRed*0.5f);
 
                     if (Spiel2.Bunker.Lebenspunkte[i] > 0)
                     {
                         leben = new Rectangle(0, 0,
                             (int)
-                                (Breite * ((float)Spiel2.Bunker.Lebenspunkte[i] / (Spiel2.Bunker.MaximaleLebenspunkte[i]))),
-                            Texturen.leben.Height / 4);
+                                (Breite*((float) Spiel2.Bunker.Lebenspunkte[i]/(Spiel2.Bunker.MaximaleLebenspunkte[i]))),
+                            Texturen.leben.Height/4);
                         spriteBatch.Draw(Texturen.leben,
-                            new Vector2(xPos, Spiel2.Bunker.Position[i].Y - Texturen.bunker[Bild].Height * scale - 10),
+                            new Vector2(xPos, Spiel2.Bunker.Position[i].Y - Texturen.bunker[Bild].Height*scale - 10),
                             leben,
-                            Color.Lime * 0.5f);
+                            Color.Lime*0.5f);
                     }
                 }
                 spriteBatch.End();
@@ -580,8 +580,8 @@ namespace _4_1_
             {
                 if (!Spiel2.Karte.particleListExp[i].set || !Spiel2.Karte.particleListExp[i].alive) continue;
                 Karte.ParticleData particle = Spiel2.Karte.particleListExp[i];
-                int xPos = (int)particle.Position.X - (int)Spiel2.Fenster.X;
-                int yPos = (int)particle.Position.Y - (int)Spiel2.Fenster.Y;
+                int xPos = (int) particle.Position.X - (int) Spiel2.Fenster.X;
+                int yPos = (int) particle.Position.Y - (int) Spiel2.Fenster.Y;
                 spriteBatch.Draw(Texturen.explosion, new Vector2(xPos, yPos), null, particle.ModColor, i,
                     new Vector2(256, 256), particle.Scaling, SpriteEffects.None, 1);
             }
@@ -597,22 +597,22 @@ namespace _4_1_
             for (int b = 0; b < Spiel2.Kisten.aktiv.Count; b++)
             {
                 float scale = Kiste.sc;
-                var x = (int)Spiel2.Kisten.pos[b].X;
-                var y = (int)Spiel2.Kisten.pos[b].Y;
+                var x = (int) Spiel2.Kisten.pos[b].X;
+                var y = (int) Spiel2.Kisten.pos[b].Y;
 
                 Texture2D Bild = Kiste.Bild;
                 if (x == -1) continue;
-                if (x + Bild.Width * scale < Spiel2.Fenster.X || Spiel2.Fenster.X + screenWidth < x - Bild.Width * scale)
+                if (x + Bild.Width*scale < Spiel2.Fenster.X || Spiel2.Fenster.X + screenWidth < x - Bild.Width*scale)
                     continue;
-                int xPos = x - (int)Spiel2.Fenster.X;
-                var yPos = (int)(y - Spiel2.Fenster.Y);
+                int xPos = x - (int) Spiel2.Fenster.X;
+                var yPos = (int) (y - Spiel2.Fenster.Y);
 
-                spriteBatch.Draw(Bild, new Vector2(xPos - (Bild.Width * scale) / 2, yPos - (Bild.Height * scale) / 2), null,
-                    Color.White, 0, new Vector2(Bild.Width / 2, Bild.Height / 2), scale, SpriteEffects.None, 1);
+                spriteBatch.Draw(Bild, new Vector2(xPos - (Bild.Width*scale)/2, yPos - (Bild.Height*scale)/2), null,
+                    Color.White, 0, new Vector2(Bild.Width/2, Bild.Height/2), scale, SpriteEffects.None, 1);
 
                 if (Editor.visible && Editor.mouseover == 5 && Editor.mouseoverid == b)
-                    spriteBatch.Draw(Bild, new Vector2(xPos - (Bild.Width * scale) / 2, yPos - (Bild.Height * scale) / 2), null,
-                        Color.Blue, 0, new Vector2(Bild.Width / 2, Bild.Height / 2), scale, SpriteEffects.None, 1);
+                    spriteBatch.Draw(Bild, new Vector2(xPos - (Bild.Width*scale)/2, yPos - (Bild.Height*scale)/2), null,
+                        Color.Blue, 0, new Vector2(Bild.Width/2, Bild.Height/2), scale, SpriteEffects.None, 1);
             }
         }
 
@@ -626,7 +626,7 @@ namespace _4_1_
                 {
                     float scale = Optimierung.Skalierung(0.25f);
                     float scale2 = 0.125f;
-                    float scale5 = scale * 0.8f; // TODO wurde geändert, war vorher 0.2f, richtig?
+                    float scale5 = scale*0.8f; // TODO wurde geändert, war vorher 0.2f, richtig?
                     int leistenbreite = 5;
 
                     // Fuel Button
@@ -653,25 +653,25 @@ namespace _4_1_
                                         .ToString()).PadLeft(4, '0');
 
                         Vector2 add = Spiel.CREDITS.Wert
-                            ? new Vector2(-((float)Texturen.LeeresFeld.Width * scale5) - 25, 0)
+                            ? new Vector2(-(Texturen.LeeresFeld.Width*scale5) - 25, 0)
                             : Vector2.Zero;
 
                         if (Mod.ACTION_BUTTON_VISIBLE.Wert)
                         {
                             spriteBatch.Draw(Texturen.LeeresFeld,
-                                new Vector2(screenWidth - 3 - 2 * ((float)Texturen.LeeresFeld.Width * scale5), 5) + add,
+                                new Vector2(screenWidth - 3 - 2*(Texturen.LeeresFeld.Width*scale5), 5) + add,
                                 null, Color.White, 0, new Vector2(0, 0), scale5, SpriteEffects.None, 1);
                             spriteBatch.DrawString(Texturen.font, fuel,
-                                new Vector2(screenWidth - 3 - 2 * ((float)Texturen.LeeresFeld.Width * scale5) + 8, 5 + 10) +
+                                new Vector2(screenWidth - 3 - 2*(Texturen.LeeresFeld.Width*scale5) + 8, 5 + 10) +
                                 add, Color.Green);
                         }
                         else
                         {
                             spriteBatch.Draw(Texturen.LeeresFeld,
-                                new Vector2(screenWidth - 3 - ((float)Texturen.LeeresFeld.Width * scale5), 5) + add, null,
+                                new Vector2(screenWidth - 3 - (Texturen.LeeresFeld.Width*scale5), 5) + add, null,
                                 Color.White, 0, new Vector2(0, 0), scale5, SpriteEffects.None, 1);
                             spriteBatch.DrawString(Texturen.font, fuel,
-                                new Vector2(screenWidth - 3 - ((float)Texturen.LeeresFeld.Width * scale5) + 8, 5 + 10) +
+                                new Vector2(screenWidth - 3 - (Texturen.LeeresFeld.Width*scale5) + 8, 5 + 10) +
                                 add, Color.Green);
                         }
                     }
@@ -680,14 +680,14 @@ namespace _4_1_
                     if (Spiel.CREDITS.Wert)
                     {
                         String credits =
-                            (((int)Spiel2.players[Spiel2.CurrentPlayer].Credits > 9999
+                            (((int) Spiel2.players[Spiel2.CurrentPlayer].Credits > 9999
                                 ? 9999
                                 : Spiel2.players[Spiel2.CurrentPlayer].Credits).ToString()).PadLeft(4, '0');
                         spriteBatch.Draw(Texturen.LeeresFeld,
-                            new Vector2(screenWidth - 3 - ((float)Texturen.LeeresFeld.Width * scale5) * 2, 5), null,
+                            new Vector2(screenWidth - 3 - (Texturen.LeeresFeld.Width*scale5)*2, 5), null,
                             Color.White, 0, new Vector2(0, 0), scale5, SpriteEffects.None, 1);
                         spriteBatch.DrawString(Texturen.font, credits,
-                            new Vector2(screenWidth - 3 - ((float)Texturen.LeeresFeld.Width * scale5) * 2 + 8, 5 + 10),
+                            new Vector2(screenWidth - 3 - (Texturen.LeeresFeld.Width*scale5)*2 + 8, 5 + 10),
                             Color.CadetBlue);
                     }
 
@@ -695,14 +695,14 @@ namespace _4_1_
                     if (Mod.ACTION_BUTTON_VISIBLE.Wert)
                     {
                         String action =
-                            (((int)Spiel2.players[Spiel2.CurrentPlayer].ActionPoints > 9999
+                            ((Spiel2.players[Spiel2.CurrentPlayer].ActionPoints > 9999
                                 ? 9999
                                 : Spiel2.players[Spiel2.CurrentPlayer].ActionPoints).ToString()).PadLeft(4, '0');
                         spriteBatch.Draw(Texturen.LeeresFeld,
-                            new Vector2(screenWidth - 3 - ((float)Texturen.LeeresFeld.Width * scale5), 5), null,
+                            new Vector2(screenWidth - 3 - (Texturen.LeeresFeld.Width*scale5), 5), null,
                             Color.White, 0, new Vector2(0, 0), scale5, SpriteEffects.None, 1);
                         spriteBatch.DrawString(Texturen.font, action,
-                            new Vector2(screenWidth - 3 - ((float)Texturen.LeeresFeld.Width * scale5) + 8, 5 + 10),
+                            new Vector2(screenWidth - 3 - (Texturen.LeeresFeld.Width*scale5) + 8, 5 + 10),
                             Color.Red);
                     }
 
@@ -730,10 +730,10 @@ namespace _4_1_
                         cool = cool.PadLeft(5, ' ');
                         spriteBatch.DrawString(Texturen.font2, cool,
                             new Vector2(
-                                Mod.AKTUELLE_MUNITION_BUTTON_X.Wert + Texturen.waffenbilder[id].Width * scale -
+                                Mod.AKTUELLE_MUNITION_BUTTON_X.Wert + Texturen.waffenbilder[id].Width*scale -
                                 Texturen.font2.MeasureString(cool).X - 5,
-                                Mod.AKTUELLE_MUNITION_BUTTON_Y.Wert + Texturen.waffenbilder[id].Height * scale -
-                                Texturen.font2.MeasureString(cool).Y - 5), Color.Red * 0.8f);
+                                Mod.AKTUELLE_MUNITION_BUTTON_Y.Wert + Texturen.waffenbilder[id].Height*scale -
+                                Texturen.font2.MeasureString(cool).Y - 5), Color.Red*0.8f);
 
                         // Munitionsvorrat
                         if (Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] != 0 &&
@@ -774,12 +774,12 @@ namespace _4_1_
                         if (Mod.LEISTE_BUTTON_VISIBLE.Wert)
                         {
                             spriteBatch.Draw(Texturen.LeeresFeld,
-                                new Vector2(5 + ((float)Texturen.LeeresFeld.Width * scale) * i,
-                                    screenHeight - (float)Texturen.LeeresFeld.Height * scale - 5), null, Color.White, 0,
+                                new Vector2(5 + (Texturen.LeeresFeld.Width*scale)*i,
+                                    screenHeight - Texturen.LeeresFeld.Height*scale - 5), null, Color.White, 0,
                                 new Vector2(0, 0), scale, SpriteEffects.None, 1);
                             spriteBatch.Draw(Texturen.panzerbutton[current.KindofTank[b]],
-                                new Vector2(5 + ((float)Texturen.LeeresFeld.Width * scale) * i,
-                                    screenHeight - (float)Texturen.LeeresFeld.Height * scale - 5), null, Color.White, 0,
+                                new Vector2(5 + (Texturen.LeeresFeld.Width*scale)*i,
+                                    screenHeight - Texturen.LeeresFeld.Height*scale - 5), null, Color.White, 0,
                                 new Vector2(0, 0), scale, SpriteEffects.None, 1);
 
                             Color r = Spiel2.players[Spiel2.CurrentPlayer].Farbe;
@@ -788,8 +788,8 @@ namespace _4_1_
                             r = Color.Gold;
                             r *= 0.8f;
                             spriteBatch.Draw(Texturen.panzerbutton[current.KindofTank[b]],
-                                new Vector2(5 + ((float)Texturen.LeeresFeld.Width * scale) * i,
-                                    screenHeight - (float)Texturen.LeeresFeld.Height * scale - 5), null, r, 0,
+                                new Vector2(5 + (Texturen.LeeresFeld.Width*scale)*i,
+                                    screenHeight - Texturen.LeeresFeld.Height*scale - 5), null, r, 0,
                                 new Vector2(0, 0), scale, SpriteEffects.None, 1);
                         }
 
@@ -818,20 +818,20 @@ namespace _4_1_
                             int cool = Spiel2.players[Spiel2.CurrentPlayer].Cooldown[list[i]];
                             Color rr = Color.Gold;
                             //if (Spiel2.players[Spiel2.CurrentPlayer].freezed[list[i]] > 0) { cool = Spiel2.players[Spiel2.CurrentPlayer].freezed[list[i]]; rr = Color.Aquamarine; }
-                            spriteBatch.DrawString(Texturen.font2, Convert.ToString(cool / 60),
-                                new Vector2(5 + ((float)Texturen.LeeresFeld.Width * scale) * i + 10,
-                                    screenHeight - (float)Texturen.LeeresFeld.Height * scale - 5 + 31), rr);
+                            spriteBatch.DrawString(Texturen.font2, Convert.ToString(cool/60),
+                                new Vector2(5 + (Texturen.LeeresFeld.Width*scale)*i + 10,
+                                    screenHeight - Texturen.LeeresFeld.Height*scale - 5 + 31), rr);
                         }
 
                         // Lebenslinie malen
                         if (Mod.LEISTE_LEBENSLINIE_VISIBLE.Wert)
                         {
                             int anteil = current.Effekte[b].GetHP(current.hp[b]);
-                            var ges = (int)(((float)anteil / Fahrzeugdaten._MAXHP.Wert[current.KindofTank[b]]) * 250);
+                            var ges = (int) (((float) anteil/Fahrzeugdaten._MAXHP.Wert[current.KindofTank[b]])*250);
                             var a = new Rectangle(0, 0, ges, Texturen.leben.Height);
                             spriteBatch.Draw(Texturen.leben,
-                                new Vector2(10 + ((float)Texturen.LeeresFeld.Width * scale) * i,
-                                    screenHeight - (float)Texturen.LeeresFeld.Height * scale - 5 + 5), a, Color.Lime * 0.5f,
+                                new Vector2(10 + (Texturen.LeeresFeld.Width*scale)*i,
+                                    screenHeight - Texturen.LeeresFeld.Height*scale - 5 + 5), a, Color.Lime*0.5f,
                                 0, new Vector2(0, 0), 0.25f, SpriteEffects.FlipHorizontally, 1);
                         }
                     }
@@ -842,10 +842,10 @@ namespace _4_1_
                         int curr2 = current.getPanzerID(current.CurrentTank, list);
                         spriteBatch.Draw(Texturen.pfeil,
                             new Vector2(
-                                5 + ((float)Texturen.LeeresFeld.Width * scale) * (curr2 - curr) +
-                                ((float)Texturen.LeeresFeld.Width * scale) / 2 - ((float)Texturen.pfeil.Width * scale2) / 2,
-                                (float)screenHeight - Texturen.LeeresFeld.Height * scale - 5 -
-                                Texturen.pfeil.Height * scale2), null, Color.White, 0, new Vector2(0, 0), scale2,
+                                5 + (Texturen.LeeresFeld.Width*scale)*(curr2 - curr) +
+                                (Texturen.LeeresFeld.Width*scale)/2 - (Texturen.pfeil.Width*scale2)/2,
+                                screenHeight - Texturen.LeeresFeld.Height*scale - 5 -
+                                Texturen.pfeil.Height*scale2), null, Color.White, 0, new Vector2(0, 0), scale2,
                             SpriteEffects.None, 1);
                     }
                 }
@@ -862,21 +862,21 @@ namespace _4_1_
             for (int b = 0; b < Spiel2.players[i].Minen.Count; b++)
             {
                 float scale = Spiel2.players[i].Minen[b].Skalierung;
-                var x = (int)Spiel2.players[i].Minen[b].Position.X;
-                var y = (int)Spiel2.players[i].Minen[b].Position.Y;
+                var x = (int) Spiel2.players[i].Minen[b].Position.X;
+                var y = (int) Spiel2.players[i].Minen[b].Position.Y;
 
                 Texture2D Bild = Spiel2.players[i].Minen[b].ErmittleBild();
                 if (x == -1) continue;
-                if (x + Bild.Width * scale < Spiel2.Fenster.X || Spiel2.Fenster.X + screenWidth < x - Bild.Width * scale)
+                if (x + Bild.Width*scale < Spiel2.Fenster.X || Spiel2.Fenster.X + screenWidth < x - Bild.Width*scale)
                     continue;
-                int xPos = x - (int)Spiel2.Fenster.X;
-                var yPos = (int)(y - Spiel2.Fenster.Y);
+                int xPos = x - (int) Spiel2.Fenster.X;
+                var yPos = (int) (y - Spiel2.Fenster.Y);
 
-                spriteBatch.Draw(Bild, new Vector2(xPos - (Bild.Width * scale) / 2, yPos), null, Color.White, 0,
+                spriteBatch.Draw(Bild, new Vector2(xPos - (Bild.Width*scale)/2, yPos), null, Color.White, 0,
                     new Vector2(0, Bild.Height), scale, SpriteEffects.None, 1);
 
                 if (Editor.visible && Editor.mouseover == 6 && Editor.mouseoverid == i && Editor.mouseoverid2 == b)
-                    spriteBatch.Draw(Bild, new Vector2(xPos - (Bild.Width * scale) / 2, yPos), null, Color.Blue, 0,
+                    spriteBatch.Draw(Bild, new Vector2(xPos - (Bild.Width*scale)/2, yPos), null, Color.Blue, 0,
                         new Vector2(0, Bild.Height), scale, SpriteEffects.None, 1);
             }
         }
@@ -895,24 +895,24 @@ namespace _4_1_
                 Spiel2.players[i].Minen[b].RadiusAnzeige--;
 
                 float scale = 1; // Spiel2.players[i].Minen[b].scale;
-                var x = (int)Spiel2.players[i].Minen[b].Position.X;
-                var y = (int)Spiel2.players[i].Minen[b].Position.Y;
+                var x = (int) Spiel2.players[i].Minen[b].Position.X;
+                var y = (int) Spiel2.players[i].Minen[b].Position.Y;
 
                 Texture2D Bild = Texturen.kreis;
-                var Energie = (int)Waffendaten.Daten[Spiel2.players[i].Minen[b].Waffenart].X;
+                var Energie = (int) Waffendaten.Daten[Spiel2.players[i].Minen[b].Waffenart].X;
                 if (x == -1) continue;
-                if (x + Bild.Width * scale < Spiel2.Fenster.X || Spiel2.Fenster.X + screenWidth < x - Bild.Width * scale)
+                if (x + Bild.Width*scale < Spiel2.Fenster.X || Spiel2.Fenster.X + screenWidth < x - Bild.Width*scale)
                     continue;
-                int xPos = x - (int)Spiel2.Fenster.X;
-                var yPos = (int)(y - Spiel2.Fenster.Y);
+                int xPos = x - (int) Spiel2.Fenster.X;
+                var yPos = (int) (y - Spiel2.Fenster.Y);
                 float faktor = 1.0f;
                 if (Spiel2.players[i].Minen[b].RadiusAnzeige <= 300)
                 {
-                    faktor = Spiel2.players[i].Minen[b].RadiusAnzeige / 300.0f;
+                    faktor = Spiel2.players[i].Minen[b].RadiusAnzeige/300.0f;
                 }
 
-                spriteBatch.Draw(Bild, new Rectangle(xPos - Energie, yPos - Energie, Energie * 2, Energie * 2), null,
-                    Color.Yellow * 0.75f * faktor, 0, Vector2.Zero, SpriteEffects.None, 1);
+                spriteBatch.Draw(Bild, new Rectangle(xPos - Energie, yPos - Energie, Energie*2, Energie*2), null,
+                    Color.Yellow*0.75f*faktor, 0, Vector2.Zero, SpriteEffects.None, 1);
             }
         }
 
@@ -922,27 +922,27 @@ namespace _4_1_
         public void DrawMinimap()
         {
             if (Spiel2 == null) return;
-            int screenWidth2 = screenWidth * 4;
-            var fensterx = (int)(Spiel2.Fenster.X - screenWidth2 / 2 + screenWidth / 2);
+            int screenWidth2 = screenWidth*4;
+            var fensterx = (int) (Spiel2.Fenster.X - screenWidth2/2 + screenWidth/2);
             float fact = 0.15f;
 
             for (int i = 0; i < Spiel2.foreground.Length; i++)
             {
-                if (fensterx > (i + 1) * 2048 || fensterx + screenWidth2 < i * 2048) continue;
-                if (fensterx + screenWidth2 < i * 2048) continue;
-                int x = fensterx - i * 2048;
-                var y = (int)Spiel2.Fenster.Y;
+                if (fensterx > (i + 1)*2048 || fensterx + screenWidth2 < i*2048) continue;
+                if (fensterx + screenWidth2 < i*2048) continue;
+                int x = fensterx - i*2048;
+                var y = (int) Spiel2.Fenster.Y;
 
                 Color col = Color.Gold;
                 col = Color.DarkGreen;
                 Rectangle a;
                 if (x < 0)
                 {
-                    x = (i * 2048 - fensterx);
+                    x = (i*2048 - fensterx);
                     a = new Rectangle(0, y, 2048, screenHeight); //screenWidth - screenWidth2 * fact
                     //
                     spriteBatch.Draw(Spiel2.foreground[i],
-                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - screenHeight * fact), a, col, 0.0f,
+                        new Vector2(screenWidth - screenWidth2*fact, screenHeight - screenHeight*fact), a, col, 0.0f,
                         new Vector2(-x, 0), fact, SpriteEffects.None, 1);
                 }
                 else
@@ -953,7 +953,7 @@ namespace _4_1_
                     a = new Rectangle(x, y, l, screenHeight);
                     // - screenHeight * fact
                     spriteBatch.Draw(Spiel2.foreground[i],
-                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - screenHeight * fact), a, col, 0.0f,
+                        new Vector2(screenWidth - screenWidth2*fact, screenHeight - screenHeight*fact), a, col, 0.0f,
                         new Vector2(0, 0), fact, SpriteEffects.None, 1);
                 }
             }
@@ -961,7 +961,7 @@ namespace _4_1_
             var c = new Rectangle(0, 0, screenWidth, screenHeight);
             // - screenHeight * fact
             spriteBatch.Draw(Texturen.kasten,
-                new Vector2(screenWidth - screenWidth2 / 2 * fact - screenWidth / 2 * fact, screenHeight - screenHeight * fact), c,
+                new Vector2(screenWidth - screenWidth2/2*fact - screenWidth/2*fact, screenHeight - screenHeight*fact), c,
                 Color.White, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
         }
 
@@ -972,25 +972,25 @@ namespace _4_1_
         {
             if (Spiel2 == null) return;
             if (Spiel2.CurrentPlayer == -1) return;
-            int screenWidth2 = screenWidth * 4;
-            var fensterx = (int)(Spiel2.Fenster.X - screenWidth2 / 2 + screenWidth / 2);
+            int screenWidth2 = screenWidth*4;
+            var fensterx = (int) (Spiel2.Fenster.X - screenWidth2/2 + screenWidth/2);
             float fact = 0.15f;
-            Color[] playerC = { Color.Red, Color.Aqua };
+            Color[] playerC = {Color.Red, Color.Aqua};
             // DrawPlayer
             int i = Spiel2.CurrentPlayer;
             for (int b = 0; b < Spiel2.players[i].pos.Count; b++)
             {
                 if (!Spiel2.players[i].isthere[b]) continue;
                 if (Spiel2.players[i].pos[b].X < fensterx) continue;
-                var x = (int)(Spiel2.players[i].pos[b].X - Texturen.dot.Width / 2 - fensterx);
-                var y = (int)(Spiel2.players[i].pos[b].Y - Texturen.dot.Height / 2 - Spiel2.Fenster.Y);
+                var x = (int) (Spiel2.players[i].pos[b].X - Texturen.dot.Width/2 - fensterx);
+                var y = (int) (Spiel2.players[i].pos[b].Y - Texturen.dot.Height/2 - Spiel2.Fenster.Y);
                 spriteBatch.Draw(Texturen.dot,
-                    new Rectangle((int)(screenWidth - screenWidth2 * fact + x * fact - 1),
-                        (int)(screenHeight - screenHeight * fact + y * fact - 1), (int)(Texturen.dot.Width * fact + 3),
-                        (int)(Texturen.dot.Height * fact + 3)), new Rectangle(0, 0, 10, 10), Color.Black);
+                    new Rectangle((int) (screenWidth - screenWidth2*fact + x*fact - 1),
+                        (int) (screenHeight - screenHeight*fact + y*fact - 1), (int) (Texturen.dot.Width*fact + 3),
+                        (int) (Texturen.dot.Height*fact + 3)), new Rectangle(0, 0, 10, 10), Color.Black);
 
                 spriteBatch.Draw(Texturen.dot,
-                    new Vector2(screenWidth - screenWidth2 * fact + x * fact, screenHeight - screenHeight * fact + y * fact),
+                    new Vector2(screenWidth - screenWidth2*fact + x*fact, screenHeight - screenHeight*fact + y*fact),
                     null, Spiel2.players[i].Farbe, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
             }
         }
@@ -1005,14 +1005,14 @@ namespace _4_1_
             {
                 if (Spiel2.Missile[i].missleShot == false) continue;
 
-                int xPos = (int)Spiel2.Missile[i].misslePosition.X - (int)Spiel2.Fenster.X;
-                int yPos = (int)Spiel2.Missile[i].misslePosition.Y - (int)Spiel2.Fenster.Y;
+                int xPos = (int) Spiel2.Missile[i].misslePosition.X - (int) Spiel2.Fenster.X;
+                int yPos = (int) Spiel2.Missile[i].misslePosition.Y - (int) Spiel2.Fenster.Y;
                 Color farbe = Color.White;
 
                 if (Spiel.MISSILE_PLAYER_COLOR_VISIBLE.Wert)
                 {
                     if (Spiel2.Missile[i].Besitzer[0] != 3 && Spiel2.Missile[i].Besitzer[0] >= 0)
-                    // Spieler 3 ist nobody
+                        // Spieler 3 ist nobody
                     {
                         farbe = Spiel2.players[Spiel2.Missile[i].Besitzer[0]].Farbe;
                     }
@@ -1020,24 +1020,24 @@ namespace _4_1_
 
                 spriteBatch.Draw(Texturen.missle[Spiel2.Missile[i].Art], new Vector2(xPos, yPos), null, farbe,
                     Spiel2.Missile[i].missleAngle,
-                    new Vector2(0, Texturen.missle[Spiel2.Missile[i].Art].Height / 2) *
+                    new Vector2(0, Texturen.missle[Spiel2.Missile[i].Art].Height/2)*
                     Waffendaten.Skalierung[Spiel2.Missile[i].Art], Waffendaten.Skalierung[Spiel2.Missile[i].Art],
                     SpriteEffects.None, 1); // 190, 40
 
                 if (Spiel2.Missile[i].Art == 5) //  || Spiel2.Missile[i].Art == 6 || Spiel2.Missile[i].Art == 7
                 {
-                    xPos = (int)Spiel2.Missile[i].misslePosition.X - (int)Spiel2.Fenster.X;
+                    xPos = (int) Spiel2.Missile[i].misslePosition.X - (int) Spiel2.Fenster.X;
                     // spriteBatch.Draw(Texturen.kreuz, new Vector2(xPos, (int)(Spiel2.Spielfeld[(int)Spiel2.Missile[i].misslePosition.X] - Spiel2.Fenster.Y)), null, Color.Blue, 0, new Vector2(35 * 0.5f, 35 * 0.5f), 0.5f, SpriteEffects.None, 1);
                     spriteBatch.Draw(Texturen.kreuz,
                         new Vector2(xPos,
-                            (int)(Kartenformat.BottomOf(Spiel2.Missile[i].misslePosition) - Spiel2.Fenster.Y)), null,
-                        Color.Blue, 0, new Vector2(35 * 0.5f, 35 * 0.5f), 0.5f, SpriteEffects.None, 1);
+                            (int) (Kartenformat.BottomOf(Spiel2.Missile[i].misslePosition) - Spiel2.Fenster.Y)), null,
+                        Color.Blue, 0, new Vector2(35*0.5f, 35*0.5f), 0.5f, SpriteEffects.None, 1);
                 }
 
                 if (Mod.MISSILE_STRICH_VISIBLE.Wert)
                     if (Spiel2.Missile[i].misslePosition.Y < 0)
                     {
-                        xPos = (int)Spiel2.Missile[i].misslePosition.X - (int)Spiel2.Fenster.X;
+                        xPos = (int) Spiel2.Missile[i].misslePosition.X - (int) Spiel2.Fenster.X;
                         spriteBatch.Draw(Texturen.strich, new Vector2(xPos, 0), null, Color.White, 0, new Vector2(3, 0),
                             0.5f, SpriteEffects.None, 1);
                     }
@@ -1060,17 +1060,17 @@ namespace _4_1_
         {
             for (int i = 0; i < Haus.Orte.Count; i++)
             {
-                float posx = Haus.Orte[i].X + Haus.Orte[i].Y / 2 - Spiel2.Fenster.X;
+                float posx = Haus.Orte[i].X + Haus.Orte[i].Y/2 - Spiel2.Fenster.X;
                 if (posx + 100 < 0 || posx >= Spiel2.Width + 100) continue;
                 float posy = Haus.Ortemaxheight[i] - 50;
-                spriteBatch.Draw(Texturen.Ort, new Vector2(posx - 50, posy), null, Color.White * 0.4f, 0,
+                spriteBatch.Draw(Texturen.Ort, new Vector2(posx - 50, posy), null, Color.White*0.4f, 0,
                     new Vector2(0, 0), 1f, SpriteEffects.None, 0);
                 String Name = Haus.Ortsname[i];
                 try
                 {
                     Vector2 size = Texturen.font2.MeasureString(Name);
-                    spriteBatch.DrawString(Texturen.font2, Name, new Vector2(posx - size.X / 2, posy - size.Y / 2 + 14),
-                        Color.Black * 0.7f);
+                    spriteBatch.DrawString(Texturen.font2, Name, new Vector2(posx - size.X/2, posy - size.Y/2 + 14),
+                        Color.Black*0.7f);
                 }
                 catch (Exception)
                 {
@@ -1109,14 +1109,14 @@ namespace _4_1_
                                         Spiel2.players[Spiel2.CurrentPlayer].Angle[
                                             Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                         Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
-                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 25;
+                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank])*75 + 25;
                             a.X -=
                                 (float)
                                     Math.Cos(
                                         Spiel2.players[Spiel2.CurrentPlayer].Angle[
                                             Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                         Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
-                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
+                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank])*75;
 
                             var up = new Vector2(0, -1);
                             Matrix rotMatrix =
@@ -1126,10 +1126,10 @@ namespace _4_1_
                                     Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] - MathHelper.PiOver2);
                             Vector2 c = Vector2.Transform(up, rotMatrix);
-                            c *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
-                                 (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
-                            getBahn(Waffen.gravity / 10.0f + (Spiel.WIND.Wert ? Spiel2.Wind / 60.0f : Vector2.Zero), c, a,
-                                screenHeight, (int)(a2.X - 1000), (int)(a2.X + 1000), spriteBatch);
+                            c *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower/
+                                 (float) Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
+                            getBahn(Waffen.gravity/10.0f + (Spiel.WIND.Wert ? Spiel2.Wind/60.0f : Vector2.Zero), c, a,
+                                screenHeight, (int) (a2.X - 1000), (int) (a2.X + 1000), spriteBatch);
                         }
 
                         Color r = Color.White;
@@ -1139,13 +1139,13 @@ namespace _4_1_
                         Color r2 = Spiel2.players[i].Farbe;
                         r2 *= 1f;
 
-                        int xPos = (int)Spiel2.players[i].pos[b].X - (int)Spiel2.Fenster.X;
-                        int yPos = (int)Spiel2.players[i].pos[b].Y - (int)Spiel2.Fenster.Y;
+                        int xPos = (int) Spiel2.players[i].pos[b].X - (int) Spiel2.Fenster.X;
+                        int yPos = (int) Spiel2.players[i].pos[b].Y - (int) Spiel2.Fenster.Y;
                         float auxfliphelper = MathHelper.ToRadians(180);
 
                         // TODO das ist scheisse, mit festem origin
 
-                        var xPos2 = (int)(Math.Sin(Spiel2.players[i].vehikleAngle[b]) * -25);
+                        var xPos2 = (int) (Math.Sin(Spiel2.players[i].vehikleAngle[b])*-25);
 
                         // Lebenslinie malen
                         if (Mod.LEBENSLINIE_ON_TANK_VISIBLE.Wert)
@@ -1155,10 +1155,10 @@ namespace _4_1_
                                 var a = new Rectangle(0, 0, 300, Texturen.leben.Height);
                                 Vector2 p = Help.RotatePositionOffset(new Vector2(xPos, yPos),
                                     Spiel2.players[i].vehikleAngle[b],
-                                    new Vector2(75 / 2,
-                                        Texturen.panzerindex[Spiel2.players[i].KindofTank[b]].Height *
+                                    new Vector2(75/2,
+                                        Texturen.panzerindex[Spiel2.players[i].KindofTank[b]].Height*
                                         Fahrzeugdaten.SCALEP.Wert[Spiel2.players[i].KindofTank[b]] + 10));
-                                spriteBatch.Draw(Texturen.leben, p, a, Color.Red * 0.5f, Spiel2.players[i].vehikleAngle[b],
+                                spriteBatch.Draw(Texturen.leben, p, a, Color.Red*0.5f, Spiel2.players[i].vehikleAngle[b],
                                     Vector2.Zero, 0.25f, SpriteEffects.FlipHorizontally, 1);
 
                                 int anteil = Spiel2.players[i].Effekte[b].GetHP(Spiel2.players[i].hp[b]);
@@ -1166,10 +1166,10 @@ namespace _4_1_
                                     Spiel2.players[i].Effekte[b].GetMaxHP(
                                         Fahrzeugdaten._MAXHP.Wert[Spiel2.players[i].KindofTank[b]]);
                                 if (anteil > max) anteil = max;
-                                var ges = (int)(((float)anteil / max) * 300);
+                                var ges = (int) (((float) anteil/max)*300);
                                 a = new Rectangle(0, 0, ges, Texturen.leben.Height);
 
-                                spriteBatch.Draw(Texturen.leben, p, a, Color.Lime * 0.5f,
+                                spriteBatch.Draw(Texturen.leben, p, a, Color.Lime*0.5f,
                                     Spiel2.players[i].vehikleAngle[b],
                                     Vector2.Zero, 0.25f, SpriteEffects.FlipHorizontally, 1);
                             }
@@ -1181,9 +1181,9 @@ namespace _4_1_
                         {
                             var a = new Rectangle(0, 0, 300, Texturen.leben.Height);
                             Vector2 p = Help.RotatePositionOffset(
-                                new Vector2(xPos, yPos + Texturen.leben.Height * 0.25f), Spiel2.players[i].vehikleAngle[b],
-                                new Vector2(75 / 2,
-                                    Texturen.panzerindex[Spiel2.players[i].KindofTank[b]].Height *
+                                new Vector2(xPos, yPos + Texturen.leben.Height*0.25f), Spiel2.players[i].vehikleAngle[b],
+                                new Vector2(75/2,
+                                    Texturen.panzerindex[Spiel2.players[i].KindofTank[b]].Height*
                                     Fahrzeugdaten.SCALEP.Wert[Spiel2.players[i].KindofTank[b]] + 10));
 
                             //   spriteBatch.Draw(Texturen.leben, p, a, Color.Red * 0.25f, Spiel2.players[i].vehikleAngle[b],
@@ -1193,10 +1193,10 @@ namespace _4_1_
 
                             int max = Fahrzeugdaten.ExpToLvUpVar[Spiel2.players[i].KindofTank[b], 0];
                             if (anteil > max) anteil = max;
-                            var ges = (int)(((float)anteil / max) * 300);
+                            var ges = (int) (((float) anteil/max)*300);
                             a = new Rectangle(0, 0, ges, Texturen.leben.Height);
 
-                            spriteBatch.Draw(Texturen.leben, p, a, Color.Blue * 0.6f, Spiel2.players[i].vehikleAngle[b],
+                            spriteBatch.Draw(Texturen.leben, p, a, Color.Blue*0.6f, Spiel2.players[i].vehikleAngle[b],
                                 Vector2.Zero, 0.25f, SpriteEffects.FlipHorizontally, 1);
                         }
                         spriteBatch.End();
@@ -1236,7 +1236,7 @@ namespace _4_1_
                                         int Kindof = Spiel2.players[i].KindofTank[b];
                                         spriteBatch.Draw(Texturen.panzerumriss[Kindof], new Vector2(xPos, yPos), null,
                                             Color.OrangeRed, Spiel2.players[i].vehikleAngle[b],
-                                            new Vector2(Texturen.panzerumriss[Kindof].Width / 2,
+                                            new Vector2(Texturen.panzerumriss[Kindof].Width/2,
                                                 Texturen.panzerumriss[Kindof].Height), Fahrzeugdaten.SCALEP.Wert[Kindof],
                                             Spiel2.players[i].overreach[b]
                                                 ? SpriteEffects.FlipHorizontally
@@ -1281,7 +1281,7 @@ namespace _4_1_
                                 Vector2 temppos = Spiel2.players[i].pos[b] + new Vector2(0, -100) - Spiel2.Fenster;
                                 var add =
                                     new Vector2(
-                                        temppos.X - Texturen.font2.MeasureString(Spiel2.players[i].Namen[b]).X / 2,
+                                        temppos.X - Texturen.font2.MeasureString(Spiel2.players[i].Namen[b]).X/2,
                                         (temppos.Y < 50 ? 50 : temppos.Y));
                                 Help.DrawString(spriteBatch, Texturen.font2, Spiel2.players[i].Namen[b], add,
                                     Spiel2.players[i].Farbe, Color.Black);
@@ -1314,21 +1314,21 @@ namespace _4_1_
                     int cool = Spiel2.players[i].Cooldown[b];
                     if (Spiel2.players[i].isthere[b] && cool > 0)
                     {
-                        int xPos = (int)Spiel2.players[i].pos[b].X - (int)Spiel2.Fenster.X;
-                        int yPos = (int)Spiel2.players[i].pos[b].Y - (int)Spiel2.Fenster.Y;
+                        int xPos = (int) Spiel2.players[i].pos[b].X - (int) Spiel2.Fenster.X;
+                        int yPos = (int) Spiel2.players[i].pos[b].Y - (int) Spiel2.Fenster.Y;
                         float auxfliphelper = MathHelper.ToRadians(180);
                         var cannonOrigin = new Vector2(300, 40);
                         var cannonOrigin2 = new Vector2(160, 40);
-                        var xPos2 = (int)(Math.Sin(Spiel2.players[i].vehikleAngle[b]) * -25);
+                        var xPos2 = (int) (Math.Sin(Spiel2.players[i].vehikleAngle[b])*-25);
 
                         Color r = Color.Goldenrod;
                         if (Spiel2.players[i].Effekte[b].GetEingefroren())
                         {
                             r = Color.Aquamarine;
                         }
-                        float correkt = Texturen.panzerindex[Spiel2.players[i].KindofTank[b]].Height *
+                        float correkt = Texturen.panzerindex[Spiel2.players[i].KindofTank[b]].Height*
                                         Spiel2.players[i].Size[b];
-                        spriteBatch.DrawString(Texturen.font, Convert.ToString(Math.Ceiling((double)cool / 60)),
+                        spriteBatch.DrawString(Texturen.font, Convert.ToString(Math.Ceiling((double) cool/60)),
                             new Vector2(xPos, yPos - correkt), r);
                     }
                 }
@@ -1351,8 +1351,8 @@ namespace _4_1_
 
             int ww = screenWidth;
 
-            int x = (int)(Spiel2.Fenster.X * bewegungsFaktor) % ww - screenWidth;
-            int y = (int)(Spiel2.Fenster.Y * bewegungsFaktor) % screenHeight;
+            int x = (int) (Spiel2.Fenster.X*bewegungsFaktor)%ww - screenWidth;
+            int y = (int) (Spiel2.Fenster.Y*bewegungsFaktor)%screenHeight;
 
             while (x < screenWidth)
             {
@@ -1365,8 +1365,8 @@ namespace _4_1_
             spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
             float bewegungsFaktor2 = .05f;
 
-            int x2 = (int)(Spiel2.Fenster.X * bewegungsFaktor2) % ww - screenWidth;
-            int y2 = (int)(Spiel2.Fenster.Y * bewegungsFaktor2 - screenHeight * .75f) % screenHeight;
+            int x2 = (int) (Spiel2.Fenster.X*bewegungsFaktor2)%ww - screenWidth;
+            int y2 = (int) (Spiel2.Fenster.Y*bewegungsFaktor2 - screenHeight*.75f)%screenHeight;
 
             int oldx2 = x2;
             while (y2 < screenHeight)
@@ -1374,7 +1374,7 @@ namespace _4_1_
                 while (x2 < screenWidth)
                 {
                     var a = new Rectangle(x2, y2, ww, screenHeight);
-                    spriteBatch.Draw(Texturen.activeBackground, a, Color.White * .5f);
+                    spriteBatch.Draw(Texturen.activeBackground, a, Color.White*.5f);
                     x2 += ww;
                 }
                 y2 += screenHeight;
@@ -1383,8 +1383,8 @@ namespace _4_1_
 
             float bewegungsFaktor3 = .075f;
 
-            int x3 = (int)((Spiel2.Fenster.X + WolkenPos.X) * bewegungsFaktor3) % ww - screenWidth;
-            int y3 = (int)((Spiel2.Fenster.Y + WolkenPos.Y) * bewegungsFaktor3 - screenHeight * .3f) % screenHeight -
+            int x3 = (int) ((Spiel2.Fenster.X + WolkenPos.X)*bewegungsFaktor3)%ww - screenWidth;
+            int y3 = (int) ((Spiel2.Fenster.Y + WolkenPos.Y)*bewegungsFaktor3 - screenHeight*.3f)%screenHeight -
                      screenHeight;
 
             int oldx3 = x3;
@@ -1393,7 +1393,7 @@ namespace _4_1_
                 while (x3 < screenWidth)
                 {
                     var a = new Rectangle(x3, y3, ww, screenHeight);
-                    spriteBatch.Draw(Texturen.activeBackground, a, Color.White * .5f);
+                    spriteBatch.Draw(Texturen.activeBackground, a, Color.White*.5f);
                     x3 += ww;
                 }
                 y3 += screenHeight;
@@ -1404,7 +1404,7 @@ namespace _4_1_
             if (xx < 1 && xx > 0) xx = 1;
             if (xx > -1 && xx < 0) xx = -1;
 
-            WolkenPos.X += xx * 1.5f;
+            WolkenPos.X += xx*1.5f;
         }
 
         /// <summary>
@@ -1418,8 +1418,8 @@ namespace _4_1_
                 if (!smokeList[i].set || !smokeList[i].alive) continue;
 
                 Karte.ParticleData particle = smokeList[i];
-                int xPos = (int)particle.Position.X - (int)Spiel2.Fenster.X;
-                int yPos = (int)particle.Position.Y - (int)Spiel2.Fenster.Y;
+                int xPos = (int) particle.Position.X - (int) Spiel2.Fenster.X;
+                int yPos = (int) particle.Position.Y - (int) Spiel2.Fenster.Y;
                 spriteBatch.Draw(Texturen.smokeTexture, new Vector2(xPos, yPos), null, particle.ModColor, i,
                     new Vector2(256, 256), particle.Scaling, SpriteEffects.None, 1);
             }
@@ -1430,8 +1430,8 @@ namespace _4_1_
 
                 Karte.ParticleData particle = Spiel2.Karte.particleListMapSmoke[i];
 
-                int xPos = (int)particle.Position.X - (int)Spiel2.Fenster.X;
-                int yPos = (int)particle.Position.Y - (int)Spiel2.Fenster.Y;
+                int xPos = (int) particle.Position.X - (int) Spiel2.Fenster.X;
+                int yPos = (int) particle.Position.Y - (int) Spiel2.Fenster.Y;
                 spriteBatch.Draw(Texturen.smokeTexture, new Vector2(xPos, yPos), null, particle.ModColor, i,
                     new Vector2(256, 256), particle.Scaling, SpriteEffects.None, 1);
             }
@@ -1447,7 +1447,7 @@ namespace _4_1_
             Spieler player = Spiel2.players[Spiel2.CurrentPlayer];
             if (Spiel.TIMEOUT.Wert)
             {
-                String t = Convert.ToString(Spiel2.Timeout / 60);
+                String t = Convert.ToString(Spiel2.Timeout/60);
                 spriteBatch.DrawString(Texturen.font, Spiel2.Timeout > 0 ? t : "---", new Vector2(25, screenHeight - 35),
                     Color.Gold);
             }
@@ -1462,12 +1462,12 @@ namespace _4_1_
             if (Editor.visible) return;
             if (Spiel2 == null) return;
             if (Spiel2.CurrentPlayer == -1) return;
-            String[] bez = { "Rot", "Blau" };
+            String[] bez = {"Rot", "Blau"};
             int Gewinner = Spiel2.Gewinner();
             Spieler player = Spiel2.players[Gewinner];
             spriteBatch.DrawString(Texturen.font, bez[Gewinner] + " hat gewonnen...",
-                new Vector2(screenWidth / 2 - 100, 100), Color.Gold);
-            spriteBatch.DrawString(Texturen.font, "Esc: Beenden", new Vector2(screenWidth / 2 - 100, 150), Color.Gold);
+                new Vector2(screenWidth/2 - 100, 100), Color.Gold);
+            spriteBatch.DrawString(Texturen.font, "Esc: Beenden", new Vector2(screenWidth/2 - 100, 150), Color.Gold);
         }
 
         /// <summary>
@@ -1479,7 +1479,7 @@ namespace _4_1_
             int anteil;
             if (Spiel2.Wind.X != 0)
             {
-                anteil = (int)((double)Texturen.wind.Width / 120 * Spiel2.Wind.X * 20);
+                anteil = (int) ((double) Texturen.wind.Width/120*Spiel2.Wind.X*20);
             }
             else
                 anteil = 0;
@@ -1492,14 +1492,14 @@ namespace _4_1_
             Rectangle a;
             a = new Rectangle(anteil, 0, Texturen.wind.Width - anteil, Texturen.wind.Height);
 
-            var xPos = (int)(-Texturen.wind.Width * Optimierung.Skalierung(0.5f));
+            var xPos = (int) (-Texturen.wind.Width*Optimierung.Skalierung(0.5f));
             int yPos = 65 - 15;
             if (flip)
             {
                 xPos =
                     (int)
-                        ((double)screenWidth + 2 * xPos +
-                         (Texturen.wind.Width * 0.5f / 120) * (120 - ((double)-Spiel2.Wind.X * 20)));
+                        ((double) screenWidth + 2*xPos +
+                         (Texturen.wind.Width*0.5f/120)*(120 - ((double) -Spiel2.Wind.X*20)));
 
                 // TODO Origin geändert von new Vector2(35,35) auf new Vector2(0,0), richtig?
                 spriteBatch.Draw(Texturen.wind, new Vector2(xPos, yPos), a, Color.Green, 0, new Vector2(0, 0),
@@ -1704,8 +1704,8 @@ namespace _4_1_
 
             Vector3 screenScalingFactor;
 
-            float horScaling = (float)device.PresentationParameters.BackBufferWidth / baseScreenSize.X;
-            float verScaling = (float)device.PresentationParameters.BackBufferHeight / baseScreenSize.Y;
+            float horScaling = device.PresentationParameters.BackBufferWidth/baseScreenSize.X;
+            float verScaling = device.PresentationParameters.BackBufferHeight/baseScreenSize.Y;
             /// device.PresentationParameters.PresentationInterval = PresentInterval.Two;
             screenScalingFactor = new Vector3(horScaling, verScaling, 1);
 
@@ -1788,17 +1788,17 @@ namespace _4_1_
             spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
 
             // Hinweistext
-            float scale5 = Optimierung.Skalierung(0.25f) * 0.8f; // TODO wurde geändert von 0.2f
+            float scale5 = Optimierung.Skalierung(0.25f)*0.8f; // TODO wurde geändert von 0.2f
             if (Tastatur.TASTE_ZUG_BEENDEN.Wert && HTTP.HTTP.gameid != "")
             {
                 spriteBatch.DrawString(Texturen.font2, "F9 Zug Beenden",
-                    new Vector2(screenWidth - 3 - 2 * ((float)Texturen.LeeresFeld.Width * scale5),
-                        ((float)Texturen.LeeresFeld.Height * scale5) + 42), Color.Lime);
+                    new Vector2(screenWidth - 3 - 2*(Texturen.LeeresFeld.Width*scale5),
+                        (Texturen.LeeresFeld.Height*scale5) + 42), Color.Lime);
             }
             if (Tastatur.TASTE_SPEICHERN.Wert)
                 spriteBatch.DrawString(Texturen.font2, "F5 Speichern",
-                    new Vector2(screenWidth - 3 - 2 * ((float)Texturen.LeeresFeld.Width * scale5),
-                        ((float)Texturen.LeeresFeld.Height * scale5) + 54), Color.Lime);
+                    new Vector2(screenWidth - 3 - 2*(Texturen.LeeresFeld.Width*scale5),
+                        (Texturen.LeeresFeld.Height*scale5) + 54), Color.Lime);
 
             if (Replay.REPLAY_VISIBLE.Wert && Spiel2.replay_visible2) Replay.DrawReplay(spriteBatch, Spiel2);
 
@@ -1836,17 +1836,17 @@ namespace _4_1_
                 {
                     int id = Spiel2.Haeuser.HausTyp[i];
                     spriteBatch.Draw(Texturen.dot,
-                        new Vector2(Spiel2.Haeuser.Position[i].X - (int)Spiel2.Fenster.X,
-                            Spiel2.Haeuser.Position[i].Y - (int)Spiel2.Fenster.Y -
-                            Texturen.haus[id].Height * Gebäudedaten.SKALIERUNG.Wert[id]), null, Color.Lime, 0.0f,
+                        new Vector2(Spiel2.Haeuser.Position[i].X - (int) Spiel2.Fenster.X,
+                            Spiel2.Haeuser.Position[i].Y - (int) Spiel2.Fenster.Y -
+                            Texturen.haus[id].Height*Gebäudedaten.SKALIERUNG.Wert[id]), null, Color.Lime, 0.0f,
                         new Vector2(0, 0), fact, SpriteEffects.None, 1);
                 }
 
                 for (int i = 0; i < Spiel2.Missile.Count(); i++)
                 {
                     spriteBatch.Draw(Texturen.dot,
-                        new Vector2(Spiel2.Missile[i].RaktnSpitze().X - (int)Spiel2.Fenster.X,
-                            Spiel2.Missile[i].RaktnSpitze().Y - (int)Spiel2.Fenster.Y), null, Color.OrangeRed, 0.0f,
+                        new Vector2(Spiel2.Missile[i].RaktnSpitze().X - (int) Spiel2.Fenster.X,
+                            Spiel2.Missile[i].RaktnSpitze().Y - (int) Spiel2.Fenster.Y), null, Color.OrangeRed, 0.0f,
                         new Vector2(0, 0), fact, SpriteEffects.None, 1);
                 }
 
@@ -1858,14 +1858,14 @@ namespace _4_1_
                         float posx = Spiel2.players[i].pos[c].X;
                         float posy = Spiel2.players[i].pos[c].Y;
                         double winkel = Spiel2.players[i].vehikleAngle[c];
-                        float ww = (Texturen.panzerindex[id].Width * Fahrzeugdaten.SCALEP.Wert[id]) / 2;
+                        float ww = (Texturen.panzerindex[id].Width*Fahrzeugdaten.SCALEP.Wert[id])/2;
                         Vector2 p = KollisionsObjekt.Rotiere(winkel, new Vector3(0, 0, 1), new Vector2(-ww, 0));
                         posx = posx + p.X;
                         posy = posy - p.Y;
                         spriteBatch.Draw(Texturen.dot,
-                            new Vector2(posx - (int)Spiel2.Fenster.X,
-                                posy - (int)Spiel2.Fenster.Y -
-                                Texturen.panzerindex[id].Height * Fahrzeugdaten.SCALEP.Wert[id]), null, Color.Lime, 0.0f,
+                            new Vector2(posx - (int) Spiel2.Fenster.X,
+                                posy - (int) Spiel2.Fenster.Y -
+                                Texturen.panzerindex[id].Height*Fahrzeugdaten.SCALEP.Wert[id]), null, Color.Lime, 0.0f,
                             new Vector2(0, 0), fact, SpriteEffects.None, 1);
 
                         for (int z = 0; z < Spiel2.Missile.Count(); z++)
@@ -1875,12 +1875,12 @@ namespace _4_1_
                             posx = Spiel2.players[i].pos[c].X; //Player[i].pos[c].X;
                             posy = Spiel2.players[i].pos[c].Y; //Player[i].pos[c].Y;
                             winkel = Spiel2.players[i].vehikleAngle[c];
-                            ww = (Texturen.panzerindex[id].Width * Fahrzeugdaten.SCALEP.Wert[id]) / 2;
+                            ww = (Texturen.panzerindex[id].Width*Fahrzeugdaten.SCALEP.Wert[id])/2;
                             p = KollisionsObjekt.Rotiere(winkel, new Vector3(0, 0, 1), new Vector2(ww, 0));
                             p = new Vector2(p.X - ww, p.Y);
                             RakPos = new Vector2(RakPos.X + p.X, RakPos.Y - p.Y);
                             spriteBatch.Draw(Texturen.dot,
-                                new Vector2(RakPos.X - (int)Spiel2.Fenster.X, RakPos.Y - (int)Spiel2.Fenster.Y), null,
+                                new Vector2(RakPos.X - (int) Spiel2.Fenster.X, RakPos.Y - (int) Spiel2.Fenster.Y), null,
                                 Color.Yellow, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
                         }
                     }
@@ -1896,7 +1896,7 @@ namespace _4_1_
                         Vector2 pos = Spiel2.players[i].pos[c] +
                                       new Vector2(welcher == 1 ? -Texturen.RohrPos[kind].X : Texturen.RohrPos[kind].X,
                                           -Texturen.RohrPos[kind].Y); //Texturen.CannonOrigin[kind][0] -
-                        float temp2 = Texturen.CannonOrigin[kind][0].Y / 2;
+                        float temp2 = Texturen.CannonOrigin[kind][0].Y/2;
 
                         Vector2 p = Help.RotatePositionOffset(pos, Spiel2.players[i].Angle[c],
                             new Vector2(
@@ -1916,7 +1916,7 @@ namespace _4_1_
                             Vector2 bew = Spiel2.players[i].logik[c].GetBewegungsVektor(d,
                                 Spiel2.players[i].vehikleAngle[c], Spiel2.players[i].pos[c],
                                 Spiel2.players[i].overreach[c]);
-                            Vector2 add = bew * 10;
+                            Vector2 add = bew*10;
                             Vector2 p2 = Help.RotatePositionOffset(Spiel2.players[i].pos[c], vehikleAngle,
                                 new Vector2(
                                     (overreach
@@ -1925,7 +1925,7 @@ namespace _4_1_
                             Help.DrawLine(spriteBatch, p2 - Spiel2.Fenster, p2 - Spiel2.Fenster + add, Color.Red, 2);
 
                             if (i == Spiel2.CurrentPlayer && c == Spiel2.players[i].CurrentTank)
-                                Help.DrawString(spriteBatch, Texturen.font2, bew.ToString(), new Vector2(10, 60 + d * 9),
+                                Help.DrawString(spriteBatch, Texturen.font2, bew.ToString(), new Vector2(10, 60 + d*9),
                                     Color.DarkGoldenrod, Color.Black);
                             /* spriteBatch.Draw(Texturen.panzerindexreifen[Kindof], p, null, Color.White, vehikleAngle,
                             new Vector2(Texturen.panzerindexreifen[Kindof].Width / 2, Texturen.panzerindexreifen[Kindof].Height / 2), scaleP, SpriteEffects.None, 0);*/
@@ -1934,13 +1934,13 @@ namespace _4_1_
                 }
 
                 // Zykluslinie
-                var x = (int)(Spiel.Position(0));
+                var x = (int) (Spiel.Position(0));
                 int y = Kartenformat.BottomOf(x, 0);
                 Help.DrawLine(spriteBatch, new Vector2(Spiel.Position(0 - Spiel2.Fenster.X), 0),
                     new Vector2(Spiel.Position(0 - Spiel2.Fenster.X), y), Color.Red, 2);
 
                 // Mitte
-                x = (int)(Spiel.Kartenbreite / 2);
+                x = Spiel.Kartenbreite/2;
                 Help.DrawLine(spriteBatch, new Vector2(x - Spiel2.Fenster.X, 0),
                     new Vector2(x - Spiel2.Fenster.X, Kartenformat.BottomOf(x, 0)), Color.Blue, 2);
             }
@@ -1963,8 +1963,8 @@ namespace _4_1_
             if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimap();
             if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimapDot();
 
-            Kurzmeldung.Zeichnen(spriteBatch, Texturen.font2, (int)Spiel2.Fenster.X,
-                (int)(Spiel2.Fenster.X + screenWidth));
+            Kurzmeldung.Zeichnen(spriteBatch, Texturen.font2, (int) Spiel2.Fenster.X,
+                (int) (Spiel2.Fenster.X + screenWidth));
 
             int CurrentTank = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
 
@@ -2114,7 +2114,7 @@ namespace _4_1_
                 if (!Client.isRunning)
                     if (Spiel2.Karte.collisions(Spiel2.Spielfeld, Spiel2.Missile, Spiel2.players, Spiel2.Haeuser,
                         Spiel2.Baeume, Spiel2.Bunker, Spiel2.Kisten, Spiel2.Height, gameTime,
-                        new Vector2(Spiel2.Fenster.X + screenWidth / 2, Spiel2.Fenster.Y)))
+                        new Vector2(Spiel2.Fenster.X + screenWidth/2, Spiel2.Fenster.Y)))
                     {
                         Vordergrund.ErstelleVordergrund();
                     }
@@ -2145,44 +2145,44 @@ namespace _4_1_
         /// </summary>
         private void createKasten()
         {
-            Spiel2.Colors = new Color[screenWidth * screenHeight];
+            Spiel2.Colors = new Color[screenWidth*screenHeight];
             Texturen.kasten = new Texture2D(GraphicsDevice, screenWidth, screenHeight);
 
             Color[,] vordergrund = Farbwahl(Karte.Material[1].Bild);
             Color[,] water = Farbwahl(Texturen.wasser);
 
-            Spiel2.Colors = new Color[screenWidth * screenHeight];
+            Spiel2.Colors = new Color[screenWidth*screenHeight];
             int breite = 5;
             for (int x = 0; x < screenWidth; x++)
             {
                 for (int y = 0; y < screenHeight; y++)
                 {
-                    Spiel2.Colors[x + y * screenWidth] = Color.Transparent;
+                    Spiel2.Colors[x + y*screenWidth] = Color.Transparent;
                     // || (y >= screenHeight - breite && x < screenWidth)|| (y <= breite && x < screenWidth)
                     if ((x <= breite && y < screenHeight) || (x >= screenWidth - breite && y < screenHeight))
-                        Spiel2.Colors[x + y * screenWidth] = Color.Gray;
+                        Spiel2.Colors[x + y*screenWidth] = Color.Gray;
                 }
             }
             Texturen.kasten = new Texture2D(device, screenWidth, screenHeight, false, SurfaceFormat.Color);
             Texturen.kasten.SetData(Spiel2.Colors);
 
             int mas = 25;
-            Spiel2.Colors = new Color[mas * mas];
+            Spiel2.Colors = new Color[mas*mas];
             Texturen.dot = new Texture2D(GraphicsDevice, mas, mas);
             Texturen.dot2 = new Texture2D(GraphicsDevice, mas, mas);
 
-            Spiel2.Colors = new Color[mas * mas];
+            Spiel2.Colors = new Color[mas*mas];
             for (int x = 0; x < mas; x++)
             {
                 for (int y = 0; y < mas; y++)
                 {
-                    Spiel2.Colors[x + y * mas] = Color.White;
+                    Spiel2.Colors[x + y*mas] = Color.White;
                 }
             }
             Texturen.dot = new Texture2D(device, mas, mas, false, SurfaceFormat.Color);
             Texturen.dot.SetData(Spiel2.Colors);
 
-            Spiel2.Colors = new Color[mas * mas];
+            Spiel2.Colors = new Color[mas*mas];
             for (int x = 0; x < mas; x++)
             {
                 for (int y = 0; y < mas; y++)
@@ -2196,10 +2196,10 @@ namespace _4_1_
 
                     if (erx == 1 && ery == 1)
                     {
-                        Spiel2.Colors[x + y * mas] = Color.Transparent;
+                        Spiel2.Colors[x + y*mas] = Color.Transparent;
                     }
                     else
-                        Spiel2.Colors[x + y * mas] = Color.White;
+                        Spiel2.Colors[x + y*mas] = Color.White;
                 }
             }
             Texturen.dot2 = new Texture2D(device, mas, mas, false, SurfaceFormat.Color);
@@ -2250,7 +2250,7 @@ namespace _4_1_
             if (line == null)
             {
                 line = new Texture2D(GraphicsDevice, 1, 1);
-                line.SetData(new[] { Color.Yellow });
+                line.SetData(new[] {Color.Yellow});
             }
 
             int summe = 0;
@@ -2259,15 +2259,15 @@ namespace _4_1_
             bool draw = true;
             while (temp.Y < screenheight && summe <= maxsumme && !Kartenformat.isSet(temp + Spiel2.Fenster))
             {
-                var angle = (float)Math.Atan2(schuss.Y, schuss.X);
+                var angle = (float) Math.Atan2(schuss.Y, schuss.X);
                 if (draw)
                 {
                     //if (temp.X < maxx && temp.X > minx)
-                    spriteBatch.Draw(line, new Rectangle((int)temp.X, (int)temp.Y, (int)schuss.Length(), 2), null,
+                    spriteBatch.Draw(line, new Rectangle((int) temp.X, (int) temp.Y, (int) schuss.Length(), 2), null,
                         Color.White, angle, new Vector2(0, 0), SpriteEffects.None, 0);
                     //else return;
                     draw = false;
-                    summe += 3 * (int)schuss.Length();
+                    summe += 3*(int) schuss.Length();
                 }
                 else
                 {
@@ -2303,7 +2303,7 @@ namespace _4_1_
                 Spiel2.players[Spiel2.CurrentPlayer].Notiz.schreibend = false;
             }
 
-            if (Spiel2.players[Spiel2.CurrentPlayer].Notiz.schreibend == true)
+            if (Spiel2.players[Spiel2.CurrentPlayer].Notiz.schreibend)
             {
                 if (keybState == Keyboard.GetState())
                 {
@@ -2441,9 +2441,6 @@ namespace _4_1_
                         {
                             // Fehler
                         }
-                        else
-                        {
-                        }
                     }
 
                     SpielAktiv = false;
@@ -2462,7 +2459,7 @@ namespace _4_1_
                     }
                     else
                     {
-                        TabPage[] qq = { Hauptfenster.Program.Formular.tabPage4, Hauptfenster.Program.Formular.tabPage1 };
+                        TabPage[] qq = {Hauptfenster.Program.Formular.tabPage4, Hauptfenster.Program.Formular.tabPage1};
                         Hauptfenster.Program.Formular.Show(qq, Hauptfenster.Program.Formular.tabPage1);
                     }
 
@@ -2623,7 +2620,7 @@ namespace _4_1_
                     else
                         Spiel2.Moving_Map = true;
 
-            #endregion MovingMap
+                #endregion MovingMap
 
                 #region Spielermenüaufruf
 
@@ -2906,9 +2903,6 @@ namespace _4_1_
                     {
                         // Fehler
                     }
-                    else
-                    {
-                    }
                 }
             }
 
@@ -3005,7 +2999,7 @@ namespace _4_1_
                 if (Tastatur.TASTE_BEWEGUNG_HOCH.Wert &&
                     ((currentState.IsConnected && currentState.ThumbSticks.Left.Y > 0.5f) ||
                      (!currentState.IsConnected && Keyboard.GetState().IsKeyDown(Tastatur.BEWEGUNG_HOCH.Wert))))
-                // && !Keyboard.GetState().IsKeyDown(Tastatur.SCHUSS.Wert)
+                    // && !Keyboard.GetState().IsKeyDown(Tastatur.SCHUSS.Wert)
                 {
                     if (
                         Spiel2.players[Spiel2.CurrentPlayer].KindofTank[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank
@@ -3057,7 +3051,7 @@ namespace _4_1_
                 if (Tastatur.TASTE_BEWEGUNG_RUNTER.Wert &&
                     ((currentState.IsConnected && currentState.ThumbSticks.Left.Y < -0.5f) ||
                      (!currentState.IsConnected && Keyboard.GetState().IsKeyDown(Tastatur.BEWEGUNG_RUNTER.Wert))))
-                // && !Keyboard.GetState().IsKeyDown(Tastatur.SCHUSS.Wert)
+                    // && !Keyboard.GetState().IsKeyDown(Tastatur.SCHUSS.Wert)
                 {
                     if (
                         Spiel2.players[Spiel2.CurrentPlayer].KindofTank[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank
@@ -3187,7 +3181,7 @@ namespace _4_1_
                                         Spiel2.AddTunnel(Spiel2.CurrentPlayer,
                                             Spiel2.players[Spiel2.CurrentPlayer].pos[
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] -
-                                            new Vector2(Texturen.tunnel.Width / 2 * Tunnel.SKALIERUNG, 0));
+                                            new Vector2(Texturen.tunnel.Width/2*Tunnel.SKALIERUNG, 0));
                                     }
                                 }
                                 else if (Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon == Waffendaten.geschütz)
@@ -3270,7 +3264,7 @@ namespace _4_1_
                                 bool ok = true;
                                 if (Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 4)
                                 {
-                                    if (qq % 4 == 0)
+                                    if (qq%4 == 0)
                                     {
                                         qq = 0;
                                     }
@@ -3334,7 +3328,7 @@ namespace _4_1_
                                                 Spieler tmp = Spiel2.players[Spiel2.CurrentPlayer];
                                                 int id = tmp.CurrentTank;
                                                 Spiel2.players[Spiel2.CurrentPlayer].Minen.Add(
-                                                    new Mine((int)tmp.pos[id].X, (int)tmp.pos[id].Y,
+                                                    new Mine((int) tmp.pos[id].X, (int) tmp.pos[id].Y,
                                                         (int)
                                                             (Waffendaten.Daten2[
                                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon].Z),
@@ -3367,10 +3361,10 @@ namespace _4_1_
                                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                                             Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
                                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] -
-                                                            (float)MathHelper.PiOver2 +
+                                                            MathHelper.PiOver2 +
                                                             MathHelper.ToRadians(Spiel.rand.Next(-8, 9)));
                                                     Vector2 b = Vector2.Transform(up, rotMatrix);
-                                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
+                                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower/
                                                          (float)
                                                              Math.Log(
                                                                  Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
@@ -3453,15 +3447,15 @@ namespace _4_1_
                                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
                                                             Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
                                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] -
-                                                            (float)MathHelper.PiOver2);
+                                                            MathHelper.PiOver2);
                                                     Vector2 b = Vector2.Transform(up, rotMatrix);
-                                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
+                                                    b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower/
                                                          (float)
                                                              Math.Log(
                                                                  Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                                                                  Math.E);
                                                     Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, a,
-                                                        b, 300 * 4, Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
+                                                        b, 300*4, Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
                                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
                                                 }
 
@@ -3537,14 +3531,14 @@ namespace _4_1_
                                             }
                                         }
                                         else
-                                        // Normale Waffe
-                                        //     if (Rakete.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
+                                            // Normale Waffe
+                                            //     if (Rakete.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
                                         {
                                             // Abstand
                                             a.X = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
                                             Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer,
                                                 new Vector2(a.X, Spiel.rand.Next(-1100, -200)),
-                                                new Vector2(Spiel.rand.Next(-100, 100) / 25, -1), 300 * 4,
+                                                new Vector2(Spiel.rand.Next(-100, 100)/25, -1), 300*4,
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
 
@@ -3572,7 +3566,7 @@ namespace _4_1_
                         }
             }
 
-                #endregion Shot
+            #endregion Shot
 
             if (keybState != Keyboard.GetState() || currentState.Buttons != oldcurrentState.Buttons ||
                 (currentState.Triggers.Left >= 0.1f && oldcurrentState.Triggers.Left < 0.1f) ||
@@ -3677,7 +3671,7 @@ namespace _4_1_
 
                     for (;
                         Fahrzeugdaten.ShootableAmmunition[
-                            Spiel2.players[Spiel2.CurrentPlayer].KindofTank[CurrentTankNow], CurrentWeaponNow] <= 0; )
+                            Spiel2.players[Spiel2.CurrentPlayer].KindofTank[CurrentTankNow], CurrentWeaponNow] <= 0;)
                     {
                         CurrentWeaponNow--;
                         if (CurrentWeaponNow < 0) CurrentWeaponNow = Waffendaten.Daten.Count() - 1;
@@ -3721,7 +3715,7 @@ namespace _4_1_
                      int a = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;*/
                     for (;
                         Fahrzeugdaten.ShootableAmmunition[
-                            Spiel2.players[Spiel2.CurrentPlayer].KindofTank[CurrentTankNow], CurrentWeaponNow] <= 0; )
+                            Spiel2.players[Spiel2.CurrentPlayer].KindofTank[CurrentTankNow], CurrentWeaponNow] <= 0;)
                     {
                         CurrentWeaponNow++;
                         if (CurrentWeaponNow >= Waffendaten.Daten.Count()) CurrentWeaponNow = 0;
@@ -3768,7 +3762,7 @@ namespace _4_1_
             {
                 if (Mod.FREIE_KARTENBEWEGUNG.Wert && Spiel2.Moving_Map)
                 {
-                    Spiel2.Set_Focus_X(new Vector2(Spiel2.Next_Fenster.X - 25 + screenWidth / 2, Spiel2.Next_Fenster.Y));
+                    Spiel2.Set_Focus_X(new Vector2(Spiel2.Next_Fenster.X - 25 + screenWidth/2, Spiel2.Next_Fenster.Y));
                 }
                 else if (Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 2)
                 {
@@ -3789,7 +3783,7 @@ namespace _4_1_
             {
                 if (Mod.FREIE_KARTENBEWEGUNG.Wert && Spiel2.Moving_Map)
                 {
-                    Spiel2.Set_Focus_X(new Vector2(Spiel2.Next_Fenster.X + 25 + screenWidth / 2, Spiel2.Next_Fenster.Y));
+                    Spiel2.Set_Focus_X(new Vector2(Spiel2.Next_Fenster.X + 25 + screenWidth/2, Spiel2.Next_Fenster.Y));
                 }
                 else if (Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 2)
                 {
@@ -3864,7 +3858,8 @@ namespace _4_1_
                          Keyboard.GetState().IsKeyDown(Tastatur.BEWEGUNG_RUNTER.Wert) &&
                          Tastatur.TASTE_BEWEGUNG_LINKS.Wert &&
                          Keyboard.GetState().IsKeyDown(Tastatur.BEWEGUNG_LINKS.Wert) &&
-                         Spiel2.players[Spiel2.CurrentPlayer].KindofTank[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank
+                         Spiel2.players[Spiel2.CurrentPlayer].KindofTank[
+                             Spiel2.players[Spiel2.CurrentPlayer].CurrentTank
                              ] == 2)
                 {
                     Spiel2.players[Spiel2.CurrentPlayer].overreach[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]
@@ -3994,7 +3989,7 @@ namespace _4_1_
                     Fahrzeugdaten.VOLUMES.Wert[
                         Spiel2.players[Spiel2.CurrentPlayer].KindofTank[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank
                             ]];
-                var a = (float)((float)wert - ((float)wert / 2048) * dist);
+                float a = wert - (wert/2048)*dist;
                 if (a < 0) a = 0;
 
                 if (
@@ -4050,7 +4045,7 @@ namespace _4_1_
                     Fahrzeugdaten.VOLUMES.Wert[
                         Spiel2.players[Spiel2.CurrentPlayer].KindofTank[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank
                             ]];
-                var a = (float)((float)wert - ((float)wert / 2048) * dist);
+                float a = wert - (wert/2048)*dist;
                 if (a < 0) a = 0;
                 if (
                     Sounds.PanzerMove[
@@ -4175,54 +4170,54 @@ namespace _4_1_
                         switch (pauseMenu.mouseKeys(mouseState))
                         {
                             case 0:
-                                {
-                                    //neues zufalliges spiel
-                                    Spiel2 = null;
-                                    StarteNeuesSpiel();
-                                    mouseState = Help.GetMouseState();
-                                    // MausAktiv = false;
-                                    //    if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
-                                    pauseMenu.hide();
-                                    Tausch.SpielAktiv = true;
-                                    mouseState = Help.GetMouseState();
-                                    return;
-                                }
+                            {
+                                //neues zufalliges spiel
+                                Spiel2 = null;
+                                StarteNeuesSpiel();
+                                mouseState = Help.GetMouseState();
+                                // MausAktiv = false;
+                                //    if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
+                                pauseMenu.hide();
+                                Tausch.SpielAktiv = true;
+                                mouseState = Help.GetMouseState();
+                                return;
+                            }
 
                             case 1:
-                                {
-                                    //lademenu
-                                    Ladenmenu.show();
-                                    pauseMenu.hide();
-                                    Tausch.SpielAktiv = false;
-                                    mouseState = Help.GetMouseState();
-                                    return;
-                                }
+                            {
+                                //lademenu
+                                Ladenmenu.show();
+                                pauseMenu.hide();
+                                Tausch.SpielAktiv = false;
+                                mouseState = Help.GetMouseState();
+                                return;
+                            }
                             case 2:
-                                {
-                                    //optionen anzeigen
-                                    mouseState = Help.GetMouseState();
-                                    return;
-                                }
+                            {
+                                //optionen anzeigen
+                                mouseState = Help.GetMouseState();
+                                return;
+                            }
                             case 3:
-                                {
-                                    //zuruck
-                                    // MausAktiv = false;
-                                    // if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
-                                    pauseMenu.hide();
-                                    Tausch.SpielAktiv = true;
-                                    mouseState = Help.GetMouseState();
-                                    return;
-                                }
+                            {
+                                //zuruck
+                                // MausAktiv = false;
+                                // if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
+                                pauseMenu.hide();
+                                Tausch.SpielAktiv = true;
+                                mouseState = Help.GetMouseState();
+                                return;
+                            }
                             case 4:
-                                {
-                                    //zum Startmenu
-                                    //MausAktiv = true;
-                                    pauseMenu.hide();
-                                    StartMenu.show();
-                                    Tausch.SpielAktiv = false;
-                                    mouseState = Help.GetMouseState();
-                                    return;
-                                }
+                            {
+                                //zum Startmenu
+                                //MausAktiv = true;
+                                pauseMenu.hide();
+                                StartMenu.show();
+                                Tausch.SpielAktiv = false;
+                                mouseState = Help.GetMouseState();
+                                return;
+                            }
                             default:
                                 break;
                         }
@@ -4235,35 +4230,35 @@ namespace _4_1_
                     switch (StartMenu.MouseKeys(mouseState))
                     {
                         case 0:
-                            {
-                                Spiel2 = null;
-                                StarteNeuesSpiel();
-                                mouseState = Help.GetMouseState();
-                                StartMenu.hide();
-                                //  MausAktiv = false;
-                                Tausch.SpielAktiv = true;
-                                mouseState = Help.GetMouseState();
-                                return;
-                            }
+                        {
+                            Spiel2 = null;
+                            StarteNeuesSpiel();
+                            mouseState = Help.GetMouseState();
+                            StartMenu.hide();
+                            //  MausAktiv = false;
+                            Tausch.SpielAktiv = true;
+                            mouseState = Help.GetMouseState();
+                            return;
+                        }
                         case 1:
-                            {
-                                //laden
-                                mouseState = Help.GetMouseState();
-                                return;
-                            }
+                        {
+                            //laden
+                            mouseState = Help.GetMouseState();
+                            return;
+                        }
                         case 2:
-                            {
-                                //optionen anzeigen
-                                mouseState = Help.GetMouseState();
-                                return;
-                            }
+                        {
+                            //optionen anzeigen
+                            mouseState = Help.GetMouseState();
+                            return;
+                        }
                         case 3:
-                            {
-                                //  MausAktiv = false;
-                                Exit();
-                                mouseState = Help.GetMouseState();
-                                return;
-                            }
+                        {
+                            //  MausAktiv = false;
+                            Exit();
+                            mouseState = Help.GetMouseState();
+                            return;
+                        }
                         default:
                             break;
                     }
@@ -4285,16 +4280,16 @@ namespace _4_1_
                     switch (currentSaveinfo.button)
                     {
                         case 0:
-                            {
-                                //Spiel Speichen
-                                //Mapwriter.WriteMap(currentSaveinfo.target, Spiel2);
+                        {
+                            //Spiel Speichen
+                            //Mapwriter.WriteMap(currentSaveinfo.target, Spiel2);
 
-                                break;
-                            }
+                            break;
+                        }
                         case 1:
-                            {
-                                //Spiel laden
-                                /*Spiel2 = null;
+                        {
+                            //Spiel laden
+                            /*Spiel2 = null;
                                     Mapreader.LoadMap(currentSaveinfo.target, ref Spiel2, new Vector2(this.screenWidth, this.screenHeight));
                                     Help.Spielfeld = Spiel2.Spielfeld;
                                     Spiel2.Width = screenWidth;
@@ -4304,24 +4299,24 @@ namespace _4_1_
 
                                     CreateForeground();
                                     createKasten();*/
-                                Tausch.SpielAktiv = true;
-                                // MausAktiv = false;
-                                Ladenmenu.hide();
-                                break;
-                            }
+                            Tausch.SpielAktiv = true;
+                            // MausAktiv = false;
+                            Ladenmenu.hide();
+                            break;
+                        }
                         case 2:
-                            {
-                                /*
+                        {
+                            /*
                                     lademenuaufruf = false;*/
-                                Ladenmenu.hide();
-                                if (Spiel2 == null) StartMenu.show();
-                                else pauseMenu.show();
-                                break;
-                            }
+                            Ladenmenu.hide();
+                            if (Spiel2 == null) StartMenu.show();
+                            else pauseMenu.show();
+                            break;
+                        }
                         default:
-                            {
-                                break;
-                            }
+                        {
+                            break;
+                        }
                     }
 
                     #endregion Lademenu
@@ -4466,12 +4461,12 @@ namespace _4_1_
         /// <returns>Color[][].</returns>
         public static Color[,] Farbwahl(Texture2D texture)
         {
-            var colors1D = new Color[texture.Width * texture.Height];
+            var colors1D = new Color[texture.Width*texture.Height];
             texture.GetData(colors1D);
             var colors2D = new Color[texture.Width, texture.Height];
             for (int x = 0; x < texture.Width; x++)
                 for (int y = 0; y < texture.Height; y++)
-                    colors2D[x, y] = colors1D[x + y * texture.Width];
+                    colors2D[x, y] = colors1D[x + y*texture.Width];
 
             return colors2D;
         }

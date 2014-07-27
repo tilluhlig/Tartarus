@@ -192,8 +192,8 @@ namespace _4_1_
             {
                 (float) -s*u.Y + (1 - c)*u.X*u.Z, (float) s*u.X + (1 - c)*u.Y*u.Z, (float) c + (1 - c)*u.Z*u.Z
             };
-            return new Vector3((float) ((float) A[0]*BB.X + A[1]*BB.Y + A[2]*BB.Z),
-                (float) ((float) B[0]*BB.X + B[1]*BB.Y + B[2]*BB.Z), (float) ((float) C[0]*BB.X + C[1]*BB.Y + C[2]*BB.Z));
+            return new Vector3((float)((float)A[0] * BB.X + A[1] * BB.Y + A[2] * BB.Z),
+                (float)((float)B[0] * BB.X + B[1] * BB.Y + B[2] * BB.Z), (float)((float)C[0] * BB.X + C[1] * BB.Y + C[2] * BB.Z));
         }
 
         /// <summary>
@@ -262,14 +262,14 @@ namespace _4_1_
                     Incoming_Position);
 
             // Bringe Object und Eindringling relativ zueinander
-            var x = (int) (Incoming_Position.X - Object_Position.X);
-            var y = (int) (Incoming_Position.Y - Object_Position.Y);
+            var x = (int)(Incoming_Position.X - Object_Position.X);
+            var y = (int)(Incoming_Position.Y - Object_Position.Y);
 
             // Korrektur für Bilder, die nach ihrem Mittelpunkt ausgerichtet wurden
-            if (Zentriert) x += (int) (BildBreite*Skalierung/2);
+            if (Zentriert) x += (int)(BildBreite * Skalierung / 2);
 
             // Korrektur (Bild wurde verschoben)
-            y += (int) (BildHöhe*Skalierung);
+            y += (int)(BildHöhe * Skalierung);
 
             // eigentliche Kollisionsabfrage
             return isSet(x, y, overreach);
@@ -285,12 +285,12 @@ namespace _4_1_
         public bool isSet(int x, int y, bool overreach)
         {
             if (x < 0 || y < 0) return false;
-            if (x >= BildBreite*Skalierung || y >= BildHöhe*Skalierung) return false;
+            if (x >= BildBreite * Skalierung || y >= BildHöhe * Skalierung) return false;
             if (Bild == null) return false;
 
             // Korrektur der Skalierung
-            x = (int) (x/Skalierung);
-            y = (int) (y/Skalierung);
+            x = (int)(x / Skalierung);
+            y = (int)(y / Skalierung);
 
             // Korrektur des Overreach
             if (overreach) x = BildBreite - x;
@@ -344,7 +344,7 @@ namespace _4_1_
         public Texture2D UseMaskOnTexture2D(Texture2D _Bild)
         {
             if (Bild == null) return null;
-            var Data = new Color[_Bild.Width*_Bild.Height];
+            var Data = new Color[_Bild.Width * _Bild.Height];
             _Bild.GetData(Data);
 
             for (int i = 0; i < _Bild.Width; i++)
@@ -352,7 +352,7 @@ namespace _4_1_
                 {
                     if (!Help.isSet(Bild, i, b))
                     {
-                        Data[i + b*_Bild.Width] = Color.Transparent;
+                        Data[i + b * _Bild.Width] = Color.Transparent;
                     }
                 }
 

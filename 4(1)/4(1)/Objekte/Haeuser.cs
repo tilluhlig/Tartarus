@@ -70,6 +70,8 @@ namespace _4_1_
         /// </summary>
         public List<int> HausTyp = new List<int>();
 
+        public List<KoerperObjekt> Koerper = new List<KoerperObjekt>();
+
         /// <summary>
         ///     The collision
         /// </summary>
@@ -101,8 +103,6 @@ namespace _4_1_
         ///     The destruction
         /// </summary>
         public List<ZerstörungsObjekt> Zerstörung = new List<ZerstörungsObjekt>();
-
-        public List<KoerperObjekt> Koerper = new List<KoerperObjekt>();
 
         #endregion Fields
 
@@ -587,7 +587,7 @@ namespace _4_1_
             if (Zerstörung[i] == null) return 0;
 
             List<Vector3> Bereiche = new List<Vector3>();
-            int result = Zerstörung[i].BerechneZerstörung(Bild[i], Explosion, Energie, Position[i],Bereiche);
+            int result = Zerstörung[i].BerechneZerstörung(Bild[i], Explosion, Energie, Position[i], Bereiche);
             if (result == 0) return 0;
             Koerper[i].objektSchwerpunkt.VerringereSchwerpunktmasse(Bereiche);
             return result;

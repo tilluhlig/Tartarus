@@ -3,19 +3,19 @@
 namespace _4_1_
 {
     /// <summary>
-    /// Ermöglicht das Nutzen von Kraftvektoren
+    ///     Ermöglicht das Nutzen von Kraftvektoren
     /// </summary>
     public class Kraft
     {
         #region Fields
 
         /// <summary>
-        /// die Position an welcher der Vektor wirkt (von Links-Oben)
+        ///     die Position an welcher der Vektor wirkt (von Links-Oben)
         /// </summary>
         public Vector2 Position = Vector2.Zero;
 
         /// <summary>
-        /// der Vektor des Kraftvektors
+        ///     der Vektor des Kraftvektors
         /// </summary>
         public Vector2 Wert = Vector2.Zero;
 
@@ -24,7 +24,7 @@ namespace _4_1_
         #region Constructors
 
         /// <summary>
-        /// Erzeugt eine Kraft
+        ///     Erzeugt eine Kraft
         /// </summary>
         /// <param name="_Wert">der Kraftvektor</param>
         /// <param name="_Position">die Position</param>
@@ -35,7 +35,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Erzeugt eine Kraft
+        ///     Erzeugt eine Kraft
         /// </summary>
         /// <param name="_PositionA">der Ausgangspunkt der Kraft</param>
         /// <param name="_PositionB">die Position, an welcher der Vektor wirkt</param>
@@ -44,7 +44,7 @@ namespace _4_1_
         {
             float tempLaenge = (_PositionB - _PositionA).Length();
             Vector2 tempVector = _PositionB - _PositionA;
-            Wert = new Vector2(Laenge * tempVector.X / tempLaenge, Laenge * tempVector.Y / tempLaenge);
+            Wert = new Vector2(Laenge*tempVector.X/tempLaenge, Laenge*tempVector.Y/tempLaenge);
             Position = _PositionB;
         }
 

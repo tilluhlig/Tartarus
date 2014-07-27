@@ -689,11 +689,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\lvupbutton.png">
-      <Name>lvupbutton</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <None Include="Konfiguration\Ladetexte.txt">
       <Name>Ladetexte</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

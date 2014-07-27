@@ -222,7 +222,7 @@ namespace _4_1_
         /// <summary>
         ///     The exp
         /// </summary>
-        public static Texture2D Exp;
+        ///public static Texture2D Exp;
 
         /// <summary>
         ///     The explosion
@@ -1112,8 +1112,8 @@ namespace _4_1_
             ///Bilddateien.Add("geldbutton", 0.25f);
             ///Geld = Content.Load<Texture2D>("Textures\\geldbutton");
 
-            Bilddateien.Add("lvupbutton", 0.25f);
-            Exp = Content.Load<Texture2D>("Textures\\lvupbutton");
+            //Bilddateien.Add("lvupbutton", 0.25f);
+            ///Exp = Content.Load<Texture2D>("Textures\\lvupbutton");
 
             ///Bilddateien.Add("hpstatusbutton", 0.25f);
             ///HpStatus = Content.Load<Texture2D>("Textures\\hpstatusbutton");

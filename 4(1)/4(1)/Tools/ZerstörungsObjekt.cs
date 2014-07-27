@@ -184,7 +184,7 @@ namespace _4_1_
                 if (dist < 0) dist = -dist;
                 var add = (int)(Math.Log((((aa) - dist) * Math.PI), Math.E) * Math.Sqrt(Energie));
 
-                Vector3 tempZerstoert = new Vector3(x+i,-1,-1);
+                Vector3 tempZerstoert = new Vector3(x + i, -1, -1);
                 for (int b = -add; b < add; b++)
                 {
                     var Delete = new Vector2(x + i, y + b);

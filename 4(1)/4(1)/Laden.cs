@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework;
 namespace _4_1_
 {
     /// <summary>
-    /// diese Klasse dient dem Erstellen und Handhaben von Textlisten (siehe Serialisierung)
+    ///     diese Klasse dient dem Erstellen und Handhaben von Textlisten (siehe Serialisierung)
     /// </summary>
     public static class TextLaden
     {
         #region Methods
 
         /// <summary>
-        /// erzeugt ein Dictionary aus einer Textliste, dabei werden Unterobjekte ignoriert
+        ///     erzeugt ein Dictionary aus einer Textliste, dabei werden Unterobjekte ignoriert
         /// </summary>
         /// <param name="Text">die Textliste</param>
         /// <returns>ein Dictionary mit den Paaren</returns>
@@ -56,7 +56,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Ermittelt ein Unterobjekt einer Textliste, mit einem bestimmten Namen und entfernt diesen aus der original Liste
+        ///     Ermittelt ein Unterobjekt einer Textliste, mit einem bestimmten Namen und entfernt diesen aus der original Liste
         /// </summary>
         /// <param name="Text">die Textliste</param>
         /// <param name="Bereichsname">der Name des Bereichs/Unterobjekts</param>
@@ -108,7 +108,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Lädt eine Bool-Variable mit entsprechendem Namen
+        ///     Lädt eine Bool-Variable mit entsprechendem Namen
         /// </summary>
         /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
         /// <param name="Name">der Name des Eintrages</param>
@@ -133,7 +133,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Lädt eine Float-Variable mit entsprechendem Namen
+        ///     Lädt eine Float-Variable mit entsprechendem Namen
         /// </summary>
         /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
         /// <param name="Name">der Name des Eintrages</param>
@@ -159,7 +159,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Lädt eine Int-Variable mit entsprechendem Namen
+        ///     Lädt eine Int-Variable mit entsprechendem Namen
         /// </summary>
         /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
         /// <param name="Name">der Name des Eintrages</param>
@@ -185,7 +185,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Lädt eine String-Variable mit entsprechendem Namen
+        ///     Lädt eine String-Variable mit entsprechendem Namen
         /// </summary>
         /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
         /// <param name="Name">der Name des Eintrages</param>
@@ -210,7 +210,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// Lädt eine Vector2-Variable mit entsprechendem Namen
+        ///     Lädt eine Vector2-Variable mit entsprechendem Namen
         /// </summary>
         /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
         /// <param name="Name">der Name des Eintrages</param>

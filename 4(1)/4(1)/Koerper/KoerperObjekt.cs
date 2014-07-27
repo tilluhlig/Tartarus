@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-
-namespace _4_1_
+﻿namespace _4_1_
 {
     /// <summary>
     /// Verwaltet einen Körper
     /// </summary>
     public class KoerperObjekt
     {
+        #region Fields
+
         /// <summary>
         ///  der Schwerpunkt des Objektes
         /// </summary>
         public Schwerpunkt objektSchwerpunkt = new Schwerpunkt();
 
+        #endregion Fields
     }
 }

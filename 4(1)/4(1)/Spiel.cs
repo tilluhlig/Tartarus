@@ -353,7 +353,7 @@ namespace _4_1_
                 incshoot2 %= 5;
                 incshoot3++;
                 incshoot3 %= 9;
-                return incshoot3*10 + incshoot2*2;
+                return incshoot3 * 10 + incshoot2 * 2;
             }
         }
 
@@ -402,9 +402,9 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void AddBunker(int Spieler, Vector2 pos)
         {
-            var breite = (int) (Texturen.bunker[0].Width*Optimierung.Skalierung(0.25f));
+            var breite = (int)(Texturen.bunker[0].Width * Optimierung.Skalierung(0.25f));
             int id = Spieler;
-            Bunker.Hinzufügen(new Vector2(pos.X - breite/2, pos.Y), id);
+            Bunker.Hinzufügen(new Vector2(pos.X - breite / 2, pos.Y), id);
         }
 
         /// <summary>
@@ -526,7 +526,7 @@ namespace _4_1_
         /// <param name="CurrentTank">The current tank.</param>
         /// <returns>System.Int32.</returns>
         public int AddRakete(int Spieler, Vector2 pos, Vector2 Direction, int Lebensdauer, int Weapon, int CurrentTank)
-            // Fügt eine Rakete zum Spiel hinzu  // geändert
+        // Fügt eine Rakete zum Spiel hinzu  // geändert
         {
             Soundsystem[] sh = Sounds.Shots;
 
@@ -538,7 +538,7 @@ namespace _4_1_
                     int dist;
                     if (Spieler <= 2)
                     {
-                        dist = (int) (players[Spieler].pos[players[Spieler].CurrentTank].X - (Fenster.X));
+                        dist = (int)(players[Spieler].pos[players[Spieler].CurrentTank].X - (Fenster.X));
                         if (dist < 0) dist = -dist;
                     }
                     else
@@ -546,8 +546,8 @@ namespace _4_1_
 
                     //sh[Waffendaten.Abschuesse[Weapon]].Play((float)(1.0d - ((double)dist / Spielfeld.Length)), 0.0f, 0.0f);
                     sh[Waffendaten.Abschuesse[Weapon]].PlaySoundAny(false,
-                        (float) (1.0d - ((double) dist/Spielfeld.Length)));
-                    Missile[i].Energie = (int) Waffendaten.Daten[Weapon].X;
+                        (float)(1.0d - ((double)dist / Spielfeld.Length)));
+                    Missile[i].Energie = (int)Waffendaten.Daten[Weapon].X;
                     Missile[i].misslePosition = pos;
                     Missile[i].Besitzer[0] = Spieler;
                     Missile[i].Besitzer[1] = CurrentTank;
@@ -589,15 +589,15 @@ namespace _4_1_
         {
             if (Client.isRunning) return;
             var q = new int[9]; // anzahl der raketen, ungerade anzahl benötigt
-            for (int i = -(q.Length/2); i <= (q.Length/2); i++)
+            for (int i = -(q.Length / 2); i <= (q.Length / 2); i++)
             {
                 // Abstand
-                q[i + (q.Length/2)] = AddRakete(Spieler, new Vector2(pos.X + (i*80), rand.Next(-1100, -200)),
-                    new Vector2(rand.Next(-100, 100)/25, -1), 300*4, 5, players[CurrentPlayer].CurrentTank);
+                q[i + (q.Length / 2)] = AddRakete(Spieler, new Vector2(pos.X + (i * 80), rand.Next(-1100, -200)),
+                    new Vector2(rand.Next(-100, 100) / 25, -1), 300 * 4, 5, players[CurrentPlayer].CurrentTank);
             }
 
-            CurrentMissile = q[(q.Length/2)];
-            if (CurrentMissile != -1) Missile[q[(q.Length/2)]].focused = true;
+            CurrentMissile = q[(q.Length / 2)];
+            if (CurrentMissile != -1) Missile[q[(q.Length / 2)]].focused = true;
         }
 
         /// <summary>
@@ -623,7 +623,7 @@ namespace _4_1_
         {
             if (Next_Fenster.X != Fenster.X)
             {
-                var add = (int) (Next_Fenster.X - Fenster.X);
+                var add = (int)(Next_Fenster.X - Fenster.X);
                 if (add < 0) add = -add;
 
                 if (!Moving_Map)
@@ -803,7 +803,7 @@ namespace _4_1_
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         public void check_players(GameTime gameTime)
-            // prüfe timeout der Spieler und ob spieler tot/aus spielfeld gefallen
+        // prüfe timeout der Spieler und ob spieler tot/aus spielfeld gefallen
         {
             //  if (Client.isRunning) return;
             if (TIMEOUT.Wert)
@@ -834,7 +834,7 @@ namespace _4_1_
                     if (!players[i].isthere[b]) continue;
 
                     // Feuer
-                    if (Feuer.check_Feuer((int) players[i].pos[b].X, (int) players[i].pos[b].Y - 2))
+                    if (Feuer.check_Feuer((int)players[i].pos[b].X, (int)players[i].pos[b].Y - 2))
                         players[i].hp[b] -= players[i].Effekte[b].GibFeuerSchaden(10);
 
                     // automatisches Fahren
@@ -903,7 +903,7 @@ namespace _4_1_
                         float abc = players[i].CurrentLv[b];
                         float abcd = Fahrzeugdaten.ExpToLvUpVar[players[i].KindofTank[b], players[i].CurrentLv[b]];
 
-                        players[i].ExpNow[b] = players[i].ExpNow[b]*100/
+                        players[i].ExpNow[b] = players[i].ExpNow[b] * 100 /
                                                Fahrzeugdaten.ExpToLvUpVar[players[i].KindofTank[b], players[i].CurrentLv[b]
                                                    ];
                         if (players[i].ExpNow[b] >=
@@ -1055,15 +1055,15 @@ namespace _4_1_
                        }*/
                     // }
 
-                    var ditt = (int) (Texturen.panzerindex[players[i].KindofTank[b]].Width*(players[i].Size[b]));
+                    var ditt = (int)(Texturen.panzerindex[players[i].KindofTank[b]].Width * (players[i].Size[b]));
                     ditt = Fahrzeugdaten.FAHRM.Wert[players[i].KindofTank[b]];
-                    int add = ditt/2;
-                    if ((int) players[i].pos[b].X - ditt + add < 0) ditt = 0;
-                    if ((int) players[i].pos[b].X - ditt + add > Spielfeld.Length - 2)
-                        ditt = (Spielfeld.Length) - ((int) players[i].pos[b].X - 2 - ditt + add);
+                    int add = ditt / 2;
+                    if ((int)players[i].pos[b].X - ditt + add < 0) ditt = 0;
+                    if ((int)players[i].pos[b].X - ditt + add > Spielfeld.Length - 2)
+                        ditt = (Spielfeld.Length) - ((int)players[i].pos[b].X - 2 - ditt + add);
 
-                    int playerposX = (int) players[i].pos[b].X + add;
-                    var playerposY = (int) players[i].pos[b].Y;
+                    int playerposX = (int)players[i].pos[b].X + add;
+                    var playerposY = (int)players[i].pos[b].Y;
                     int playerposX2;
                     int playerposY2;
                     float summ = 0;
@@ -1071,21 +1071,21 @@ namespace _4_1_
                     for (int c = 0; c < ditt && playerposX - c + add < Spielfeld.Length; c++)
                     {
                         summ += Kartenformat.BottomOf(playerposX - c + add, playerposY);
-                            // Spielfeld[playerposX - c + add];
+                        // Spielfeld[playerposX - c + add];
                         dit++;
                     }
                     summ /= dit;
-                    playerposX = (int) players[i].pos[b].X + add;
-                    playerposY = (int) players[i].pos[b].Y;
-                    playerposX2 = (int) players[i].pos[b].X - ditt + add;
-                    playerposY2 = (int) summ;
+                    playerposX = (int)players[i].pos[b].X + add;
+                    playerposY = (int)players[i].pos[b].Y;
+                    playerposX2 = (int)players[i].pos[b].X - ditt + add;
+                    playerposY2 = (int)summ;
                     var auxangle =
                         (float)
                             Math.Atan(
                                 (double)
                                     (Kartenformat.BottomOf(playerposX2, playerposY2) -
-                                     Kartenformat.BottomOf(playerposX, playerposY))/((playerposX2) - (playerposX)));
-                        // (float)Math.Atan((double)(Spielfeld[playerposX2] - Spielfeld[playerposX]) / ((playerposX2) - (playerposX)));
+                                     Kartenformat.BottomOf(playerposX, playerposY)) / ((playerposX2) - (playerposX)));
+                    // (float)Math.Atan((double)(Spielfeld[playerposX2] - Spielfeld[playerposX]) / ((playerposX2) - (playerposX)));
                     float move = Fahrzeugdaten.FALLW.Wert[players[i].KindofTank[b]];
 
                     if (players[i].vehikleAngle[b] < auxangle)
@@ -1130,7 +1130,7 @@ namespace _4_1_
             if (focused_rakete && !Moving_Map)
             {
                 Set_Focus(Position(Missile[CurrentMissile].misslePosition));
-                wait_change = (int) Waffendaten.Daten2[Missile[CurrentMissile].Art].X;
+                wait_change = (int)Waffendaten.Daten2[Missile[CurrentMissile].Art].X;
             }
             if (!focused_rakete && wait_change == 0 && increaseairstrike == false && !Moving_Map &&
                 players[CurrentPlayer].CurrentTank > -1)
@@ -1161,7 +1161,7 @@ namespace _4_1_
         /// <param name="gameTime">The game time.</param>
         /// <returns>List{Vector3}.</returns>
         public List<Vector3> check_verzoegerte(GameTime gameTime)
-            // prüft ob nach dem Aufschlag verzögerte Raketen jetzt zünden dürfen
+        // prüft ob nach dem Aufschlag verzögerte Raketen jetzt zünden dürfen
         {
             var list = new List<Vector3>();
             for (int i = 0; i < Missile.Length; i++)
@@ -1492,7 +1492,7 @@ namespace _4_1_
             if (Waffendaten.Brandherd[Art] > 0)
             {
                 int brand = Waffendaten.Brandherd[Art];
-                list.AddRange(Feuer.Generieren((int) (pos.X - brand), (int) (pos.X + brand), (int) pos.X, (int) pos.Y, 5));
+                list.AddRange(Feuer.Generieren((int)(pos.X - brand), (int)(pos.X + brand), (int)pos.X, (int)pos.Y, 5));
             }
 
             if ((Art == 2 || Art == 3 || Art == 12 || Art == 13 || Art == 11))
@@ -1518,7 +1518,7 @@ namespace _4_1_
                             Math.Sqrt(Math.Pow(players[b].pos[c].X - pos.X, 2) +
                                       Math.Pow(players[b].pos[c].Y - pos.Y, 2));
                     if (dist < 0) dist = -dist;
-                    var energy = (int) ((float) Energie*Waffendaten.Energiefaktor[Art]);
+                    var energy = (int)((float)Energie * Waffendaten.Energiefaktor[Art]);
                     if (dist > energy + 200) continue; // wenn zu weit weg
 
                     // Prüfe ob Panzer im Bunker ist
@@ -1562,8 +1562,8 @@ namespace _4_1_
                         {
                             Vector2 dat = players[b].pos[c] +
                                           new Vector2(
-                                              (float) -Texturen.panzerindex[typ].Width/2*Fahrzeugdaten.SCALEP.Wert[typ],
-                                              (float) -Texturen.panzerindex[typ].Height*Fahrzeugdaten.SCALEP.Wert[typ]) +
+                                              (float)-Texturen.panzerindex[typ].Width / 2 * Fahrzeugdaten.SCALEP.Wert[typ],
+                                              (float)-Texturen.panzerindex[typ].Height * Fahrzeugdaten.SCALEP.Wert[typ]) +
                                           Fahrzeugdaten.Messpunkte[typ][d];
                             if (abstand == -1 || Help.Abstand(pos, dat) < abstand)
                             {
@@ -1576,21 +1576,21 @@ namespace _4_1_
                         float gesamt = players[b].MaxPixel[c];
                         if (abstand > energy) abstand = energy;
                         if (players[b].PrüfeObKollision(c, pos)) abstand = 0;
-                        if (found > gesamt) found = (int) gesamt;
+                        if (found > gesamt) found = (int)gesamt;
 
                         // int schaden = (int)((float)((float)found / gesamt) * ((float)1 - ((float)abstand / energy)) * Rakete.Zentrumschaden[Art]);
 
                         var schaden =
                             (int)
-                                (((float) ((float) found/gesamt)*Waffendaten.Zentrumschaden[Art])*0.25f +
-                                 (float) ((float) 1 - ((float) abstand/energy))*Waffendaten.Zentrumschaden[Art]*0.75f);
+                                (((float)((float)found / gesamt) * Waffendaten.Zentrumschaden[Art]) * 0.25f +
+                                 (float)((float)1 - ((float)abstand / energy)) * Waffendaten.Zentrumschaden[Art] * 0.75f);
                         if (schaden > 0 && Waffendaten.Verschiessbar[Art] != 4)
                             Kurzmeldung.Hinzufügen("-" + schaden.ToString(),
                                 new Vector2(players[b].pos[c].X,
                                     players[b].pos[c].Y -
-                                    Texturen.panzerindex[players[b].KindofTank[c]].Height*
+                                    Texturen.panzerindex[players[b].KindofTank[c]].Height *
                                     Fahrzeugdaten.SCALEP.Wert[players[b].KindofTank[c]]), Color.Yellow);
-                                //(players[b].Farbe)
+                        //(players[b].Farbe)
                         players[b].hp[c] -= schaden;
                     }
 
@@ -1604,8 +1604,8 @@ namespace _4_1_
                         {
                             var punkte =
                                 (int)
-                                    (Fahrzeugdaten.ExpRewarded[players[b].KindofTank[c]]*
-                                     ((players[b].CurrentLv[c])*0.5 + 1));
+                                    (Fahrzeugdaten.ExpRewarded[players[b].KindofTank[c]] *
+                                     ((players[b].CurrentLv[c]) * 0.5 + 1));
                             players[Besitzer[0]].ExpNow[Besitzer[1]] += punkte;
                             Kurzmeldung.Hinzufügen("+" + punkte.ToString(), players[Besitzer[0]].pos[Besitzer[1]],
                                 Color.Green, -300);
@@ -1634,11 +1634,11 @@ namespace _4_1_
                             if (found > 0 && Waffendaten.Verschiessbar[Art] != 4)
                                 Kurzmeldung.Hinzufügen("-" + found.ToString(),
                                     new Vector2(
-                                        Haeuser.Position[b].X + Haeuser.Bild[b].Width/2*Gebäudedaten.SKALIERUNG.Wert[id] +
+                                        Haeuser.Position[b].X + Haeuser.Bild[b].Width / 2 * Gebäudedaten.SKALIERUNG.Wert[id] +
                                         Gebäudedaten.POSITIONX.Wert[id],
                                         Haeuser.Position[b].Y + Gebäudedaten.POSITIONY.Wert[id] -
-                                        Haeuser.Bild[b].Height*Gebäudedaten.SKALIERUNG.Wert[id]), Color.Yellow);
-                                    //(Haeuser.Besitzer[b] == -1 ? Color.Yellow : players[Haeuser.Besitzer[b]].Farbe)
+                                        Haeuser.Bild[b].Height * Gebäudedaten.SKALIERUNG.Wert[id]), Color.Yellow);
+                            //(Haeuser.Besitzer[b] == -1 ? Color.Yellow : players[Haeuser.Besitzer[b]].Farbe)
                         }
                     }
 
@@ -1657,10 +1657,10 @@ namespace _4_1_
                                     Kurzmeldung.Hinzufügen("-" + found.ToString(),
                                         new Vector2(
                                             players[i].TunnelAnlage[b].Position.X +
-                                            Texturen.tunnel.Width/2*Tunnel.SKALIERUNG,
+                                            Texturen.tunnel.Width / 2 * Tunnel.SKALIERUNG,
                                             players[i].TunnelAnlage[b].Position.Y -
-                                            Texturen.tunnel.Height*Tunnel.SKALIERUNG), Color.Yellow);
-                                        //(Haeuser.Besitzer[b] == -1 ? Color.Yellow : players[Haeuser.Besitzer[b]].Farbe)
+                                            Texturen.tunnel.Height * Tunnel.SKALIERUNG), Color.Yellow);
+                                //(Haeuser.Besitzer[b] == -1 ? Color.Yellow : players[Haeuser.Besitzer[b]].Farbe)
                                 if (players[i].TunnelAnlage[b].Lebenspunkte <= 0)
                                 {
                                     DeleteTunnel(i, b);
@@ -1670,7 +1670,7 @@ namespace _4_1_
 
                 // Bunkerschäden berechnen
                 for (int b = 0; b < Bunker.Position.Count; b++)
-                    //if (Bunker.BUNKER_ZERSTOERUNG.Wert)
+                //if (Bunker.BUNKER_ZERSTOERUNG.Wert)
                 {
                     int found = Bunker.PrüfeObZerstörung(b, pos, Energie);
                     if (found > 0)
@@ -1679,10 +1679,10 @@ namespace _4_1_
                         if (found > 0 && Waffendaten.Verschiessbar[Art] != 4)
                             Kurzmeldung.Hinzufügen("-" + found.ToString(),
                                 new Vector2(
-                                    Bunker.Position[b].X + Texturen.bunker[0].Width/2*Optimierung.Skalierung(0.25f),
-                                    Bunker.Position[b].Y - Texturen.bunker[0].Height*Optimierung.Skalierung(0.25f)),
+                                    Bunker.Position[b].X + Texturen.bunker[0].Width / 2 * Optimierung.Skalierung(0.25f),
+                                    Bunker.Position[b].Y - Texturen.bunker[0].Height * Optimierung.Skalierung(0.25f)),
                                 Color.Yellow);
-                                //(Haeuser.Besitzer[b] == -1 ? Color.Yellow : players[Haeuser.Besitzer[b]].Farbe)
+                        //(Haeuser.Besitzer[b] == -1 ? Color.Yellow : players[Haeuser.Besitzer[b]].Farbe)
                         //if (Bunker.BUNKER_KOLLISION.Wert) Bunker.load(b);
 
                         if (Bunker.Lebenspunkte[b] <= 0)
@@ -1691,8 +1691,8 @@ namespace _4_1_
                             Bunker.Entfernen(b);
                             Karte.Explosion_einer_Waffe_zünden(Spielfeld, gameTime, this, 0,
                                 po +
-                                new Vector2(Texturen.bunker[0].Width/2*Optimierung.Skalierung(0.25f),
-                                    -Texturen.bunker[0].Height/2*Optimierung.Skalierung(0.25f)));
+                                new Vector2(Texturen.bunker[0].Width / 2 * Optimierung.Skalierung(0.25f),
+                                    -Texturen.bunker[0].Height / 2 * Optimierung.Skalierung(0.25f)));
                         }
                     }
                 }
@@ -1764,7 +1764,7 @@ namespace _4_1_
             hoehlen = new Höhlenkonfiguration();
 
             //Karte.create_map_staedte_doerfer(Spielfeld, (int)((double)screen.Y * 0.75), (int)((double)screen.Y * 0.5), 30, 175, 50, (int)screen.Y, hoehlen, symmetrisch);
-            Karte.create_map(Spielfeld, (int) (screen.Y*0.75), (int) (screen.Y*0.5), 30, 50, 50, (int) screen.Y, hoehlen);
+            Karte.create_map(Spielfeld, (int)(screen.Y * 0.75), (int)(screen.Y * 0.5), 30, 50, 50, (int)screen.Y, hoehlen);
 
             // Spieler erstellen
             players = new Spieler[2];
@@ -1784,8 +1784,8 @@ namespace _4_1_
             Fenster.X = 0;
             Fenster.Y = 0;
 
-            Width = (int) screen.X;
-            Height = (int) screen.Y;
+            Width = (int)screen.X;
+            Height = (int)screen.Y;
 
             if (Haus.HAEUSER)
             {
@@ -1800,8 +1800,8 @@ namespace _4_1_
             // TODO hier die Bäume
             if (Baum.BAEUME) Baeume.set_Baeume(Spielfeld, symmetrisch);
 
-            foreground = new Texture2D[(int) Math.Ceiling((double) Kartengroesse/2048)];
-            foregroundColors = new Color[(int) Math.Ceiling((double) Kartengroesse/2048)][];
+            foreground = new Texture2D[(int)Math.Ceiling((double)Kartengroesse / 2048)];
+            foregroundColors = new Color[(int)Math.Ceiling((double)Kartengroesse / 2048)][];
 
             // fogColors = new Color[];
             // Nebelkreis = new Color[(int)Math.Ceiling((double)Kartengroesse / 2048)];
@@ -1810,7 +1810,7 @@ namespace _4_1_
             Replay.Begin(players);
             //Replay.Laden("", (CurrentPlayer + 1) % players.Count(), false);
             //Hauptfenster.Tausch.CurrentPlayer = 1;
-            Wind.X = rand.Next(-60, 60)/10;
+            Wind.X = rand.Next(-60, 60) / 10;
             // Wind.Y = rand.Next(-5, 5) / 10;
         }
 
@@ -1820,24 +1820,24 @@ namespace _4_1_
         /// <param name="symmetrisch">if set to <c>true</c> [symmetrisch].</param>
         public void InitialisiereSpieler(bool symmetrisch)
         {
-            Color[] Spielerfarben = {Color.Red, Color.Blue};
-            float[] Angle = {180, 0};
-            bool[] overreach = {true, false};
+            Color[] Spielerfarben = { Color.Red, Color.Blue };
+            float[] Angle = { 180, 0 };
+            bool[] overreach = { true, false };
             int a = 150;
             int bd = Spielfeld.Length - a;
             var Positionen = new Vector2[players.Length];
             Positionen[0] = new Vector2(a, Spielfeld[a][0]);
             Positionen[1] = new Vector2(bd, Spielfeld[bd][0]);
 
-            int[] PanzerTypen = {0, 1, 2, 3, 4, 5};
+            int[] PanzerTypen = { 0, 1, 2, 3, 4, 5 };
 
             if (symmetrisch)
             {
-                PanzerTypen = new[] {0, 2, 3, 1};
+                PanzerTypen = new[] { 0, 2, 3, 1 };
             }
             else
             {
-                PanzerTypen = new[] {0, 1, 2, 3};
+                PanzerTypen = new[] { 0, 1, 2, 3 };
             }
 
             for (int i = 0; i < players.Length; i++)
@@ -1848,7 +1848,7 @@ namespace _4_1_
                 }
 
                 players[i].shootingPower = 0f;
-                players[i].MaxTimeout = 180*60;
+                players[i].MaxTimeout = 180 * 60;
                 players[i].Credits = 5000;
                 players[i].Farbe = Spielerfarben[i];
             }
@@ -2040,7 +2040,7 @@ namespace _4_1_
             if (Client.isRunning) return;
             WindTimeout = 15; // rand.Next(30, 60 * 1); // dauer des Windes
             float q = 0;
-            q = (rand.Next(-20, 20)/100.0f); // stärke des Windes
+            q = (rand.Next(-20, 20) / 100.0f); // stärke des Windes
             Wind.X += q;
             if (Wind.X < -6) Wind.X = -6;
             if (Wind.X > 6) Wind.X = 6;
@@ -2061,22 +2061,22 @@ namespace _4_1_
             int breite = radius;
 
             // Prüfe, ob untergrund flach
-            for (int i = (int) pos.X - breite/2; i < pos.X + breite/2; i++)
+            for (int i = (int)pos.X - breite / 2; i < pos.X + breite / 2; i++)
             {
                 if (Kartenformat.BottomOf(i, pos.Y) != pos.Y) return false;
             }
 
             // Prüfe das nichts anderes in der nähe steht
-            if (pos.X - radius/2 > 0 && pos.X + radius/2 < Spielfeld.Length)
+            if (pos.X - radius / 2 > 0 && pos.X + radius / 2 < Spielfeld.Length)
             {
-                breite = (int) (Texturen.bunker[0].Width*Optimierung.Skalierung(0.25f));
+                breite = (int)(Texturen.bunker[0].Width * Optimierung.Skalierung(0.25f));
                 for (int i = 0; i < Bunker.Position.Count; i++)
                 {
-                    if (pos.X - radius/2 <= Bunker.Position[i].X + breite && pos.X - radius/2 >= Bunker.Position[i].X)
+                    if (pos.X - radius / 2 <= Bunker.Position[i].X + breite && pos.X - radius / 2 >= Bunker.Position[i].X)
                     {
                         return false;
                     }
-                    if (pos.X + radius/2 >= Bunker.Position[i].X && pos.X + breite/2 <= Bunker.Position[i].X + radius)
+                    if (pos.X + radius / 2 >= Bunker.Position[i].X && pos.X + breite / 2 <= Bunker.Position[i].X + radius)
                     {
                         return false;
                     }
@@ -2085,28 +2085,28 @@ namespace _4_1_
                 for (int i = 0; i < Haeuser.Position.Count; i++)
                 {
                     breite =
-                        (int) (Texturen.haus[Haeuser.HausTyp[i]].Width*Gebäudedaten.SKALIERUNG.Wert[Haeuser.HausTyp[i]]);
-                    if (pos.X - radius/2 <= Haeuser.Position[i].X + breite && pos.X - radius/2 >= Haeuser.Position[i].X)
+                        (int)(Texturen.haus[Haeuser.HausTyp[i]].Width * Gebäudedaten.SKALIERUNG.Wert[Haeuser.HausTyp[i]]);
+                    if (pos.X - radius / 2 <= Haeuser.Position[i].X + breite && pos.X - radius / 2 >= Haeuser.Position[i].X)
                     {
                         return false;
                     }
-                    if (pos.X + radius/2 >= Haeuser.Position[i].X && pos.X + breite/2 <= Haeuser.Position[i].X + radius)
+                    if (pos.X + radius / 2 >= Haeuser.Position[i].X && pos.X + breite / 2 <= Haeuser.Position[i].X + radius)
                     {
                         return false;
                     }
                 }
 
-                breite = (int) (Texturen.tunnel.Width*Tunnel.SKALIERUNG);
+                breite = (int)(Texturen.tunnel.Width * Tunnel.SKALIERUNG);
                 for (int i = 0; i < players.Count(); i++)
                     for (int b = 0; b < players[i].TunnelAnlage.Count; b++)
                     {
-                        if (pos.X - radius/2 <= players[i].TunnelAnlage[b].Position.X + breite &&
-                            pos.X - radius/2 >= players[i].TunnelAnlage[b].Position.X)
+                        if (pos.X - radius / 2 <= players[i].TunnelAnlage[b].Position.X + breite &&
+                            pos.X - radius / 2 >= players[i].TunnelAnlage[b].Position.X)
                         {
                             return false;
                         }
-                        if (pos.X + radius/2 >= players[i].TunnelAnlage[b].Position.X &&
-                            pos.X + breite/2 <= players[i].TunnelAnlage[b].Position.X + radius)
+                        if (pos.X + radius / 2 >= players[i].TunnelAnlage[b].Position.X &&
+                            pos.X + breite / 2 <= players[i].TunnelAnlage[b].Position.X + radius)
                         {
                             return false;
                         }
@@ -2122,8 +2122,8 @@ namespace _4_1_
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
         public bool PrüfeBunkerbau(Vector2 pos)
         {
-// - new Vector2(Texturen.bunker[0].Width * Optimierung.Skalierung(0.25f)/2,0)
-            return PrüfeBau(pos, (int) (Texturen.bunker[0].Width*Optimierung.Skalierung(0.25f)));
+            // - new Vector2(Texturen.bunker[0].Width * Optimierung.Skalierung(0.25f)/2,0)
+            return PrüfeBau(pos, (int)(Texturen.bunker[0].Width * Optimierung.Skalierung(0.25f)));
         }
 
         /// <summary>
@@ -2133,7 +2133,7 @@ namespace _4_1_
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
         public bool PrüfeTunnelbau(Vector2 pos)
         {
-            return PrüfeBau(pos, (int) (Texturen.tunnel.Width*Tunnel.SKALIERUNG));
+            return PrüfeBau(pos, (int)(Texturen.tunnel.Width * Tunnel.SKALIERUNG));
         }
 
         /// <summary>
@@ -2165,7 +2165,7 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void Set_Focus(Vector2 pos)
         {
-            Next_Fenster.X = Position(pos.X - Width/2);
+            Next_Fenster.X = Position(pos.X - Width / 2);
             Next_Fenster.Y = 0; // pos.Y - Height / 2;
             // if (Next_Fenster.X < 0) Next_Fenster.X = 0;
             // if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
@@ -2177,7 +2177,7 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void Set_Focus_X(Vector2 pos)
         {
-            Next_Fenster.X = Position(pos.X - Width/2);
+            Next_Fenster.X = Position(pos.X - Width / 2);
             Next_Fenster.Y = 0;
             //if (Next_Fenster.X < 0) Next_Fenster.X = 0;
             //if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
@@ -2211,18 +2211,18 @@ namespace _4_1_
             if (symmetrisch)
             {
                 int abstand = 150;
-                var start = (int) (Spielfeld.Length/4 - ((float) players[0].pos.Count/2*abstand));
+                var start = (int)(Spielfeld.Length / 4 - ((float)players[0].pos.Count / 2 * abstand));
                 for (int i = 0; i < players[0].pos.Count; i++)
                 {
-                    int x = start + i*abstand;
+                    int x = start + i * abstand;
                     players[0].pos[i] = new Vector2(x, Spielfeld[x][0]);
                 }
 
-                int middle = Spielfeld.Length/2;
+                int middle = Spielfeld.Length / 2;
                 for (int i = 0; i < players[1].pos.Count; i++)
                 {
                     players[1].pos[i] = new Vector2(middle + (middle - players[0].pos[i].X),
-                        Spielfeld[(int) (players[0].pos[i].X)][0]);
+                        Spielfeld[(int)(players[0].pos[i].X)][0]);
                 }
             }
             else
@@ -2240,9 +2240,9 @@ namespace _4_1_
                     for (int b = 0; b < players.Length; b++)
                     {
                         bool check = false;
-                        for (; check == false;)
+                        for (; check == false; )
                         {
-// setzte nächsten Panzer
+                            // setzte nächsten Panzer
                             int q = rand.Next(50, dat.Length - 50);
                             bool find = false;
                             for (int c = q - 250; c < q + 250; c++)
@@ -2412,7 +2412,7 @@ namespace _4_1_
                     // Rauch starten
                 }
                 Karte.AddExplosion(smokeList, Missile[i].Last_Position[Missile[i].Last_Position.Length - 1],
-                    (int) Waffendaten.Daten3[Missile[i].Art].X, Waffendaten.Daten3[Missile[i].Art].Y,
+                    (int)Waffendaten.Daten3[Missile[i].Art].X, Waffendaten.Daten3[Missile[i].Art].Y,
                     Waffendaten.Daten3[Missile[i].Art].Z, gameTime, Waffendaten.Farben[Missile[i].Art], Missile[i].Art,
                     1);
             }
