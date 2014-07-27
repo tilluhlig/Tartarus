@@ -26,74 +26,72 @@ namespace _4_1_
         #region Fields
 
         /// <summary>
-        ///     The gravity
+        ///     ein Faktor zur Anpassung der Absinkgeschwindigkeit des Geschosses
         /// </summary>
         public static Vector2 gravity = new Vector2(0, 1);
 
         /// <summary>
-        ///     The art
+        ///     die Sorte des Geschosses
         /// </summary>
         public int Art = 0;
 
         /// <summary>
-        ///     The besitzer
+        ///     Wer hat das Geschoss abgefeuert ([0] = SpielerId, [1] = FahrzeugId)
         /// </summary>
         public int[] Besitzer = new int[2];
 
-        // Werte der Munition
         /// <summary>
-        ///     The energie
+        ///     Explosionsenergie
         /// </summary>
-        public int Energie; // kraterbreite
+        public int Energie;
 
         /// <summary>
-        ///     The ID
+        ///     die ID des Objektes
         /// </summary>
         public int ID;
 
         /// <summary>
-        ///     The last_ position
+        ///     die Position des Geschosses im letzten Berechnungsschritt
         /// </summary>
         public Vector2[] Last_Position;
 
         /// <summary>
-        ///     The lebensdauer
+        ///     die Lebensdauer des Geschosses (wieviel ist noch übrig?)
         /// </summary>
         public int Lebensdauer;
 
         /// <summary>
-        ///     The focused
+        ///     ist der Fokus auf diesem Geschoss?
         /// </summary>
         public bool focused = false;
 
         /// <summary>
-        ///     The missle angle
+        ///     Winkel
         /// </summary>
         public float missleAngle;
 
         /// <summary>
-        ///     The missle direction
+        ///     Richtung der Bewegung
         /// </summary>
         public Vector2 missleDirection;
 
         /// <summary>
-        ///     The missle position
+        ///     die Position
         /// </summary>
         public Vector2 misslePosition;
 
-        // wer hat gefeuert?
         /// <summary>
         ///     The missle shot
         /// </summary>
         public bool missleShot;
 
         /// <summary>
-        ///     The verzoegerung
+        ///     Explosionsverzögerung (60 = 1s)
         /// </summary>
         public int verzoegerung = 0;
 
         /// <summary>
-        ///     The watered
+        ///     ist das Geschoss im Wasser gelandet? 
         /// </summary>
         public bool watered = false;
 
@@ -102,9 +100,9 @@ namespace _4_1_
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Waffen" /> class.
+        ///     Initialisiert ein Geschoss
         /// </summary>
-        public Waffen() // initialisiert eine neue Rakete
+        public Waffen()
         {
             misslePosition.X = -1;
             misslePosition.Y = -1;
@@ -124,7 +122,6 @@ namespace _4_1_
 
         #region Methods
 
-        // TODO ausfüllen
         /// <summary>
         ///     Erzeugt den Inhalt der Waffe aus einem String
         /// </summary>
@@ -135,12 +132,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Check_s the rakete.
+        ///     prüft Lebensdauer eines Geschosses um fehlern vorzubeugen
         /// </summary>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <param name="MaxHeight">Height of the max.</param>
+        /// <param name="Spielfeld">ein Spielfeld</param>
+        /// <param name="MaxHeight">die Spielfeldhöhe</param>
         public void check_Rakete(List<UInt16>[] Spielfeld, int MaxHeight)
-            // prüft Lebensdauer einer Rakete um fehlern vorzubeugen
         {
             if (Besitzer[0] != -1)
             {
@@ -157,9 +153,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Deletes this instance.
+        ///     entfernt ein Geschoss
         /// </summary>
-        public void Delete() // entfernt eine Rakete
+        public void Delete()
         {
             Besitzer[0] = -1;
             missleShot = false;
@@ -168,10 +164,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Explosions the specified spielfeld.
+        ///     Zündet ein Geschoss
         /// </summary>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <returns>List{Vector3}.</returns>
+        /// <param name="Spielfeld">ein Spielfeld</param>
+        /// <returns>eine Liste mit zerstörten Bereichen des Spielfeldes</returns>
         public List<Vector3> Explosion(List<UInt16>[] Spielfeld)
         {
             // Rakete zünden
@@ -181,9 +177,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Raktns the spitze.
+        ///     gibt die Spitze der Rakete zurück
         /// </summary>
-        /// <returns>Vector2.</returns>
+        /// <returns>Position der Raketenspitze</returns>
         public Vector2 RaktnSpitze()
         {
             int MissleLength = Texturen.missle[Art].Width;
@@ -219,10 +215,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Updates the missle.
+        ///     Aktualisiert ein Geschoss (berechnung der Bewegung)
         /// </summary>
-        /// <param name="Wind">The wind.</param>
-        public void UpdateMissle(Vector2 Wind) // aktualisiert die Bewegung der Raketen
+        /// <param name="Wind">der Wind</param>
+        public void UpdateMissle(Vector2 Wind)
         {
             for (int i = 0; i < Last_Position.Length - 1; i++)
                 Last_Position[i] = Last_Position[i + 1];
