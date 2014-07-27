@@ -63,11 +63,11 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
-        ///     Abstands the specified A.
+        ///     Berechnet des Abstand zwischen zwei Punkten
         /// </summary>
-        /// <param name="A">The A.</param>
-        /// <param name="B">The B.</param>
-        /// <returns>System.Single.</returns>
+        /// <param name="A">Punkt A</param>
+        /// <param name="B">Punkt B</param>
+        /// <returns>der Abstand</returns>
         public static float Abstand(Vector2 A, Vector2 B)
         {
             var dist = (int) Math.Sqrt((float) (Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2)));
@@ -75,9 +75,8 @@ namespace _4_1_
             return dist;
         }
 
-        // Angrabbeln (Trick 17)
         /// <summary>
-        ///     Angrabbel_funktions this instance.
+        ///     Angrabbeln (Trick 17)
         /// </summary>
         public static void angrabbel_funktion()
         {
@@ -98,6 +97,13 @@ namespace _4_1_
             String q2 = q + text;
         }
 
+        /// <summary>
+        /// Verkleinert eine Textur auf einen bestimmten Bereich
+        /// </summary>
+        /// <param name="Bild">die Textur, die angepasst werden soll</param>
+        /// <param name="breite">die maximale Breite</param>
+        /// <param name="hoehe">die maximale Höhe</param>
+        /// <returns></returns>
         public static Vector2 AufBereichVerkleinern(Texture2D Bild, int breite, int hoehe)
         {
             float maxy = hoehe;
@@ -153,6 +159,12 @@ namespace _4_1_
             return erg;
         }
 
+        /// <summary>
+        /// maskiert eine Textur
+        /// </summary>
+        /// <param name="Bild">die Textur</param>
+        /// <param name="MAP">die Maske</param>
+        /// <returns>die maskierte Textur</returns>
         public static Texture2D ConvertMAPToTexture2D(Texture2D Bild, List<int>[] MAP)
         {
             var BildData = new Color[Bild.Width*Bild.Height];
@@ -181,10 +193,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Converts the texture2 D to MAP.
+        ///     Konvertiert eine Textur in eine MAP
         /// </summary>
-        /// <param name="Bild">The bild.</param>
-        /// <returns>List{System.Int32}[][].</returns>
+        /// <param name="Bild">die Textur</param>
+        /// <returns>die Texturmaske (MAP)</returns>
         public static List<int>[] ConvertTexture2DToMAP(Texture2D Bild)
         {
             var Data = new List<int>[Bild.Width];
@@ -218,10 +230,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Converts the texture2 D to MASK.
+        ///     Konvertiert eine Textur in eine Maske
         /// </summary>
-        /// <param name="Bild">The bild.</param>
-        /// <returns>System.Byte[][].</returns>
+        /// <param name="Bild">die Textur</param>
+        /// <returns>die Texturmaske</returns>
         public static byte[] ConvertTexture2DToMASK(Texture2D Bild)
         {
             var Data = new byte[(int) Math.Ceiling((double) ((Bild.Width*Bild.Height)/8))];
@@ -272,12 +284,12 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Deletes from to.
+        ///     Entfernt einen Bereich aus einer Texturmaske (MAP)
         /// </summary>
-        /// <param name="array">The array.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="y2">The y2.</param>
+        /// <param name="array">die Maske</param>
+        /// <param name="x">die x-Koordinate</param>
+        /// <param name="y1">die Anfangskoorinate für y</param>
+        /// <param name="y2">die Endkoorinate für y</param>
         public static void DeleteFromTo(List<int>[] array, int x, int y1, int y2)
         {
             if (x >= array.Length) return;
@@ -361,9 +373,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Dirs the specified text.
+        ///     Erstellt ein Verzeichnis, sofern es nicht existiert
         /// </summary>
-        /// <param name="Text">The text.</param>
+        /// <param name="Text">der Pfad, welcher erstellt werden soll</param>
         public static void Dir(String Text)
         {
             if (!Directory.Exists(Text))
@@ -371,54 +383,54 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Draws the line.
+        ///     zeichnet eine Linie
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch.</param>
-        /// <param name="p1">The p1.</param>
-        /// <param name="p2">The p2.</param>
-        /// <param name="color">The color.</param>
-        /// <param name="size">The size.</param>
-        public static void DrawLine(SpriteBatch spriteBatch, Vector2 p1, Vector2 p2, Color color, int size)
+        /// <param name="spriteBatch">die Zeichenoberfläche</param>
+        /// <param name="_Anfang">der Anfangspunkt</param>
+        /// <param name="_Ende">der Endpunkt</param>
+        /// <param name="_Farbe">die Farbe der Linie</param>
+        /// <param name="_Breite">die Breite der Linie</param>
+        public static void DrawLine(SpriteBatch spriteBatch, Vector2 _Anfang, Vector2 _Ende, Color _Farbe, int _Breite)
         {
-            float distance = Vector2.Distance(p1, p2);
+            float distance = Vector2.Distance(_Anfang, _Ende);
 
-            var angle = (float) Math.Atan2(p2.Y - p1.Y, p2.X - p1.X);
+            var angle = (float) Math.Atan2(_Ende.Y - _Anfang.Y, _Ende.X - _Anfang.X);
 
-            spriteBatch.Draw(Texturen.Punkt, p1, null, color, angle, Vector2.Zero, new Vector2(distance, size),
+            spriteBatch.Draw(Texturen.Punkt, _Anfang, null, _Farbe, angle, Vector2.Zero, new Vector2(distance, _Breite),
                 SpriteEffects.None, 1);
         }
 
         /// <summary>
-        ///     Draws the rectangle.
+        ///     Zeichnet ein Rechteck
         /// </summary>
-        /// <param name="coords">The coords.</param>
-        /// <param name="color">The color.</param>
-        public static void DrawRectangle(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Rectangle coords,
-            Color color, float Transparenz)
+        /// <param name="_Rechteck">das Rechteck</param>
+        /// <param name="_Farbe">die Farbe</param>
+        /// <param name="_Transparenz">wird mit _Farbe multipliziert (0<=_Transparenz<=1)</param>
+        public static void DrawRectangle(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Rectangle _Rechteck,
+            Color _Farbe, float _Transparenz)
         {
             //  var rect = new Texture2D(graphicsDevice, 1, 1);
-            // rect.SetData(new[] { color });
-            spriteBatch.Draw(Texturen.Punkt, coords, new Rectangle(0, 0, 1, 1), color*Transparenz, 0, Vector2.Zero,
+            // rect.SetData(new[] { _Farbe });
+            spriteBatch.Draw(Texturen.Punkt, _Rechteck, new Rectangle(0, 0, 1, 1), _Farbe*_Transparenz, 0, Vector2.Zero,
                 SpriteEffects.None, 1);
         }
 
-        // Text mit schwarzem hintergrund ausgeben
         /// <summary>
-        ///     Draws the string.
+        ///     Zeichnet einen Text
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="Text">The text.</param>
-        /// <param name="pos">The pos.</param>
-        /// <param name="StringColor">Color of the string.</param>
-        /// <param name="BackColor">Color of the back.</param>
-        public static void DrawString(SpriteBatch spriteBatch, SpriteFont font, String Text, Vector2 pos,
-            Color StringColor, Color BackColor)
+        /// <param name="spriteBatch">eine Zeichenfläche</param>
+        /// <param name="_Schrift">die Schriftart</param>
+        /// <param name="Text">der Text</param>
+        /// <param name="_Position">Startposition</param>
+        /// <param name="_Textfarbe">Farbe des Textes</param>
+        /// <param name="_Hintergrundfarbe">Hintergrundfarbe des Textes</param>
+        public static void DrawString(SpriteBatch spriteBatch, SpriteFont _Schrift, String Text, Vector2 _Position,
+            Color _Textfarbe, Color _Hintergrundfarbe)
         {
-            // spriteBatch.Draw(Texturen.Punkt, new Rectangle((int)pos.X, (int)(pos.Y + font.MeasureString(Text).Y * 0.25f), (int)font.MeasureString(Text).X, (int)(font.MeasureString(Text).Y * 0.5f)), BackColor);
+            // spriteBatch.Draw(Texturen.Punkt, new Rectangle((int)_Position.X, (int)(_Position.Y + _Schrift.MeasureString(Text).Y * 0.25f), (int)_Schrift.MeasureString(Text).X, (int)(_Schrift.MeasureString(Text).Y * 0.5f)), _Hintergrundfarbe);
 
-            spriteBatch.DrawString(font, Text, pos + new Vector2(1, 1), BackColor);
-            spriteBatch.DrawString(font, Text, pos, StringColor);
+            spriteBatch.DrawString(_Schrift, Text, _Position + new Vector2(1, 1), _Hintergrundfarbe);
+            spriteBatch.DrawString(_Schrift, Text, _Position, _Textfarbe);
         }
 
         /// <summary>
@@ -508,6 +520,10 @@ namespace _4_1_
             return Data2;
         }
 
+        /// <summary>
+        /// Gibt die Mausposition zurück
+        /// </summary>
+        /// <returns>die Mausposition</returns>
         public static Vector2 GetMousePos()
         {
             Point offset = Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
@@ -518,6 +534,10 @@ namespace _4_1_
             return new Vector2(temp.X - offset.X, temp.Y - offset.Y);
         }
 
+        /// <summary>
+        /// gibt den Status der Maus zurück
+        /// </summary>
+        /// <returns>der Mausstatus</returns>
         public static MouseState GetMouseState()
         {
             Point offset = Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
@@ -531,10 +551,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Gets the pixel anzahl.
+        ///     git die Anzahl der gefärbten Pixel einer Textur zurück
         /// </summary>
-        /// <param name="Bild">The bild.</param>
-        /// <returns>System.Int32.</returns>
+        /// <param name="Bild">die Textur</param>
+        /// <returns>Anzahl der Pixel (ungleich Transparent)</returns>
         public static int GetPixelAnzahl(Texture2D Bild)
         {
             var Data = new List<int>[Bild.Width];
@@ -572,6 +592,11 @@ namespace _4_1_
             return 0;
         }
 
+        /// <summary>
+        /// Erstellt den Hash einer Datei
+        /// </summary>
+        /// <param name="Datei">der Pfad der Datei</param>
+        /// <returns>den Hash</returns>
         public static String HASH(String Datei)
         {
             var daten = new ReaderStream.ReaderStream(Datei);
@@ -591,10 +616,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     HASHs the specified daten.
+        ///     Erstellt den Hash eines Streams
         /// </summary>
-        /// <param name="Daten">The daten.</param>
-        /// <returns>String.</returns>
+        /// <param name="Daten">der Stream</param>
+        /// <returns>der Hash</returns>
         public static String HASH(Stream Daten)
         {
             MD5 hash = MD5.Create();
@@ -812,8 +837,8 @@ namespace _4_1_
         ///     Vektors the reflexion.
         /// </summary>
         /// <param name="EingehenderVektor">The eingehender vektor.</param>
-        /// <param name="P1">The p1.</param>
-        /// <param name="P2">The p2.</param>
+        /// <param name="P1">The _Anfang.</param>
+        /// <param name="P2">The _Ende.</param>
         /// <param name="Reflektionsfaktor">The reflektionsfaktor.</param>
         /// <returns>Vector2.</returns>
         public static Vector2 VektorReflexion(Vector2 EingehenderVektor, Vector2 P1, Vector2 P2, float Reflektionsfaktor)
