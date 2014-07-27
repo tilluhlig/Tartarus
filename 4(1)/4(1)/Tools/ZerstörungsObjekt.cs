@@ -190,10 +190,11 @@ namespace _4_1_
                     var Delete = new Vector2(x + i, y + b);
                     if (Delete.X < 0 || Delete.Y < 0 || Delete.X >= BildBreite || Delete.Y >= BildHöhe) continue;
 
-                    if (Picture[(int)(Delete.X + Delete.Y * BildBreite)] != Color.Transparent)
+                    if (Picture[(int) (Delete.X + Delete.Y*BildBreite)] != Color.Transparent)
                     {
                         found++;
-                        Picture[(int)(Delete.X + Delete.Y * BildBreite)] = Color.Transparent;
+                        Picture[(int) (Delete.X + Delete.Y*BildBreite)] = Color.Transparent;
+
                         if (tempZerstoert.Y == -1)
                         {
                             tempZerstoert.Y = Delete.Y;
@@ -202,7 +203,17 @@ namespace _4_1_
                         else
                             tempZerstoert.Z++;
                     }
+                    else
+                    {
+                        if (Bereiche != null && tempZerstoert.Y != -1f)
+                        {
+                            Bereiche.Add(tempZerstoert);
+                            tempZerstoert = new Vector3(x + i, -1, -1);
+                        }
+                        
+                    }
                 }
+                
                 if (Bereiche != null && tempZerstoert.Y != -1f)
                     Bereiche.Add(tempZerstoert);
             }

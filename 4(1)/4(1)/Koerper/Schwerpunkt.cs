@@ -87,7 +87,7 @@ namespace _4_1_
             {
                 float m = Bereiche[i].Z - Bereiche[i].Y + 1;
                 m = -m;
-                neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y + m / 2) * m;
+                neuerPunkt += new Vector2(Bereiche[i].X, Bereiche[i].Y + -m / 2) * m;
                 neueMasse += m;
             }
             neuerPunkt /= neueMasse;
