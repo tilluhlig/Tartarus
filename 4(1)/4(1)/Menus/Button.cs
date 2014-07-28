@@ -26,7 +26,7 @@ namespace _4_1_
         #region Fields
 
         /// <summary>
-        ///     The button
+        ///     die Textur
         /// </summary>
         private readonly Texture2D button;
 
@@ -41,7 +41,7 @@ namespace _4_1_
         private readonly string description2 = "";
 
         /// <summary>
-        ///     The font
+        ///     die verwendete Schriftart
         /// </summary>
         private readonly SpriteFont font;
 
@@ -61,22 +61,22 @@ namespace _4_1_
         private readonly bool zweiStrings;
 
         /// <summary>
-        ///     The button box
+        ///     die Kollisionsbox
         /// </summary>
         public BoundingBox ButtonBox;
 
         /// <summary>
-        ///     The own pos
+        ///     die Position des Buttons
         /// </summary>
         public Vector2 ownPos;
 
         /// <summary>
-        ///     The selected
+        ///     selektiert, true = ja
         /// </summary>
         public bool selected;
 
         /// <summary>
-        ///     The visible
+        ///     Sichtbarkeit, true = sichtbar, false = unsichtar
         /// </summary>
         private bool visible;
 
@@ -106,7 +106,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Button" /> class.
+        ///     initialisiert einen neuen Button
         /// </summary>
         /// <param name="button">The button.</param>
         /// <param name="pos">The pos.</param>
@@ -136,11 +136,11 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
-        ///     Draws the specified sprite batch.
+        ///     Zeichnet den Button
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch.</param>
-        /// <param name="Cselected">The cselected.</param>
-        /// <param name="unselected">The unselected.</param>
+        /// <param name="spriteBatch">eine Zeichenfläche</param>
+        /// <param name="Cselected">die Farbe, wenn der Button ausgewählt ist</param>
+        /// <param name="unselected">eine Farbe, für nicht ausgewählte Buttons</param>
         public void Draw(SpriteBatch spriteBatch, Color Cselected, Color unselected)
         {
             if (selected)
@@ -171,7 +171,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Hides this instance.
+        ///     macht den Button unsichtbar
         /// </summary>
         public void hide()
         {
@@ -179,9 +179,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Mouses the keys.
+        ///     Prüft Interaktionen mit der Maus
         /// </summary>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        /// <returns>true = der Button wurde gedrückt, false = nichts</returns>
         public bool MouseKeys()
         {
             //gibt true zurück, wenn gedrückt
@@ -200,7 +200,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Shows this instance.
+        ///     macht den Button sichtbar
         /// </summary>
         public void show()
         {

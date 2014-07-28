@@ -91,7 +91,7 @@ namespace _4_1_
         public int verzoegerung = 0;
 
         /// <summary>
-        ///     ist das Geschoss im Wasser gelandet? 
+        ///     ist das Geschoss im Wasser gelandet?
         /// </summary>
         public bool watered = false;
 
@@ -215,7 +215,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Aktualisiert ein Geschoss (berechnung der Bewegung)
+        ///  Aktualisiert ein Geschoss (berechnung der Bewegung)
         /// </summary>
         /// <param name="Wind">der Wind</param>
         public void UpdateMissle(Vector2 Wind)

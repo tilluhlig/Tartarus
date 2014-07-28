@@ -24,102 +24,6 @@ using Color = System.Drawing.Color;
 namespace Hauptfenster
 {
     /// <summary>
-    ///     Class Tausch
-    /// </summary>
-    public static class Tausch
-    {
-        #region Fields
-
-        /// <summary>
-        ///     The create new game
-        /// </summary>
-        public static bool CreateNewGame = false;
-
-        /// <summary>
-        ///     The current player
-        /// </summary>
-        public static int CurrentPlayer = 0;
-
-        /// <summary>
-        ///     The data
-        /// </summary>
-        public static String Data = "";
-
-        /// <summary>
-        ///     The input
-        /// </summary>
-        public static List<String> Input = new List<String>();
-
-        /// <summary>
-        ///     The kartengroesse
-        /// </summary>
-        public static int Kartengroesse = 5;
-
-        /// <summary>
-        ///     The map
-        /// </summary>
-        public static String Map = "";
-
-        /// <summary>
-        ///     The mod
-        /// </summary>
-        public static String Mod = "A.conf";
-
-        /// <summary>
-        ///     The output
-        /// </summary>
-        public static List<String> Output = new List<String>();
-
-        public static string Path = "";
-
-        /// <summary>
-        ///     The screenheight
-        /// </summary>
-        public static int screenheight = (int)(Screen.PrimaryScreen.Bounds.Height * 1f);
-
-        /// <summary>
-        ///     The screenwidth
-        /// </summary>
-        public static int screenwidth = (int)(Screen.PrimaryScreen.Bounds.Width * 1f);
-
-        /// <summary>
-        ///     The spiel aktiv
-        /// </summary>
-        public static bool SpielAktiv = false;
-
-        /// <summary>
-        ///     The spiel laden
-        /// </summary>
-        public static bool SpielLaden = false;
-
-        /// <summary>
-        ///     The start client
-        /// </summary>
-        public static bool StartClient = false;
-
-        /// <summary>
-        ///     The starte spiel
-        /// </summary>
-        public static bool StarteSpiel = false;
-
-        /// <summary>
-        ///     The start server
-        /// </summary>
-        public static bool StartServer = false;
-
-        /// <summary>
-        ///     The ziel IP
-        /// </summary>
-        public static String ZielIP = "localhost";
-
-        #endregion Fields
-
-        //Hauptfenster.Form1.pictureBox1.width;
-
-        //public static int screenwidth = (int)(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width * 1f);//Hauptfenster.Form1.pictureBox1.width;
-    }
-
-    /// <summary>
     ///     Class Form1
     /// </summary>
     public partial class Form1 : Form
@@ -159,7 +63,7 @@ namespace Hauptfenster
             tabControl1.TabPages.Remove(tabPage3);
             tabControl1.TabPages.Remove(tabPage2);
             tabControl1.TabPages.Remove(tabPage5);
-            comboBox1.SelectedIndex = 9;
+            comboBox1.SelectedIndex = 4;
             //    comboBox1.Text = "40";
             comboBox3.SelectedIndex = 0;
             // FormBorderStyle = FormBorderStyle.None;
@@ -1123,5 +1027,101 @@ namespace Hauptfenster
         }
 
         #endregion Classes
+    }
+
+    /// <summary>
+    ///     Class Tausch
+    /// </summary>
+    public static class Tausch
+    {
+        #region Fields
+
+        /// <summary>
+        ///     The create new game
+        /// </summary>
+        public static bool CreateNewGame = false;
+
+        /// <summary>
+        ///     The current player
+        /// </summary>
+        public static int CurrentPlayer = 0;
+
+        /// <summary>
+        ///     The data
+        /// </summary>
+        public static String Data = "";
+
+        /// <summary>
+        ///     The input
+        /// </summary>
+        public static List<String> Input = new List<String>();
+
+        /// <summary>
+        ///     The kartengroesse
+        /// </summary>
+        public static int Kartengroesse = 5;
+
+        /// <summary>
+        ///     The map
+        /// </summary>
+        public static String Map = "";
+
+        /// <summary>
+        ///     The mod
+        /// </summary>
+        public static String Mod = "A.conf";
+
+        /// <summary>
+        ///     The output
+        /// </summary>
+        public static List<String> Output = new List<String>();
+
+        public static string Path = "";
+
+        /// <summary>
+        ///     The screenheight
+        /// </summary>
+        public static int screenheight = (int)(Screen.PrimaryScreen.Bounds.Height * 1f);
+
+        /// <summary>
+        ///     The screenwidth
+        /// </summary>
+        public static int screenwidth = (int)(Screen.PrimaryScreen.Bounds.Width * 1f);
+
+        /// <summary>
+        ///     The spiel aktiv
+        /// </summary>
+        public static bool SpielAktiv = false;
+
+        /// <summary>
+        ///     The spiel laden
+        /// </summary>
+        public static bool SpielLaden = false;
+
+        /// <summary>
+        ///     The start client
+        /// </summary>
+        public static bool StartClient = false;
+
+        /// <summary>
+        ///     The starte spiel
+        /// </summary>
+        public static bool StarteSpiel = false;
+
+        /// <summary>
+        ///     The start server
+        /// </summary>
+        public static bool StartServer = false;
+
+        /// <summary>
+        ///     The ziel IP
+        /// </summary>
+        public static String ZielIP = "localhost";
+
+        #endregion Fields
+
+        //Hauptfenster.Form1.pictureBox1.width;
+
+        //public static int screenwidth = (int)(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width * 1f);//Hauptfenster.Form1.pictureBox1.width;
     }
 }

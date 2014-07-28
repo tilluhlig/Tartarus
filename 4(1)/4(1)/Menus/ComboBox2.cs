@@ -58,7 +58,10 @@ namespace _4_1_
 
         public void MouseKeys(GraphicsDevice graphicsDevice, Vector2 Fenster, MouseState oldmouseState)
         {
-            if (!visible) return;
+            if (!visible)
+            {
+                return;
+            }
 
             if (Help.GetMouseState().LeftButton != oldmouseState.LeftButton)
                 switch (Titel.Interact(Fenster, true, oldmouseState))

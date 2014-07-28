@@ -62,7 +62,7 @@ namespace _4_1_
             bool fehler = false;
 
 #if DEBUG
-            game.Run();
+                game.Run();
 #else
 
             try

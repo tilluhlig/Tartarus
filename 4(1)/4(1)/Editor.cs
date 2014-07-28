@@ -439,12 +439,25 @@ namespace _4_1_
                 spriteBatch.DrawString(Texturen.font, ((GewaehltePinseldicke + 1) * 10).ToString(), pos, Color.Black);
                 if (GewaehltePinselform == 0)
                 {
+                    Vector2 MausPosition = Help.GetMousePos();
+                    int dicke = ((GewaehltePinseldicke + 1)*10);
+                    spriteBatch.Draw(Texturen.kreis,
+                        new Rectangle((int)(MausPosition.X - dicke), (int)(MausPosition.Y - dicke), dicke*2, dicke*2),
+                        Color.Maroon*0.8f);
+
                     spriteBatch.Draw(Texturen.kreis,
                         new Rectangle((int)(temp2.X + Bildbreite - 25), (int)(temp2.Y + Bildhoehe - 25), 20, 20),
                         Color.Black);
                 }
                 else if (GewaehltePinselform == 1)
                 {
+                    Vector2 MausPosition = Help.GetMousePos();
+                    int dicke = ((GewaehltePinseldicke + 1) * 10);
+
+                    Help.DrawRectangle(spriteBatch, graphicsDevice,
+                      new Rectangle((int)(MausPosition.X - dicke), (int)(MausPosition.Y - dicke), dicke * 2, dicke * 2),
+                      Color.Maroon, 0.8f);
+
                     Help.DrawRectangle(spriteBatch, graphicsDevice,
                         new Rectangle((int)(temp2.X + Bildbreite - 25), (int)(temp2.Y + Bildhoehe - 25), 20, 20),
                         Color.Black, 1.0f);
@@ -491,7 +504,8 @@ namespace _4_1_
         public static void hide()
         {
             visible = false;
-            // Optionen.hide();
+            Gitter=false;
+            Textfelder.hide();
             Optionen.hide();
             NutzlosesCombo.hide();
             Häuser.hide();
@@ -801,23 +815,27 @@ namespace _4_1_
                     }
                     else if (GewaehltePinselform == 0)
                     {
-                        int width = dicke;
-                        var aa = (int)(Math.Log((((width) - 0) * Math.PI), Math.E) * Math.Sqrt(width));
-                        for (int i = -aa; i < aa; i++)
+                        int Breite = dicke;
+
+                        double BreiteHochZwei = Math.Pow(Breite, 2);
+
+                        for (int i = -Breite; i < Breite; i++)
                         {
                             if (i + Pos.X < 0 || i + Pos.X >= Spiel2.Spielfeld.Length) continue;
 
-                            int dist = i;
-                            if (dist < 0) dist = -dist;
-                            var add = (int)(Math.Log(((aa - dist) * Math.PI), Math.E) * Math.Sqrt(width));
-                            if (add < 0) add = 0;
-                            if (add > aa) add = aa;
+                            double Distanz = Breite;
+                            if (i != 0)
+                                Distanz = Math.Ceiling(Math.Sqrt((double) BreiteHochZwei-Math.Pow(i, 2)));
 
-                            var add2 = (int)(Pos.Y + add);
-                            if (add2 > Game1.screenHeight) add2 = Game1.screenHeight;
-                            list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Pos.Y - add),
-                                add2, GewaehltePinselfarbe));
-                            //list.Add(new Vector3((int)(Pos.X + i), (int)(Pos.Y - add), (int)(add2)));
+                            if (Distanz == 0) continue;
+
+                            double Anfang = Pos.Y - Distanz;
+                            double Ende = Pos.Y + Distanz;
+
+                            if (Anfang < 0) Anfang = 0;
+                            if (Ende > Game1.screenHeight) Ende = Game1.screenHeight;
+                            list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Anfang),
+                                (int) Ende, GewaehltePinselfarbe));
                         }
                     }
 

@@ -92,6 +92,7 @@ namespace _4_1_
         public void hide()
         {
             sichtbar = false;
+            over = -1;
         }
 
         public int Interact(Vector2 Fenster, bool richtung, MouseState oldmouseState)

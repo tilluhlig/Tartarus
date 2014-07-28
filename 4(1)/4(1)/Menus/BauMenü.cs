@@ -6,23 +6,32 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _4_1_
 {
+    /// <summary>
+    /// Dieses Menü wird für Fabrikgebäude verwendet
+    /// </summary>
     public static class BauMenü
     {
         #region Fields
 
+        /// <summary>
+        /// Die ID des Gebäudes, dessen Menü geöffnet ist (muss gesetzt werden).
+        /// Es kann nur ein Baumenü gleichzeitig gezeichnet werden.
+        /// </summary>
         public static int HausID = -1;
 
+        /// <summary>
+        /// eine Liste von Gebäudeobjekten, welche das Menü nutzen können
+        /// </summary>
         public static Haus Hausliste = null;
 
         /// <summary>
-        ///     The visible
+        ///     true = sichtbar/nutzbar, false = unsichtbar/deaktiviert
         /// </summary>
         public static bool visible = false;
 
         /// <summary>
-        ///     The own pos
+        ///     zum hinterlegen der Schriftart
         /// </summary>
-        //  public static Vector2 Position = Vector2.Zero;
         private static SpriteFont Schrift;
 
         #endregion Fields
@@ -30,14 +39,12 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
-        ///     Draws the specified sprite batch.
+        /// zeichnet das Menü
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="Effekte">The effekte.</param>
-        /// <param name="Rucksack">The rucksack.</param>
-        /// <param name="Spiel2">The spiel2.</param>
-        /// <param name="Transparenz">The transparenz.</param>
+        /// <param name="spriteBatch">eine Zeichenfläche</param>
+        /// <param name="Fenster">die Fensterverschiebung</param>
+        /// <param name="font">eine Schriftart</param>
+        /// <param name="Spiel2">ein Spielobjekt</param>
         public static void Draw(SpriteBatch spriteBatch, Vector2 Fenster, SpriteFont font, Spiel Spiel2)
         {
             if (!visible) return;
@@ -101,7 +108,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Hides this instance.
+        ///     macht das Menü unsichtbar
         /// </summary>
         public static void hide()
         {
@@ -109,19 +116,21 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Loads the content.
+        ///     wird genutzt, um alle static Inhalte zu erzeugen
         /// </summary>
-        /// <param name="Content">The content.</param>
+        /// <param name="Content">ein ContentManager (falls Texturen geladen werden müssen)</param>
         public static void LoadContent(ContentManager Content)
         {
+            // leer
         }
 
         /// <summary>
-        ///     Mouses the keys.
+        /// behandelt Mausereignisse
         /// </summary>
-        /// <param name="mouseState">State of the mouse.</param>
-        /// <param name="Rucksack">The rucksack.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise</returns>
+        /// <param name="mouseState">ein aktueller Mausstatus</param>
+        /// <param name="Fenster">die Position des Festers (Spielfeldverschiebung)</param>
+        /// <param name="Spiel2">ein Spielobjekt</param>
+        /// <returns>true = etwas wurd angeklickt, false = kein Treffer</returns>
         public static bool mouseKeys(MouseState mouseState, Vector2 Fenster, Spiel Spiel2)
         {
             if (!visible) return false;
@@ -193,7 +202,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Shows this instance.
+        ///     macht das Menü sichtbar
         /// </summary>
         public static void show()
         {
