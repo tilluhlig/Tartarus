@@ -863,22 +863,26 @@ namespace _4_1_
                     ;
                     if (players[i].pos[b].Y > Kartenformat.BottomOf(players[i].pos[b]))
                     {
+                        players[i].Kenngroesse_Wert.StatischenWertHinzufügen(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
                         float diff = players[i].pos[b].Y - Kartenformat.BottomOf(players[i].pos[b]);
                         if (diff > move) diff = move;
                         Vector2 a = players[i].pos[b];
                         a.Y -= diff;
                         players[i].pos[b] = a;
+                        players[i].Kenngroesse_Wert.StatischenWertHinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
                         // if (Server.isRunning) Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
                     }
                     else if (players[i].pos[b].Y < Kartenformat.BottomOf(players[i].pos[b]))
                     {
+                        players[i].Kenngroesse_Wert.StatischenWertHinzufügen(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
                         float diff = Kartenformat.BottomOf(players[i].pos[b]) - players[i].pos[b].Y;
                         if (diff > move) diff = move;
                         Vector2 a = players[i].pos[b];
                         a.Y += diff;
                         players[i].pos[b] = a;
-                        if (Server.isRunning)
-                            Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
+                        players[i].Kenngroesse_Wert.StatischenWertHinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
+                        //if (Server.isRunning)
+                         //   Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
                     }
 
                     if (players[i].Effekte[b].GetHP(players[i].hp[b]) <= 0)
@@ -1779,13 +1783,14 @@ namespace _4_1_
                 Missile[i] = new Waffen();
                 Missile[i].ID = i;
             }
-            InitialisiereSpieler(symmetrisch);
 
             Fenster.X = 0;
             Fenster.Y = 0;
 
             Width = (int)screen.X;
             Height = (int)screen.Y;
+
+            InitialisiereSpieler(symmetrisch);
 
             if (Haus.HAEUSER)
             {
@@ -1840,20 +1845,27 @@ namespace _4_1_
                 PanzerTypen = new[] { 0, 1, 2, 3 };
             }
 
-            for (int i = 0; i < players.Length; i++)
-            {
-                for (int b = 0; b < PanzerTypen.Count(); b++)
+                for (int i = 0; i < players.Length; i++)
                 {
-                    AddPanzer(i, PanzerTypen[b], MathHelper.ToRadians(Angle[i]), overreach[i], Positionen[i]);
+                    for (int b = 0; b < PanzerTypen.Count(); b++)
+                    {
+                        AddPanzer(i, PanzerTypen[b], MathHelper.ToRadians(Angle[i]), overreach[i], Positionen[i]);
+                    }
+
+                    players[i].shootingPower = 0f;
+                    players[i].MaxTimeout = 180*60;
+                    players[i].Credits = 5000;
+                    players[i].Farbe = Spielerfarben[i];
+                    players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, Height, 100, 100, 0);
                 }
 
-                players[i].shootingPower = 0f;
-                players[i].MaxTimeout = 180 * 60;
-                players[i].Credits = 5000;
-                players[i].Farbe = Spielerfarben[i];
-            }
-
             SetPanzer(players, symmetrisch);
+
+            for (int i = 0; i < players.Length; i++)
+                for (int b = 0; b < players[i].pos.Count; b++)
+                    players[i].Kenngroesse_Wert.StatischenWertHinzufügen(players[i].pos[b],
+                        Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
+            int awetwet = 0;
         }
 
         /// <summary>

@@ -825,7 +825,7 @@ namespace _4_1_
 
                             double Distanz = Breite;
                             if (i != 0)
-                                Distanz = Math.Ceiling(Math.Sqrt((double) BreiteHochZwei-Math.Pow(i, 2)));
+                                Distanz = Math.Floor(Math.Sqrt((double) BreiteHochZwei-Math.Pow(i, 2)));
 
                             if (Distanz == 0) continue;
 
@@ -833,7 +833,7 @@ namespace _4_1_
                             double Ende = Pos.Y + Distanz;
 
                             if (Anfang < 0) Anfang = 0;
-                            if (Ende > Game1.screenHeight) Ende = Game1.screenHeight;
+                            if (Ende >= Game1.screenHeight) Ende = Game1.screenHeight-1;
                             list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Anfang),
                                 (int) Ende, GewaehltePinselfarbe));
                         }

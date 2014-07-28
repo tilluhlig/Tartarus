@@ -26,6 +26,8 @@ namespace _4_1_
     /// </summary>
     public class Spieler
     {
+        public Kenngroesse Kenngroesse_Wert = null;
+
         #region Fields
 
         /// <summary>
@@ -910,6 +912,7 @@ namespace _4_1_
             if (Client.isRunning) return false;
             if (id < 0 || id >= KindofTank.Count) return false;
             if (GLOBAL_FUEL.Wert && fuelRemains < Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]) return false;
+            Vector2 OldPos = pos[id];
 
             overreach[id] = false;
             float ang = MathHelper.ToDegrees(Angle[id]);
@@ -947,8 +950,10 @@ namespace _4_1_
             var g = new Vector2(-move, 0);
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.SUMPF) g /= 3;
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.WASSER) g /= 1.5f;
+            Kenngroesse_Wert.StatischenWertHinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
             pos[id] += g;
             pos[id] = new Vector2(Spiel.Position(pos[id].X), pos[id].Y);
+            Kenngroesse_Wert.StatischenWertHinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
 
             //if (!overreach[id])
             {
@@ -1037,6 +1042,7 @@ namespace _4_1_
             if (Client.isRunning) return false;
             if (id < 0 || id >= KindofTank.Count) return false;
             if (GLOBAL_FUEL.Wert && fuelRemains < Fahrzeugdaten.VERBRAUCH.Wert[KindofTank[id]]) return false;
+            Vector2 OldPos = pos[id];
 
             overreach[id] = true;
             float ang = MathHelper.ToDegrees(Angle[id]);
@@ -1076,9 +1082,11 @@ namespace _4_1_
             var g = new Vector2(move, 0);
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.SUMPF) g /= 3;
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.WASSER) g /= 1.5f;
-
+            Kenngroesse_Wert.StatischenWertHinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
             pos[id] += g;
             pos[id] = new Vector2(Spiel.Position(pos[id].X), pos[id].Y);
+            Kenngroesse_Wert.StatischenWertHinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
+            
 
             /* if (!overreach[id])
              {

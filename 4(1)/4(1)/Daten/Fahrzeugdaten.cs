@@ -58,6 +58,8 @@ namespace _4_1_
 
         #region Fields
 
+        public static Var<int[]> _PANZERWERTE = new Var<int[]>("_PANZERWERTE", new[] { 30, 25, 5, 10, 15, 15 });
+
         /// <summary>
         ///     wie viel Maximalgesundheit welcher Art von Fahrzeug zustehen
         /// </summary>

@@ -70,9 +70,9 @@ namespace _4_1_
         /// <returns>der Abstand</returns>
         public static float Abstand(Vector2 A, Vector2 B)
         {
-            var dist = (int) Math.Sqrt((float) (Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2)));
+            double dist = (int) Math.Sqrt((double) (Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2)));
             if (dist < 0) dist = -dist;
-            return dist;
+            return (float) dist;
         }
 
         /// <summary>

@@ -1964,6 +1964,47 @@ namespace _4_1_
             Kurzmeldung.Zeichnen(spriteBatch, Texturen.font2, (int)Spiel2.Fenster.X,
                 (int)(Spiel2.Fenster.X + screenWidth));
 
+            // Zeichne Kenngrößen
+                Kenngroesse Kenn = Spiel2.players[Spiel2.CurrentPlayer].Kenngroesse_Wert;
+                if (Kenn != null)
+                {
+                for (int i = (int) Spiel2.Fenster.X/Kenn.Feldbreite;
+                    i < Math.Ceiling((Spiel2.Fenster.X + screenWidth)/Kenn.Feldbreite);
+                    i++)
+                    for (int b = (int) Spiel2.Fenster.Y/Kenn.Feldhoehe;
+                        b < Math.Ceiling((Spiel2.Fenster.Y + screenHeight)/Kenn.Feldhoehe);
+                        b++)
+                    {
+                        if (i < 0 || b < 0) continue;
+                        if (i >= Kenn.FelderAnzahlHorizontal || b >= Kenn.FelderAnzahlVertikal) continue;
+
+                        Bereich bereich = Kenn.GibBereichZuId(new Vector2(i,b));
+
+                        Color Bereichsfarbe = Color.Transparent;
+                        if (bereich.Wert >= 15)
+                            Bereichsfarbe = Color.Green;
+                        if (bereich.Wert >= 35)
+                            Bereichsfarbe = Color.Yellow;
+                        if (bereich.Wert >= 60)
+                            Bereichsfarbe = Color.Red;
+
+                        if (Bereichsfarbe!=null)
+                            Help.DrawRectangle(spriteBatch, this.GraphicsDevice, new Rectangle((int)(bereich.Feld.X - Spiel2.Fenster.X), (int)(bereich.Feld.Y - Spiel2.Fenster.Y), bereich.Feld.Width, bereich.Feld.Height), Bereichsfarbe, 0.25f);
+
+                        Color Farbe = Color.Yellow;
+                        Help.DrawLine(spriteBatch, new Vector2(bereich.Feld.X - Spiel2.Fenster.X, bereich.Feld.Y - Spiel2.Fenster.Y),
+                            new Vector2(bereich.Feld.X + bereich.Feld.Width - Spiel2.Fenster.X, bereich.Feld.Y - Spiel2.Fenster.Y), Farbe, 1);
+                        Help.DrawLine(spriteBatch, new Vector2(bereich.Feld.X - Spiel2.Fenster.X, bereich.Feld.Y - Spiel2.Fenster.Y),
+                           new Vector2(bereich.Feld.X - Spiel2.Fenster.X, bereich.Feld.Y - Spiel2.Fenster.Y + bereich.Feld.Height), Farbe, 1);
+
+                        Vector2 text = Texturen.font2.MeasureString(Kenn.Bereiche[i, b].ToString());
+                        Help.DrawString(spriteBatch, Texturen.font2, Kenn.Bereiche[i, b].ToString(),
+                            new Vector2(i*Kenn.Feldbreite - Spiel2.Fenster.X + Kenn.Feldbreite/2 - text.X/2,
+                                b*Kenn.Feldhoehe - Spiel2.Fenster.Y + Kenn.Feldhoehe/2 - text.Y/2),
+                            Farbe, Color.Transparent);
+                    }
+            }
+
             int CurrentTank = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
 
             if (Mod.SPIELERMENU_VISIBLE.Wert && CurrentTank >= 0)
