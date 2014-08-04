@@ -531,7 +531,7 @@ namespace _4_1_
             MouseState temp = Mouse.GetState();
             //System.Drawing.Point iss = Hauptfenster.Program.Formular.pictureBox1.PointToClient(new System.Drawing.Point(temp.X, temp.Y));
             // System.Drawing.Point offset = Hauptfenster.Program.Formular.pictureBox1.PointToScreen(iss);
-            return new Vector2(temp.X - offset.X, temp.Y - offset.Y);
+            return new Vector2((temp.X - offset.X) , (temp.Y - offset.Y) );
         }
 
         /// <summary>
@@ -544,7 +544,6 @@ namespace _4_1_
 
             MouseState temp = Mouse.GetState();
             Point iss = Hauptfenster.Program.Formular.pictureBox1.PointToClient(new Point(temp.X, temp.Y));
-            //temp.X - offset.X, temp.Y - offset.Y
             var result = new MouseState(temp.X - offset.X, temp.Y - offset.Y, temp.ScrollWheelValue, temp.LeftButton,
                 temp.MiddleButton, temp.RightButton, temp.XButton1, temp.XButton2);
             return result;

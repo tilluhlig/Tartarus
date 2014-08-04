@@ -235,20 +235,19 @@ namespace _4_1_
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.IsFullScreen = true;  // schaltet fullsceen an
+            //graphics.IsFullScreen = true;  // schaltet fullsceen an
             ContentAll = Content;
 
             graphics.PreferredBackBufferWidth = Tausch.screenwidth;
             graphics.PreferredBackBufferHeight = Tausch.screenheight;
             graphics.SynchronizeWithVerticalRetrace = true;
             graphics.PreferMultiSampling = true;
-
             // this.graphics.PreferredBackBufferWidth = 1366;
             // this.graphics.PreferredBackBufferHeight = 768;
             //    this.drawSurface = drawSurface;
 
             //graphics.PreparingDeviceSettings += graphics_PreparingDeviceSettings;
-           // Control.FromHandle((Window.Handle)).VisibleChanged += Game1_VisibleChanged;
+            // Control.FromHandle((Window.Handle)).VisibleChanged += Game1_VisibleChanged;
         }
 
     /// <summary>
@@ -1546,11 +1545,13 @@ namespace _4_1_
         /// </summary>
         public void loadAllContent()
         {
+            TastaturDeutsch.Clear();
             baseScreenSize = new Vector2(XWERT, YWERT); //new Vector2(1000, 600);
             if (spriteBatch == null)
             {
-                Hauptfenster.Program.Formular.tabControl1.KeyPress += OnKeyPress;
-                Hauptfenster.Program.Formular.KeyPress += OnKeyPress;
+                //Hauptfenster.Program.Formular.tabControl1.KeyPress += OnKeyPress;
+                //Hauptfenster.Program.Formular.KeyPress += OnKeyPress;
+                TastaturDeutsch.Add(OnKeyPress);
                 spriteBatch = new SpriteBatch(GraphicsDevice);
             }
 
@@ -2452,7 +2453,9 @@ namespace _4_1_
         /// </summary>
         private void KeyboardKeys()
         {
-            // Eingabe.KeyboardKeys(keybState);
+          TastaturDeutsch.OnKeyPress();
+
+           // Eingabe.KeyboardKeys(keybState);
             if (Spiel2 == null) return;
 
             if (!Tausch.SpielAktiv)

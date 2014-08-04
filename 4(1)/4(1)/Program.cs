@@ -41,7 +41,8 @@ namespace _4_1_
             Form1 form = Hauptfenster.Program.Formular;
 
             form.Show();
-            var game = new Game1();//form.getDrawSurface()
+            Game1 game = new Game1();//form.getDrawSurface()
+            
             form.pp = game;
             Program.game = game;
             form.timer3.Enabled = true;

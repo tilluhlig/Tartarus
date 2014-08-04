@@ -14,7 +14,7 @@
     </TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>HiDef</XnaProfile>
+    <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>dde1633f-3a91-4341-886a-c701f11c49d7</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>1376185546_37873.ico</ApplicationIcon>
@@ -107,6 +107,7 @@
     <Content Include="fmodex.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Daten\TastaturDeutsch.cs" />
     <Compile Include="FMOD\fmod.cs" />
     <Compile Include="FMOD\fmod_dsp.cs" />
     <Compile Include="FMOD\fmod_errors.cs" />

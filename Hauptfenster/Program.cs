@@ -22,6 +22,7 @@ namespace Hauptfenster
            // Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Formular = new Form1();
+
             Application.Run(Formular);
         }
 
