@@ -70,9 +70,9 @@ namespace _4_1_
         /// <returns>der Abstand</returns>
         public static float Abstand(Vector2 A, Vector2 B)
         {
-            double dist = (int) Math.Sqrt((double) (Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2)));
+            double dist = (int)Math.Sqrt((double)(Math.Pow(A.X - B.X, 2) + Math.Pow(A.Y - B.Y, 2)));
             if (dist < 0) dist = -dist;
-            return (float) dist;
+            return (float)dist;
         }
 
         /// <summary>
@@ -109,12 +109,12 @@ namespace _4_1_
             float maxy = hoehe;
             if (Bild.Height < hoehe) maxy = Bild.Height;
 
-            var q = new Vector2(Bild.Width/(Bild.Height/maxy), maxy);
+            var q = new Vector2(Bild.Width / (Bild.Height / maxy), maxy);
             if (q.X <= breite) return q;
 
             // float maxx = q.X; if (Bild.Height < hoehe) maxx = Bild.Height;
 
-            q = new Vector2(breite, maxy/(q.X/breite));
+            q = new Vector2(breite, maxy / (q.X / breite));
             return q;
         }
 
@@ -128,26 +128,26 @@ namespace _4_1_
             String erg = "";
             Zahl = Zahl + 0.00001;
             int KEY = Crypt.Length;
-            var b = (int) Zahl;
+            var b = (int)Zahl;
             for (int i = 3; i > -1; i--)
             {
                 if (Zahl >= Math.Pow(KEY, i))
                 {
-                    var a = (int) (Zahl/Math.Pow(KEY, i));
-                    Zahl = Zahl - (a*Math.Pow(KEY, i));
+                    var a = (int)(Zahl / Math.Pow(KEY, i));
+                    Zahl = Zahl - (a * Math.Pow(KEY, i));
                     erg = erg + Crypt[a];
                 }
                 else
                     erg = erg + Crypt[0];
             }
 
-            if ((int) Zahl > 0)
+            if ((int)Zahl > 0)
             {
-                var a = (int) Zahl;
+                var a = (int)Zahl;
                 erg = erg + Crypt[a];
             }
 
-            for (; erg.Length > 1;)
+            for (; erg.Length > 1; )
             {
                 if (erg.Substring(0, 1) == Crypt[0])
                 {
@@ -167,7 +167,7 @@ namespace _4_1_
         /// <returns>die maskierte Textur</returns>
         public static Texture2D ConvertMAPToTexture2D(Texture2D Bild, List<int>[] MAP)
         {
-            var BildData = new Color[Bild.Width*Bild.Height];
+            var BildData = new Color[Bild.Width * Bild.Height];
             Bild.GetData(BildData);
 
             for (int i = 0; i < MAP.Length; i++)
@@ -175,11 +175,11 @@ namespace _4_1_
                 int pos = 0;
                 for (int b = 0; b < MAP[i].Count; b++)
                 {
-                    if (b%2 == 0)
+                    if (b % 2 == 0)
                     {
                         for (int c = 0; c < MAP[i][b]; c++)
                         {
-                            BildData[i + pos + c*Bild.Width] = Color.Transparent;
+                            BildData[i + pos + c * Bild.Width] = Color.Transparent;
                         }
                     }
                     pos += MAP[i][b];
@@ -200,7 +200,7 @@ namespace _4_1_
         public static List<int>[] ConvertTexture2DToMAP(Texture2D Bild)
         {
             var Data = new List<int>[Bild.Width];
-            var BildData = new Color[Bild.Width*Bild.Height];
+            var BildData = new Color[Bild.Width * Bild.Height];
             Bild.GetData(BildData);
 
             for (int i = 0; i < Bild.Width; i++)
@@ -210,13 +210,13 @@ namespace _4_1_
                 int count = 0;
                 for (int b = 0; b < Bild.Height; b++)
                 {
-                    if (mode == false && BildData[i + b*Bild.Width] != Color.Transparent)
+                    if (mode == false && BildData[i + b * Bild.Width] != Color.Transparent)
                     {
                         Data[i].Add(count);
                         mode = true;
                         count = 0;
                     }
-                    else if (mode && BildData[i + b*Bild.Width] == Color.Transparent)
+                    else if (mode && BildData[i + b * Bild.Width] == Color.Transparent)
                     {
                         Data[i].Add(count);
                         mode = false;
@@ -236,8 +236,8 @@ namespace _4_1_
         /// <returns>die Texturmaske</returns>
         public static byte[] ConvertTexture2DToMASK(Texture2D Bild)
         {
-            var Data = new byte[(int) Math.Ceiling((double) ((Bild.Width*Bild.Height)/8))];
-            var BildData = new Color[Bild.Width*Bild.Height];
+            var Data = new byte[(int)Math.Ceiling((double)((Bild.Width * Bild.Height) / 8))];
+            var BildData = new Color[Bild.Width * Bild.Height];
             Bild.GetData(BildData);
 
             int pos = 0;
@@ -248,9 +248,9 @@ namespace _4_1_
             {
                 for (int b = 0; b < Bild.Height; b++)
                 {
-                    if (BildData[i + b*Bild.Width] != Color.Transparent)
+                    if (BildData[i + b * Bild.Width] != Color.Transparent)
                     {
-                        zahl += (byte) Math.Pow(2.0d, pow);
+                        zahl += (byte)Math.Pow(2.0d, pow);
                     }
 
                     pow++;
@@ -278,7 +278,7 @@ namespace _4_1_
             int erg = 0;
             for (int i = 1; i < Zahl.Length + 1; i++)
             {
-                erg += (int) (find(Zahl.Substring(i, 1))*Math.Pow(KEY, Zahl.Length - i));
+                erg += (int)(find(Zahl.Substring(i, 1)) * Math.Pow(KEY, Zahl.Length - i));
             }
             return erg;
         }
@@ -329,11 +329,11 @@ namespace _4_1_
                 // entferne
                 if (a == b)
                 {
-                    if (a%2 == 0)
+                    if (a % 2 == 0)
                     {
                         // brauche nichts löschen
                     }
-                    else if (a%2 == 1)
+                    else if (a % 2 == 1)
                     {
                         array[x].Insert(a + 1, sum2 - y2);
                         array[x].Insert(a + 1, y2 - y1);
@@ -343,26 +343,26 @@ namespace _4_1_
                 }
                 else
                 {
-                    if (a%2 == 1 && b%2 == 1)
+                    if (a % 2 == 1 && b % 2 == 1)
                     {
                         for (int c = b - 1; c > a + 1; c--) array[x].RemoveAt(a + 1);
                         array[x][a] -= sum1 - y1;
                         array[x][a + 1] = (y2 - y1);
                         array[x][a + 2] -= y2 - last2;
                     }
-                    else if (a%2 == 0 && b%2 == 1)
+                    else if (a % 2 == 0 && b % 2 == 1)
                     {
                         for (int c = b - 1; c > a; c--) array[x].RemoveAt(a + 1);
                         array[x][a] += (y2 - y1) - (sum1 - y1);
                         array[x][a + 1] -= y2 - last2;
                     }
-                    else if (a%2 == 1 && b%2 == 0)
+                    else if (a % 2 == 1 && b % 2 == 0)
                     {
                         for (int c = b - 1; c > a; c--) array[x].RemoveAt(a + 1);
                         array[x][a + 1] += (y2 - y1) - (y2 - last2);
                         array[x][a] -= sum1 - y1;
                     }
-                    else if (a%2 == 0 && b%2 == 0)
+                    else if (a % 2 == 0 && b % 2 == 0)
                     {
                         int summe = array[x][b];
                         for (int c = b; c > a; c--) array[x].RemoveAt(a + 1);
@@ -394,7 +394,7 @@ namespace _4_1_
         {
             float distance = Vector2.Distance(_Anfang, _Ende);
 
-            var angle = (float) Math.Atan2(_Ende.Y - _Anfang.Y, _Ende.X - _Anfang.X);
+            var angle = (float)Math.Atan2(_Ende.Y - _Anfang.Y, _Ende.X - _Anfang.X);
 
             spriteBatch.Draw(Texturen.Punkt, _Anfang, null, _Farbe, angle, Vector2.Zero, new Vector2(distance, _Breite),
                 SpriteEffects.None, 1);
@@ -411,7 +411,7 @@ namespace _4_1_
         {
             //  var rect = new Texture2D(graphicsDevice, 1, 1);
             // rect.SetData(new[] { _Farbe });
-            spriteBatch.Draw(Texturen.Punkt, _Rechteck, new Rectangle(0, 0, 1, 1), _Farbe*_Transparenz, 0, Vector2.Zero,
+            spriteBatch.Draw(Texturen.Punkt, _Rechteck, new Rectangle(0, 0, 1, 1), _Farbe * _Transparenz, 0, Vector2.Zero,
                 SpriteEffects.None, 1);
         }
 
@@ -457,12 +457,12 @@ namespace _4_1_
         {
             var Data2 = new Vector2[6];
             var Data = new List<int>[Bild.Width];
-            var BildData = new Color[Bild.Width*Bild.Height];
+            var BildData = new Color[Bild.Width * Bild.Height];
             Bild.GetData(BildData);
 
             bool found = false;
             for (int i = 0; i < Bild.Width && i < Bild.Height; i++)
-                if (BildData[i + i*Bild.Width] != Color.Transparent)
+                if (BildData[i + i * Bild.Width] != Color.Transparent)
                 {
                     Data2[0] = new Vector2(i, i);
                     found = true;
@@ -472,7 +472,7 @@ namespace _4_1_
             found = false;
             for (int i = Bild.Width - 1; i >= 0; i--)
                 for (int b = Bild.Height - 1; b >= 0; b--)
-                    if (BildData[i + b*Bild.Width] != Color.Transparent)
+                    if (BildData[i + b * Bild.Width] != Color.Transparent)
                     {
                         Data2[1] = new Vector2(i, b);
                         found = true;
@@ -482,7 +482,7 @@ namespace _4_1_
             found = false;
             for (int i = 0; i < Bild.Width; i++)
                 for (int b = Bild.Height - 1; b >= 0; b--)
-                    if (BildData[i + b*Bild.Width] != Color.Transparent)
+                    if (BildData[i + b * Bild.Width] != Color.Transparent)
                     {
                         Data2[2] = new Vector2(i, b);
                         found = true;
@@ -492,7 +492,7 @@ namespace _4_1_
             found = false;
             for (int i = Bild.Width - 1; i >= 0; i--)
                 for (int b = 0; b < Bild.Height; b++)
-                    if (BildData[i + b*Bild.Width] != Color.Transparent)
+                    if (BildData[i + b * Bild.Width] != Color.Transparent)
                     {
                         Data2[3] = new Vector2(i, b);
                         found = true;
@@ -501,21 +501,21 @@ namespace _4_1_
 
             found = false;
             for (int b = 0; b < Bild.Height; b++)
-                if (BildData[Bild.Width/2 + b*Bild.Width] != Color.Transparent)
+                if (BildData[Bild.Width / 2 + b * Bild.Width] != Color.Transparent)
                 {
-                    Data2[4] = new Vector2(Bild.Width/2, b);
+                    Data2[4] = new Vector2(Bild.Width / 2, b);
                     found = true;
                 }
-            if (!found) Data2[4] = new Vector2(Bild.Width/2, 0);
+            if (!found) Data2[4] = new Vector2(Bild.Width / 2, 0);
 
             found = false;
             for (int b = Bild.Height - 1; b >= 0; b--)
-                if (BildData[Bild.Width/2 + b*Bild.Width] != Color.Transparent)
+                if (BildData[Bild.Width / 2 + b * Bild.Width] != Color.Transparent)
                 {
-                    Data2[5] = new Vector2(Bild.Width/2, b);
+                    Data2[5] = new Vector2(Bild.Width / 2, b);
                     found = true;
                 }
-            if (!found) Data2[5] = new Vector2(Bild.Width/2, Bild.Height - 1);
+            if (!found) Data2[5] = new Vector2(Bild.Width / 2, Bild.Height - 1);
 
             return Data2;
         }
@@ -558,7 +558,7 @@ namespace _4_1_
         public static int GetPixelAnzahl(Texture2D Bild)
         {
             var Data = new List<int>[Bild.Width];
-            var BildData = new Color[Bild.Width*Bild.Height];
+            var BildData = new Color[Bild.Width * Bild.Height];
             Bild.GetData(BildData);
             int Anzahl = 0;
 
@@ -566,7 +566,7 @@ namespace _4_1_
             {
                 for (int b = 0; b < Bild.Height; b++)
                 {
-                    if (BildData[i + b*Bild.Width] != Color.Transparent)
+                    if (BildData[i + b * Bild.Width] != Color.Transparent)
                     {
                         Anzahl++;
                     }
@@ -637,13 +637,13 @@ namespace _4_1_
         /// <returns><c>true</c> if the specified array is set; otherwise, <c>false</c>.</returns>
         public static bool isSet(List<int>[] array, float x, float y) // neu
         {
-            if ((int) x >= array.Length) return false;
-            if ((int) x < 0) return false;
+            if ((int)x >= array.Length) return false;
+            if ((int)x < 0) return false;
             int sum = 0;
-            for (int i = 0; i < array[(int) x].Count; i++)
+            for (int i = 0; i < array[(int)x].Count; i++)
             {
-                sum += array[(int) x][i];
-                if ((int) y < sum) return i%2 == 0 ? false : true;
+                sum += array[(int)x][i];
+                if ((int)y < sum) return i % 2 == 0 ? false : true;
             }
             return false;
         }
@@ -658,12 +658,12 @@ namespace _4_1_
         /// <returns><c>true</c> if [is set in mask] [the specified array]; otherwise, <c>false</c>.</returns>
         public static bool isSetInMask(byte[] array, float x, float y, int BildBreite)
         {
-            if (x < 0 || y < 0 || x >= BildBreite || y >= array.Length/BildBreite) return false;
-            byte Byte = array[(int) ((x + y*BildBreite)/8)];
-            var Bit = (int) ((x + y*BildBreite)%8);
+            if (x < 0 || y < 0 || x >= BildBreite || y >= array.Length / BildBreite) return false;
+            byte Byte = array[(int)((x + y * BildBreite) / 8)];
+            var Bit = (int)((x + y * BildBreite) % 8);
             byte q = 128;
-            q = (byte) (q >> Bit);
-            var p = (byte) (Byte & q);
+            q = (byte)(q >> Bit);
+            var p = (byte)(Byte & q);
             if (p > 0) return true;
             return false;
         }
@@ -678,6 +678,16 @@ namespace _4_1_
             return result;
         }
 
+        public static double PolygonFlaeche(List<Vector2> Punkte)
+        {
+            if (Punkte.Count <= 2) return 0;
+            double Summe = 0;
+            for (int i = 0; i < Punkte.Count-1; i++)
+                Summe += (Punkte[i].Y + Punkte[i + 1].Y) * (Punkte[i].X - Punkte[i + 1].X);
+            Summe += (Punkte[Punkte.Count - 1].Y + Punkte[0].Y) * (Punkte[Punkte.Count - 1].X - Punkte[0].X);
+            return Summe;
+        }
+
         // Gibt den Winkel für die Drehung zurück (als Bogenmaß)
         /// <summary>
         ///     Punkts the drehen um bestimmte entfernung.
@@ -689,7 +699,7 @@ namespace _4_1_
         public static float PunktDrehenUmBestimmteEntfernung(Vector2 Drehpunkt, Vector2 EigenePosition, float Strecke)
         {
             float r = Abstand(EigenePosition, Drehpunkt);
-            return Strecke/r;
+            return Strecke / r;
         }
 
         /// <summary>
@@ -705,12 +715,12 @@ namespace _4_1_
             var Richtung = new Vector2(x2 - x1, y2 - y1);
             //double VektorLange = Math.Sqrt(Richtung.X * Richtung.X + Richtung.Y * Richtung.Y);
             int AnzPunkte = 100;
-            Richtung = new Vector2(Richtung.X/AnzPunkte, Richtung.Y/AnzPunkte);
+            Richtung = new Vector2(Richtung.X / AnzPunkte, Richtung.Y / AnzPunkte);
             var Punktarray = new float[AnzPunkte][];
             for (int i = 0; i < AnzPunkte; i++)
             {
-                Punktarray[i][0] = x1 + i*Richtung.X;
-                Punktarray[i][1] = y1 + i*Richtung.Y;
+                Punktarray[i][0] = x1 + i * Richtung.X;
+                Punktarray[i][1] = y1 + i * Richtung.Y;
             }
             return Punktarray;
         }
@@ -725,19 +735,19 @@ namespace _4_1_
         /// <returns>System.Int32.</returns>
         public static int RepariereBild(Texture2D Bild, Texture2D Original, int Pixel)
         {
-            var temp = new Color[Bild.Width*Bild.Height];
+            var temp = new Color[Bild.Width * Bild.Height];
             Bild.GetData(temp);
 
-            var temp2 = new Color[Original.Width*Original.Height];
+            var temp2 = new Color[Original.Width * Original.Height];
             Original.GetData(temp2);
 
             int anz = 0;
             for (int i = Bild.Width - 1; i >= 0 && anz < Pixel; i--)
                 for (int b = 0; b < Bild.Height && anz < Pixel; b++)
                 {
-                    if (temp[b + i*Bild.Height] == Color.Transparent && temp2[b + i*Bild.Height] != Color.Transparent)
+                    if (temp[b + i * Bild.Height] == Color.Transparent && temp2[b + i * Bild.Height] != Color.Transparent)
                     {
-                        temp[b + i*Bild.Height] = temp2[b + i*Bild.Height];
+                        temp[b + i * Bild.Height] = temp2[b + i * Bild.Height];
                         anz++;
                     }
                 }
@@ -817,7 +827,7 @@ namespace _4_1_
         /// <returns>System.Double.</returns>
         public static double VektorBetrag(Vector2 a)
         {
-            return Math.Sqrt(a.X*a.X + a.Y*a.Y);
+            return Math.Sqrt(a.X * a.X + a.Y * a.Y);
         }
 
         // Kürzt eine Vektor
@@ -829,7 +839,7 @@ namespace _4_1_
         /// <returns>Vector2.</returns>
         public static Vector2 VektorKürzen(Vector2 Vektor, float Faktor)
         {
-            return Vektor*Faktor;
+            return Vektor * Faktor;
         }
 
         // Reflektiert einen Vektor an der Geraden die durch P1, P2 geht    (Reflektionsfaktor = Energieverlust beim Reflektieren)
@@ -846,7 +856,7 @@ namespace _4_1_
             Vector2 Gerade = P1 - P2;
             var normale = new Vector2(Gerade.Y, -Gerade.X);
             //   return EingehenderVektor - (2 * EingehenderVektor * normale) * normale;
-            return Vector2.Reflect(EingehenderVektor, normale)*Reflektionsfaktor;
+            return Vector2.Reflect(EingehenderVektor, normale) * Reflektionsfaktor;
         }
 
         /// <summary>

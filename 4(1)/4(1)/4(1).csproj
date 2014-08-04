@@ -274,7 +274,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\app.manifest" />
     <None Include="VisualStudio\4%281%29_TemporaryKey.pfx" />
     <None Include="VisualStudio\app.config" />
