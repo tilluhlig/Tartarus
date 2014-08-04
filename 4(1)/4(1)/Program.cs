@@ -37,27 +37,13 @@ namespace _4_1_
         /// <param name="args">eine Liste von übergebenen Parametern</param>
         private static void Main(string[] args)
         {
-            /* using (game = new Game1())
-             {
-                 game.Run();
-             }*/
-
-            //Keyb = new XnaTextInput.TextInputHandler((IntPtr)0);
-            //Hauptfenster.Form1 form = new Hauptfenster.Form1();
             Hauptfenster.Program.Formular = new Form1();
             Form1 form = Hauptfenster.Program.Formular;
-            //XnaTextInput.TextInputHandler Keyb;
-            // Keyb = new XnaTextInput.TextInputHandler((IntPtr)); //
-            //Hauptfenster.Program.Formular.KeyPress += new KeyPressEventHandler(this.OnKeyPress);
-            // Keyb.KeyPress += new KeyPressEventHandler(this.OnKeyPress);
 
             form.Show();
-            var game = new Game1(form.getDrawSurface());
+            var game = new Game1();//form.getDrawSurface()
             form.pp = game;
             Program.game = game;
-
-            // form.KeyPress = game.OnKeyPress;
-            //Keyb.KeyPress += game.
             form.timer3.Enabled = true;
             bool fehler = false;
 

@@ -64,7 +64,7 @@ namespace _4_1_
         /// <summary>
         ///     Die Kartenbreite in Pixel
         /// </summary>
-        public int Kartengroesse = 2048 * 5;
+        public int Kartengroesse = 2048*5;
 
         /// <summary>
         ///     The menuaufruf
@@ -221,6 +221,7 @@ namespace _4_1_
 
             // this.graphics.PreferredBackBufferWidth = 1366;
             // this.graphics.PreferredBackBufferHeight = 768;
+           // if (drawSurface!=null)
             this.drawSurface = drawSurface;
 
             graphics.PreparingDeviceSettings += graphics_PreparingDeviceSettings;
@@ -228,7 +229,29 @@ namespace _4_1_
             // this.graphics.IsFullScreen = true;  // schaltet fullsceen an
         }
 
-        /// <summary>
+        public Game1()
+        {
+            // Erstelle Spiel
+
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            graphics.IsFullScreen = true;  // schaltet fullsceen an
+            ContentAll = Content;
+
+            graphics.PreferredBackBufferWidth = Tausch.screenwidth;
+            graphics.PreferredBackBufferHeight = Tausch.screenheight;
+            graphics.SynchronizeWithVerticalRetrace = true;
+            graphics.PreferMultiSampling = true;
+
+            // this.graphics.PreferredBackBufferWidth = 1366;
+            // this.graphics.PreferredBackBufferHeight = 768;
+            //    this.drawSurface = drawSurface;
+
+            //graphics.PreparingDeviceSettings += graphics_PreparingDeviceSettings;
+           // Control.FromHandle((Window.Handle)).VisibleChanged += Game1_VisibleChanged;
+        }
+
+    /// <summary>
         ///     Hiermit wird der Text beim Laden eines Vorgangs angezeigt
         /// </summary>
         /// <param name="Text2">The text2.</param>
@@ -2150,15 +2173,6 @@ namespace _4_1_
         /// <param name="gameTime">Time passed since the last call to Update.</param>
         protected override void Update(GameTime gameTime)
         {
-            /* if (reduzierung % 3 != 0)
-             {
-                 reduzierung++;
-                 base.Update(gameTime);
-                 return;
-             }
-             else
-                 reduzierung = 1;*/
-
             Time = gameTime;
             check_Datenaustausch();
             if (Meldungen != null) Meldungen.Update();
