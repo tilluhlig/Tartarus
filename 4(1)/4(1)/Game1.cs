@@ -1512,6 +1512,12 @@ namespace _4_1_
             }
         }
 
+        public static int SpielEinblenden = 0;
+        public static int SpielEinblendenMax = 0;
+        public static int SpielAusblenden = 0;
+        public static int SpielAusblendenMax = 0;
+        public static float SpielBlend = 0;
+
         /// <summary>
         ///     Loads all content.
         /// </summary>
@@ -1554,6 +1560,7 @@ namespace _4_1_
             //Spielermenu = new SpielerMenu(Color.White, Color.White, Texturen.font2, screenWidth, screenHeight);
             if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu = new Spielermenu();
             if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.LoadContent(Content);
+            Help.angrabbel_funktion();
 
             #endregion LadeMenus
 
@@ -1661,8 +1668,21 @@ namespace _4_1_
             Hauptfenster.Program.Formular.progressBar1.Value = 100;
             Hauptfenster.Program.Formular.progressBar1.Hide();
             Hauptfenster.Program.Formular.label31.Hide();
+            SpielfeldEinblenden(180);
 
             Sounds.Lademusik.StopSound(0);
+        }
+
+        bool _isDirty = true;
+        protected override bool BeginDraw()
+        {
+            if (_isDirty)
+            {
+                _isDirty = false;
+                return base.BeginDraw();
+            }
+            else
+                return false;
         }
 
         /// <summary>
@@ -1674,355 +1694,389 @@ namespace _4_1_
             /*   if (reduzierung2 % 3 == 0 || true)
                {
                    reduzierung2 = 1;*/
-
             if (Spiel2 == null) return;
 
             Texturen.effect.Parameters["modus"].SetValue(SHADER.Wert);
 
             // GraphicsDevice.Clear(Color.White);
-            //graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            GraphicsDevice.Clear(ClearOptions.Target, Color.Blue, 1.0F, 0);
 
-            /*SamplerState sampler = new SamplerState();
+            //SpriteBatch Zeichenflaeche = new SpriteBatch(GraphicsDevice);
+            RenderTarget2D rt = new RenderTarget2D(Game1.device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
+            Game1.device.SetRenderTarget(rt);
+
+            if (SpielBlend > 0)
+            {
+
+                // GraphicsDevice.Clear(ClearOptions.DepthBuffer, Color.Blue, 1.0F, 0);
+
+
+                /* SamplerState sampler = new SamplerState();
             sampler.MaxAnisotropy = 4;
-            sampler.Filter = TextureFilter.Anisotropic;
+            sampler.Filter = TextureFilter.LinearMipPoint;
             sampler.MaxMipLevel = 0;
             sampler.MipMapLevelOfDetailBias = 0;
             sampler.AddressU = TextureAddressMode.Clamp;
             sampler.AddressV = TextureAddressMode.Clamp;
-            sampler.AddressW = TextureAddressMode.Clamp;*/
-            //sampler = null;
+            sampler.AddressW = TextureAddressMode.Clamp;
+            sampler = null;*/
 
-            /*   RasterizerState rasterize = new RasterizerState();
+                /*   RasterizerState rasterize = new RasterizerState();
                rasterize.CullMode = CullMode.None;
                rasterize.FillMode = FillMode.Solid;
                rasterize.MultiSampleAntiAlias = true;
                device.RasterizerState = rasterize;*/
-            // rasterize = null;
+                // rasterize = null;
 
-            Vector3 screenScalingFactor;
+                Vector3 screenScalingFactor;
 
-            float horScaling = device.PresentationParameters.BackBufferWidth / baseScreenSize.X;
-            float verScaling = device.PresentationParameters.BackBufferHeight / baseScreenSize.Y;
-            /// device.PresentationParameters.PresentationInterval = PresentInterval.Two;
-            screenScalingFactor = new Vector3(horScaling, verScaling, 1);
+                float horScaling = device.PresentationParameters.BackBufferWidth/baseScreenSize.X;
+                float verScaling = device.PresentationParameters.BackBufferHeight/baseScreenSize.Y;
+                /// device.PresentationParameters.PresentationInterval = PresentInterval.Two;
+                screenScalingFactor = new Vector3(horScaling, verScaling, 1);
 
-            Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
+                Matrix globalTransformation = Matrix.CreateScale(screenScalingFactor);
 
-            //  GenerateSceneryFog();
 
-            //  spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation); //SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation
 
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend, null, null, null, null, globalTransformation); //
+                //  GenerateSceneryFog();
 
-            /* if (Spiel2.SpielerAktiv() > 1 && !Spiel2.paused)
-             {*/
-            //  if (!SpielAktiv) return;
-            bool mouseover = false;
+                //  spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation); //SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation
 
-            bool overnotiz = false;
-            if (Tausch.SpielAktiv)
-                for (int i = 0; i < Spiel2.players[Spiel2.CurrentPlayer].Notiz.pos.Count; i++)
-                {
-                    if (Notizen.Kollision.collision(Help.GetMousePos(),
-                        Spiel2.players[Spiel2.CurrentPlayer].Notiz.pos[i] - Spiel2.Fenster, false))
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend, null, null, null, null, globalTransformation); //
+
+                bool mouseover = false;
+
+                bool overnotiz = false;
+                if (Tausch.SpielAktiv)
+                    for (int i = 0; i < Spiel2.players[Spiel2.CurrentPlayer].Notiz.pos.Count; i++)
                     {
-                        overnotiz = true;
-                        break;
-                    }
-                }
-
-            bool overtank = false;
-
-            if (Tausch.SpielAktiv)
-                if (!overnotiz)
-                {
-                    int t = Spiel2.CurrentPlayer;
-                    for (int b = 0; b < Spiel2.players[t].pos.Count; b++)
-                        if (Spiel2.players[t].PrüfeObKollision(b,
-                            new Vector2(mouseState.X + Spiel2.Fenster.X, mouseState.Y + Spiel2.Fenster.Y)))
+                        if (Notizen.Kollision.collision(Help.GetMousePos(),
+                            Spiel2.players[Spiel2.CurrentPlayer].Notiz.pos[i] - Spiel2.Fenster, false))
                         {
-                            overtank = true;
+                            overnotiz = true;
                             break;
                         }
-                }
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
-            Texturen.effect.CurrentTechnique.Passes[0].Apply();
-            DrawSceneryBackground();
+                    }
 
-            spriteBatch.End();
+                bool overtank = false;
 
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
-
-            if (Mod.ORTSSCHILD_VISIBLE.Wert) DrawOrtsschilder();
-            Meldungen.Draw(spriteBatch, Texturen.font2);
-
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteMode, BlendState.Additive,
-                null, null, null, null, globalTransformation);
-            if (Spiel.SMOKE.Wert) DrawSmoke(gameTime);
-            spriteBatch.End();
-
-            /*    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, globalTransformation);
-
-                spriteBatch.End();*/
-            if (Haus.HAEUSER)
-                mouseover = Haus.ZeichneHäuser(overnotiz || overtank ? true : false, spriteBatch, device, Spiel2);
-
-            // spriteBatch.End();
-            Tunnel.ZeichneTunnel(spriteBatch, Spiel2);
-
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
-            DrawMinenKreis();
-            spriteBatch.End();
-
-            Nutzloses.ZeichneNutzloses(gameTime, spriteBatch, Spiel2);
-
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend, null, null, null);
-            Texturen.effect.CurrentTechnique.Passes[0].Apply();
-            Vordergrund.ZeichneVordergrund();
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
-
-            // Hinweistext
-            float scale5 = Optimierung.Skalierung(0.25f) * 0.8f; // TODO wurde geändert von 0.2f
-            if (Tastatur.TASTE_ZUG_BEENDEN.Wert && HTTP.HTTP.gameid != "")
-            {
-                spriteBatch.DrawString(Texturen.font2, "F9 Zug Beenden",
-                    new Vector2(screenWidth - 3 - 2 * (Texturen.LeeresFeld.Width * scale5),
-                        (Texturen.LeeresFeld.Height * scale5) + 42), Color.Lime);
-            }
-            if (Tastatur.TASTE_SPEICHERN.Wert)
-                spriteBatch.DrawString(Texturen.font2, "F5 Speichern",
-                    new Vector2(screenWidth - 3 - 2 * (Texturen.LeeresFeld.Width * scale5),
-                        (Texturen.LeeresFeld.Height * scale5) + 54), Color.Lime);
-
-            if (Replay.REPLAY_VISIBLE.Wert && Spiel2.replay_visible2) Replay.DrawReplay(spriteBatch, Spiel2);
-
-            spriteBatch.End();
-            mouseover = DrawPlayers(overnotiz ? true : false);
-
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
-            if (Spieler.WAFFEN_COOLDOWN.Wert && Mod.COOLDOWN_ON_TANK_VISIBLE.Wert) DrawPlayersCooldown();
-            spriteBatch.End();
-
-            if (Bunker.BUNKER) DrawBunker();
-
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
-
-            DrawKisten();
-            DrawMinen();
-
-            DrawArbeitsbereich();
-
-            if (Spiel.AIRSTRIKE.Wert && Spiel.MISSILE.Wert) DrawAirstrike();
-            if (Spiel.MISSILE.Wert) DrawMissle();
-
-            //    DrawSceneryFog();
-
-            if (!Editor.visible) DrawLeiste();
-            DrawText();
-            if (Spiel.WIND.Wert) DrawWind();
-
-            #region DEBUG
-
-            if (DEBUG_AKTIV.Wert)
-            {
-                float fact = 0.15f;
-                for (int i = 0; i < Spiel2.Haeuser.Position.Count; i++)
-                {
-                    int id = Spiel2.Haeuser.HausTyp[i];
-                    spriteBatch.Draw(Texturen.dot,
-                        new Vector2(Spiel2.Haeuser.Position[i].X - (int)Spiel2.Fenster.X,
-                            Spiel2.Haeuser.Position[i].Y - (int)Spiel2.Fenster.Y -
-                            Texturen.haus[id].Height * Gebäudedaten.SKALIERUNG.Wert[id]), null, Color.Lime, 0.0f,
-                        new Vector2(0, 0), fact, SpriteEffects.None, 1);
-                }
-
-                for (int i = 0; i < Spiel2.Missile.Count(); i++)
-                {
-                    spriteBatch.Draw(Texturen.dot,
-                        new Vector2(Spiel2.Missile[i].RaktnSpitze().X - (int)Spiel2.Fenster.X,
-                            Spiel2.Missile[i].RaktnSpitze().Y - (int)Spiel2.Fenster.Y), null, Color.OrangeRed, 0.0f,
-                        new Vector2(0, 0), fact, SpriteEffects.None, 1);
-                }
-
-                for (int i = 0; i < Spiel2.players.Length && i < 1; i++)
-                {
-                    for (int c = 0; c < Spiel2.players[i].hp.Count && c < 1; c++)
+                if (Tausch.SpielAktiv)
+                    if (!overnotiz)
                     {
-                        int id = Spiel2.players[i].KindofTank[c];
-                        float posx = Spiel2.players[i].pos[c].X;
-                        float posy = Spiel2.players[i].pos[c].Y;
-                        double winkel = Spiel2.players[i].vehikleAngle[c];
-                        float ww = (Texturen.panzerindex[id].Width * Fahrzeugdaten.SCALEP.Wert[id]) / 2;
-                        Vector2 p = KollisionsObjekt.Rotiere(winkel, new Vector3(0, 0, 1), new Vector2(-ww, 0));
-                        posx = posx + p.X;
-                        posy = posy - p.Y;
+                        int t = Spiel2.CurrentPlayer;
+                        for (int b = 0; b < Spiel2.players[t].pos.Count; b++)
+                            if (Spiel2.players[t].PrüfeObKollision(b,
+                                new Vector2(mouseState.X + Spiel2.Fenster.X, mouseState.Y + Spiel2.Fenster.Y)))
+                            {
+                                overtank = true;
+                                break;
+                            }
+                    }
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+                Texturen.effect.CurrentTechnique.Passes[0].Apply();
+                DrawSceneryBackground();
+
+                spriteBatch.End();
+
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+
+                if (Mod.ORTSSCHILD_VISIBLE.Wert) DrawOrtsschilder();
+                Meldungen.Draw(spriteBatch, Texturen.font2);
+
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteMode, BlendState.Additive,
+                    null, null, null, null, globalTransformation);
+                if (Spiel.SMOKE.Wert) DrawSmoke(gameTime);
+                spriteBatch.End();
+
+                if (Haus.HAEUSER)
+                    mouseover = Haus.ZeichneHäuser(overnotiz || overtank ? true : false, spriteBatch, device, Spiel2);
+
+                // spriteBatch.End();
+                Tunnel.ZeichneTunnel(spriteBatch, Spiel2);
+
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+                DrawMinenKreis();
+                spriteBatch.End();
+
+                Nutzloses.ZeichneNutzloses(gameTime, spriteBatch, Spiel2);
+
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend, null, null, null);
+                Texturen.effect.CurrentTechnique.Passes[0].Apply();
+                Vordergrund.ZeichneVordergrund();
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+
+                // Hinweistext
+                float scale5 = Optimierung.Skalierung(0.25f)*0.8f; // TODO wurde geändert von 0.2f
+                if (Tastatur.TASTE_ZUG_BEENDEN.Wert && HTTP.HTTP.gameid != "")
+                {
+                    spriteBatch.DrawString(Texturen.font2, "F9 Zug Beenden",
+                        new Vector2(screenWidth - 3 - 2*(Texturen.LeeresFeld.Width*scale5),
+                            (Texturen.LeeresFeld.Height*scale5) + 42), Color.Lime);
+                }
+                if (Tastatur.TASTE_SPEICHERN.Wert)
+                    spriteBatch.DrawString(Texturen.font2, "F5 Speichern",
+                        new Vector2(screenWidth - 3 - 2*(Texturen.LeeresFeld.Width*scale5),
+                            (Texturen.LeeresFeld.Height*scale5) + 54), Color.Lime);
+
+                if (Replay.REPLAY_VISIBLE.Wert && Spiel2.replay_visible2) Replay.DrawReplay(spriteBatch, Spiel2);
+
+                spriteBatch.End();
+                mouseover = DrawPlayers(overnotiz ? true : false);
+
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+                if (Spieler.WAFFEN_COOLDOWN.Wert && Mod.COOLDOWN_ON_TANK_VISIBLE.Wert) DrawPlayersCooldown();
+                spriteBatch.End();
+
+                if (Bunker.BUNKER) DrawBunker();
+
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+
+                DrawKisten();
+                DrawMinen();
+
+                DrawArbeitsbereich();
+
+                if (Spiel.AIRSTRIKE.Wert && Spiel.MISSILE.Wert) DrawAirstrike();
+                if (Spiel.MISSILE.Wert) DrawMissle();
+
+                //    DrawSceneryFog();
+
+                if (!Editor.visible) DrawLeiste();
+                DrawText();
+                if (Spiel.WIND.Wert) DrawWind();
+
+                #region DEBUG
+
+                if (DEBUG_AKTIV.Wert)
+                {
+                    float fact = 0.15f;
+                    for (int i = 0; i < Spiel2.Haeuser.Position.Count; i++)
+                    {
+                        int id = Spiel2.Haeuser.HausTyp[i];
                         spriteBatch.Draw(Texturen.dot,
-                            new Vector2(posx - (int)Spiel2.Fenster.X,
-                                posy - (int)Spiel2.Fenster.Y -
-                                Texturen.panzerindex[id].Height * Fahrzeugdaten.SCALEP.Wert[id]), null, Color.Lime, 0.0f,
+                            new Vector2(Spiel2.Haeuser.Position[i].X - (int) Spiel2.Fenster.X,
+                                Spiel2.Haeuser.Position[i].Y - (int) Spiel2.Fenster.Y -
+                                Texturen.haus[id].Height*Gebäudedaten.SKALIERUNG.Wert[id]), null, Color.Lime, 0.0f,
                             new Vector2(0, 0), fact, SpriteEffects.None, 1);
-
-                        for (int z = 0; z < Spiel2.Missile.Count(); z++)
-                        {
-                            Vector2 RakPos = Spiel2.Missile[z].RaktnSpitze();
-                            id = Spiel2.players[i].KindofTank[c];
-                            posx = Spiel2.players[i].pos[c].X; //Player[i].pos[c].X;
-                            posy = Spiel2.players[i].pos[c].Y; //Player[i].pos[c].Y;
-                            winkel = Spiel2.players[i].vehikleAngle[c];
-                            ww = (Texturen.panzerindex[id].Width * Fahrzeugdaten.SCALEP.Wert[id]) / 2;
-                            p = KollisionsObjekt.Rotiere(winkel, new Vector3(0, 0, 1), new Vector2(ww, 0));
-                            p = new Vector2(p.X - ww, p.Y);
-                            RakPos = new Vector2(RakPos.X + p.X, RakPos.Y - p.Y);
-                            spriteBatch.Draw(Texturen.dot,
-                                new Vector2(RakPos.X - (int)Spiel2.Fenster.X, RakPos.Y - (int)Spiel2.Fenster.Y), null,
-                                Color.Yellow, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
-                        }
                     }
-                }
 
-                // Panzer Rohrspitzen zeichnen
-                for (int i = 0; i < Spiel2.players.Length; i++)
-                {
-                    for (int c = 0; c < Spiel2.players[i].hp.Count; c++)
+                    for (int i = 0; i < Spiel2.Missile.Count(); i++)
                     {
-                        int kind = Spiel2.players[i].KindofTank[c];
-                        int welcher = Spiel2.players[i].overreach[c] ? 1 : 0;
-                        Vector2 pos = Spiel2.players[i].pos[c] +
-                                      new Vector2(welcher == 1 ? -Texturen.RohrPos[kind].X : Texturen.RohrPos[kind].X,
-                                          -Texturen.RohrPos[kind].Y); //Texturen.CannonOrigin[kind][0] -
-                        float temp2 = Texturen.CannonOrigin[kind][0].Y / 2;
+                        spriteBatch.Draw(Texturen.dot,
+                            new Vector2(Spiel2.Missile[i].RaktnSpitze().X - (int) Spiel2.Fenster.X,
+                                Spiel2.Missile[i].RaktnSpitze().Y - (int) Spiel2.Fenster.Y), null, Color.OrangeRed, 0.0f,
+                            new Vector2(0, 0), fact, SpriteEffects.None, 1);
+                    }
 
-                        Vector2 p = Help.RotatePositionOffset(pos, Spiel2.players[i].Angle[c],
-                            new Vector2(
-                                Texturen.panzerrohrindex[kind].Width -
-                                (Texturen.panzerrohrindex[kind].Width - Texturen.CannonOrigin[kind][0].X),
-                                welcher == 0 ? temp2 : -temp2));
-                        p = Help.RotatePosition(Spiel2.players[i].pos[c], Spiel2.players[i].vehikleAngle[c], p);
-
-                        spriteBatch.Draw(Texturen.dot, p - Spiel2.Fenster, null, Color.Yellow, 0,
-                            new Vector2(12.5f, 12.5f), fact, SpriteEffects.None, 1);
-
-                        int Kindof = Spiel2.players[i].KindofTank[c];
-                        for (int d = 0; d < Texturen.Radpositionen[Kindof].Count(); d++)
+                    for (int i = 0; i < Spiel2.players.Length && i < 1; i++)
+                    {
+                        for (int c = 0; c < Spiel2.players[i].hp.Count && c < 1; c++)
                         {
-                            float vehikleAngle = Spiel2.players[i].vehikleAngle[c];
-                            bool overreach = Spiel2.players[i].overreach[c];
-                            Vector2 bew = Spiel2.players[i].logik[c].GetBewegungsVektor(d,
-                                Spiel2.players[i].vehikleAngle[c], Spiel2.players[i].pos[c],
-                                Spiel2.players[i].overreach[c]);
-                            Vector2 add = bew * 10;
-                            Vector2 p2 = Help.RotatePositionOffset(Spiel2.players[i].pos[c], vehikleAngle,
-                                new Vector2(
-                                    (overreach
-                                        ? Texturen.Radpositionen[Kindof][d].X
-                                        : -Texturen.Radpositionen[Kindof][d].X), Texturen.Radpositionen[Kindof][d].Y));
-                            Help.DrawLine(spriteBatch, p2 - Spiel2.Fenster, p2 - Spiel2.Fenster + add, Color.Red, 2);
+                            int id = Spiel2.players[i].KindofTank[c];
+                            float posx = Spiel2.players[i].pos[c].X;
+                            float posy = Spiel2.players[i].pos[c].Y;
+                            double winkel = Spiel2.players[i].vehikleAngle[c];
+                            float ww = (Texturen.panzerindex[id].Width*Fahrzeugdaten.SCALEP.Wert[id])/2;
+                            Vector2 p = KollisionsObjekt.Rotiere(winkel, new Vector3(0, 0, 1), new Vector2(-ww, 0));
+                            posx = posx + p.X;
+                            posy = posy - p.Y;
+                            spriteBatch.Draw(Texturen.dot,
+                                new Vector2(posx - (int) Spiel2.Fenster.X,
+                                    posy - (int) Spiel2.Fenster.Y -
+                                    Texturen.panzerindex[id].Height*Fahrzeugdaten.SCALEP.Wert[id]), null, Color.Lime,
+                                0.0f,
+                                new Vector2(0, 0), fact, SpriteEffects.None, 1);
 
-                            if (i == Spiel2.CurrentPlayer && c == Spiel2.players[i].CurrentTank)
-                                Help.DrawString(spriteBatch, Texturen.font2, bew.ToString(), new Vector2(10, 60 + d * 9),
-                                    Color.DarkGoldenrod, Color.Black);
-                            /* spriteBatch.Draw(Texturen.panzerindexreifen[Kindof], p, null, Color.White, vehikleAngle,
-                            new Vector2(Texturen.panzerindexreifen[Kindof].Width / 2, Texturen.panzerindexreifen[Kindof].Height / 2), scaleP, SpriteEffects.None, 0);*/
+                            for (int z = 0; z < Spiel2.Missile.Count(); z++)
+                            {
+                                Vector2 RakPos = Spiel2.Missile[z].RaktnSpitze();
+                                id = Spiel2.players[i].KindofTank[c];
+                                posx = Spiel2.players[i].pos[c].X; //Player[i].pos[c].X;
+                                posy = Spiel2.players[i].pos[c].Y; //Player[i].pos[c].Y;
+                                winkel = Spiel2.players[i].vehikleAngle[c];
+                                ww = (Texturen.panzerindex[id].Width*Fahrzeugdaten.SCALEP.Wert[id])/2;
+                                p = KollisionsObjekt.Rotiere(winkel, new Vector3(0, 0, 1), new Vector2(ww, 0));
+                                p = new Vector2(p.X - ww, p.Y);
+                                RakPos = new Vector2(RakPos.X + p.X, RakPos.Y - p.Y);
+                                spriteBatch.Draw(Texturen.dot,
+                                    new Vector2(RakPos.X - (int) Spiel2.Fenster.X, RakPos.Y - (int) Spiel2.Fenster.Y),
+                                    null,
+                                    Color.Yellow, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
+                            }
                         }
                     }
+
+                    // Panzer Rohrspitzen zeichnen
+                    for (int i = 0; i < Spiel2.players.Length; i++)
+                    {
+                        for (int c = 0; c < Spiel2.players[i].hp.Count; c++)
+                        {
+                            int kind = Spiel2.players[i].KindofTank[c];
+                            int welcher = Spiel2.players[i].overreach[c] ? 1 : 0;
+                            Vector2 pos = Spiel2.players[i].pos[c] +
+                                          new Vector2(
+                                              welcher == 1 ? -Texturen.RohrPos[kind].X : Texturen.RohrPos[kind].X,
+                                              -Texturen.RohrPos[kind].Y); //Texturen.CannonOrigin[kind][0] -
+                            float temp2 = Texturen.CannonOrigin[kind][0].Y/2;
+
+                            Vector2 p = Help.RotatePositionOffset(pos, Spiel2.players[i].Angle[c],
+                                new Vector2(
+                                    Texturen.panzerrohrindex[kind].Width -
+                                    (Texturen.panzerrohrindex[kind].Width - Texturen.CannonOrigin[kind][0].X),
+                                    welcher == 0 ? temp2 : -temp2));
+                            p = Help.RotatePosition(Spiel2.players[i].pos[c], Spiel2.players[i].vehikleAngle[c], p);
+
+                            spriteBatch.Draw(Texturen.dot, p - Spiel2.Fenster, null, Color.Yellow, 0,
+                                new Vector2(12.5f, 12.5f), fact, SpriteEffects.None, 1);
+
+                            int Kindof = Spiel2.players[i].KindofTank[c];
+                            for (int d = 0; d < Texturen.Radpositionen[Kindof].Count(); d++)
+                            {
+                                float vehikleAngle = Spiel2.players[i].vehikleAngle[c];
+                                bool overreach = Spiel2.players[i].overreach[c];
+                                Vector2 bew = Spiel2.players[i].logik[c].GetBewegungsVektor(d,
+                                    Spiel2.players[i].vehikleAngle[c], Spiel2.players[i].pos[c],
+                                    Spiel2.players[i].overreach[c]);
+                                Vector2 add = bew*10;
+                                Vector2 p2 = Help.RotatePositionOffset(Spiel2.players[i].pos[c], vehikleAngle,
+                                    new Vector2(
+                                        (overreach
+                                            ? Texturen.Radpositionen[Kindof][d].X
+                                            : -Texturen.Radpositionen[Kindof][d].X), Texturen.Radpositionen[Kindof][d].Y));
+                                Help.DrawLine(spriteBatch, p2 - Spiel2.Fenster, p2 - Spiel2.Fenster + add, Color.Red, 2);
+
+                                if (i == Spiel2.CurrentPlayer && c == Spiel2.players[i].CurrentTank)
+                                    Help.DrawString(spriteBatch, Texturen.font2, bew.ToString(),
+                                        new Vector2(10, 60 + d*9),
+                                        Color.DarkGoldenrod, Color.Black);
+                                // spriteBatch.Draw(Texturen.panzerindexreifen[Kindof], p, null, Color.White, vehikleAngle,
+                                // new Vector2(Texturen.panzerindexreifen[Kindof].Width / 2, Texturen.panzerindexreifen[Kindof].Height / 2), scaleP, SpriteEffects.None, 0);
+                            }
+                        }
+                    }
+
+                    // Zykluslinie
+                    var x = (int) (Spiel.Position(0));
+                    int y = Kartenformat.BottomOf(x, 0);
+                    Help.DrawLine(spriteBatch, new Vector2(Spiel.Position(0 - Spiel2.Fenster.X), 0),
+                        new Vector2(Spiel.Position(0 - Spiel2.Fenster.X), y), Color.Red, 2);
+
+                    // Mitte
+                    x = Spiel.Kartenbreite/2;
+                    Help.DrawLine(spriteBatch, new Vector2(x - Spiel2.Fenster.X, 0),
+                        new Vector2(x - Spiel2.Fenster.X, Kartenformat.BottomOf(x, 0)), Color.Blue, 2);
                 }
 
-                // Zykluslinie
-                var x = (int)(Spiel.Position(0));
-                int y = Kartenformat.BottomOf(x, 0);
-                Help.DrawLine(spriteBatch, new Vector2(Spiel.Position(0 - Spiel2.Fenster.X), 0),
-                    new Vector2(Spiel.Position(0 - Spiel2.Fenster.X), y), Color.Red, 2);
+                #endregion DEBUG
 
-                // Mitte
-                x = Spiel.Kartenbreite / 2;
-                Help.DrawLine(spriteBatch, new Vector2(x - Spiel2.Fenster.X, 0),
-                    new Vector2(x - Spiel2.Fenster.X, Kartenformat.BottomOf(x, 0)), Color.Blue, 2);
+                mouseover = Spiel2.players[Spiel2.CurrentPlayer].Notiz.Draw(spriteBatch, GraphicsDevice, Spiel2.Fenster,
+                    overnotiz ? false : true);
+                Editor.Draw(spriteBatch, GraphicsDevice, Spiel2.Fenster, screenWidth, screenHeight, Content, Spiel2);
+
+                spriteBatch.End();
+
+
+                spriteBatch.Begin(SpriteMode, BlendState.Additive,
+                    null, null, null, null, globalTransformation);
+                if (Spiel.EXPLOSION.Wert) DrawExplosion();
+                // if (Spiel.SMOKE.Wert) DrawSmoke(gameTime);
+
+                spriteBatch.End();
+
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+                if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimap();
+                if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimapDot();
+
+                Kurzmeldung.Zeichnen(spriteBatch, Texturen.font2, (int) Spiel2.Fenster.X,
+                    (int) (Spiel2.Fenster.X + screenWidth));
+                spriteBatch.End();
+
+                // Zeichne Kenngrößen
+                if (Game1.DEBUG_AKTIV.Wert)
+                {
+                    spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+                    Kenngroesse Kenn = Spiel2.players[Spiel2.CurrentPlayer].Kenngroesse_Wert;
+                    if (Kenn != null)
+                    {
+                        for (int i = (int) Spiel2.Fenster.X/Kenn.Feldbreite;
+                            i < Math.Ceiling((Spiel2.Fenster.X + screenWidth)/Kenn.Feldbreite);
+                            i++)
+                            for (int b = (int) Spiel2.Fenster.Y/Kenn.Feldhoehe;
+                                b < Math.Ceiling((Spiel2.Fenster.Y + screenHeight)/Kenn.Feldhoehe);
+                                b++)
+                            {
+                                if (i < 0 || b < 0) continue;
+                                if (i >= Kenn.FelderAnzahlHorizontal || b >= Kenn.FelderAnzahlVertikal) continue;
+
+                                Bereich bereich = Kenn.GibBereichZuId(new Vector2(i, b));
+
+                                Color Bereichsfarbe = Color.Transparent;
+                                if (bereich.Wert >= 15)
+                                    Bereichsfarbe = Color.Green;
+                                if (bereich.Wert >= 35)
+                                    Bereichsfarbe = Color.Yellow;
+                                if (bereich.Wert >= 60)
+                                    Bereichsfarbe = Color.Red;
+
+                                if (Bereichsfarbe != null)
+                                    Help.DrawRectangle(spriteBatch, this.GraphicsDevice,
+                                        new Rectangle((int) (bereich.Feld.X - Spiel2.Fenster.X),
+                                            (int) (bereich.Feld.Y - Spiel2.Fenster.Y), bereich.Feld.Width,
+                                            bereich.Feld.Height), Bereichsfarbe, 0.25f);
+
+                                Color Farbe = Color.Yellow;
+                                Help.DrawLine(spriteBatch,
+                                    new Vector2(bereich.Feld.X - Spiel2.Fenster.X, bereich.Feld.Y - Spiel2.Fenster.Y),
+                                    new Vector2(bereich.Feld.X + bereich.Feld.Width - Spiel2.Fenster.X,
+                                        bereich.Feld.Y - Spiel2.Fenster.Y), Farbe, 1);
+                                Help.DrawLine(spriteBatch,
+                                    new Vector2(bereich.Feld.X - Spiel2.Fenster.X, bereich.Feld.Y - Spiel2.Fenster.Y),
+                                    new Vector2(bereich.Feld.X - Spiel2.Fenster.X,
+                                        bereich.Feld.Y - Spiel2.Fenster.Y + bereich.Feld.Height), Farbe, 1);
+
+                                Vector2 text = Texturen.font2.MeasureString(Kenn.Bereiche[i, b].ToString());
+                                Help.DrawString(spriteBatch, Texturen.font2, Kenn.Bereiche[i, b].ToString(),
+                                    new Vector2(i*Kenn.Feldbreite - Spiel2.Fenster.X + Kenn.Feldbreite/2 - text.X/2,
+                                        b*Kenn.Feldhoehe - Spiel2.Fenster.Y + Kenn.Feldhoehe/2 - text.Y/2),
+                                    Farbe, Color.Transparent);
+                            }
+                    }
+                    spriteBatch.End();
+                }
+
+
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+
+                int CurrentTank = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
+
+                if (Mod.SPIELERMENU_VISIBLE.Wert && CurrentTank >= 0)
+                    Spielermenu.Draw(spriteBatch, Texturen.font4,
+                        Spiel2.players[Spiel2.CurrentPlayer].Effekte[CurrentTank],
+                        Spiel2.players[Spiel2.CurrentPlayer].Rucksack[CurrentTank], Spiel2, Transparenz);
+                spriteBatch.End();
             }
 
-            #endregion DEBUG
 
-            mouseover = Spiel2.players[Spiel2.CurrentPlayer].Notiz.Draw(spriteBatch, GraphicsDevice, Spiel2.Fenster,
-                overnotiz ? false : true);
-            Editor.Draw(spriteBatch, GraphicsDevice, Spiel2.Fenster, screenWidth, screenHeight, Content, Spiel2);
 
+            Game1.device.SetRenderTarget(null);
+            spriteBatch.Begin();
+            Help.DrawRectangle(spriteBatch, Game1.device,
+                new Rectangle(0, 0, device.PresentationParameters.BackBufferWidth,
+                    device.PresentationParameters.BackBufferHeight), Color.Black, 1);
+            float Faktor = SpielBlend;
+
+            spriteBatch.Draw(rt, new Rectangle(0, 0, screenWidth, screenHeight), Color.White * Faktor);
             spriteBatch.End();
-            spriteBatch.Begin(SpriteMode, BlendState.Additive,
-                null, null, null, null, globalTransformation);
-            if (Spiel.EXPLOSION.Wert) DrawExplosion();
-            // if (Spiel.SMOKE.Wert) DrawSmoke(gameTime);
+            rt.Dispose();
 
-            spriteBatch.End();
+
 
             spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
-            if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimap();
-            if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimapDot();
-
-            Kurzmeldung.Zeichnen(spriteBatch, Texturen.font2, (int)Spiel2.Fenster.X,
-                (int)(Spiel2.Fenster.X + screenWidth));
-
-            // Zeichne Kenngrößen
-            if (Game1.DEBUG_AKTIV.Wert)
-            {
-                Kenngroesse Kenn = Spiel2.players[Spiel2.CurrentPlayer].Kenngroesse_Wert;
-                if (Kenn != null)
-                {
-                    for (int i = (int) Spiel2.Fenster.X/Kenn.Feldbreite;
-                        i < Math.Ceiling((Spiel2.Fenster.X + screenWidth)/Kenn.Feldbreite);
-                        i++)
-                        for (int b = (int) Spiel2.Fenster.Y/Kenn.Feldhoehe;
-                            b < Math.Ceiling((Spiel2.Fenster.Y + screenHeight)/Kenn.Feldhoehe);
-                            b++)
-                        {
-                            if (i < 0 || b < 0) continue;
-                            if (i >= Kenn.FelderAnzahlHorizontal || b >= Kenn.FelderAnzahlVertikal) continue;
-
-                            Bereich bereich = Kenn.GibBereichZuId(new Vector2(i, b));
-
-                            Color Bereichsfarbe = Color.Transparent;
-                            if (bereich.Wert >= 15)
-                                Bereichsfarbe = Color.Green;
-                            if (bereich.Wert >= 35)
-                                Bereichsfarbe = Color.Yellow;
-                            if (bereich.Wert >= 60)
-                                Bereichsfarbe = Color.Red;
-
-                            if (Bereichsfarbe != null)
-                                Help.DrawRectangle(spriteBatch, this.GraphicsDevice,
-                                    new Rectangle((int) (bereich.Feld.X - Spiel2.Fenster.X),
-                                        (int) (bereich.Feld.Y - Spiel2.Fenster.Y), bereich.Feld.Width,
-                                        bereich.Feld.Height), Bereichsfarbe, 0.25f);
-
-                            Color Farbe = Color.Yellow;
-                            Help.DrawLine(spriteBatch,
-                                new Vector2(bereich.Feld.X - Spiel2.Fenster.X, bereich.Feld.Y - Spiel2.Fenster.Y),
-                                new Vector2(bereich.Feld.X + bereich.Feld.Width - Spiel2.Fenster.X,
-                                    bereich.Feld.Y - Spiel2.Fenster.Y), Farbe, 1);
-                            Help.DrawLine(spriteBatch,
-                                new Vector2(bereich.Feld.X - Spiel2.Fenster.X, bereich.Feld.Y - Spiel2.Fenster.Y),
-                                new Vector2(bereich.Feld.X - Spiel2.Fenster.X,
-                                    bereich.Feld.Y - Spiel2.Fenster.Y + bereich.Feld.Height), Farbe, 1);
-
-                            Vector2 text = Texturen.font2.MeasureString(Kenn.Bereiche[i, b].ToString());
-                            Help.DrawString(spriteBatch, Texturen.font2, Kenn.Bereiche[i, b].ToString(),
-                                new Vector2(i*Kenn.Feldbreite - Spiel2.Fenster.X + Kenn.Feldbreite/2 - text.X/2,
-                                    b*Kenn.Feldhoehe - Spiel2.Fenster.Y + Kenn.Feldhoehe/2 - text.Y/2),
-                                Farbe, Color.Transparent);
-                        }
-                }
-            }
-
-            int CurrentTank = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
-
-            if (Mod.SPIELERMENU_VISIBLE.Wert && CurrentTank >= 0)
-                Spielermenu.Draw(spriteBatch, Texturen.font4, Spiel2.players[Spiel2.CurrentPlayer].Effekte[CurrentTank],
-                    Spiel2.players[Spiel2.CurrentPlayer].Rucksack[CurrentTank], Spiel2, Transparenz);
-
             Ladenmenu.Draw(spriteBatch);
-            if (Mod.PAUSEMENU_VISIBLE.Wert) pauseMenu.Draw(spriteBatch);
+            if (Mod.PAUSEMENU_VISIBLE.Wert) pauseMenu.Draw(spriteBatch,SpielBlend);
             StartMenu.Draw(spriteBatch);
             if (Mod.EINGABEZEILE_VISIBLE.Wert) Eingabefenster.ZeichneEingabefenster(spriteBatch);
             BauMenü.Draw(spriteBatch, Spiel2.Fenster, Texturen.font4, Spiel2);
@@ -2034,20 +2088,13 @@ namespace _4_1_
                 Tausch.SpielAktiv = false;
                 DrawTextEnd();
             }
-
             spriteBatch.End();
+            
+            //GraphicsDevice.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
 
-            // spriteBatch.Begin();
-            //  spriteBatch.End();
-            /*}
-            else
-            {
-                reduzierung2++;
-            }*/
-
-            //GraphicsDevice.Present();
-
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
+            // _isDirty = true;
+            //base.BeginDraw();
             // GraphicsDevice.Present();
         }
 
@@ -2080,6 +2127,23 @@ namespace _4_1_
         {
         }
 
+        public static void SpielfeldEinblenden(int Zeit)
+        {
+            Game1.SpielEinblenden = Zeit;
+            Game1.SpielEinblendenMax = Zeit;
+            Game1.SpielAusblenden = 0;
+            Game1.SpielAusblendenMax = 0;
+        }
+
+        public static void SpielfeldAusblenden(int Zeit)
+        {
+            Game1.SpielEinblenden = 0;
+            Game1.SpielEinblendenMax = 0;
+            Game1.SpielAusblenden = Zeit;
+            Game1.SpielAusblendenMax = Zeit;
+        }
+
+        private double elapsed = 0;
         /// <summary>
         ///     Ruft alle check..  Methoden auf
         /// </summary>
@@ -2186,7 +2250,37 @@ namespace _4_1_
                 // Spielermenu.CurrentPlayerID = Spiel2.CurrentPlayer;
                 // Spielermenu.CurrentTankID = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
             }
-            // base.Update(gameTime);
+            //base.Update(gameTime);
+            if (gameTime.TotalGameTime.TotalMilliseconds - elapsed >= 50)
+            {
+                _isDirty = true;
+                elapsed = gameTime.TotalGameTime.TotalMilliseconds;
+            }
+            //Draw(gameTime);
+
+            if (SpielEinblenden > 0)
+                SpielEinblenden--;
+
+            if (SpielAusblenden > 0)
+                SpielAusblenden--;
+
+            if (SpielEinblendenMax != 0)
+            {
+                SpielBlend += ((float) 1/SpielEinblendenMax);
+                if (SpielEinblendenMax != 0 && SpielEinblenden == 0)
+                    SpielBlend = 1;
+                if (SpielBlend > 1)
+                    SpielBlend = 1;
+            }
+
+            if (SpielAusblendenMax != 0)
+            {
+                SpielBlend -= ((float) 1/SpielAusblendenMax);
+                if (SpielAusblendenMax != 0 && SpielAusblenden == 0)
+                    SpielBlend = 0;
+                if (SpielBlend < 0)
+                    SpielBlend = 0;
+            }
         }
 
         /// <summary>
@@ -2440,6 +2534,7 @@ namespace _4_1_
                             // MausAktiv = false;
                             // if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
                             pauseMenu.hide();
+                            SpielfeldEinblenden(60);
                             Tausch.SpielAktiv = true;
                         }
                         else
@@ -2447,6 +2542,7 @@ namespace _4_1_
                             //   if (Mod.SPIELERMENU_VISIBLE.Wert) { Spielermenu.undeploy(); Spielermenu.hide(); }
                             //   MausAktiv = true;
                             pauseMenu.show();
+                            SpielfeldAusblenden(60);
                             Tausch.SpielAktiv = false;
                         }
                 }

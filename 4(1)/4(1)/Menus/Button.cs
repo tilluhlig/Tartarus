@@ -101,8 +101,8 @@ namespace _4_1_
             ButtonBox = new BoundingBox(new Vector3(pos, 0),
                 new Vector3(pos.X + button.Width, pos.Y + button.Height - 10, 0));
             stringPos = pos +
-                        new Vector2((button.Width - font.MeasureString(description).X) / 2,
-                            (button.Height - font.MeasureString(description).Y) / 2);
+                        new Vector2((button.Width - font.MeasureString(description).X)/2,
+                            (button.Height - font.MeasureString(description).Y)/2);
         }
 
         /// <summary>
@@ -124,9 +124,9 @@ namespace _4_1_
             ButtonBox = new BoundingBox(new Vector3(pos, 0),
                 new Vector3(pos.X + button.Width, pos.Y + button.Height - 10, 0));
             stringPos = pos +
-                        new Vector2((button.Width - font.MeasureString(description).X) / 2,
-                            button.Height / 2 - font.MeasureString(description).Y);
-            stringPos2 = pos + new Vector2((button.Width - font.MeasureString(description2).X) / 2, button.Height / 2);
+                        new Vector2((button.Width - font.MeasureString(description).X)/2,
+                            button.Height/2 - font.MeasureString(description).Y);
+            stringPos2 = pos + new Vector2((button.Width - font.MeasureString(description2).X)/2, button.Height/2);
 
             zweiStrings = true;
         }
@@ -135,13 +135,18 @@ namespace _4_1_
 
         #region Methods
 
-        /// <summary>
+        public void Draw(SpriteBatch spriteBatch, Color Cselected, Color unselected)
+        {
+            Draw(spriteBatch, Cselected, unselected, 1);
+        }
+
+    /// <summary>
         ///     Zeichnet den Button
         /// </summary>
         /// <param name="spriteBatch">eine Zeichenfläche</param>
         /// <param name="Cselected">die Farbe, wenn der Button ausgewählt ist</param>
         /// <param name="unselected">eine Farbe, für nicht ausgewählte Buttons</param>
-        public void Draw(SpriteBatch spriteBatch, Color Cselected, Color unselected)
+        public void Draw(SpriteBatch spriteBatch, Color Cselected, Color unselected, float Transparenz)
         {
             if (selected)
                 spriteBatch.Draw(button, ownPos, Cselected);
@@ -152,21 +157,21 @@ namespace _4_1_
             {
                 if (selected)
                 {
-                    spriteBatch.DrawString(font, description, stringPos, Color.Black);
-                    spriteBatch.DrawString(font, description2, stringPos2, Color.Black);
+                    spriteBatch.DrawString(font, description, stringPos, Color.Black * Transparenz);
+                    spriteBatch.DrawString(font, description2, stringPos2, Color.Black * Transparenz);
                 }
                 else
                 {
-                    spriteBatch.DrawString(font, description, stringPos, Color.Black);
-                    spriteBatch.DrawString(font, description2, stringPos2, Color.Black);
+                    spriteBatch.DrawString(font, description, stringPos, Color.Black * Transparenz);
+                    spriteBatch.DrawString(font, description2, stringPos2, Color.Black * Transparenz);
                 }
             }
             else
             {
                 if (selected)
-                    spriteBatch.DrawString(font, description, stringPos, Color.Black);
+                    spriteBatch.DrawString(font, description, stringPos, Color.Black * Transparenz);
                 else
-                    spriteBatch.DrawString(font, description, stringPos, Color.Black);
+                    spriteBatch.DrawString(font, description, stringPos, Color.Black * Transparenz);
             }
         }
 

@@ -105,44 +105,22 @@ namespace _4_1_
         ///     Draws the specified sprite batch.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch.</param>
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, float Transparenz)
         {
             if (!visible) return;
             //Durchläuft alle Menüpunkte und zeichnet den Menüpunkt mit den entsprechenden Eigenschaften
-            /*int anz = (int)Math.Ceiling((double)((float)Game1.screenHeight / menutexture.Height));
-            for (int i = 0; i < anz; i++)
-            {
-                spriteBatch.Draw(menutexture, new Vector2(screenWidth / 2 - menutexture.Width / 2, i * menutexture.Height), Color.White);
-            }*/
 
             for (int i = 0; i < menuItems.Length; i++)
-            {
-                menuItems[i].Draw(spriteBatch, selected, unselected);
-                /*
-                if (i == curMenuItem)
-                {
-                    Vector2 p = pos[i];                 //Weist die Position einer temporären Variable zu
-                    p.X -= (float)(22 / 2);  //Verschiebt die Position der x-Achse um den Namen mittig anzuzeigen
-                    p.Y -= (float)(22 / 2);  //Verschiebt die Position der y-Achse um den Namen mittig anzuzeigen
-                    spriteBatch.Draw(menuItems[i],p ,null,selected, 0, new Vector2(0, 0), (float)scale[i], SpriteEffects.None, 0);
-                }
-                else
-                {
-                    Vector2 p = pos[i];                 //Weist die Position einer temporären Variable zu
-                    p.X -= (float)(22  / 2);  //Verschiebt die Position der x-Achse um den Namen mittig anzuzeigen
-                    p.Y -= (float)(22  / 2);  //Verschiebt die Position der y-Achse um den Namen mittig anzuzeigen
-                    spriteBatch.Draw(menuItems[i], p, null, unselected, 0, new Vector2(0, 0), (float)scale[i], SpriteEffects.None, 0);
-                }*/
-            }
+                menuItems[i].Draw(spriteBatch, selected * (1 - Transparenz), unselected * (1 - Transparenz));
 
             // davor
             for (int i = -2; i < 0; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f * (1 - Transparenz));
 
             // danach
             int Danach = (int)Math.Ceiling((float)Game1.screenHeight / 80) - 6;
             for (int i = menuItems.Length; i < menuItems.Length + Danach; i++)
-                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f);
+                spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80 * i), unselected * 0.5f * (1 - Transparenz));
         }
 
         /// <summary>
@@ -176,35 +154,5 @@ namespace _4_1_
         }
 
         #endregion Methods
-
-        /*
-        //Methode um den nächsten Menüpunkt auszuwählen
-        //Nach letztem Menüpunkt zum ersten zurückspringen
-        public void SelectNext()
-        {
-            if (curMenuItem < menuItemCount - 1)
-            {
-                curMenuItem++;
-            }
-            else
-            {
-                curMenuItem = 0;
-            }
-        }
-
-        //Methode um den letzten Menüpunkt auszuwählen
-        //Nach erstem Menüpunkt zum letzten zurückspringen
-        public void SelectPrev()
-        {
-            if (curMenuItem > 0)
-            {
-                curMenuItem--;
-            }
-            else
-            {
-                curMenuItem = menuItemCount - 1;
-            }
-        }
-        */
     }
 }
