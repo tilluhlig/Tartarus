@@ -54,8 +54,8 @@ namespace _4_1_
 
             for (int i = 0; i < baum.Count(); i++)
             {
-                /*#if DEBUG
-                                if (Baumdata.SKALIERUNG.Wert[i] == 1.0f) continue;
+                #if DEBUG
+                           /*     if (Baumdata.SKALIERUNG.Wert[i] == 1.0f) continue;
                                 var rt = new RenderTarget2D(Game1.device, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]),
                                     (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
                                
@@ -75,9 +75,11 @@ namespace _4_1_
                   Game1.SpriteBatchSemaphor.Release();
                   
                                 rt.Tag = baum[i].Tag;
-                                baum[i] = rt;
-                #endif*/
-                ///   Baumdata.SKALIERUNG.Wert[i] = 1.0f;
+                                baum[i] = rt;*/
+#else
+                Baumdata.SKALIERUNG.Wert[i] = 1.0f;
+                #endif
+                ///   
             }
         }
 
@@ -593,7 +595,7 @@ namespace _4_1_
 
             for (int i = 0; i < haus.Count(); i++)
             {
-                /*#if DEBUG
+                #if DEBUG
                                 if (Gebäudedaten.SKALIERUNG.Wert[i] == 1.0f) continue;
                                 var rt = new RenderTarget2D(Game1.device, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]),
                                     (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
@@ -615,12 +617,14 @@ namespace _4_1_
                  
                                 rt.Tag = haus[i].Tag;
                                 haus[i] = rt;
-                #endif*/
-                ///Gebäudedaten.SKALIERUNG.Wert[i] = 1.0f;
+#else
+                Gebäudedaten.SKALIERUNG.Wert[i] = 1.0f;
+                #endif
+                ///
             }
 
-            /*#if DEBUG
-                        var rt2 = new RenderTarget2D(Game1.device, (int)(tunnel.Width * Tunnel.SKALIERUNG),
+            #if DEBUG
+                    /*    var rt2 = new RenderTarget2D(Game1.device, (int)(tunnel.Width * Tunnel.SKALIERUNG),
                             (int)(tunnel.Height * Tunnel.SKALIERUNG));
                       
               Game1.SpriteBatchSemaphor.WaitOne();
@@ -639,9 +643,10 @@ namespace _4_1_
               Game1.SpriteBatchSemaphor.Release();
              
                         rt2.Tag = tunnel.Tag;
-                        tunnel = rt2;
-            #endif*/
-            ///Tunnel.SKALIERUNG = 1.0f;
+                        tunnel = rt2;*/
+#else
+            Tunnel.SKALIERUNG = 1.0f;
+            #endif
         }
 
         /// <summary>

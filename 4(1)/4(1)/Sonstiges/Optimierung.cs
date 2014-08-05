@@ -34,6 +34,17 @@ namespace _4_1_
         /// <returns>System.Int32.</returns>
         public static int Optimiere(bool Richtung)
         {
+            string[] list = Environment.CurrentDirectory.Split('\\');
+            String Path2 = "";
+            for (int b = 0; b < list.Count() - 4; b++) Path2 = Path2 + list[b] + "\\";
+
+            if (Richtung && Directory.Exists(
+                Path.GetDirectoryName(Path2 + "4(1)Content\\Backup\\Textures\\")))
+            {
+                Directory.Delete(
+                    Path.GetDirectoryName(Path2 + "4(1)Content\\Backup\\Textures\\"),true);
+            }
+
             int anz = 0;
             anz += Optimiere_Bäume(Richtung);
             anz += Optimiere_Häuser(Richtung);
@@ -243,11 +254,10 @@ namespace _4_1_
                 // Datei sichern
                 if (!File.Exists(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension))
                 {
-                    if (
-                        !Directory.Exists(
-                            Path.GetDirectoryName(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension)))
-                        Directory.CreateDirectory(
-                            Path.GetDirectoryName(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension));
+                    if (!Directory.Exists(
+                        Path.GetDirectoryName(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension)))
+                    Directory.CreateDirectory(
+                        Path.GetDirectoryName(Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension));
 
                     File.Copy(Path2 + "4(1)Content\\Textures\\" + Datei + Extension,
                         Path2 + "4(1)Content\\Backup\\Textures\\" + Datei + Extension, true);
