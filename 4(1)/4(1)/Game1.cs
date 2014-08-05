@@ -432,18 +432,22 @@ namespace _4_1_
             else if (Tausch.StarteSpiel)
             {
                 LadebildschirmAktiv = true;
-                Hauptfenster.Form1.ActiveForm.BringToFront();
-                //Hauptfenster.Program.Formular.Hide();
-                
-                Spiel2 = null;
-                Tausch.StarteSpiel = false;
-                StarteNeuesSpiel();
-
-                if (Server.isRunning)
+                if (Hauptfenster.Form1.ActiveForm != null)
                 {
-                    Thread.Sleep(5000);
-                    Server.SendAll();
+                    Hauptfenster.Form1.ActiveForm.BringToFront();
                 }
+                    //Hauptfenster.Program.Formular.Hide();
+
+                    Spiel2 = null;
+                    Tausch.StarteSpiel = false;
+                    StarteNeuesSpiel();
+
+                    if (Server.isRunning)
+                    {
+                        Thread.Sleep(5000);
+                        Server.SendAll();
+                    }
+                
             }
         }
 
@@ -2662,6 +2666,7 @@ namespace _4_1_
                             // MausAktiv = false;
                             // if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
                             pauseMenu.hide();
+                            Eingabefenster.Eingabe.Verstecken();
                             SpielfeldEinblenden(60);
                             Tausch.SpielAktiv = true;
                         }
@@ -2670,6 +2675,7 @@ namespace _4_1_
                             //   if (Mod.SPIELERMENU_VISIBLE.Wert) { Spielermenu.undeploy(); Spielermenu.hide(); }
                             //   MausAktiv = true;
                             pauseMenu.show();
+                            Eingabefenster.Eingabe.Verstecken();
                             SpielfeldAusblenden(60);
                             Tausch.SpielAktiv = false;
                         }
@@ -2757,8 +2763,10 @@ namespace _4_1_
                 if (!Editor.visible)
                 {
                     Editor.show(screenWidth);
+                    if (pauseMenu.visible) SpielfeldEinblenden(60);
                     pauseMenu.hide();
                     StartMenu.hide();
+                    Eingabefenster.Eingabe.Verstecken();
                     Spielermenu.hide();
                 }
                 else
@@ -2824,6 +2832,7 @@ namespace _4_1_
                     {
                         Spielermenu.GetInTrade(Spiel2.players[t].Rucksack[b], new Vector3(0, b, 0));
                         Spielermenu.show();
+                        Eingabefenster.Eingabe.Verstecken();
                         found = true;
                         break;
                     }
@@ -2846,6 +2855,7 @@ namespace _4_1_
 
                             Spielermenu.GetInTrade(Haus.Rucksack, new Vector3(1, Spiel2.Haeuser.HausTyp[i], 0));
                             Spielermenu.show();
+                            Eingabefenster.Eingabe.Verstecken();
                             found = true;
                             break;
                         }
@@ -2923,6 +2933,7 @@ namespace _4_1_
                         else
                         {
                             Spielermenu.show();
+                            Eingabefenster.Eingabe.Verstecken();
                             //  MausAktiv = true;
                             // Spielermenu.show();
                             // Hauptfenster.Tausch.SpielAktiv = false;
@@ -4477,6 +4488,7 @@ namespace _4_1_
                                     // MausAktiv = false;
                                     // if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
                                     pauseMenu.hide();
+                                    SpielfeldEinblenden(60);
                                     Tausch.SpielAktiv = true;
                                     mouseState = Help.GetMouseState();
                                     return;

@@ -95,7 +95,7 @@ namespace _4_1_
 
                 Eingabe =
                     new Textfeld(
-                        new Vector2(500 - Texturen.font3.MeasureString(("").PadLeft(30, ' ')).X/2,
+                        new Vector2(Game1.screenWidth/2 - Texturen.font3.MeasureString(("").PadLeft(30, ' ')).X/2,
                             Game1.screenHeight/2 - Texturen.font3.MeasureString((" ")).Y/2), "", 30, 10, 5, 2,
                         Color.Gray, Texturen.font3);
             }
