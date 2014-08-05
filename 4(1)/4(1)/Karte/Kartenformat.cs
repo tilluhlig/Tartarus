@@ -71,19 +71,19 @@ namespace _4_1_
             int last = 0;
             x = Spiel.Position(x);
 
-            for (int i = 0; i < array[(int) x].Count; i++)
+            for (int i = 0; i < array[(int)x].Count; i++)
             {
-                if (!Karte.Material[Material(array[(int) x][i])].Kollision)
+                if (!Karte.Material[Material(array[(int)x][i])].Kollision)
                 {
                     last = 0;
                 }
-                else last += Laenge(array[(int) x][i]);
-                sum += Laenge(array[(int) x][i]);
+                else last += Laenge(array[(int)x][i]);
+                sum += Laenge(array[(int)x][i]);
                 if (y < sum)
                 {
-                    if (!Karte.Material[Material(array[(int) x][i])].Kollision) //Spielfeld[(int)x][i] < Karte.MapFaktor
+                    if (!Karte.Material[Material(array[(int)x][i])].Kollision) //Spielfeld[(int)x][i] < Karte.MapFaktor
                     {
-                        if (i < array[(int) x].Count - 1 && Karte.Material[Material(array[(int) x][i + 1])].Kollision)
+                        if (i < array[(int)x].Count - 1 && Karte.Material[Material(array[(int)x][i + 1])].Kollision)
                         {
                             return sum;
                         }
@@ -152,12 +152,12 @@ namespace _4_1_
         /// <returns>Gibt die ID des Materials zurück</returns>
         public static int GetMaterial(List<UInt16>[] array, float x, float y)
         {
-            var x2 = (int) Spiel.Position(x);
+            var x2 = (int)Spiel.Position(x);
             int sum = 0;
             for (int i = 0; i < array[x2].Count; i++)
             {
                 sum += Laenge(array[x2][i]);
-                if ((int) y < sum)
+                if ((int)y < sum)
                 {
                     return Material(array[x2][i]);
                 }
@@ -187,12 +187,12 @@ namespace _4_1_
         {
             x = Spiel.Position(x);
             int sum = 0;
-            for (int i = 0; i < array[(int) x].Count; i++)
+            for (int i = 0; i < array[(int)x].Count; i++)
             {
-                sum += Laenge(array[(int) x][i]);
-                if ((int) y < sum)
+                sum += Laenge(array[(int)x][i]);
+                if ((int)y < sum)
                 {
-                    if (!Karte.Material[Material(array[(int) x][i])].Kollision) return false;
+                    if (!Karte.Material[Material(array[(int)x][i])].Kollision) return false;
                     return true;
                 }
             }
@@ -278,14 +278,14 @@ namespace _4_1_
                 last = sum;
                 sum += Laenge(array[x][i]);
 
-                if (a == -1 && y1 <= sum)
+                if (a == -1 && y1 < sum) // <= ???
                 {
                     a = i;
                     sum1 = sum;
                     last1 = last;
                 }
 
-                if (b == -1 && y2 <= sum)
+                if (b == -1 && y2 < sum) // <= ???
                 {
                     b = i;
                     sum2 = sum;
@@ -296,7 +296,7 @@ namespace _4_1_
 
             if (a != -1 && b != -1)
             {
-                float fakt = MaterialSorte*MapFaktor;
+                float fakt = MaterialSorte * MapFaktor;
 
                 // entferne
                 if (a == b) // befinden sich im selben Bereich
@@ -308,13 +308,13 @@ namespace _4_1_
                         return list;
                     }
                     // ist anderes Material
-                    float fakt2 = Material(array[x][a])*MapFaktor;
-                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][a])].FolgeID : MaterialSorte)*
+                    float fakt2 = Material(array[x][a]) * MapFaktor;
+                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][a])].FolgeID : MaterialSorte) *
                            MapFaktor;
-                    array[x].Insert(a + 1, (UInt16) ((sum2 - y2) + fakt2));
+                    array[x].Insert(a + 1, (UInt16)((sum2 - y2) + fakt2));
                     b++;
-                    array[x].Insert(a + 1, (UInt16) ((y2 - y1) + fakt));
-                    array[x].Insert(a + 1, (UInt16) ((y1 - last1) + fakt2));
+                    array[x].Insert(a + 1, (UInt16)((y2 - y1) + fakt));
+                    array[x].Insert(a + 1, (UInt16)((y1 - last1) + fakt2));
                     b++;
                     array[x].RemoveAt(a);
 
@@ -324,58 +324,75 @@ namespace _4_1_
                 {
                     // a bearbeiten
                     int anz = sum1 - y1;
-                    int old = sum1;
 
-                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][a])].FolgeID : MaterialSorte)*
+                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][a])].FolgeID : MaterialSorte) *
                            MapFaktor;
+
+                    bool plusFirst = false;
                     if ((MaterialSorte == -1 && Material(array[x][a]) != Karte.Material[Material(array[x][a])].FolgeID) ||
-                        MaterialSorte != Material(array[x][a])) list.Add(new Vector3(x, y1, sum1));
-                    array[x][a] = (UInt16) (array[x][a] - anz);
-                    array[x].Insert(a + 1, (UInt16) (anz + fakt));
-                    b++;
+                        (MaterialSorte != Material(array[x][a])) && MaterialSorte != -1)
+                    {
+                        list.Add(new Vector3(x, y1, sum1));
+                        array[x][a] = (UInt16)(array[x][a] - anz);
+                        array[x].Insert(a + 1, (UInt16)(anz + fakt));
+                        b++; 
+                        plusFirst = true;
+                    }
 
                     // b bearbeiten
                     anz = y2 - last2;
-                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][b])].FolgeID : MaterialSorte)*
+                    fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][b])].FolgeID : MaterialSorte) *
                            MapFaktor;
-                    array[x].Insert(b, (UInt16) (anz + fakt));
-                    array[x][b + 1] = (UInt16) (array[x][b + 1] - anz);
-                    b++;
-                    if ((MaterialSorte == -1 && Material(array[x][b]) != Karte.Material[Material(array[x][b])].FolgeID) ||
-                        MaterialSorte != Material(array[x][b])) list.Add(new Vector3(x, last2, y2));
 
-                    int summe = old;
-                    bool change = false;
-                    if ((MaterialSorte == -1 &&
-                         Material(array[x][a + 2]) != Karte.Material[Material(array[x][a + 2])].FolgeID) ||
-                        MaterialSorte != Material(array[x][a + 2])) change = true;
-                    for (int i = a + 2; i < b - 1; i++)
+                    bool plusLast = false;
+                    if ((MaterialSorte == -1 && Material(array[x][b]) != Karte.Material[Material(array[x][b])].FolgeID) ||
+                        (MaterialSorte != Material(array[x][b])) && MaterialSorte != -1)
+                    {
+                        plusLast = true;
+                        array[x].Insert(b, (UInt16)(anz + fakt));
+                        array[x][b + 1] = (UInt16)(array[x][b + 1] - anz);
+                        b++;
+                    }
+
+                    int summe = sum1;
+                    int old = sum1;
+                    for (int i = a + 1 + (plusFirst ? 1 : 0); i < b - (plusLast ? 1 : 0); i++)
                     {
                         summe += Laenge(array[x][i]);
-                        fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][i])].FolgeID : MaterialSorte)*
+                        fakt = (MaterialSorte == -1 ? Karte.Material[Material(array[x][i])].FolgeID : MaterialSorte) *
                                MapFaktor;
-                        array[x][i] = (UInt16) ((Laenge(array[x][i]) + fakt));
+                        if ((MaterialSorte == -1 &&
+                             Material(array[x][i]) != Karte.Material[Material(array[x][i])].FolgeID) ||
+                            (MaterialSorte != Material(array[x][i])) && MaterialSorte != -1)
+                        {
+                            array[x][i] = (UInt16)((Laenge(array[x][i]) + fakt));
+                            list.Add(new Vector3(x, old, summe));
+                        }
+
+                        old = summe;
                     }
-                    if (change) list.Add(new Vector3(x, old, summe)); //if (change)
-                    //  list.Add(new Vector3(x, y1, y2));
+                    if (plusLast)
+                        list.Add(new Vector3(x, last2, y2));
                 }
             }
 
+            List<ushort> tempList = array[x];
             // gleiche zusammenfügen
             if (a > 0) a--;
             if (a < 0) a = 0;
-            for (int i = a; i <= b && i < array[x].Count - 1; i++)
+            for (int i = a; i <= b && i < tempList.Count - 1; i++)
             {
-                int sorteA = Material(array[x][i]);
-                int sorteB = Material(array[x][i + 1]);
+                int sorteA = Material(tempList[i]);
+                int sorteB = Material(tempList[i + 1]);
                 if (sorteA == sorteB)
                 {
-                    array[x][i] += (UInt16) (Laenge(array[x][i + 1]));
-                    array[x].RemoveAt(i + 1);
+                    tempList[i] += (UInt16)(Laenge(tempList[i + 1]));
+                    tempList.RemoveAt(i + 1);
                     i--;
                     b--;
                 }
             }
+            array[x] = tempList;
 
             return list;
         }
@@ -387,7 +404,7 @@ namespace _4_1_
         /// <returns>gibt den Faktor zurück</returns>
         public static int SortenFaktor(int sorte)
         {
-            return sorte*MapFaktor;
+            return sorte * MapFaktor;
         }
 
         #endregion Methods

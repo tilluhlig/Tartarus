@@ -56,7 +56,7 @@ namespace _4_1_
         ///     The MATERIA l_ COLLISION
         /// </summary>
         public static Var<bool[]> MATERIAL_COLLISION = new Var<bool[]>("MATERIAL_COLLISION",
-            new[] { false, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false });
+            new[] { false, true, true, true, true, true, true, true, false, false, false, false, false, false, true, false });
 
         /// <summary>
         ///     The MATERIA l_ FOLGEID
@@ -68,7 +68,7 @@ namespace _4_1_
         ///     The MATERIA l_ I s_ TEXTUR
         /// </summary>
         public static Var<bool[]> MATERIAL_IS_TEXTUR = new Var<bool[]>("MATERIAL_IS_TEXTUR",
-            new[] { false, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false });
+            new[] { false, true, true, true, true, true, true, true, true, true, true, false, false, false, true, false });
 
         /// <summary>
         ///     The MATERIA l_ TEXTUR
@@ -77,7 +77,7 @@ namespace _4_1_
             new[]
             {
                 "LUFT", "ERDE", "BACKSTEIN1", "BACKSTEIN2", "BETON", "FELS", "GRANIT1", "GRANIT2", "SUMPF", "WASSER",
-                "FEUER", "nichts", "nichts", "nichts", "nichts", "nichts"
+                "FEUER", "nichts", "nichts", "nichts", "EIS", "DUMMY"
             });
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace _4_1_
                 "#00000000", "Material\\foreground8", "Material\\buergersteig_64_2", "Material\\buergersteig_64_22",
                 "Material\\boden10240026_512", "Material\\bergtextur_512_2", "Material\\mosh-erde (11)",
                 "Material\\mosh-erde (11)_2", "Material\\boden10", "Material\\wasser14", "Material\\welle_04",
-                "#00000000", "#00000000", "#00000000", "#00000000", "#00000000"
+                "#00000000", "#00000000", "#00000000", "Material\\Eis", "#FF0000"
             });
 
         /// <summary>

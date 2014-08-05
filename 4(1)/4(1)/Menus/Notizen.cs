@@ -182,14 +182,19 @@ namespace _4_1_
                     Color.LightGoldenrodYellow, r);
 
                 // Linie malen
-                if (schreibend)
+                if (selected != -1)
                 {
-                    Help.DrawLine(spriteBatch, pos[selected] - Fenster,
-                        pos[selected] + new Vector2(100 - 7, 0 - 7) - Fenster, Color.Red, 2);
+                    if (schreibend)
+                    {
+                        if (selected != -1)
+                        Help.DrawLine(spriteBatch, pos[selected] - Fenster,
+                            pos[selected] + new Vector2(100 - 7, 0 - 7) - Fenster, Color.Red, 2);
+                    }
+                    else
+                        if (selected != -1)
+                        Help.DrawLine(spriteBatch, pos[selected] - Fenster,
+                            pos[selected] + new Vector2(100 - 7, 0 - 7) - Fenster, Color.DarkGreen, 2);
                 }
-                else
-                    Help.DrawLine(spriteBatch, pos[selected] - Fenster,
-                        pos[selected] + new Vector2(100 - 7, 0 - 7) - Fenster, Color.DarkGreen, 2);
             }
 
             KleinesMenu.Draw(spriteBatch, graphicsDevice, Fenster);

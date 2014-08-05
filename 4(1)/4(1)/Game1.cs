@@ -25,6 +25,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
+//using System.Threading;
+using System.Threading.Tasks;
+//using Microsoft.VisualBasic;
+//using System.Diagnostics;
 
 namespace _4_1_
 {
@@ -936,55 +940,7 @@ namespace _4_1_
             }
         }
 
-        /// <summary>
-        ///     Zeichnet die Minimap
-        /// </summary>
-        public void DrawMinimap()
-        {
-            if (Spiel2 == null) return;
-            int screenWidth2 = screenWidth * 4;
-            var fensterx = (int)(Spiel2.Fenster.X - screenWidth2 / 2 + screenWidth / 2);
-            float fact = 0.15f;
-
-            for (int i = 0; i < Spiel2.foreground.Length; i++)
-            {
-                if (fensterx > (i + 1) * 2048 || fensterx + screenWidth2 < i * 2048) continue;
-                if (fensterx + screenWidth2 < i * 2048) continue;
-                int x = fensterx - i * 2048;
-                var y = (int)Spiel2.Fenster.Y;
-
-                Color col = Color.Gold;
-                col = Color.DarkGreen;
-                Rectangle a;
-                if (x < 0)
-                {
-                    x = (i * 2048 - fensterx);
-                    a = new Rectangle(0, y, 2048, screenHeight); //screenWidth - screenWidth2 * fact
-                    //
-                    spriteBatch.Draw(Spiel2.foreground[i],
-                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - screenHeight * fact), a, col, 0.0f,
-                        new Vector2(-x, 0), fact, SpriteEffects.None, 1);
-                }
-                else
-                {
-                    int l = 2048 - x;
-                    if (l > 2048) l = 2048;
-                    if (l < 0) l = 0;
-                    a = new Rectangle(x, y, l, screenHeight);
-                    // - screenHeight * fact
-                    spriteBatch.Draw(Spiel2.foreground[i],
-                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - screenHeight * fact), a, col, 0.0f,
-                        new Vector2(0, 0), fact, SpriteEffects.None, 1);
-                }
-            }
-
-            var c = new Rectangle(0, 0, screenWidth, screenHeight);
-            // - screenHeight * fact
-            spriteBatch.Draw(Texturen.kasten,
-                new Vector2(screenWidth - screenWidth2 / 2 * fact - screenWidth / 2 * fact, screenHeight - screenHeight * fact), c,
-                Color.White, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
-        }
-
+      
         /// <summary>
         ///     Zeichnet die Minimap Punkte, also die markierungen, wo sich ein Fahrzeug befindet
         /// </summary>
@@ -2011,7 +1967,7 @@ namespace _4_1_
                 spriteBatch.End();
 
                 spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
-                if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimap();
+                if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) Vordergrund.DrawMinimap();
                 if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimapDot();
 
                 Kurzmeldung.Zeichnen(spriteBatch, Texturen.font2, (int) Spiel2.Fenster.X,
@@ -2168,29 +2124,45 @@ namespace _4_1_
         }
 
         private double elapsed = 0;
+        Task UpdateTask = null;
+        private int updateCount = 0;
         /// <summary>
         ///     Ruft alle check..  Methoden auf
         /// </summary>
         /// <param name="gameTime">Time passed since the last call to Update.</param>
         protected override void Update(GameTime gameTime)
         {
-            Time = gameTime;
-            check_Datenaustausch();
-            if (Meldungen != null) Meldungen.Update();
+           Time = gameTime;
+           check_Datenaustausch();
 
-            if (SpielAktiv == false || Editor.visible)
+            if (Spiel2 != null)
             {
-                //if (Sounds.hintergrund2 != null)
-                //Sounds.hintergrund2.Stop();
-
-                if (Sounds.Hintergrundmusik != null)
-                    Sounds.Hintergrundmusik.StopSound(0);
+                KeyboardKeys();
             }
-            else
+
+            Action<object> action = (object obj) =>
             {
-                // if (Sounds.hintergrund2 != null && Sounds.hintergrund2.State != SoundState.Playing)
-                // Sounds.hintergrund2.Play();
-                /* if (Sounds.channel != null)
+                for (;;)
+                {
+                    if (updateCount > 0)
+                    {
+                        updateCount--;
+                        
+                        if (Meldungen != null) Meldungen.Update();
+
+                        if (SpielAktiv == false || Editor.visible)
+                        {
+                            //if (Sounds.hintergrund2 != null)
+                            //Sounds.hintergrund2.Stop();
+
+                            if (Sounds.Hintergrundmusik != null)
+                                Sounds.Hintergrundmusik.StopSound(0);
+                        }
+                        else
+                        {
+                            // if (Sounds.hintergrund2 != null && Sounds.hintergrund2.State != SoundState.Playing)
+                            // Sounds.hintergrund2.Play();
+                            /* if (Sounds.channel != null)
                  {
                      bool playing = false;
                      Sounds.channel.isPlaying(ref playing);
@@ -2200,103 +2172,115 @@ namespace _4_1_
                      }
                  }*/
 
-                if (Sounds.Hintergrundmusik != null)
-                    Sounds.Hintergrundmusik.PlaySound(0);
-            }
+                            if (Sounds.Hintergrundmusik != null)
+                                Sounds.Hintergrundmusik.PlaySound(0);
+                        }
 
-            if (Spiel2 == null) return;
+                        if (Spiel2 == null) continue;
 
-            // Netzwerk
-            if (Server.isRunning)
+                        // Netzwerk
+                        if (Server.isRunning)
+                        {
+                            Server.Application_Idle(null, null);
+                        }
+
+                        if (Spiel2 == null) continue;
+
+                        if (MausAktiv)
+                        {
+                            MouseKeys();
+                            if (Eingabefenster.Eingabe!=null)
+                                Eingabefenster.Eingabe.mouseKeys();
+                        }
+
+                        if (Spiel2 == null) continue;
+                        //  if (Spiel2.paused) pauseMenu.Update(gameTime);
+                        if (Spiel2.SpielerAktiv() > 1 && SpielAktiv)
+                        {
+                            Spiel2.check_shot_increase();
+                            Kurzmeldung.Aktualisieren();
+                            if (Spiel.MISSILE.Wert) Spiel2.UpdateMissles(Time, smokeList);
+
+                            if (Spiel.CHECK_RAKETEN.Wert) Spiel2.check_Raketen();
+                            Spiel2.check_players(Time);
+                            if (Spiel.CHECK_WIND.Wert) Spiel2.check_wind();
+                            Spiel2.check_Focus();
+                            Spiel2.check_playerwinkel();
+                            Spiel2.check_Minen(Time);
+                            if (Haus.HAEUSER && Spiel.CHECK_HAEUSER.Wert) Spiel2.check_haeuser();
+                            if (Spieler.WAFFEN_COOLDOWN.Wert) Spiel2.check_Cooldowns();
+
+                            if (!Client.isRunning)
+                                if (Spiel2.Karte.collisions(Spiel2.Spielfeld, Spiel2.Missile, Spiel2.players,
+                                    Spiel2.Haeuser,
+                                    Spiel2.Baeume, Spiel2.Bunker, Spiel2.Kisten, Spiel2.Height, Time,
+                                    new Vector2(Spiel2.Fenster.X + screenWidth/2, Spiel2.Fenster.Y)))
+                                {
+                                    Vordergrund.ErstelleVordergrund();
+                                }
+
+                            Vordergrund.AktualisiereVordergrund(Spiel2.check_verzoegerte(Time));
+                            // zündet die Raketen und zeichnet karte daraufhin neu
+
+                            if (Spiel2.Karte.particleListExp.Count > 0)
+                                Spiel2.Karte.UpdateParticles(Spiel2.Karte.particleListExp, Time, 0);
+
+                            if (Spiel2.Karte.particleListMapSmoke.Count > 0)
+                                Spiel2.Karte.UpdateParticles(Spiel2.Karte.particleListMapSmoke, Time, 2);
+
+                            if (smokeList.Count > 0)
+                                Spiel2.Karte.UpdateParticles(smokeList, Time, 1);
+                        }
+
+                        if (Mod.SPIELERMENU_VISIBLE.Wert)
+                        {
+                            // Spielermenu.CurrentPlayerID = Spiel2.CurrentPlayer;
+                            // Spielermenu.CurrentTankID = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
+                        }
+                        //base.Update(gameTime);
+                        if (Time.TotalGameTime.TotalMilliseconds - elapsed >= 50)
+                        {
+                            _isDirty = true;
+                            elapsed = Time.TotalGameTime.TotalMilliseconds;
+                        }
+                        //Draw(gameTime);
+
+                        if (SpielEinblenden > 0)
+                            SpielEinblenden--;
+
+                        if (SpielAusblenden > 0)
+                            SpielAusblenden--;
+
+                        if (SpielEinblendenMax != 0)
+                        {
+                            SpielBlend += ((float) 1/SpielEinblendenMax);
+                            if (SpielEinblendenMax != 0 && SpielEinblenden == 0)
+                                SpielBlend = 1;
+                            if (SpielBlend > 1)
+                                SpielBlend = 1;
+                        }
+
+                        if (SpielAusblendenMax != 0)
+                        {
+                            SpielBlend -= ((float) 1/SpielAusblendenMax);
+                            if (SpielAusblendenMax != 0 && SpielAusblenden == 0)
+                                SpielBlend = 0;
+                            if (SpielBlend < 0)
+                                SpielBlend = 0;
+                        }
+                 }
+                 Thread.Sleep(5);
+             }
+            };
+
+               if (UpdateTask == null)
             {
-                Server.Application_Idle(null, null);
+                UpdateTask = new Task(action, "Update");
+                UpdateTask.Start();
             }
-
-            if (Spiel2 == null) return;
-
-            if (MausAktiv)
-            {
-                MouseKeys();
-                Eingabefenster.Eingabe.mouseKeys();
-            }
-
-            KeyboardKeys();
-
-            if (Spiel2 == null) return;
-            //  if (Spiel2.paused) pauseMenu.Update(gameTime);
-            if (Spiel2.SpielerAktiv() > 1 && SpielAktiv)
-            {
-                Spiel2.check_shot_increase();
-                Kurzmeldung.Aktualisieren();
-                if (Spiel.MISSILE.Wert) Spiel2.UpdateMissles(gameTime, smokeList);
-
-                if (Spiel.CHECK_RAKETEN.Wert) Spiel2.check_Raketen();
-                Spiel2.check_players(gameTime);
-                if (Spiel.CHECK_WIND.Wert) Spiel2.check_wind();
-                Spiel2.check_Focus();
-                Spiel2.check_playerwinkel();
-                Spiel2.check_Minen(gameTime);
-                if (Haus.HAEUSER && Spiel.CHECK_HAEUSER.Wert) Spiel2.check_haeuser();
-                if (Spieler.WAFFEN_COOLDOWN.Wert) Spiel2.check_Cooldowns();
-
-                if (!Client.isRunning)
-                    if (Spiel2.Karte.collisions(Spiel2.Spielfeld, Spiel2.Missile, Spiel2.players, Spiel2.Haeuser,
-                        Spiel2.Baeume, Spiel2.Bunker, Spiel2.Kisten, Spiel2.Height, gameTime,
-                        new Vector2(Spiel2.Fenster.X + screenWidth / 2, Spiel2.Fenster.Y)))
-                    {
-                        Vordergrund.ErstelleVordergrund();
-                    }
-
-                Vordergrund.AktualisiereVordergrund(Spiel2.check_verzoegerte(gameTime));
-                // zündet die Raketen und zeichnet karte daraufhin neu
-
-                if (Spiel2.Karte.particleListExp.Count > 0)
-                    Spiel2.Karte.UpdateParticles(Spiel2.Karte.particleListExp, gameTime, 0);
-
-                if (Spiel2.Karte.particleListMapSmoke.Count > 0)
-                    Spiel2.Karte.UpdateParticles(Spiel2.Karte.particleListMapSmoke, gameTime, 2);
-
-                if (smokeList.Count > 0)
-                    Spiel2.Karte.UpdateParticles(smokeList, gameTime, 1);
-            }
-
-            if (Mod.SPIELERMENU_VISIBLE.Wert)
-            {
-                // Spielermenu.CurrentPlayerID = Spiel2.CurrentPlayer;
-                // Spielermenu.CurrentTankID = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
-            }
-            //base.Update(gameTime);
-            if (gameTime.TotalGameTime.TotalMilliseconds - elapsed >= 50)
-            {
-                _isDirty = true;
-                elapsed = gameTime.TotalGameTime.TotalMilliseconds;
-            }
-            //Draw(gameTime);
-
-            if (SpielEinblenden > 0)
-                SpielEinblenden--;
-
-            if (SpielAusblenden > 0)
-                SpielAusblenden--;
-
-            if (SpielEinblendenMax != 0)
-            {
-                SpielBlend += ((float) 1/SpielEinblendenMax);
-                if (SpielEinblendenMax != 0 && SpielEinblenden == 0)
-                    SpielBlend = 1;
-                if (SpielBlend > 1)
-                    SpielBlend = 1;
-            }
-
-            if (SpielAusblendenMax != 0)
-            {
-                SpielBlend -= ((float) 1/SpielAusblendenMax);
-                if (SpielAusblendenMax != 0 && SpielAusblenden == 0)
-                    SpielBlend = 0;
-                if (SpielBlend < 0)
-                    SpielBlend = 0;
-            }
+                updateCount++;
         }
+          
 
         /// <summary>
         ///     Creates the kasten.
@@ -2635,7 +2619,7 @@ namespace _4_1_
 
             #endregion Escape
 
-            if (Mod.EINGABEZEILE_VISIBLE.Wert && Eingabefenster.Eingabe.Sichtbar)
+            if (Mod.EINGABEZEILE_VISIBLE.Wert && Eingabefenster.Eingabe!=null &&Eingabefenster.Eingabe.Sichtbar)
             {
                 keybState = Keyboard.GetState();
                 return;

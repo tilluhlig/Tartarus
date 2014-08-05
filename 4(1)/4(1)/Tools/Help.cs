@@ -526,7 +526,7 @@ namespace _4_1_
         /// <returns>die Mausposition</returns>
         public static Vector2 GetMousePos()
         {
-            Point offset = Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
+            Point offset = new Point(0, 0);//Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
 
             MouseState temp = Mouse.GetState();
             //System.Drawing.Point iss = Hauptfenster.Program.Formular.pictureBox1.PointToClient(new System.Drawing.Point(temp.X, temp.Y));
@@ -540,10 +540,10 @@ namespace _4_1_
         /// <returns>der Mausstatus</returns>
         public static MouseState GetMouseState()
         {
-            Point offset = Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
+            Point offset = new Point(0, 0);//Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
 
             MouseState temp = Mouse.GetState();
-            Point iss = Hauptfenster.Program.Formular.pictureBox1.PointToClient(new Point(temp.X, temp.Y));
+            //Point iss = Hauptfenster.Program.Formular.pictureBox1.PointToClient(new Point(temp.X, temp.Y));
             var result = new MouseState(temp.X - offset.X, temp.Y - offset.Y, temp.ScrollWheelValue, temp.LeftButton,
                 temp.MiddleButton, temp.RightButton, temp.XButton1, temp.XButton2);
             return result;

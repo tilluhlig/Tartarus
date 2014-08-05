@@ -81,6 +81,7 @@ namespace _4_1_
         /// <returns>true = x,y Kollidiert mit einem Brandherd, false = keine Kollision</returns>
         public static bool check_Feuer(int x, int y)
         {
+            if (Braende == null) return false;
             if (x < 0 || x >= Braende.Count()) return false;
             if (y < 0) return false;
             for (int i = 0; i < Braende[x].Count; i++)

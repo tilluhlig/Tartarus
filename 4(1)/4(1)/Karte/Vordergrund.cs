@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace _4_1_
 {
@@ -24,6 +26,8 @@ namespace _4_1_
     /// </summary>
     public static class Vordergrund
     {
+        private static Semaphore _VordergrundSemaphore = new Semaphore(1, 1);
+
         #region Methods
 
         /// <summary>
@@ -94,8 +98,11 @@ namespace _4_1_
                         }
                     }
                 }
+
+                _VordergrundSemaphore.WaitOne();
                 Spiel2.foreground[c] = new Texture2D(Game1.device, Bildbreite, screenHeight, false, SurfaceFormat.Color);
                 Spiel2.foreground[c].SetData(Spiel2.foregroundColors[c]);
+                _VordergrundSemaphore.Release();
             }
 
             Vierecke.RemoveAt(0);
@@ -141,10 +148,10 @@ namespace _4_1_
                     if (sum >= Bereiche[i].Z) break;
                     if (sum + anzahl < Bereiche[i].Y) continue;
                     int sorte = Kartenformat.Material(Spiel2.Spielfeld[x][y]);
-
-                    for (int d = 0; d < anzahl; d++)
-                    {
-                        if (sum + d < Bereiche[i].Y || sum + d > Bereiche[i].Z) continue; // fehlerhaft?
+                    //(int) (Bereiche[i].Y - sum),  && sum + d <= Bereiche[i].Z
+                    for (int d = 0; d < anzahl && sum + d <= Bereiche[i].Z; d++)
+                    {// || sum + d > Bereiche[i].Z
+                        if (sum + d < Bereiche[i].Y) continue; // fehlerhaft?
 
                         Color t;
                         if (Karte.Material[sorte].Farbe)
@@ -152,13 +159,13 @@ namespace _4_1_
                             t = Karte.Material[sorte].CFarbe;
                         }
                         else
-                            t =
+                            t = 
                                 Karte.Material[sorte].CBild[
                                     (x%Karte.Material[sorte].Bild.Width) +
                                     ((sum + d)%Karte.Material[sorte].Bild.Height)*Karte.Material[sorte].Bild.Width];
                         if (!Kartenformat.isSet(x, sum + d) && sum + d > screenHeight - 20)
                         {
-                            t = water[x%Texturen.wasser.Width, (sum + d)%Texturen.wasser.Height];
+                           t = water[x%Texturen.wasser.Width, (sum + d)%Texturen.wasser.Height];
                         }
                         else if (!Editor.visible &&
                                  (!Kartenformat.isSet(x, sum + d - 5) || !Kartenformat.isSet(x + 5, sum + d) ||
@@ -177,7 +184,11 @@ namespace _4_1_
 
             for (int i = 0; i < Spiel2.foreground.Count(); i++)
                 if (ischanged[i])
+                {
+                    _VordergrundSemaphore.WaitOne();
                     Spiel2.foreground[i].SetData(Spiel2.foregroundColors[i]);
+                    _VordergrundSemaphore.Release();
+                }
         }
 
         /// <summary>
@@ -238,8 +249,10 @@ namespace _4_1_
                         }
                     }
                 }
+                _VordergrundSemaphore.WaitOne();
                 Spiel2.foreground[c] = new Texture2D(Game1.device, Bildbreite, screenHeight, false, SurfaceFormat.Color);
                 Spiel2.foreground[c].SetData(Spiel2.foregroundColors[c]);
+                _VordergrundSemaphore.Release();
             }
         }
 
@@ -274,8 +287,10 @@ namespace _4_1_
                     x = (i*2048 - (int) Spiel2.Fenster.X);
                     screen = new Rectangle(0, 0, screenWidth, screenHeight);
                     a = new Rectangle(0, y, screenWidth, screenHeight);
+                    _VordergrundSemaphore.WaitOne();
                     spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(-x, 0),
                         SpriteEffects.None, 1);
+                    _VordergrundSemaphore.Release();
                 }
                 else
                 {
@@ -285,11 +300,71 @@ namespace _4_1_
                     if (l < 0) l = 0;
                     screen = new Rectangle(0, 0, l, screenHeight);
                     a = new Rectangle(x, y, l, screenHeight);
+                    _VordergrundSemaphore.WaitOne();
                     spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(0, 0),
                         SpriteEffects.None, 1);
+                    _VordergrundSemaphore.Release();
                 }
             }
         }
+
+        /// <summary>
+        ///     Zeichnet die Minimap am unteren Rand des Bildschirms, anhand des Vordergrundes
+        /// </summary>
+        public static void DrawMinimap()
+        {
+            Spiel Spiel2 = Game1.Spiel2;
+            int screenWidth = Game1.screenWidth;
+            int screenHeight = Game1.screenHeight;
+            SpriteBatch spriteBatch = Game1.spriteBatch;
+
+            if (Spiel2 == null) return;
+            int screenWidth2 = screenWidth * 4;
+            var fensterx = (int)(Spiel2.Fenster.X - screenWidth2 / 2 + screenWidth / 2);
+            float fact = 0.15f;
+
+            for (int i = 0; i < Spiel2.foreground.Length; i++)
+            {
+                if (fensterx > (i + 1) * 2048 || fensterx + screenWidth2 < i * 2048) continue;
+                if (fensterx + screenWidth2 < i * 2048) continue;
+                int x = fensterx - i * 2048;
+                var y = (int)Spiel2.Fenster.Y;
+
+                Color col = Color.Gold;
+                col = Color.DarkGreen;
+                Rectangle a;
+                if (x < 0)
+                {
+                    x = (i * 2048 - fensterx);
+                    a = new Rectangle(0, y, 2048, screenHeight); //screenWidth - screenWidth2 * fact
+                    _VordergrundSemaphore.WaitOne();
+                    spriteBatch.Draw(Spiel2.foreground[i],
+                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - screenHeight * fact), a, col, 0.0f,
+                        new Vector2(-x, 0), fact, SpriteEffects.None, 1);
+                    _VordergrundSemaphore.Release();
+                }
+                else
+                {
+                    int l = 2048 - x;
+                    if (l > 2048) l = 2048;
+                    if (l < 0) l = 0;
+                    a = new Rectangle(x, y, l, screenHeight);
+                    // - screenHeight * fact
+                    _VordergrundSemaphore.WaitOne();
+                    spriteBatch.Draw(Spiel2.foreground[i],
+                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - screenHeight * fact), a, col, 0.0f,
+                        new Vector2(0, 0), fact, SpriteEffects.None, 1);
+                    _VordergrundSemaphore.Release();
+                }
+            }
+
+            var c = new Rectangle(0, 0, screenWidth, screenHeight);
+            // - screenHeight * fact
+            spriteBatch.Draw(Texturen.kasten,
+                new Vector2(screenWidth - screenWidth2 / 2 * fact - screenWidth / 2 * fact, screenHeight - screenHeight * fact), c,
+                Color.White, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
+        }
+
 
         #endregion Methods
     }
