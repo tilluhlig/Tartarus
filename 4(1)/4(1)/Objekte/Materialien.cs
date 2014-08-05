@@ -95,6 +95,8 @@ namespace _4_1_
                 Bild.GetData(CBild);
 
                 var rt = new RenderTarget2D(Game1.device, (int)(Bild.Width * Skalierung), (int)(Bild.Height * Skalierung));
+
+                Game1.SpriteBatchSemaphor.WaitOne();
                 Game1.device.SetRenderTarget(rt);
                 var rect = new Rectangle(0, 0, (int)(Bild.Width * Skalierung), (int)(Bild.Height * Skalierung));
                 Game1.spriteBatch.Begin();
@@ -102,6 +104,8 @@ namespace _4_1_
                 Game1.spriteBatch.Draw(Bild, rect, Color.White);
                 Game1.spriteBatch.End();
                 Game1.device.SetRenderTarget(null);
+                Game1.SpriteBatchSemaphor.Release();
+
                 Bild = rt;
                 Skalierung = 1.0f;
             }

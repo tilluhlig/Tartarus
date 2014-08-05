@@ -215,7 +215,7 @@ namespace _4_1_
         /// <param name="spriteBatch">eine Zeichenfläche</param>
         public static void ZeichneEingabefenster(SpriteBatch spriteBatch)
         {
-            if (Eingabe.Sichtbar)
+            if (Eingabe!= null && Eingabe.Sichtbar)
             {
                 Eingabe.ZeichneTextfeld(spriteBatch);
 

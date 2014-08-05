@@ -96,6 +96,7 @@ namespace _4_1_
             Game1.Spiel2.Haeuser = new Haus();
 
             Game1.Spiel2 = Game1.Spiel2.Laden(Data);
+            Data.Clear();
             Help.Spielfeld = Game1.Spiel2.Spielfeld;
             Game1.Spiel2.Width = Game1.screenWidth;
             Game1.Spiel2.Height = Game1.screenHeight;

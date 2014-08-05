@@ -54,22 +54,30 @@ namespace _4_1_
 
             for (int i = 0; i < baum.Count(); i++)
             {
-#if DEBUG
-                if (Baumdata.SKALIERUNG.Wert[i] == 1.0f) continue;
-                var rt = new RenderTarget2D(Game1.device, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]),
-                    (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
-                Game1.device.SetRenderTarget(rt);
-                var rect = new Rectangle(0, 0, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]),
-                    (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
-                Game1.spriteBatch.Begin();
-                Game1.device.Clear(Color.Transparent);
-                Game1.spriteBatch.Draw(baum[i], rect, Color.White);
-                Game1.spriteBatch.End();
-                Game1.device.SetRenderTarget(null);
-                rt.Tag = baum[i].Tag;
-                baum[i] = rt;
-#endif
-                Baumdata.SKALIERUNG.Wert[i] = 1.0f;
+                /*#if DEBUG
+                                if (Baumdata.SKALIERUNG.Wert[i] == 1.0f) continue;
+                                var rt = new RenderTarget2D(Game1.device, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]),
+                                    (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
+                               
+                   Game1.SpriteBatchSemaphor.WaitOne();
+                  Game1.device.SetRenderTarget(rt);
+                                var rect = new Rectangle(0, 0, (int)(baum[i].Width * Baumdata.SKALIERUNG.Wert[i]),
+                                    (int)(baum[i].Height * Baumdata.SKALIERUNG.Wert[i]));
+                  
+                 
+                                Game1.spriteBatch.Begin();
+                                Game1.device.Clear(Color.Transparent);
+                                Game1.spriteBatch.Draw(baum[i], rect, Color.White);
+                                Game1.spriteBatch.End();
+                  
+                  
+                                Game1.device.SetRenderTarget(null);
+                  Game1.SpriteBatchSemaphor.Release();
+                  
+                                rt.Tag = baum[i].Tag;
+                                baum[i] = rt;
+                #endif*/
+                ///   Baumdata.SKALIERUNG.Wert[i] = 1.0f;
             }
         }
 
@@ -84,40 +92,64 @@ namespace _4_1_
                 if (Fahrzeugdaten.SCALEP.Wert[i] == 1.0f) continue;
                 var rt = new RenderTarget2D(Game1.device, (int)(panzerindex[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
                     (int)(panzerindex[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
+               
+                Game1.SpriteBatchSemaphor.WaitOne();
                 Game1.device.SetRenderTarget(rt);
                 var rect = new Rectangle(0, 0, (int)(panzerindex[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
                     (int)(panzerindex[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
+
+                
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(panzerindex[i], rect, Color.White);
                 Game1.spriteBatch.End();
+                
+
                 Game1.device.SetRenderTarget(null);
+                Game1.SpriteBatchSemaphor.Release();
+
                 rt.Tag = panzerindex[i].Tag;
                 panzerindex[i] = rt;
 
                 rt = new RenderTarget2D(Game1.device, (int)(panzerindexreifen[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
                     (int)(panzerindexreifen[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
+
+                Game1.SpriteBatchSemaphor.WaitOne();
                 Game1.device.SetRenderTarget(rt);
                 rect = new Rectangle(0, 0, (int)(panzerindexreifen[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
                     (int)(panzerindexreifen[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
+
+                
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(panzerindexreifen[i], rect, Color.White);
                 Game1.spriteBatch.End();
+                
+
                 Game1.device.SetRenderTarget(null);
+                Game1.SpriteBatchSemaphor.Release();
+
                 rt.Tag = panzerindexreifen[i].Tag;
                 panzerindexreifen[i] = rt;
 
                 rt = new RenderTarget2D(Game1.device, (int)(panzerruine[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
                     (int)(panzerruine[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
+                
+                Game1.SpriteBatchSemaphor.WaitOne();
                 Game1.device.SetRenderTarget(rt);
                 rect = new Rectangle(0, 0, (int)(panzerruine[i].Width * Fahrzeugdaten.SCALEP.Wert[i]),
                     (int)(panzerruine[i].Height * Fahrzeugdaten.SCALEP.Wert[i]));
+
+                
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(panzerruine[i], rect, Color.White);
                 Game1.spriteBatch.End();
+                
+
                 Game1.device.SetRenderTarget(null);
+                Game1.SpriteBatchSemaphor.Release();
+
                 rt.Tag = panzerruine[i].Tag;
                 panzerruine[i] = rt;
 #endif
@@ -133,14 +165,22 @@ namespace _4_1_
                     var rt = new RenderTarget2D(Game1.device,
                         (int)(panzerrohrindex[i].Width * Fahrzeugdaten.SCALER.Wert[i]),
                         (int)(panzerrohrindex[i].Height * Fahrzeugdaten.SCALER.Wert[i]));
+
+                    Game1.SpriteBatchSemaphor.WaitOne();
                     Game1.device.SetRenderTarget(rt);
                     var rect = new Rectangle(0, 0, (int)(panzerrohrindex[i].Width * Fahrzeugdaten.SCALER.Wert[i]),
                         (int)(panzerrohrindex[i].Height * Fahrzeugdaten.SCALER.Wert[i]));
+
+                    
                     Game1.spriteBatch.Begin();
                     Game1.device.Clear(Color.Transparent);
                     Game1.spriteBatch.Draw(panzerrohrindex[i], rect, Color.White);
                     Game1.spriteBatch.End();
+                   
+
                     Game1.device.SetRenderTarget(null);
+                    Game1.SpriteBatchSemaphor.Release();
+
                     panzerrohrindex[i] = rt;
 #endif
                     Fahrzeugdaten.SCALER.Wert[i] = 1.0f;
@@ -553,39 +593,55 @@ namespace _4_1_
 
             for (int i = 0; i < haus.Count(); i++)
             {
-#if DEBUG
-                if (Gebäudedaten.SKALIERUNG.Wert[i] == 1.0f) continue;
-                var rt = new RenderTarget2D(Game1.device, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]),
-                    (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
-                Game1.device.SetRenderTarget(rt);
-                var rect = new Rectangle(0, 0, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]),
-                    (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
-                Game1.spriteBatch.Begin();
-                Game1.device.Clear(Color.Transparent);
-                Game1.spriteBatch.Draw(haus[i], rect, Color.White);
-                Game1.spriteBatch.End();
-                Game1.device.SetRenderTarget(null);
-                rt.Tag = haus[i].Tag;
-                haus[i] = rt;
-#endif
-                Gebäudedaten.SKALIERUNG.Wert[i] = 1.0f;
+                /*#if DEBUG
+                                if (Gebäudedaten.SKALIERUNG.Wert[i] == 1.0f) continue;
+                                var rt = new RenderTarget2D(Game1.device, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]),
+                                    (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
+                              
+                  Game1.SpriteBatchSemaphor.WaitOne();
+                  Game1.device.SetRenderTarget(rt);
+                                var rect = new Rectangle(0, 0, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]),
+                                    (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
+                  
+                  
+                                Game1.spriteBatch.Begin();
+                                Game1.device.Clear(Color.Transparent);
+                                Game1.spriteBatch.Draw(haus[i], rect, Color.White);
+                                Game1.spriteBatch.End();
+                  
+                  
+                                Game1.device.SetRenderTarget(null);
+                  Game1.SpriteBatchSemaphor.Release();
+                 
+                                rt.Tag = haus[i].Tag;
+                                haus[i] = rt;
+                #endif*/
+                ///Gebäudedaten.SKALIERUNG.Wert[i] = 1.0f;
             }
 
-#if DEBUG
-            var rt2 = new RenderTarget2D(Game1.device, (int)(tunnel.Width * Tunnel.SKALIERUNG),
-                (int)(tunnel.Height * Tunnel.SKALIERUNG));
-            Game1.device.SetRenderTarget(rt2);
-            var rect2 = new Rectangle(0, 0, (int)(tunnel.Width * Tunnel.SKALIERUNG),
-                (int)(tunnel.Height * Tunnel.SKALIERUNG));
-            Game1.spriteBatch.Begin();
-            Game1.device.Clear(Color.Transparent);
-            Game1.spriteBatch.Draw(tunnel, rect2, Color.White);
-            Game1.spriteBatch.End();
-            Game1.device.SetRenderTarget(null);
-            rt2.Tag = tunnel.Tag;
-            tunnel = rt2;
-#endif
-            Tunnel.SKALIERUNG = 1.0f;
+            /*#if DEBUG
+                        var rt2 = new RenderTarget2D(Game1.device, (int)(tunnel.Width * Tunnel.SKALIERUNG),
+                            (int)(tunnel.Height * Tunnel.SKALIERUNG));
+                      
+              Game1.SpriteBatchSemaphor.WaitOne();
+              Game1.device.SetRenderTarget(rt2);
+                        var rect2 = new Rectangle(0, 0, (int)(tunnel.Width * Tunnel.SKALIERUNG),
+                            (int)(tunnel.Height * Tunnel.SKALIERUNG));
+              
+              
+                        Game1.spriteBatch.Begin();
+                        Game1.device.Clear(Color.Transparent);
+                        Game1.spriteBatch.Draw(tunnel, rect2, Color.White);
+                        Game1.spriteBatch.End();
+              
+              
+                        Game1.device.SetRenderTarget(null);
+              Game1.SpriteBatchSemaphor.Release();
+             
+                        rt2.Tag = tunnel.Tag;
+                        tunnel = rt2;
+            #endif*/
+            ///Tunnel.SKALIERUNG = 1.0f;
         }
 
         /// <summary>
@@ -667,7 +723,10 @@ namespace _4_1_
             Punkt = new Texture2D(Game1.device, 1, 1);
             var tt = new Color[1];
             tt[0] = Color.White;
+
+            Game1.SpriteBatchSemaphor.WaitOne();
             Punkt.SetData(tt);
+            Game1.SpriteBatchSemaphor.Release();
 
             Bilddateien.Add("powerup", 0.8f);
             shootingpower = Content.Load<Texture2D>("Textures\\powerup"); // neues
@@ -1143,13 +1202,20 @@ namespace _4_1_
             /*for (int i = 0; i < haus.Count(); i++)
             {
                 RenderTarget2D rt = new RenderTarget2D(Game1.device, (int)(haus[i].Width * Hausdata.scale[i]), (int)(haus[i].Height * Hausdata.scale[i]));
-                Game1.device.SetRenderTarget(rt);
+               
+              Game1.SpriteBatchSemaphor.WaitOne(); 
+              Game1.device.SetRenderTarget(rt);
                 Rectangle rect = new Rectangle(0, 0, (int)(haus[i].Width * Hausdata.scale[i]), (int)(haus[i].Height * Hausdata.scale[i]));
+                
+                
                 Game1.spriteBatch.Begin();
                 Game1.device.Clear(Color.Transparent);
                 Game1.spriteBatch.Draw(haus[i], rect, Color.White);
-                Game1.spriteBatch.End();
+                
+              Game1.SpriteBatchSemaphor.Release();
+              
                 Game1.device.SetRenderTarget(null);
+              Game1.spriteBatch.End();
                 haus[i] = rt;
                 Hausdata.scale[i] = 1.0f;
             }*/

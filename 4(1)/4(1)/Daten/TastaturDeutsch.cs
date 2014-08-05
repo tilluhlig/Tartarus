@@ -56,7 +56,9 @@ namespace _4_1_
             }
 
             KeyboardState State = Keyboard.GetState();
+
             Keys[] temp = Keyboard.GetState().GetPressedKeys();
+            if (temp.Count() == 0) return;
 
             int shift = (State.IsKeyDown(Keys.LeftShift) || State.IsKeyDown(Keys.RightShift)) ? 1 : 0;
             int alt = (State.IsKeyDown(Keys.LeftAlt)) ? 1 : 0;

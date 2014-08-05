@@ -252,7 +252,10 @@ namespace _4_1_
             if (found > 0)
             {
                 // es wurde etwas zerstört
+                Game1.SpriteBatchSemaphor.WaitOne();
                 Bild.SetData(Picture);
+                Game1.SpriteBatchSemaphor.Release();
+
                 return found;
             }
             return 0;

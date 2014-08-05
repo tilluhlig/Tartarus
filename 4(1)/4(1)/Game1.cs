@@ -277,31 +277,32 @@ namespace _4_1_
                 }
             }
 
-            Hauptfenster.Program.Formular.label31.BringToFront();
-            Hauptfenster.Program.Formular.label31.Left = Hauptfenster.Program.Formular.progressBar1.Left;
-            Hauptfenster.Program.Formular.label31.Text =
-                ("").PadRight((int)((Hauptfenster.Program.Formular.progressBar1.Width / 5.4f) + 0.5f), ' ');
-            Hauptfenster.Program.Formular.label31.Refresh();
+            ///Hauptfenster.Program.Formular.label31.BringToFront();
+            ///Hauptfenster.Program.Formular.label31.Left = Hauptfenster.Program.Formular.progressBar1.Left;
+            ///Hauptfenster.Program.Formular.label31.Text =
+            ///    ("").PadRight((int)((Hauptfenster.Program.Formular.progressBar1.Width / 5.4f) + 0.5f), ' ');
+           /// Hauptfenster.Program.Formular.label31.Refresh();
             if (Ladebildschirmtexte == null)
             {
-                Hauptfenster.Program.Formular.label31.Text = Text2;
+                ///Hauptfenster.Program.Formular.label31.Text = Text2;
             }
             else
             {
                 int id = randomizer.Next(0, Ladebildschirmtexte.Count);
-                Hauptfenster.Program.Formular.label31.Text = Ladebildschirmtexte[id];
+               /// Hauptfenster.Program.Formular.label31.Text = Ladebildschirmtexte[id];
                 Ladebildschirmtexte.RemoveAt(id);
             }
 
-            Hauptfenster.Program.Formular.label31.Top = Hauptfenster.Program.Formular.progressBar1.Top -
-                                                        Hauptfenster.Program.Formular.label31.Height;
+           /// Hauptfenster.Program.Formular.label31.Top = Hauptfenster.Program.Formular.progressBar1.Top -
+                                                      ///  Hauptfenster.Program.Formular.label31.Height;
             // + progressBar1.Height
-            Hauptfenster.Program.Formular.label31.Left = Hauptfenster.Program.Formular.Width / 2 -
-                                                         Hauptfenster.Program.Formular.label31.Width / 2;
-            if (!Hauptfenster.Program.Formular.label31.Visible) Hauptfenster.Program.Formular.label31.Show();
-            Hauptfenster.Program.Formular.label31.Refresh();
+           /// Hauptfenster.Program.Formular.label31.Left = Hauptfenster.Program.Formular.Width / 2 -
+                                                       ///  Hauptfenster.Program.Formular.label31.Width / 2;
+           /// if (!Hauptfenster.Program.Formular.label31.Visible) Hauptfenster.Program.Formular.label31.Show();
+            ///Hauptfenster.Program.Formular.label31.Refresh();
             // System.Threading.Thread.Sleep(1000);
         }
+        public static Task LadebildschirmTask = null;
 
         /// <summary>
         ///     Check_s the datenaustausch.
@@ -359,6 +360,7 @@ namespace _4_1_
             }
             else if (Tausch.CreateNewGame)
             {
+
                 // Neues Spiel erstellen und hochladen
                 Tausch.CreateNewGame = false;
 
@@ -420,6 +422,10 @@ namespace _4_1_
             }
             else if (Tausch.StarteSpiel)
             {
+                LadebildschirmAktiv = true;
+                Hauptfenster.Form1.ActiveForm.BringToFront();
+                //Hauptfenster.Program.Formular.Hide();
+                
                 Spiel2 = null;
                 Tausch.StarteSpiel = false;
                 StarteNeuesSpiel();
@@ -1502,14 +1508,10 @@ namespace _4_1_
         public void loadAllContent()
         {
             TastaturDeutsch.Clear();
+            TastaturDeutsch.Add(this.OnKeyPress);
             baseScreenSize = new Vector2(XWERT, YWERT); //new Vector2(1000, 600);
             if (spriteBatch == null)
-            {
-                //Hauptfenster.Program.Formular.tabControl1.KeyPress += OnKeyPress;
-                //Hauptfenster.Program.Formular.KeyPress += OnKeyPress;
-                TastaturDeutsch.Add(OnKeyPress);
                 spriteBatch = new SpriteBatch(GraphicsDevice);
-            }
 
             //screenWidth = device.PresentationParameters.BackBufferWidth;
             //screenHeight = device.PresentationParameters.BackBufferHeight;
@@ -1557,7 +1559,7 @@ namespace _4_1_
         /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Hauptfenster.Program.Formular.pictureBox1.Visible) return;
+            //if (!Hauptfenster.Program.Formular.pictureBox1.Visible) return;
 
             if (Spiel2 != null)
                 if (Spiel2.players[Spiel2.CurrentPlayer].Notiz.schreibend)
@@ -1576,81 +1578,97 @@ namespace _4_1_
             Ladenmenu.OnKeyPress(sender, e);
         }
 
+        Task StarteNeuesSpielTask = null;
         /// <summary>
         ///     Startes the neues spiel.
         /// </summary>
         public void StarteNeuesSpiel()
         {
-            if (Sounds.Hintergrundmusik != null)
-                Sounds.Hintergrundmusik.StopSound(0);
+            Action<object> StarteNeuesSpiel = (object obj) =>
+            {
+                if (Sounds.Hintergrundmusik != null)
+                    Sounds.Hintergrundmusik.StopSound(0);
 
-            Sounds.Lademusik = new Soundsystem("Sounds\\138681__haydensayshi123__battle-march-action-loop.ogg", 0.15f,
-                1f, false);
-            Sounds.Lademusik.PlaySound(0);
+                Sounds.Lademusik = new Soundsystem("Sounds\\138681__haydensayshi123__battle-march-action-loop.ogg",
+                    0.15f,
+                    1f, false);
+                Sounds.Lademusik.PlaySound(0);
 
-            Hauptfenster.Program.Formular.progressBar1.Value = 0;
+                /*Hauptfenster.Program.Formular.progressBar1.Value = 0;
             Hauptfenster.Program.Formular.progressBar1.Show();
             Hauptfenster.Program.Formular.progressBar1.BringToFront();
 
             Hauptfenster.Program.Formular.label31.Show();
-            Hauptfenster.Program.Formular.label31.BringToFront();
-            Spiel2 = null;
-            Ladebildschirmtexte = null;
+            Hauptfenster.Program.Formular.label31.BringToFront();*/
+                Spiel2 = null;
+                Ladebildschirmtexte = null;
 
-            // Reset
-            Karte.Reset_Materialien();
-            Fahrzeugdaten.Reset_Tankdata();
+                // Reset
+                Karte.Reset_Materialien();
+                Fahrzeugdaten.Reset_Tankdata();
 
-            LadeText("    Tastatur...    ");
-            // Tastatur laden
-            Tastatur.LadeTastaturbelegung("Content\\Konfiguration\\Tastatur.conf");
-            Hauptfenster.Program.Formular.progressBar1.Value = 10;
+                LadeText("    Tastatur...    ");
+                // Tastatur laden
+                Tastatur.LadeTastaturbelegung("Content\\Konfiguration\\Tastatur.conf");
+                // Hauptfenster.Program.Formular.progressBar1.Value = 10;
 
-            LadeText("    Mod...    ");
-            // Mod laden
-            Mod.LadeModVariablen("Content\\Konfiguration\\" + Tausch.Mod);
-            Hauptfenster.Program.Formular.progressBar1.Value = 20;
+                LadeText("    Mod...    ");
+                // Mod laden
+                Mod.LadeModVariablen("Content\\Konfiguration\\" + Tausch.Mod);
+                //Hauptfenster.Program.Formular.progressBar1.Value = 20;
 
-            LadeText("    Komponenten...    ");
-            // Komponenten laden
-            loadAllContent();
-            Hauptfenster.Program.Formular.progressBar1.Value = 60;
+                LadeText("    Komponenten...    ");
+                // Komponenten laden
+                loadAllContent();
+                //Hauptfenster.Program.Formular.progressBar1.Value = 60;
 
-            LadeText("    Spiel erstellen...    ");
-            // Spiel erstellen
-            CreateNeuesSpiel();
-            Hauptfenster.Program.Formular.progressBar1.Value = 90;
+                LadeText("    Spiel erstellen...    ");
+                // Spiel erstellen
+                CreateNeuesSpiel();
+                //Hauptfenster.Program.Formular.progressBar1.Value = 90;
 
-            LadeText("    Umgebung...    ");
-            //// vordergrund = Farbwahl(Texturen.tilltexture);
-            water = Farbwahl(Texturen.wasser);
-            Vordergrund.ErstelleVordergrund();
-            Fog.CreateFog();
-            Mine.Initialisierung(Content);
-            Eingabefenster.Initialisieren();
-            createKasten();
-            Feuer.Initialisieren(Spiel2.Spielfeld.Count());
-            if (Spiel.SCHUESSE.Wert) Spiel2.Schuesse = Spiel2.players[Spiel2.CurrentPlayer].MaxSchuesse;
-            Spiel2.InitRunde();
-            //Mine.init(Content);
-            Help.angrabbel_funktion();
-            if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
-            Eingabefenster.Eingabe.Anzeigen();
-            Matrix globalTransformation = Matrix.CreateScale(0);
-            spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend, null, null, null, null, globalTransformation);
-            if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.Draw(spriteBatch, Texturen.font3, null, null, null, 0.5f);
-            spriteBatch.Draw(Texturen.mausZeiger, new Vector2(mouseState.X, mouseState.Y), null, Color.Orange, 0,
-                new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
-            Eingabefenster.ZeichneEingabefenster(spriteBatch);
-            spriteBatch.End();
-            Eingabefenster.Eingabe.Verstecken();
-            if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.hide();
-            Hauptfenster.Program.Formular.progressBar1.Value = 100;
-            Hauptfenster.Program.Formular.progressBar1.Hide();
-            Hauptfenster.Program.Formular.label31.Hide();
-            SpielfeldEinblenden(180);
+                LadeText("    Umgebung...    ");
+                //// vordergrund = Farbwahl(Texturen.tilltexture);
+                water = Farbwahl(Texturen.wasser);
+                Vordergrund.ErstelleVordergrund();
+                Fog.CreateFog();
+                Mine.Initialisierung(Content);
+                Eingabefenster.Initialisieren();
+                createKasten();
+                Feuer.Initialisieren(Spiel2.Spielfeld.Count());
+                if (Spiel.SCHUESSE.Wert) Spiel2.Schuesse = Spiel2.players[Spiel2.CurrentPlayer].MaxSchuesse;
+                Spiel2.InitRunde();
+                //Mine.init(Content);
+                Help.angrabbel_funktion();
+                if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.show();
+                Eingabefenster.Eingabe.Anzeigen();
+                Matrix globalTransformation = Matrix.CreateScale(0);
 
-            Sounds.Lademusik.StopSound(0);
+                SpriteBatchSemaphor.WaitOne();
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend, null, null, null, null, globalTransformation);
+                if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.Draw(spriteBatch, Texturen.font3, null, null, null, 0.5f);
+                spriteBatch.Draw(Texturen.mausZeiger, new Vector2(mouseState.X, mouseState.Y), null, Color.Orange, 0,
+                    new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
+                Eingabefenster.ZeichneEingabefenster(spriteBatch);
+                spriteBatch.End();
+                SpriteBatchSemaphor.Release();
+
+                Eingabefenster.Eingabe.Verstecken();
+                if (Mod.SPIELERMENU_VISIBLE.Wert) Spielermenu.hide();
+                //Hauptfenster.Program.Formular.progressBar1.Value = 100;
+                // Hauptfenster.Program.Formular.progressBar1.Hide();
+                // Hauptfenster.Program.Formular.label31.Hide();
+                SpielfeldEinblenden(180);
+
+                Sounds.Lademusik.StopSound(0);
+                LadebildschirmAktiv = false;
+            };
+
+            if (StarteNeuesSpielTask == null)
+            {
+                StarteNeuesSpielTask = new Task(StarteNeuesSpiel, "StarteNeuesSpiel");
+                StarteNeuesSpielTask.Start();
+            }
         }
 
         bool _isDirty = true;
@@ -1665,22 +1683,112 @@ namespace _4_1_
                 return false;
         }
 
+        public static Texture2D LadeHintergrund = null;
+        public static Texture2D LadeHintergrundBalken = null;
+        private Action<object> Ladebildschirm = (object obj) =>
+        {
+            /*for (;;)
+            {
+                if (Game1.Spiel2 == null || true)
+                {
+                    if (LadeHintergrund == null)
+                        LadeHintergrund = Game1.ContentAll.Load<Texture2D>("Textures\\Ladebildschirm");
+                    if (Game1.spriteBatch == null)
+                        Game1.spriteBatch = new SpriteBatch(Game1.device);
+
+                    Game1.device.Clear(Color.Black);
+                    Game1.spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+                    Game1.spriteBatch.Draw(LadeHintergrund, new Vector2(0, 0), Color.White);
+                    Game1.spriteBatch.End();
+                }
+                Thread.Sleep(100);
+            }*/
+
+        };
+
+        public static int LadebildschirmPosition = 0;
+        public static int LadebildschirmPositionMax = 100;
+        public static bool LadebildschirmPositionLoop = true;
+        public static Semaphore SpriteBatchSemaphor = new Semaphore(1, 1);
+        public static bool LadebildschirmAktiv = false;
+
         /// <summary>
         ///     Reference page contains code sample.
         /// </summary>
         /// <param name="gameTime">Time passed since the last call to Draw.</param>
         protected override void Draw(GameTime gameTime) // Ruft alle Draw Methoden auf
         {
+            if (Game1.Spiel2 == null || LadebildschirmAktiv)
+            {
+                if (LadeHintergrund == null)
+                    LadeHintergrund = Game1.ContentAll.Load<Texture2D>("Textures\\Ladebildschirm");
+                if (LadeHintergrundBalken == null)
+                    LadeHintergrundBalken = Game1.ContentAll.Load<Texture2D>("Textures\\Ladebildschirm2");
+                if (Game1.spriteBatch == null)
+                    Game1.spriteBatch = new SpriteBatch(Game1.device);
+
+                Vector2 Verschiebung = new Vector2(Game1.screenWidth / 2 - LadeHintergrund.Width / 2, Game1.screenHeight / 2 - LadeHintergrund.Height / 2);
+
+                Vector2 Verschiebung2 = new Vector2(Game1.screenWidth / 2 - LadeHintergrundBalken.Width / 2+3, Game1.screenHeight / 2 - LadeHintergrundBalken.Height / 2);
+
+
+                Game1.device.Clear(Color.Black);
+                if (LadebildschirmPositionLoop)
+                {
+                    LadebildschirmPositionMax = 100;
+                    if (LadebildschirmPosition > LadebildschirmPositionMax+10)
+                        LadebildschirmPosition = 0;
+                }
+
+                // den Ladebalken bestimmen
+
+                double faktor = (double)LadeHintergrundBalken.Width/LadebildschirmPositionMax;
+
+                Rectangle AnfangsBereich=new Rectangle(0,0,0,0);
+                if (LadebildschirmPosition < 10)
+                {
+                    AnfangsBereich = new Rectangle((int) ((float) faktor*0), 0,
+                        (int) ((float) faktor*LadebildschirmPosition), LadeHintergrundBalken.Height);
+                }
+                else
+                {
+                    int LadebildschirmPosition2 = LadebildschirmPosition - 10;
+                    AnfangsBereich = new Rectangle((int) ((float) faktor*LadebildschirmPosition2), 0,
+                        (int)
+                            ((float) faktor*
+                             (LadebildschirmPosition2 > 90 ? (LadebildschirmPositionMax - LadebildschirmPosition2) :
+                    10)),
+                    LadeHintergrundBalken.Height)
+                    ;
+                }
+
+                //Rectangle AnfangsBereich = new Rectangle((int)((float)faktor * LadebildschirmPosition), 0, (int)((float)faktor*10), LadeHintergrundBalken.Height);
+
+                SpriteBatchSemaphor.WaitOne();
+                Game1.spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+                Game1.spriteBatch.Draw(LadeHintergrundBalken, new Rectangle((int)((float)Verschiebung2.X + faktor * (LadebildschirmPosition < 10 ? 0 : LadebildschirmPosition-10)), (int)Verschiebung2.Y, AnfangsBereich.Width, AnfangsBereich.Height), AnfangsBereich, Color.White);
+                Game1.spriteBatch.Draw(LadeHintergrund, new Vector2((int)Verschiebung.X, (int)Verschiebung.Y), Color.White);
+                Game1.spriteBatch.End();
+                SpriteBatchSemaphor.Release();
+
+                LadebildschirmPosition++;
+                return;
+            }
+
             /*   if (reduzierung2 % 3 == 0 || true)
                {
                    reduzierung2 = 1;*/
-            if (Spiel2 == null) return;
+            if (Spiel2 == null)
+            {
+                return;
+            }
 
             Texturen.effect.Parameters["modus"].SetValue(SHADER.Wert);
 
             // GraphicsDevice.Clear(Color.White);
 
             //SpriteBatch Zeichenflaeche = new SpriteBatch(GraphicsDevice);
+            SpriteBatchSemaphor.WaitOne();
             RenderTarget2D rt = new RenderTarget2D(Game1.device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
             Game1.device.SetRenderTarget(rt);
 
@@ -2069,6 +2177,7 @@ namespace _4_1_
                 DrawTextEnd();
             }
             spriteBatch.End();
+            SpriteBatchSemaphor.Release();
             
             //GraphicsDevice.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
 
@@ -2135,6 +2244,13 @@ namespace _4_1_
            Time = gameTime;
            check_Datenaustausch();
 
+
+           if (Time.TotalGameTime.TotalMilliseconds - elapsed >= 50)
+           {
+               _isDirty = true;
+               elapsed = Time.TotalGameTime.TotalMilliseconds;
+           }
+
             if (Spiel2 != null)
             {
                 KeyboardKeys();
@@ -2147,7 +2263,7 @@ namespace _4_1_
                     if (updateCount > 0)
                     {
                         updateCount--;
-                        
+                       
                         if (Meldungen != null) Meldungen.Update();
 
                         if (SpielAktiv == false || Editor.visible)
@@ -2238,11 +2354,6 @@ namespace _4_1_
                             // Spielermenu.CurrentTankID = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
                         }
                         //base.Update(gameTime);
-                        if (Time.TotalGameTime.TotalMilliseconds - elapsed >= 50)
-                        {
-                            _isDirty = true;
-                            elapsed = Time.TotalGameTime.TotalMilliseconds;
-                        }
                         //Draw(gameTime);
 
                         if (SpielEinblenden > 0)

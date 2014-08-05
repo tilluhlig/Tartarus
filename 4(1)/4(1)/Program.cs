@@ -47,7 +47,8 @@ namespace _4_1_
             Program.game = game;
             form.timer3.Enabled = true;
             bool fehler = false;
-
+            Thread.Sleep(100);
+            Hauptfenster.Program.Formular.Hide();
 #if DEBUG
                 game.Run();
 #else

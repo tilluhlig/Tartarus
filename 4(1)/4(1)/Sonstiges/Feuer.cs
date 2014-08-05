@@ -84,9 +84,12 @@ namespace _4_1_
             if (Braende == null) return false;
             if (x < 0 || x >= Braende.Count()) return false;
             if (y < 0) return false;
+            if (Braende[x] == null) return false;
             for (int i = 0; i < Braende[x].Count; i++)
+            {
                 if (y >= Braende[x][i].X && y <= Braende[x][i].Y)
                     return true;
+            }
             return false;
         }
 
