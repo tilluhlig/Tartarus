@@ -277,19 +277,19 @@ namespace _4_1_
         /// <summary>
         ///     The font
         /// </summary>
-        public static SpriteFont font;
+        public static SpriteFont font = null;
 
         /// <summary>
         ///     The font2
         /// </summary>
-        public static SpriteFont font2;
+        public static SpriteFont font2=null;
 
         /// <summary>
         ///     The font3
         /// </summary>
-        public static SpriteFont font3;
+        public static SpriteFont font3 = null;
 
-        public static SpriteFont font4;
+        public static SpriteFont font4 = null;
 
         /// <summary>
         ///     The freeze

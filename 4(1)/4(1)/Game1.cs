@@ -282,14 +282,23 @@ namespace _4_1_
             ///Hauptfenster.Program.Formular.label31.Text =
             ///    ("").PadRight((int)((Hauptfenster.Program.Formular.progressBar1.Width / 5.4f) + 0.5f), ' ');
            /// Hauptfenster.Program.Formular.label31.Refresh();
-            if (Ladebildschirmtexte == null)
+           /// 
+
+        if (Text2 == null)
+        {
+            LadebildschirmText = "";
+        }else
+        if (Ladebildschirmtexte == null)
             {
                 ///Hauptfenster.Program.Formular.label31.Text = Text2;
+                LadebildschirmText = Text2;
             }
             else
             {
                 int id = randomizer.Next(0, Ladebildschirmtexte.Count);
                /// Hauptfenster.Program.Formular.label31.Text = Ladebildschirmtexte[id];
+               /// 
+                LadebildschirmText = Ladebildschirmtexte[id];
                 Ladebildschirmtexte.RemoveAt(id);
             }
 
@@ -1658,6 +1667,8 @@ namespace _4_1_
                 //Hauptfenster.Program.Formular.progressBar1.Value = 100;
                 // Hauptfenster.Program.Formular.progressBar1.Hide();
                 // Hauptfenster.Program.Formular.label31.Hide();
+
+                LadeText(null);
                 SpielfeldEinblenden(180);
 
                 Sounds.Lademusik.StopSound(0);
@@ -1711,6 +1722,7 @@ namespace _4_1_
         public static bool LadebildschirmPositionLoop = true;
         public static Semaphore SpriteBatchSemaphor = new Semaphore(1, 1);
         public static bool LadebildschirmAktiv = false;
+        public static String LadebildschirmText = "";
 
         /// <summary>
         ///     Reference page contains code sample.
@@ -1720,12 +1732,15 @@ namespace _4_1_
         {
             if (Game1.Spiel2 == null || LadebildschirmAktiv)
             {
+                SpriteFont Schriftart = Texturen.font;
                 if (LadeHintergrund == null)
                     LadeHintergrund = Game1.ContentAll.Load<Texture2D>("Textures\\Ladebildschirm");
                 if (LadeHintergrundBalken == null)
                     LadeHintergrundBalken = Game1.ContentAll.Load<Texture2D>("Textures\\Ladebildschirm2");
                 if (Game1.spriteBatch == null)
                     Game1.spriteBatch = new SpriteBatch(Game1.device);
+                if (Schriftart == null)
+                    Schriftart = Game1.ContentAll.Load<SpriteFont>("Fonts\\myfont");
 
                 Vector2 Verschiebung = new Vector2(Game1.screenWidth / 2 - LadeHintergrund.Width / 2, Game1.screenHeight / 2 - LadeHintergrund.Height / 2);
 
@@ -1762,12 +1777,13 @@ namespace _4_1_
                     ;
                 }
 
-                //Rectangle AnfangsBereich = new Rectangle((int)((float)faktor * LadebildschirmPosition), 0, (int)((float)faktor*10), LadeHintergrundBalken.Height);
-
                 SpriteBatchSemaphor.WaitOne();
                 Game1.spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
                 Game1.spriteBatch.Draw(LadeHintergrundBalken, new Rectangle((int)((float)Verschiebung2.X + faktor * (LadebildschirmPosition < 10 ? 0 : LadebildschirmPosition-10)), (int)Verschiebung2.Y, AnfangsBereich.Width, AnfangsBereich.Height), AnfangsBereich, Color.White);
                 Game1.spriteBatch.Draw(LadeHintergrund, new Vector2((int)Verschiebung.X, (int)Verschiebung.Y), Color.White);
+
+                Help.DrawString(Game1.spriteBatch, Schriftart, LadebildschirmText, new Vector2(Game1.screenWidth / 2 - Schriftart.MeasureString(LadebildschirmText).X / 2, Verschiebung.Y + LadeHintergrund.Height), Color.Green,
+                    Color.Transparent);
                 Game1.spriteBatch.End();
                 SpriteBatchSemaphor.Release();
 
