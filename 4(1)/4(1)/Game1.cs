@@ -1822,7 +1822,7 @@ namespace _4_1_
             if (SpielBlend > 0)
             {
 
-                // GraphicsDevice.Clear(ClearOptions.DepthBuffer, Color.Blue, 1.0F, 0);
+                 GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0F, 0);
 
 
                 /* SamplerState sampler = new SamplerState();
