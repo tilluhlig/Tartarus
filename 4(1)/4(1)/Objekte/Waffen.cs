@@ -125,14 +125,45 @@ namespace _4_1_
         /// <summary>
         ///     Erzeugt den Inhalt der Waffe aus einem String
         /// </summary>
-        /// <param name="Text">der Text in dem der Effekt definiert ist</param>
-        public static Waffen Laden(List<String> Text, int id)
+        /// <param name="Text">der Text in dem die Waffe definiert ist</param>
+        public static Waffen Laden(List<String> Text, Waffen Default)
         {
-            return null;
+            List<String> Text2 = TextLaden.ErmittleBereich(Text, "WAFFE");
+            if (Text2.Count == 0) return null;
+
+            Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
+
+            Waffen temp = Default;
+            if (Default == null)
+            {
+                temp = new Waffen();
+            }
+
+            temp.Energie = TextLaden.LadeInt(Liste, "Energie", temp.Energie);
+            temp.verzoegerung = TextLaden.LadeInt(Liste, "verzoegerung", temp.verzoegerung);
+            temp.watered = TextLaden.LadeBool(Liste, "watered", temp.watered);
+            temp.Lebensdauer = TextLaden.LadeInt(Liste, "Lebensdauer", temp.Lebensdauer);
+            temp.ID = TextLaden.LadeInt(Liste, "ID", temp.ID);
+            temp.missleShot = TextLaden.LadeBool(Liste, "missleShot", temp.missleShot);
+            temp.misslePosition = TextLaden.LadeVector2(Liste, "misslePosition", temp.misslePosition);
+            temp.missleDirection = TextLaden.LadeVector2(Liste, "missleDirection", temp.missleDirection);
+            temp.missleAngle = TextLaden.LadeFloat(Liste, "missleAngle", temp.missleAngle);
+
+            for (int i = 0; i < temp.Last_Position.Length; i++)
+            {
+                temp.Last_Position[i]= new Vector2(-99, -99);
+                temp.Last_Position[i] = TextLaden.LadeVector2(Liste, "Last_Position["+i.ToString()+"]", temp.Last_Position[i]);
+            }
+
+            temp.focused = TextLaden.LadeBool(Liste, "focused", temp.focused);
+            temp.Besitzer[0] = TextLaden.LadeInt(Liste, "Besitzer[0]", temp.Besitzer[0]);
+            temp.Besitzer[1] = TextLaden.LadeInt(Liste, "Besitzer[1]", temp.Besitzer[1]);
+
+            return temp;
         }
 
         /// <summary>
-        ///     prüft Lebensdauer eines Geschosses um fehlern vorzubeugen
+        ///     prüft Lebensdauer eines Geschosses um Fehlern vorzubeugen
         /// </summary>
         /// <param name="Spielfeld">ein Spielfeld</param>
         /// <param name="MaxHeight">die Spielfeldhöhe</param>
@@ -202,11 +233,17 @@ namespace _4_1_
             data.Add("watered=" + watered);
             data.Add("Lebensdauer=" + Lebensdauer);
             data.Add("ID=" + ID);
-            data.Add("missleShot=" + missleShot);
-            data.Add("misslePosition=" + misslePosition);
-            data.Add("missleDirection=" + missleDirection);
+            data.Add("missleShot=" + missleShot);  
+            data.Add("misslePosition=" + misslePosition.ToString());
+            data.Add("missleDirection=" + missleDirection.ToString());
             data.Add("missleAngle=" + missleAngle);
-            //     data.Add("Last_Position=" + Last_Position);
+
+            for (int i = 0; i < Last_Position.Length; i++)
+            {
+                if (Last_Position[i]!=new Vector2(-99,-99))
+                    data.Add("Last_Position["+i.ToString()+"]=" + Last_Position[i].ToString());
+            }
+
             data.Add("focused=" + focused);
             data.Add("Besitzer[0]=" + Besitzer[0]);
             data.Add("Besitzer[1]=" + Besitzer[1]);

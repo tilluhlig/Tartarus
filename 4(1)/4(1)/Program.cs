@@ -53,18 +53,18 @@ namespace _4_1_
                 game.Run();
 #else
 
-            try
-            {
+            /*try
+            {*/
                 game.Run();
-            }
+           /* }
             catch (Exception e)
             {
                 StreamWriter myFile = new StreamWriter(Hauptfenster.Tausch.Path + "/Content/Konfiguration/log.txt", true);
-                /*  String data = "";
+                 String data = "";
                   for (int i = 0; i < e.GetBaseException().Data.Count; i++, e.GetBaseException().Data.Values.GetEnumerator().MoveNext(), e.GetBaseException().Data.Keys.GetEnumerator().MoveNext())
                      {
                          data = data + e.GetBaseException().Data.Keys.GetEnumerator().Current + "=" + e.GetBaseException().Data.Values.GetEnumerator().Current + "\n";
-                     }*/
+                     }
 
                 myFile.Write(
                     DateTime.Now.ToString("G") + "\r\n" +
@@ -118,7 +118,7 @@ namespace _4_1_
                         }
                     }
                 }
-            }
+            }*/
 #endif
         }
 

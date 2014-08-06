@@ -312,6 +312,8 @@ namespace _4_1_
             // System.Threading.Thread.Sleep(1000);
         }
         public static Task LadebildschirmTask = null;
+        public static Task LadenTask = null;
+        public static Task SpeichernTask = null;
 
         /// <summary>
         ///     Check_s the datenaustausch.
@@ -1679,7 +1681,7 @@ namespace _4_1_
                 LadebildschirmAktiv = false;
             };
 
-            if (StarteNeuesSpielTask == null)
+            if (StarteNeuesSpielTask == null || StarteNeuesSpielTask.IsCompleted)
             {
                 StarteNeuesSpielTask = new Task(StarteNeuesSpiel, "StarteNeuesSpiel");
                 StarteNeuesSpielTask.Start();
@@ -1750,8 +1752,13 @@ namespace _4_1_
 
                 Vector2 Verschiebung2 = new Vector2(Game1.screenWidth / 2 - LadeHintergrundBalken.Width / 2+3, Game1.screenHeight / 2 - LadeHintergrundBalken.Height / 2);
 
+                // && Game1.device.GraphicsDeviceStatus == GraphicsDeviceStatus.Normal
+                //Game1.device.DepthStencilState.DepthBufferEnable
+                if (Game1.device.GraphicsDeviceStatus == GraphicsDeviceStatus.Normal)
+                    //Game1.device.Clear(Color.Black);
+                    GraphicsDevice.Clear(Color.Black);
+                    //GraphicsDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.F, 0);
 
-                Game1.device.Clear(Color.Black);
                 if (LadebildschirmPositionLoop)
                 {
                     LadebildschirmPositionMax = 100;
@@ -2283,98 +2290,6 @@ namespace _4_1_
                     if (updateCount > 0)
                     {
                         updateCount--;
-                       
-                        if (Meldungen != null) Meldungen.Update();
-
-                        if (SpielAktiv == false || Editor.visible)
-                        {
-                            //if (Sounds.hintergrund2 != null)
-                            //Sounds.hintergrund2.Stop();
-
-                            if (Sounds.Hintergrundmusik != null)
-                                Sounds.Hintergrundmusik.StopSound(0);
-                        }
-                        else
-                        {
-                            // if (Sounds.hintergrund2 != null && Sounds.hintergrund2.State != SoundState.Playing)
-                            // Sounds.hintergrund2.Play();
-                            /* if (Sounds.channel != null)
-                 {
-                     bool playing = false;
-                     Sounds.channel.isPlaying(ref playing);
-                     if (!playing)
-                     {
-                         Sounds.system.playSound(FMOD.CHANNELINDEX.FREE, Sounds.sound1, false, ref Sounds.channel);
-                     }
-                 }*/
-
-                            if (Sounds.Hintergrundmusik != null)
-                                Sounds.Hintergrundmusik.PlaySound(0);
-                        }
-
-                        if (Spiel2 == null) continue;
-
-                        // Netzwerk
-                        if (Server.isRunning)
-                        {
-                            Server.Application_Idle(null, null);
-                        }
-
-                        if (Spiel2 == null) continue;
-
-                        if (MausAktiv)
-                        {
-                            MouseKeys();
-                            if (Eingabefenster.Eingabe!=null)
-                                Eingabefenster.Eingabe.mouseKeys();
-                        }
-
-                        if (Spiel2 == null) continue;
-                        //  if (Spiel2.paused) pauseMenu.Update(gameTime);
-                        if (Spiel2.SpielerAktiv() > 1 && SpielAktiv)
-                        {
-                            Spiel2.check_shot_increase();
-                            Kurzmeldung.Aktualisieren();
-                            if (Spiel.MISSILE.Wert) Spiel2.UpdateMissles(Time, smokeList);
-
-                            if (Spiel.CHECK_RAKETEN.Wert) Spiel2.check_Raketen();
-                            Spiel2.check_players(Time);
-                            if (Spiel.CHECK_WIND.Wert) Spiel2.check_wind();
-                            Spiel2.check_Focus();
-                            Spiel2.check_playerwinkel();
-                            Spiel2.check_Minen(Time);
-                            if (Haus.HAEUSER && Spiel.CHECK_HAEUSER.Wert) Spiel2.check_haeuser();
-                            if (Spieler.WAFFEN_COOLDOWN.Wert) Spiel2.check_Cooldowns();
-
-                            if (!Client.isRunning)
-                                if (Spiel2.Karte.collisions(Spiel2.Spielfeld, Spiel2.Missile, Spiel2.players,
-                                    Spiel2.Haeuser,
-                                    Spiel2.Baeume, Spiel2.Bunker, Spiel2.Kisten, Spiel2.Height, Time,
-                                    new Vector2(Spiel2.Fenster.X + screenWidth/2, Spiel2.Fenster.Y)))
-                                {
-                                    Vordergrund.ErstelleVordergrund();
-                                }
-
-                            Vordergrund.AktualisiereVordergrund(Spiel2.check_verzoegerte(Time));
-                            // zündet die Raketen und zeichnet karte daraufhin neu
-
-                            if (Spiel2.Karte.particleListExp.Count > 0)
-                                Spiel2.Karte.UpdateParticles(Spiel2.Karte.particleListExp, Time, 0);
-
-                            if (Spiel2.Karte.particleListMapSmoke.Count > 0)
-                                Spiel2.Karte.UpdateParticles(Spiel2.Karte.particleListMapSmoke, Time, 2);
-
-                            if (smokeList.Count > 0)
-                                Spiel2.Karte.UpdateParticles(smokeList, Time, 1);
-                        }
-
-                        if (Mod.SPIELERMENU_VISIBLE.Wert)
-                        {
-                            // Spielermenu.CurrentPlayerID = Spiel2.CurrentPlayer;
-                            // Spielermenu.CurrentTankID = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
-                        }
-                        //base.Update(gameTime);
-                        //Draw(gameTime);
 
                         if (SpielEinblenden > 0)
                             SpielEinblenden--;
@@ -2384,7 +2299,7 @@ namespace _4_1_
 
                         if (SpielEinblendenMax != 0)
                         {
-                            SpielBlend += ((float) 1/SpielEinblendenMax);
+                            SpielBlend += ((float)1 / SpielEinblendenMax);
                             if (SpielEinblendenMax != 0 && SpielEinblenden == 0)
                                 SpielBlend = 1;
                             if (SpielBlend > 1)
@@ -2393,14 +2308,110 @@ namespace _4_1_
 
                         if (SpielAusblendenMax != 0)
                         {
-                            SpielBlend -= ((float) 1/SpielAusblendenMax);
+                            SpielBlend -= ((float)1 / SpielAusblendenMax);
                             if (SpielAusblendenMax != 0 && SpielAusblenden == 0)
                                 SpielBlend = 0;
                             if (SpielBlend < 0)
                                 SpielBlend = 0;
                         }
-                 }
-                 Thread.Sleep(5);
+
+                        if (!LadebildschirmAktiv)
+                        {
+
+                            if (Meldungen != null) Meldungen.Update();
+
+                            if (SpielAktiv == false || Editor.visible)
+                            {
+                                //if (Sounds.hintergrund2 != null)
+                                //Sounds.hintergrund2.Stop();
+
+                                if (Sounds.Hintergrundmusik != null)
+                                    Sounds.Hintergrundmusik.StopSound(0);
+                            }
+                            else
+                            {
+                                // if (Sounds.hintergrund2 != null && Sounds.hintergrund2.State != SoundState.Playing)
+                                // Sounds.hintergrund2.Play();
+                                /* if (Sounds.channel != null)
+                 {
+                     bool playing = false;
+                     Sounds.channel.isPlaying(ref playing);
+                     if (!playing)
+                     {
+                         Sounds.system.playSound(FMOD.CHANNELINDEX.FREE, Sounds.sound1, false, ref Sounds.channel);
+                     }
+                 }*/
+
+                                if (Sounds.Hintergrundmusik != null)
+                                    Sounds.Hintergrundmusik.PlaySound(0);
+                            }
+
+                            if (Spiel2 == null) continue;
+
+                            // Netzwerk
+                            if (Server.isRunning)
+                            {
+                                Server.Application_Idle(null, null);
+                            }
+
+                            if (Spiel2 == null) continue;
+
+                            if (MausAktiv)
+                            {
+                                MouseKeys();
+                                if (Eingabefenster.Eingabe != null)
+                                    Eingabefenster.Eingabe.mouseKeys();
+                            }
+
+                            if (Spiel2 == null) continue;
+                            //  if (Spiel2.paused) pauseMenu.Update(gameTime);
+                            if (Spiel2.SpielerAktiv() > 1 && SpielAktiv)
+                            {
+                                Spiel2.check_shot_increase();
+                                Kurzmeldung.Aktualisieren();
+                                if (Spiel.MISSILE.Wert) Spiel2.UpdateMissles(Time, smokeList);
+
+                                if (Spiel.CHECK_RAKETEN.Wert) Spiel2.check_Raketen();
+                                Spiel2.check_players(Time);
+                                if (Spiel.CHECK_WIND.Wert) Spiel2.check_wind();
+                                Spiel2.check_Focus();
+                                Spiel2.check_playerwinkel();
+                                Spiel2.check_Minen(Time);
+                                if (Haus.HAEUSER && Spiel.CHECK_HAEUSER.Wert) Spiel2.check_haeuser();
+                                if (Spieler.WAFFEN_COOLDOWN.Wert) Spiel2.check_Cooldowns();
+
+                                if (!Client.isRunning)
+                                    if (Spiel2.Karte.collisions(Spiel2.Spielfeld, Spiel2.Missile, Spiel2.players,
+                                        Spiel2.Haeuser,
+                                        Spiel2.Baeume, Spiel2.Bunker, Spiel2.Kisten, Spiel2.Height, Time,
+                                        new Vector2(Spiel2.Fenster.X + screenWidth/2, Spiel2.Fenster.Y)))
+                                    {
+                                        Vordergrund.ErstelleVordergrund();
+                                    }
+
+                                Vordergrund.AktualisiereVordergrund(Spiel2.check_verzoegerte(Time));
+                                // zündet die Raketen und zeichnet karte daraufhin neu
+
+                                if (Spiel2.Karte.particleListExp.Count > 0)
+                                    Spiel2.Karte.UpdateParticles(Spiel2.Karte.particleListExp, Time, 0);
+
+                                if (Spiel2.Karte.particleListMapSmoke.Count > 0)
+                                    Spiel2.Karte.UpdateParticles(Spiel2.Karte.particleListMapSmoke, Time, 2);
+
+                                if (smokeList.Count > 0)
+                                    Spiel2.Karte.UpdateParticles(smokeList, Time, 1);
+                            }
+
+                            if (Mod.SPIELERMENU_VISIBLE.Wert)
+                            {
+                                // Spielermenu.CurrentPlayerID = Spiel2.CurrentPlayer;
+                                // Spielermenu.CurrentTankID = Spiel2.players[Spiel2.CurrentPlayer].CurrentTank;
+                            }
+                            //base.Update(gameTime);
+                            //Draw(gameTime);
+                        }
+                    }
+                    Thread.Sleep(5);
              }
             };
 
@@ -3021,10 +3032,24 @@ namespace _4_1_
                                   }
                                   else
                                       Hauptfenster.Tausch.SpielAktiv = false;*/
-
-                        MapWriter.Generieren(Spiel2);
+                                    Action<object> SpielSpeichern = (object obj) =>
+            {
+                  MapWriter.Generieren(Spiel2);
                         MapWriter.Speichern("Spiel.sav");
-                        Meldungen.addMessage("Speichern...");
+                Meldungen.addMessage("Speichern...");
+                LadebildschirmAktiv = false;
+                Game1.SpielfeldEinblenden(60);
+};
+
+                         if (SpeichernTask == null || SpeichernTask.IsCompleted)
+            {
+                                              LadebildschirmAktiv = true;
+                SpielfeldAusblenden(60);
+                        LadebildschirmText = "Spiel wird gespeichert...";
+                SpeichernTask = new Task(SpielSpeichern, "SpielSpeichern");
+                SpeichernTask.Start();
+            }
+                        
                     }
                     else if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Keys.F8))
                     {
@@ -3044,9 +3069,23 @@ namespace _4_1_
                                       }
                                       else
                                           Hauptfenster.Tausch.SpielAktiv = false;*/
+                        Action<object> SpielLaden = (object obj) =>
+                        {
+                            MapReader.Laden(this, "Spiel.dat");
+                            Meldungen.addMessage("Geladen...");
+                            LadebildschirmAktiv = false;
+                            Game1.SpielfeldEinblenden(60);
+                        };
 
-                        MapReader.Laden(this, "Spiel.dat");
-                        Meldungen.addMessage("Geladen...");
+                        if (LadenTask == null || LadenTask.IsCompleted)
+                        {
+                            LadebildschirmAktiv = true;
+                            Game1.SpielfeldAusblenden(60);
+                            LadebildschirmText = "Spiel wird geladen...";
+                            LadenTask = new Task(SpielLaden, "SpielLaden");
+                            LadenTask.Start();
+                        }
+
                     }
                 }
 

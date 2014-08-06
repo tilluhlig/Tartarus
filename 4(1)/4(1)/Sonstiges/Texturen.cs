@@ -596,7 +596,7 @@ namespace _4_1_
             for (int i = 0; i < haus.Count(); i++)
             {
                 #if DEBUG
-                                if (Gebäudedaten.SKALIERUNG.Wert[i] == 1.0f) continue;
+                         /*       if (Gebäudedaten.SKALIERUNG.Wert[i] == 1.0f) continue;
                                 var rt = new RenderTarget2D(Game1.device, (int)(haus[i].Width * Gebäudedaten.SKALIERUNG.Wert[i]),
                                     (int)(haus[i].Height * Gebäudedaten.SKALIERUNG.Wert[i]));
                               
@@ -616,7 +616,7 @@ namespace _4_1_
                   Game1.SpriteBatchSemaphor.Release();
                  
                                 rt.Tag = haus[i].Tag;
-                                haus[i] = rt;
+                                haus[i] = rt;*/
 #else
                 Gebäudedaten.SKALIERUNG.Wert[i] = 1.0f;
                 #endif

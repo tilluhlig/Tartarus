@@ -120,9 +120,12 @@ namespace _4_1_
                 temp.Upgrades.Add(Item.Laden(Text3, Content, null));
 
             Text3 = TextLaden.ErmittleBereich(Text2, "MUNITION");
+            Dictionary<String, String> Liste2 = TextLaden.CreateDictionary(Text3);
             var q = new List<int>();
-            for (int i = 0; i < Text2.Count(); i++)
-                q.Add(Convert.ToInt32(Text3[i]));
+            for (int i = 0; Liste2.Count()>0; i++)
+            {
+                q.Add(TextLaden.LadeInt(Liste2, "Munition"+i.ToString(), 0));
+            }
             temp.Munition = q;
 
             return temp;

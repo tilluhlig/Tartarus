@@ -50,12 +50,12 @@ namespace _4_1_
         /// <param name="screen">The screen.</param>
         public static void Laden(Game1 game, String Map)
         {
-            Hauptfenster.Program.Formular.progressBar1.Value = 0;
-            Hauptfenster.Program.Formular.progressBar1.Show();
-            Hauptfenster.Program.Formular.progressBar1.BringToFront();
+            //Hauptfenster.Program.Formular.progressBar1.Value = 0;
+           // Hauptfenster.Program.Formular.progressBar1.Show();
+            //Hauptfenster.Program.Formular.progressBar1.BringToFront();
 
-            Hauptfenster.Program.Formular.label31.Show();
-            Hauptfenster.Program.Formular.label31.BringToFront();
+           // Hauptfenster.Program.Formular.label31.Show();
+           // Hauptfenster.Program.Formular.label31.BringToFront();
             Tausch.SpielAktiv = false;
 
             // Reset
@@ -68,12 +68,12 @@ namespace _4_1_
             Tastatur.LadeTastaturbelegung("Content\\Konfiguration\\Tastatur.conf");
 
             Game1.LadeText("    Mod...    ");
-            Hauptfenster.Program.Formular.progressBar1.Value = 20;
+            ///Hauptfenster.Program.Formular.progressBar1.Value = 20;
             // Mod laden
             //Mod.LadeModVariablen("Content\\Konfiguration\\" + Hauptfenster.Tausch.Mod);
 
             Game1.LadeText("    Komponenten...    ");
-            Hauptfenster.Program.Formular.progressBar1.Value = 40;
+            ///Hauptfenster.Program.Formular.progressBar1.Value = 40;
             // Komponenten laden
             //game.loadAllContent();
 
@@ -126,9 +126,9 @@ namespace _4_1_
            Game1.spriteBatch.End();*/
             Eingabefenster.Eingabe.Verstecken();
             if (Mod.SPIELERMENU_VISIBLE.Wert) Game1.Spielermenu.hide();
-            Hauptfenster.Program.Formular.progressBar1.Value = 100;
-            Hauptfenster.Program.Formular.progressBar1.Hide();
-            Hauptfenster.Program.Formular.label31.Hide();
+            ///Hauptfenster.Program.Formular.progressBar1.Value = 100;
+            ///Hauptfenster.Program.Formular.progressBar1.Hide();
+            ///Hauptfenster.Program.Formular.label31.Hide();
 
             // Sounds.Lademusik.StopSound(0);
 

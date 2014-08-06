@@ -210,6 +210,32 @@ namespace _4_1_
         }
 
         /// <summary>
+        ///     Lädt eine Color-Variable mit entsprechendem Namen
+        /// </summary>
+        /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>
+        /// <param name="Name">der Name des Eintrages</param>
+        /// <param name="Wert">ein default-Wert, wenn der Eintrag nicht existiert</param>
+        /// <returns>den Wert des Eintrages oder den Default-Wert</returns>
+        public static Color LadeColor(Dictionary<String, String> Dict, String Name, Color Wert)
+        {
+            if (Dict.ContainsKey(Name))
+            {
+                Color temp = Wert;
+                try
+                {
+                    temp = Karte.FromName(Dict[Name]);
+                }
+                catch (Exception)
+                {
+                }
+
+                Dict.Remove(Name);
+                return temp;
+            }
+            return Wert;
+        }
+
+        /// <summary>
         ///     Lädt eine Vector2-Variable mit entsprechendem Namen
         /// </summary>
         /// <param name="Dict">das Dictionary, welches durchsucht werden soll</param>

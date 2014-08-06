@@ -120,16 +120,6 @@ namespace _4_1_
         public static Var<bool> WIND = new Var<bool>("WIND", false);
 
         /// <summary>
-        ///     The incshoot2
-        /// </summary>
-        private static int incshoot2;
-
-        /// <summary>
-        ///     The incshoot3
-        /// </summary>
-        private static int incshoot3;
-
-        /// <summary>
         ///     The baeume
         /// </summary>
         public Baum Baeume = new Baum();
@@ -160,6 +150,24 @@ namespace _4_1_
         public Vector2 Fenster;
 
         /// <summary>
+        ///     The fog colors
+        /// </summary>
+        public Color[] fogColors;
+
+        /// <summary>
+        ///     The foreground
+        /// </summary>
+        public Texture2D[] foreground;
+
+        //  public List<Vector2> BunkerPos = new List<Vector2>();
+        //  public List<int> BunkerHp = new List<int>();
+        //   public List<int> BunkerMaxHp = new List<int>();
+        /// <summary>
+        ///     The foreground colors
+        /// </summary>
+        public Color[][] foregroundColors;
+
+        /// <summary>
         ///     The haeuser
         /// </summary>
         public Haus Haeuser = new Haus();
@@ -168,6 +176,22 @@ namespace _4_1_
         ///     The height
         /// </summary>
         public int Height;
+
+        /// <summary>
+        ///     The hoehlen
+        /// </summary>
+        public Höhlenkonfiguration hoehlen = null;
+
+        /// <summary>
+        ///     The increaseairstrike
+        /// </summary>
+        public bool increaseairstrike = false;
+
+        //public int SpielerID = 0; // ??? nur ein Spieler lebend
+        /// <summary>
+        ///     The increaseshot
+        /// </summary>
+        public bool increaseshot = false;
 
         /// <summary>
         ///     The is server
@@ -184,13 +208,23 @@ namespace _4_1_
         /// </summary>
         public Kiste Kisten = new Kiste();
 
+        /// <summary>
+        ///     The leftsidet
+        /// </summary>
+        public bool leftsidet = false;
+
         // airstrike
+        /// <summary>
+        ///     The minimap_visible
+        /// </summary>
+        public bool minimap_visible = true;
 
         /// <summary>
         ///     The missile
         /// </summary>
         public Waffen[] Missile;
 
+        // airstrike
         /// <summary>
         ///     The moving_ map
         /// </summary>
@@ -204,6 +238,22 @@ namespace _4_1_
         ///     The next_ fenster
         /// </summary>
         public Vector2 Next_Fenster;
+
+        /// <summary>
+        ///     The paused
+        /// </summary>
+        public bool paused = false;
+
+        //public List<int>[] Nebelkreis;
+        /// <summary>
+        ///     The players
+        /// </summary>
+        public Spieler[] players;
+
+        /// <summary>
+        ///     The replay_visible2
+        /// </summary>
+        public bool replay_visible2 = true;
 
         /// <summary>
         ///     The schuesse
@@ -225,6 +275,15 @@ namespace _4_1_
         /// </summary>
         public int Timeout = 0;
 
+        //   public bool vehikleMoving = false;
+        /// <summary>
+        ///     The vehikle moving
+        /// </summary>
+        /// <summary>
+        ///     The wait_change
+        /// </summary>
+        public int wait_change = 0;
+
         /// <summary>
         ///     The width
         /// </summary>
@@ -241,79 +300,19 @@ namespace _4_1_
         public int WindTimeout = 0;
 
         /// <summary>
-        ///     The fog colors
+        ///     The incshoot2
         /// </summary>
-        public Color[] fogColors;
+        private static int incshoot2;
 
         /// <summary>
-        ///     The foreground
+        ///     The incshoot3
         /// </summary>
-        public Texture2D[] foreground;
-
-        //  public List<Vector2> BunkerPos = new List<Vector2>();
-        //  public List<int> BunkerHp = new List<int>();
-        //   public List<int> BunkerMaxHp = new List<int>();
-        /// <summary>
-        ///     The foreground colors
-        /// </summary>
-        public Color[][] foregroundColors;
-
-        /// <summary>
-        ///     The hoehlen
-        /// </summary>
-        public Höhlenkonfiguration hoehlen = null;
-
-        /// <summary>
-        ///     The increaseairstrike
-        /// </summary>
-        public bool increaseairstrike = false;
-
-        //public int SpielerID = 0; // ??? nur ein Spieler lebend
-        /// <summary>
-        ///     The increaseshot
-        /// </summary>
-        public bool increaseshot = false;
-
-        /// <summary>
-        ///     The leftsidet
-        /// </summary>
-        public bool leftsidet = false;
-
-        // airstrike
-        /// <summary>
-        ///     The minimap_visible
-        /// </summary>
-        public bool minimap_visible = true;
+        private static int incshoot3;
 
         /// <summary>
         ///     auswahl mit Namen
         /// </summary>
-        private List<String> names;
-
-        /// <summary>
-        ///     The paused
-        /// </summary>
-        public bool paused = false;
-
-        //public List<int>[] Nebelkreis;
-        /// <summary>
-        ///     The players
-        /// </summary>
-        public Spieler[] players;
-
-        /// <summary>
-        ///     The replay_visible2
-        /// </summary>
-        public bool replay_visible2 = true;
-
-        //   public bool vehikleMoving = false;
-        /// <summary>
-        ///     The vehikle moving
-        /// </summary>
-        /// <summary>
-        ///     The wait_change
-        /// </summary>
-        public int wait_change = 0;
+        public static List<String> names;
 
         #endregion Fields
 
@@ -494,13 +493,13 @@ namespace _4_1_
                     Texturen.panzerindexreifen[di]);
             }
 
-            players[Spieler].Munition[b] = new List<int>();
+          players[Spieler].Munition[b] = new List<int>();
             for (int d = 0; d < Waffendaten.Daten.Count(); d++)
-            {
-                players[Spieler].Munition[b].Add(99);
-            }
+          {
+              players[Spieler].Munition[b].Add(99);
+          }
 
-            players[Spieler].Munition[b][Waffendaten.mg] = 999;
+          players[Spieler].Munition[b][Waffendaten.mg] = 999;
 
             players[Spieler].Rucksack.Add(new Inventar(15000, players[Spieler].Munition[b], 1000));
 
@@ -882,7 +881,7 @@ namespace _4_1_
                         players[i].pos[b] = a;
                         players[i].Kenngroesse_Wert.StatischenWertHinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
                         //if (Server.isRunning)
-                         //   Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
+                        //   Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
                     }
 
                     if (players[i].Effekte[b].GetHP(players[i].hp[b]) <= 0)
@@ -1845,19 +1844,19 @@ namespace _4_1_
                 PanzerTypen = new[] { 0, 1, 2, 3 };
             }
 
-                for (int i = 0; i < players.Length; i++)
+            for (int i = 0; i < players.Length; i++)
+            {
+                for (int b = 0; b < PanzerTypen.Count(); b++)
                 {
-                    for (int b = 0; b < PanzerTypen.Count(); b++)
-                    {
-                        AddPanzer(i, PanzerTypen[b], MathHelper.ToRadians(Angle[i]), overreach[i], Positionen[i]);
-                    }
-
-                    players[i].shootingPower = 0f;
-                    players[i].MaxTimeout = 180*60;
-                    players[i].Credits = 5000;
-                    players[i].Farbe = Spielerfarben[i];
-                    players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, Height, 100, 100, 0);
+                    AddPanzer(i, PanzerTypen[b], MathHelper.ToRadians(Angle[i]), overreach[i], Positionen[i]);
                 }
+
+                players[i].shootingPower = 0f;
+                players[i].MaxTimeout = 180 * 60;
+                players[i].Credits = 5000;
+                players[i].Farbe = Spielerfarben[i];
+                players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, Height, 100, 100, 0);
+            }
 
             SetPanzer(players, symmetrisch);
 
@@ -1913,11 +1912,10 @@ namespace _4_1_
             ;
         }
 
-        // TODO ausfüllen
         /// <summary>
-        ///     Erzeugt den Inhalt des Effektes aus einem String
+        ///     Erzeugt den Inhalt des Spieles aus einem String
         /// </summary>
-        /// <param name="Text">der Text in dem der Effekt definiert ist</param>
+        /// <param name="Text">der Text in dem das Spiel definiert ist</param>
         public Spiel Laden(List<String> Text)
         {
             Spiel temp = this;
@@ -1951,13 +1949,29 @@ namespace _4_1_
                 Nutzloses.Laden(Game1.ContentAll, Text2, -1);
             } while (anz != Text2.Count);
 
-            /*int i = 0;
-            for (; i < Missile.Count(); i++)
+            anz = Text2.Count;
+            do
+            {
+                anz = Text2.Count;
+                Bunker.Laden(Text2, -1);
+            } while (anz != Text2.Count);
+
+            for (int i = 0; i < Missile.Count(); i++)
+            {
+                Waffen temp2 = Waffen.Laden(Text2, null);
+                if (temp2 != null)
                 {
-                     Waffen temp2 = Waffen.Laden(Text2,i);
-                     if (temp2 == null) break;
-                     Missile[i] = temp2;
-                }*/
+                    Missile[i] = temp2;
+                }
+                else
+                    Missile[i].Delete();
+            }
+
+            for (int i = 0; i < players.Count(); i++)
+            {
+
+                players[i] = Spieler.Laden(temp, Text2, null);
+            }
 
             /* for (; i < Missile.Count(); i++)
                  {
@@ -1965,7 +1979,7 @@ namespace _4_1_
                  Missile[i].ID = i;
              }*/
 
-            return this;
+            return temp;
         }
 
         /// <summary>
@@ -2286,7 +2300,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Wandelt den Effekt zum Speichern in einen Text um
+        ///     Wandelt das Spiel zum Speichern in einen Text um
         /// </summary>
         /// <returns>Gibt den zu speichernden Text zurück</returns>
         public List<String> Speichern()
@@ -2309,10 +2323,10 @@ namespace _4_1_
             }
 
             // Bunker speichern
-            /*{
+            {
                 list.AddRange(Bunker.Speichern());
             }
-            */
+
             // Nutzloses speichern
             {
                 list.AddRange(Nutzloses.Speichern());
@@ -2324,7 +2338,7 @@ namespace _4_1_
              }*/
 
             // Spieler speichern
-            /* {
+            {
                  for (int i = 0; i < players.Count(); i++)
                  {
                      players[i].id = i;
@@ -2332,13 +2346,13 @@ namespace _4_1_
                  }
              }
 
-             // Waffen speichern
-             {
-                 for (int i = 0; i < Missile.Count(); i++)
-                 {
-                     list.AddRange(Missile[i].Speichern());
-                 }
-             }*/
+            // Waffen speichern
+            {
+                for (int i = 0; i < Missile.Count(); i++)
+                {
+                    list.AddRange(Missile[i].Speichern());
+                }
+            }
 
             // Karte speichern
             {

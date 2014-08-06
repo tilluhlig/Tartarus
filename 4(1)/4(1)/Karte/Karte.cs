@@ -259,6 +259,23 @@ namespace _4_1_
         }
 
         /// <summary>
+        /// Creates an ARGB hex string representation of the <see cref="Color"/> value.
+        /// </summary>
+        /// <param name="color">The <see cref="Color"/> value to parse.</param>
+        /// <param name="includeHash">Determines whether to include the hash mark (#) character in the string.</param>
+        /// <returns>A hex string representation of the specified <see cref="Color"/> value.</returns>
+        public static string ToHex(Color color, bool includeHash)
+        {
+            string[] argb = {
+         	color.A.ToString("X2"),
+		color.R.ToString("X2"),
+		color.G.ToString("X2"),
+		color.B.ToString("X2"),
+	};
+            return (includeHash ? "#" : string.Empty) + string.Join(string.Empty, argb);
+        }
+
+        /// <summary>
         ///     Lade_s the materialien.
         /// </summary>
         /// <param name="Content">The content.</param>

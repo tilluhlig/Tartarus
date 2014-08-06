@@ -290,12 +290,12 @@ namespace _4_1_
             data.Add("[/STATUS]");
 
             data.Add("[UPGRADES]");
-            for (int i = 0; i < Status.Count; i++)
+            for (int i = 0; i < Upgrades.Count; i++)
                 data.AddRange(Upgrades[i].Speichern());
             data.Add("[/UPGRADES]");
 
             data.Add("[KONSUMIERBARES]");
-            for (int i = 0; i < Status.Count; i++)
+            for (int i = 0; i < Konsumierbares.Count; i++)
                 data.AddRange(Konsumierbares[i].Speichern());
             data.Add("[/KONSUMIERBARES]");
 

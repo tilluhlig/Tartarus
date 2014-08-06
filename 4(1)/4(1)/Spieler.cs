@@ -18,6 +18,14 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Hauptfenster;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 
 namespace _4_1_
 {
@@ -529,6 +537,8 @@ namespace _4_1_
         /// <param name="gameTime">The game time.</param>
         public void Entfernen(int i, bool explode, Spiel Spiel2, GameTime gameTime)
         {
+            if (i >= hp.Count) return;
+
             if (explode)
                 Karte.Explosion_einer_Waffe_zünden_ohne_schaden_sound(Spiel2.Spielfeld, gameTime, Spiel2, 1,
                     Sounds.fahrzeugzerstört, pos[i]);
@@ -553,7 +563,7 @@ namespace _4_1_
                 fuelRemains2[b] = fuelRemains2[b + 1];*/
 
             for (int b = i; b < Munition.Count() - 1; b++)
-                Munition[b] = Munition[b];
+                Munition[b] = Munition[b+1];
 
             Cooldown.RemoveAt(i);
             Kollision.RemoveAt(i);
@@ -842,15 +852,86 @@ namespace _4_1_
             MaxPixel.Add(Help.GetPixelAnzahl(Texturen.panzerindex[id]));
         }
 
-        public void LadenFahrzeug(List<String> Text, int i, ContentManager Content)
+        public int AddPanzer(int typ, float _angle, bool _overreach, Vector2 _pos)
+        {
+            // Spielername holen
+
+            if (Spiel.names == null || Spiel.names.Count == 0)
+            {
+                if (File.Exists("Content\\Konfiguration\\Namen.txt"))
+                {
+                    Spiel.names = new List<string>();
+
+                    var datei = new ReaderStream.ReaderStream("Content\\Konfiguration\\Namen.txt");
+
+                    while (!datei.EndOfStream)
+                    {
+                        Spiel.names.Add(datei.ReadLine());
+                    }
+
+                    datei.Close();
+                }
+            }
+
+            if (pos.Count >= Munition.Count()) return -1;
+
+            if (Spiel.names == null)
+            {
+                Namen.Add("Joe");
+            }
+            else
+            {
+                int q = Help.rnd.Next(0, Spiel.names.Count);
+                Namen.Add(Spiel.names[q]);
+                Spiel.names.RemoveAt(q);
+            }
+
+            int di = typ;
+            hp.Add(Fahrzeugdaten._MAXHP.Wert[di]);
+            int b = hp.Count - 1;
+            Angle.Add(_angle);
+            vehikleAngle.Add(0);
+            isthere.Add(true);
+            overreach.Add(_overreach);
+            Size.Add(Fahrzeugdaten.SCALEP.Wert[di]);
+            SizeOfCannon.Add(Fahrzeugdaten.SCALER.Wert[di]);
+            pos.Add(_pos);
+            oldpos.Add(_pos);
+            KindofTank.Add(di);
+            ExpNow.Add(0);
+            CurrentLv.Add(0);
+            Cooldown.Add(0);
+            Effekte.Add(new EffectPacket());
+            Zielpos.Add(new Vector2(0, -9999));
+            logik.Add(new Fahrlogik_Object(5));
+            for (int d = 0; d < Texturen.Radpositionen[di].Count(); d++)
+            {
+                logik[logik.Count - 1].Motoren.AddRad(Texturen.Radpositionen[di][d],
+                    Texturen.panzerindexreifen[di]);
+            }
+
+            Munition[b] = new List<int>();
+            Rucksack.Add(new Inventar(15000, Munition[b], 1000));
+
+            LadeKollisionsObjekt(b);
+            LadeZerstörungsObjekt(b);
+
+            return Effekte.Count - 1;
+        }
+
+        public bool LadenFahrzeug(List<String> Text, int i, ContentManager Content)
         {
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "FAHRZEUG");
-            if (Text2.Count == 0) return;
+            if (Text2.Count == 0) return false;
 
             int altid = i;
-            if (i == -1)
+            if (hp.Count <= altid) altid = -1;
+
+            if (altid == -1)
             {
                 // hinzufügen
+                i = AddPanzer(0, 0, false, Vector2.Zero);
+                if (i == -1) return false;
             }
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
@@ -862,11 +943,13 @@ namespace _4_1_
             KindofTank[i] = TextLaden.LadeInt(Liste, "KindofTank", KindofTank[i]);
             //   MaxPixel[i] = TextLaden.LadeInt(Liste, "MaxPixel", MaxPixel[i]);
             oldpos[i] = TextLaden.LadeVector2(Liste, "oldpos", oldpos[i]);
+            pos[i] = TextLaden.LadeVector2(Liste, "pos", pos[i]);
             overreach[i] = TextLaden.LadeBool(Liste, "overreach", overreach[i]);
             Namen[i] = TextLaden.LadeString(Liste, "Namen", Namen[i]);
             // Size[i] = TextLaden.LadeInt(Liste, "Size", Size[i]);
             //SizeOfCannon[i] = TextLaden.LadeInt(Liste, "SizeOfCannon", SizeOfCannon[i]);
             vehikleAngle[i] = TextLaden.LadeFloat(Liste, "vehikleAngle", vehikleAngle[i]);
+            Angle[i] = TextLaden.LadeFloat(Liste, "Angle", Angle[i]);
             Zielpos[i] = TextLaden.LadeVector2(Liste, "Zielpos", Zielpos[i]);
 
             Effekte[i] = EffectPacket.Laden(Text2, Content);
@@ -877,16 +960,22 @@ namespace _4_1_
             Zerstörung[i] = new ZerstörungsObjekt(Texturen.panzerindex[id].Width, Texturen.panzerindex[id].Height,
                 Fahrzeugdaten.SCALEP.Wert[id], true, true, true);
 
+
+            for (int d = 0; d < Texturen.Radpositionen[id].Count(); d++)
+            {
+                logik[i].Motoren.AddRad(Texturen.Radpositionen[id][d],
+                    Texturen.panzerindexreifen[id]);
+            }
+
             Kollision[i] = KollisionsObjekt.Laden(Text2, altid == -1 ? null : Kollision[id]);
 
             Zerstörung[i] = ZerstörungsObjekt.Laden(Text2, altid == -1 ? null : Zerstörung[id]);
 
             //if (Rucksack[i] == null) // ?? macht das sinn ???
             Rucksack[i] = Inventar.Laden(Text2, Content, altid == -1 ? new Inventar() : Rucksack[i]);
+            Munition[i] = Rucksack[i].Munition;
 
-            /*
-                data.AddRange(Rucksack[i].SpeicherIntText());
-*/
+            return true;
         }
 
         /// <summary>
@@ -1186,6 +1275,47 @@ namespace _4_1_
             return p;
         }
 
+        public static Spieler Laden(Spiel Spiel2, List<String> Text, Spieler Default)
+        {
+            Spieler temp = Default;
+
+            if (temp == null)
+            {
+                temp = new Spieler();
+            }
+
+            List<String> Text2 = TextLaden.ErmittleBereich(Text, "SPIELER");
+
+            Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
+            temp.id = TextLaden.LadeInt(Liste, "id", temp.id);
+            temp.ActionPoints = TextLaden.LadeInt(Liste, "ActionPoints", temp.ActionPoints);
+            temp.Credits = TextLaden.LadeFloat(Liste, "Credits", temp.Credits);
+            temp.CurrentWeapon = TextLaden.LadeInt(Liste, "CurrentWeapon", temp.CurrentWeapon);
+            temp.Farbe = TextLaden.LadeColor(Liste, "Farbe", temp.Farbe);
+            temp.fuelRemains = TextLaden.LadeFloat(Liste, "fuelRemains", temp.fuelRemains);
+            temp.ImTunnel = TextLaden.LadeBool(Liste, "ImTunnel", temp.ImTunnel);
+            temp.MaxSchuesse = TextLaden.LadeInt(Liste, "MaxSchuesse", temp.MaxSchuesse);
+            temp.MaxTimeout = TextLaden.LadeInt(Liste, "MaxTimeout", temp.MaxTimeout);
+            temp.shootingPower = TextLaden.LadeFloat(Liste, "shootingPower", temp.shootingPower);
+            temp._CurrentTank = TextLaden.LadeInt(Liste, "_CurrentTank", temp._CurrentTank);
+
+            bool result=true;
+            int i = 0;
+            for (; i < temp.hp.Count; i++)
+            {
+                temp.Entfernen(i, false, Spiel2, new GameTime());
+            }
+
+            i = 0;
+            do
+            {
+                result = temp.LadenFahrzeug(Text2, i, Game1.ContentAll);
+                i++;
+            } while (result);
+
+            return temp;
+        }
+
         public List<String> Speichern()
         {
             var data = new List<String>();
@@ -1194,7 +1324,7 @@ namespace _4_1_
             data.Add("ActionPoints=" + ActionPoints);
             data.Add("Credits=" + Credits);
             data.Add("CurrentWeapon=" + CurrentWeapon);
-            data.Add("Farbe=" + Farbe);
+            data.Add("Farbe=" + Karte.ToHex(Farbe,true));
             data.Add("fuelRemains=" + fuelRemains);
             data.Add("ImTunnel=" + ImTunnel);
             data.Add("MaxSchuesse=" + MaxSchuesse);
@@ -1212,11 +1342,13 @@ namespace _4_1_
                 data.Add("KindofTank=" + KindofTank[i]);
                 data.Add("MaxPixel=" + MaxPixel[i]);
                 data.Add("oldpos=" + oldpos[i]);
+                data.Add("pos=" + pos[i]);
                 data.Add("overreach=" + overreach[i]);
                 data.Add("Namen=" + Namen[i]);
                 data.Add("Size=" + Size[i]);
                 data.Add("SizeOfCannon=" + SizeOfCannon[i]);
                 data.Add("vehikleAngle=" + vehikleAngle[i]);
+                data.Add("Angle=" + Angle[i]);
                 data.Add("Zielpos=" + Zielpos[i]);
                 data.AddRange(Effekte[i].Speichern());
                 data.AddRange(Kollision[i].Speichern());
