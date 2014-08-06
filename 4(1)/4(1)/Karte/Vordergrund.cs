@@ -101,6 +101,7 @@ namespace _4_1_
 
                 _VordergrundSemaphore.WaitOne();
                 Spiel2.foreground[c] = new Texture2D(Game1.device, Bildbreite, screenHeight, false, SurfaceFormat.Color);
+                Game1.device.Textures[0] = null;
                 Spiel2.foreground[c].SetData(Spiel2.foregroundColors[c]);
                 _VordergrundSemaphore.Release();
             }
@@ -186,6 +187,7 @@ namespace _4_1_
                 if (ischanged[i])
                 {
                     _VordergrundSemaphore.WaitOne();
+                    Game1.device.Textures[0] = null;
                     Spiel2.foreground[i].SetData(Spiel2.foregroundColors[i]);
                     _VordergrundSemaphore.Release();
                 }
@@ -251,6 +253,7 @@ namespace _4_1_
                 }
                 _VordergrundSemaphore.WaitOne();
                 Spiel2.foreground[c] = new Texture2D(Game1.device, Bildbreite, screenHeight, false, SurfaceFormat.Color);
+                Game1.device.Textures[0] = null;
                 Spiel2.foreground[c].SetData(Spiel2.foregroundColors[c]);
                 _VordergrundSemaphore.Release();
             }
