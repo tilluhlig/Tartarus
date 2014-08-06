@@ -24,30 +24,13 @@ namespace _4_1_
     /// </summary>
     public class MapReader
     {
-        #region Fields
-
-        /// <summary>
-        ///     The convert
-        /// </summary>
-        public static bool Convert = false;
-
-        /// <summary>
-        ///     The list
-        /// </summary>
-        public static List<String> list = new List<String>();
-
-        #endregion Fields
-
         #region Methods
 
         /// <summary>
-        ///     Loads the map.
+        ///     Lädt ein Spiel aus einer Datei
         /// </summary>
-        /// <param name="game">The game.</param>
-        /// <param name="Map">The map.</param>
-        /// <param name="_Data">The _ data.</param>
-        /// <param name="Spielfeld">The spielfeld.</param>
-        /// <param name="screen">The screen.</param>
+        /// <param name="game">das Spielobjekt</param>
+        /// <param name="Map">der Pfad zum gespeicherten Spiel</param>
         public static void Laden(Game1 game, String Map)
         {
             //Hauptfenster.Program.Formular.progressBar1.Value = 0;
@@ -135,40 +118,6 @@ namespace _4_1_
             //Game1.Spiel2 = new Spiel();
             Game1.Ladebildschirmtexte = null;
             Tausch.SpielAktiv = true;
-        }
-
-        /// <summary>
-        ///     Finds the begin.
-        /// </summary>
-        /// <param name="Text">The text.</param>
-        /// <param name="Data">The data.</param>
-        /// <returns>System.Int32.</returns>
-        private int FindBegin(String Text, List<String> Data)
-        {
-            for (int i = 0; i < Data.Count; i++)
-                if (Data[i] == Text)
-                    return i;
-            return -1;
-        }
-
-        /// <summary>
-        ///     FLOATs the specified data.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns>System.Single.</returns>
-        private float FLOAT(String data)
-        {
-            return (float)(System.Convert.ToDouble(data));
-        }
-
-        /// <summary>
-        ///     INTs the specified data.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        /// <returns>System.Int32.</returns>
-        private int INT(String data)
-        {
-            return System.Convert.ToInt32(data);
         }
 
         #endregion Methods

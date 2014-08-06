@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework.Input;
 namespace _4_1_
 {
     /// <summary>
-    ///     Class Backpack
+    ///     Diese Klasse stellt Inventare in einem Menü dar
     /// </summary>
     public class Backpack
     {

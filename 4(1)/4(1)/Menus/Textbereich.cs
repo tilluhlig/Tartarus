@@ -16,53 +16,54 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 namespace _4_1_
 {
     /// <summary>
+    /// diese Klasse ermöglicht das Erstellen von Textbereichen
     /// </summary>
     public class Textbereich
     {
         #region Fields
 
         /// <summary>
-        ///     The scrollbar
+        ///     ein Scrollbarobjekt, für lange Texte
         /// </summary>
         public Scroller Scrollbar = null;
 
         /// <summary>
-        ///     The text
+        ///     der zerlegte Originaltext (erfolgt automatisch aus dem Originaltext)
         /// </summary>
         public List<string> Text = new List<string>();
 
         /// <summary>
-        ///     The cursor
+        ///     die Cursorposition im Text
         /// </summary>
         public int cursor = 0;
 
         /// <summary>
-        ///     The font
+        ///     die verwendete Schriftart
         /// </summary>
         public SpriteFont font;
 
         /// <summary>
-        ///     The maximum pixel information zeile
+        ///     die maximale Anzahl von Pixeln pro Zeile, welche mit Text gefüllt werden
         /// </summary>
         public int maxPixelInZeile = 300;
 
         /// <summary>
-        ///     The maximum zeilen
+        ///     die maximale Anzahl an Textzeilen (danach wird ein Scrollbalken angezeigt)
         /// </summary>
         public int maxZeilen = 10;
 
         /// <summary>
-        ///     The original text
+        ///     der Text, welcher im Textfeld dargestellt wird, mit Zeilenumbrüchen(\n)
         /// </summary>
         public String originalText = "";
 
         /// <summary>
-        ///     The position
+        ///     die Position des Textbereichs
         /// </summary>
         private Vector2 pos;
 
         /// <summary>
-        ///     The visible
+        ///     Sichtbar? true = ja, false = nein
         /// </summary>
         public bool visible = false;
 
@@ -71,13 +72,13 @@ namespace _4_1_
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Textbereich" /> class.
+        ///     initialisiert einen Textbereich
         /// </summary>
-        /// <param name="font">The font.</param>
-        /// <param name="maxPixelInZeile">The maximum pixel information zeile.</param>
-        /// <param name="maxZeilen">The maximum zeilen.</param>
-        /// <param name="graphicsDevice">The graphics device.</param>
-        /// <param name="Content">The content.</param>
+        /// <param name="font">eine Schriftart</param>
+        /// <param name="maxPixelInZeile">die maximale Anzahl von Pixeln pro Zeile, welche mit Text gefüllt werden</param>
+        /// <param name="maxZeilen">die maximale Anzahl an Textzeilen (danach wird ein Scrollbalken angezeigt)</param>
+        /// <param name="graphicsDevice">ein Bildschirmobjekt</param>
+        /// <param name="Content">ein ContentManager</param>
         public Textbereich(SpriteFont font, int maxPixelInZeile, int maxZeilen, GraphicsDevice graphicsDevice,
             ContentManager Content)
         {
@@ -94,15 +95,15 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
-        ///     Draws the specified sprite batch.
+        ///     Zeichnet den Textbereich
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch.</param>
-        /// <param name="graphicsDevice">The graphics device.</param>
-        /// <param name="Fenster">The fenster.</param>
-        /// <param name="found">if set to <c>true</c> [found].</param>
-        /// <param name="pos">The position.</param>
-        /// <param name="Feldfarbe">The feldfarbe.</param>
-        /// <param name="Randfarbe">The randfarbe.</param>
+        /// <param name="spriteBatch">eine Zeichenfläche</param>
+        /// <param name="graphicsDevice">ein Bildschirmobjekt</param>
+        /// <param name="Fenster">die Spielfeldverschiebng</param>
+        /// <param name="found">ob die Maus bereits über einem Objekt ist</param>
+        /// <param name="pos">die Position</param>
+        /// <param name="Feldfarbe">die Farbe des Textfeldes</param>
+        /// <param name="Randfarbe">dei Farbe vom Rand</param>
         /// <returns></returns>
         public bool Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, Vector2 Fenster, bool found,
             Vector2 pos, Color Feldfarbe, Color Randfarbe)
@@ -184,7 +185,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Hides this instance.
+        ///     versteckt den Textbereich
         /// </summary>
         public void hide()
         {
@@ -193,9 +194,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Mouses the keys.
+        ///     behandelt Mausaktionen
         /// </summary>
-        /// <param name="Fenster">The fenster.</param>
+        /// <param name="Fenster">die Verschiebung auf dem Spielfeld</param>
         /// <returns></returns>
         public bool MouseKeys(Vector2 Fenster)
         {
@@ -212,10 +213,10 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Called when [key press].
+        ///     behandelt Tastatureingaben 
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="KeyPressEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">der Auslöser (normalerweise null)</param>
+        /// <param name="e">das Tastaturevent bzw. die gedrückte Taste</param>
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!visible) return;
@@ -239,7 +240,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Shows this instance.
+        ///     macht den Textbereich sichtbar
         /// </summary>
         public void show()
         {
@@ -248,9 +249,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Tastens the eingabe.
+        ///     behandelt Tastatureingaben
         /// </summary>
-        /// <param name="keybState">State of the keyb.</param>
+        /// <param name="keybState">der Tastaturstatus</param>
         public void TastenEingabe(KeyboardState keybState)
         {
             if (!visible) return;

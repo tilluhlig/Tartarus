@@ -7,20 +7,20 @@ using Microsoft.Xna.Framework.Input;
 namespace _4_1_
 {
     /// <summary>
-    /// Dieses Menü wird für Fabrikgebäude verwendet
+    ///     Dieses Menü wird für Fabrikgebäude verwendet
     /// </summary>
     public static class BauMenü
     {
         #region Fields
 
         /// <summary>
-        /// Die ID des Gebäudes, dessen Menü geöffnet ist (muss gesetzt werden).
-        /// Es kann nur ein Baumenü gleichzeitig gezeichnet werden.
+        ///     Die ID des Gebäudes, dessen Menü geöffnet ist (muss gesetzt werden).
+        ///     Es kann nur ein Baumenü gleichzeitig gezeichnet werden.
         /// </summary>
         public static int HausID = -1;
 
         /// <summary>
-        /// eine Liste von Gebäudeobjekten, welche das Menü nutzen können
+        ///     eine Liste von Gebäudeobjekten, welche das Menü nutzen können
         /// </summary>
         public static Haus Hausliste = null;
 
@@ -39,7 +39,7 @@ namespace _4_1_
         #region Methods
 
         /// <summary>
-        /// zeichnet das Menü
+        ///     zeichnet das Menü
         /// </summary>
         /// <param name="spriteBatch">eine Zeichenfläche</param>
         /// <param name="Fenster">die Fensterverschiebung</param>
@@ -53,8 +53,8 @@ namespace _4_1_
 
             int typ = Hausliste.HausTyp[HausID];
             Vector2 Position = Hausliste.Position[HausID] +
-                               new Vector2(Hausliste.Bild[HausID].Width / 2,
-                                   -Hausliste.Bild[HausID].Height - Texturen.LeeresFeld.Width * scale - 15);
+                               new Vector2(Hausliste.Bild[HausID].Width/2,
+                                   -Hausliste.Bild[HausID].Height - Texturen.LeeresFeld.Width*scale - 15);
             if (Position.Y < 10) Position.Y = 10;
 
             int anz = 1;
@@ -67,17 +67,17 @@ namespace _4_1_
                 }
             }
 
-            Position.X -= ((Texturen.LeeresFeld.Width * scale + 10) * anz) / 2;
+            Position.X -= ((Texturen.LeeresFeld.Width*scale + 10)*anz)/2;
 
             if (-1 == Hausliste.Produktion[HausID])
             {
                 spriteBatch.Draw(Texturen.LeeresFeld,
-                    Position + new Vector2((Texturen.LeeresFeld.Width * scale + 10) * (0), 0) - Fenster, null,
-                    Color.Yellow * 5f, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+                    Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(0), 0) - Fenster, null,
+                    Color.Yellow*5f, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
             }
             else
                 spriteBatch.Draw(Texturen.LeeresFeld,
-                    Position + new Vector2((Texturen.LeeresFeld.Width * scale + 10) * (0), 0) - Fenster, null, Color.White,
+                    Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(0), 0) - Fenster, null, Color.White,
                     0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
 
             for (int i = 0; i < Fahrzeugdaten.KANNGEBAUTWERDEN.Wert.Length; i++)
@@ -87,8 +87,8 @@ namespace _4_1_
                     if (i == Hausliste.Produktion[HausID])
                     {
                         spriteBatch.Draw(Texturen.panzerbutton[i],
-                            Position + new Vector2((Texturen.LeeresFeld.Width * scale + 10) * (i + 1), 0) - Fenster, null,
-                            Color.Yellow * 5f, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+                            Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(i + 1), 0) - Fenster, null,
+                            Color.Yellow*5f, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                     }
                     else if (Spiel2.players[Spiel2.CurrentPlayer].Credits >= Fahrzeugdaten.PREIS.Wert[i] ||
                              (Hausliste.Produktion[HausID] > -1 &&
@@ -96,12 +96,12 @@ namespace _4_1_
                               Fahrzeugdaten.PREIS.Wert[Hausliste.Produktion[HausID]] >= Fahrzeugdaten.PREIS.Wert[i]))
                     {
                         spriteBatch.Draw(Texturen.panzerbutton[i],
-                            Position + new Vector2((Texturen.LeeresFeld.Width * scale + 10) * (i + 1), 0) - Fenster,
+                            Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(i + 1), 0) - Fenster,
                             null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                     }
                     else
                         spriteBatch.Draw(Texturen.panzerbutton[i],
-                            Position + new Vector2((Texturen.LeeresFeld.Width * scale + 10) * (i + 1), 0) - Fenster,
+                            Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(i + 1), 0) - Fenster,
                             null, Color.Red, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                 }
             }
@@ -125,7 +125,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        /// behandelt Mausereignisse
+        ///     behandelt Mausereignisse
         /// </summary>
         /// <param name="mouseState">ein aktueller Mausstatus</param>
         /// <param name="Fenster">die Position des Festers (Spielfeldverschiebung)</param>
@@ -139,8 +139,8 @@ namespace _4_1_
 
             int typ = Hausliste.HausTyp[HausID];
             Vector2 Position = Hausliste.Position[HausID] +
-                               new Vector2(Hausliste.Bild[HausID].Width / 2,
-                                   -Hausliste.Bild[HausID].Height - Texturen.LeeresFeld.Width * scale - 15);
+                               new Vector2(Hausliste.Bild[HausID].Width/2,
+                                   -Hausliste.Bild[HausID].Height - Texturen.LeeresFeld.Width*scale - 15);
             if (Position.Y < 10) Position.Y = 10;
 
             var Data = new List<int>();
@@ -156,13 +156,13 @@ namespace _4_1_
                 }
             }
 
-            Position.X -= ((Texturen.LeeresFeld.Width * scale + 10) * anz) / 2;
+            Position.X -= ((Texturen.LeeresFeld.Width*scale + 10)*anz)/2;
 
             // wurde etwas angeklickt???
             bool found = false;
             for (int i = 0; i < anz; i++)
             {
-                Vector2 Pos = Position + new Vector2((Texturen.LeeresFeld.Width * scale + 10) * (i), 0) - Fenster;
+                Vector2 Pos = Position + new Vector2((Texturen.LeeresFeld.Width*scale + 10)*(i), 0) - Fenster;
 
                 if (i == 0 || Spiel2.players[Spiel2.CurrentPlayer].Credits >= Fahrzeugdaten.PREIS.Wert[Data[i]] ||
                     (Hausliste.Produktion[HausID] > -1 &&
@@ -171,8 +171,8 @@ namespace _4_1_
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
                         if (mouseState.X >= Pos.X && mouseState.Y >= Pos.Y &&
-                            mouseState.X <= Pos.X + Texturen.LeeresFeld.Width * scale + 10 &&
-                            mouseState.Y <= Pos.Y + Texturen.LeeresFeld.Height * scale)
+                            mouseState.X <= Pos.X + Texturen.LeeresFeld.Width*scale + 10 &&
+                            mouseState.Y <= Pos.Y + Texturen.LeeresFeld.Height*scale)
                         {
                             if (Hausliste.Produktion[HausID] > -1)
                             {
