@@ -1313,6 +1313,43 @@ namespace _4_1_
                 i++;
             } while (result);
 
+
+
+            // Notizen laden
+            for (int b = 0; b < temp.Notiz.pos.Count; b++)
+                temp.Notiz.delNotiz(0);
+
+            int anz = Text2.Count;
+            do
+            {
+                anz = Text2.Count;
+                temp.Notiz.Laden(Text2, -1, Game1.device, Game1.ContentAll);
+            } while (anz != Text2.Count);
+
+
+            // Minen laden
+            temp.Minen.Clear();
+            anz = Text2.Count;
+            i = 0;
+            do
+            {
+                anz = Text2.Count;
+                temp.Minen.Add(Mine.Laden(Text2,null, i));
+                i++;
+            } while (anz != Text2.Count);
+
+
+            // Tunnel laden
+            temp.TunnelAnlage.Clear();
+            anz = Text2.Count;
+            i = 0;
+            do
+            {
+                anz = Text2.Count;
+                temp.TunnelAnlage.Add(Tunnel.Laden(Text2, null));
+                i++;
+            } while (anz != Text2.Count);
+
             return temp;
         }
 

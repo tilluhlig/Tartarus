@@ -9,6 +9,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+using System;
+using System.IO;
+using System.Web;
+using System.Net;
+//using System.Web.UI;
 
 // This class exposes WinForms-style key events.
 
@@ -218,7 +223,8 @@ namespace _4_1_
             }
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text);
-            Textfelder[i].originalText = TextLaden.LadeString(Liste, "originalText", Textfelder[i].originalText);
+            Textfelder[i].originalText = WebUtility.HtmlDecode(TextLaden.LadeString(Liste, "originalText", WebUtility.HtmlEncode(Textfelder[i].originalText)));
+            pos[i] = TextLaden.LadeVector2(Liste, "pos", pos[i]);
         }
 
         /// <summary>
@@ -338,7 +344,8 @@ namespace _4_1_
             for (int i = 0; i < Textfelder.Count; i++)
             {
                 data.Add("[NOTIZ]");
-                data.Add("originalText=" + Textfelder[i].originalText);
+                data.Add("originalText=" + WebUtility.HtmlEncode(Textfelder[i].originalText));
+                data.Add("pos=" + pos[i]);
                 data.Add("[/NOTIZ]");
             }
 

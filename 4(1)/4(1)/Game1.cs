@@ -1754,10 +1754,10 @@ namespace _4_1_
 
                 // && Game1.device.GraphicsDeviceStatus == GraphicsDeviceStatus.Normal
                 //Game1.device.DepthStencilState.DepthBufferEnable
-                if (Game1.device.GraphicsDeviceStatus == GraphicsDeviceStatus.Normal)
+                //if (Game1.device.GraphicsDeviceStatus == GraphicsDeviceStatus.Normal)
                     //Game1.device.Clear(Color.Black);
-                    GraphicsDevice.Clear(Color.Black);
-                    //GraphicsDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.F, 0);
+                    //GraphicsDevice.Clear(Color.Black);
+                    GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0F, 0);
 
                 if (LadebildschirmPositionLoop)
                 {

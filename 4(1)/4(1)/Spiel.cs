@@ -1864,7 +1864,6 @@ namespace _4_1_
                 for (int b = 0; b < players[i].pos.Count; b++)
                     players[i].Kenngroesse_Wert.StatischenWertHinzufügen(players[i].pos[b],
                         Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
-            int awetwet = 0;
         }
 
         /// <summary>
@@ -1961,23 +1960,28 @@ namespace _4_1_
                 Waffen temp2 = Waffen.Laden(Text2, null);
                 if (temp2 != null)
                 {
-                    Missile[i] = temp2;
+                    temp.Missile[i] = temp2;
                 }
                 else
-                    Missile[i].Delete();
+                    temp.Missile[i].Delete();
             }
 
+            // Spieler laden
             for (int i = 0; i < players.Count(); i++)
             {
 
-                players[i] = Spieler.Laden(temp, Text2, null);
+                temp.players[i] = Spieler.Laden(temp, Text2, null);
             }
 
-            /* for (; i < Missile.Count(); i++)
-                 {
-                     Missile[i] = new Waffen();
-                 Missile[i].ID = i;
-             }*/
+            for (int i = 0; i < temp.players.Length; i++)
+            {
+                temp.players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, temp.Height, 100, 100, 0);
+            }
+
+            for (int i = 0; i < temp.players.Length; i++)
+                for (int b = 0; b < temp.players[i].pos.Count; b++)
+                    temp.players[i].Kenngroesse_Wert.StatischenWertHinzufügen(temp.players[i].pos[b],
+                        Fahrzeugdaten._PANZERWERTE.Wert[temp.players[i].KindofTank[b]], 350);
 
             return temp;
         }
@@ -2333,9 +2337,9 @@ namespace _4_1_
             }
 
             // Kisten speichern
-            /* {
+            {
                  list.AddRange(Kisten.Speichern());
-             }*/
+             }
 
             // Spieler speichern
             {
