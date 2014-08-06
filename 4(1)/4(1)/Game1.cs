@@ -1816,13 +1816,13 @@ namespace _4_1_
 
             //SpriteBatch Zeichenflaeche = new SpriteBatch(GraphicsDevice);
             SpriteBatchSemaphor.WaitOne();
+          //  GraphicsDevice.Clear(Color.Black);
             RenderTarget2D rt = new RenderTarget2D(Game1.device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
             Game1.device.SetRenderTarget(rt);
 
             if (SpielBlend > 0)
             {
-
-                 GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0F, 0);
+               // GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 1.0F, 0);
 
 
                 /* SamplerState sampler = new SamplerState();

@@ -19,24 +19,24 @@ using Microsoft.Xna.Framework.Input;
 namespace _4_1_
 {
     /// <summary>
-    ///     Class Button
+    ///     Dies Klasse verwaltet Schaltflächen
     /// </summary>
     public class Button
     {
         #region Fields
 
         /// <summary>
-        ///     die Textur
+        ///     die Textur der Schaltfläche
         /// </summary>
         private readonly Texture2D button;
 
         /// <summary>
-        ///     The description
+        ///     erste Beschriftungszeile
         /// </summary>
         private readonly string description;
 
         /// <summary>
-        ///     The description2
+        ///    zweite Beschriftungszeile
         /// </summary>
         private readonly string description2 = "";
 
@@ -46,17 +46,17 @@ namespace _4_1_
         private readonly SpriteFont font;
 
         /// <summary>
-        ///     The string pos
+        ///     die Position der ersten Zeile
         /// </summary>
         private readonly Vector2 stringPos;
 
         /// <summary>
-        ///     The string pos2
+        ///     die Position der zweiten Zeile
         /// </summary>
         private readonly Vector2 stringPos2 = Vector2.Zero;
 
         /// <summary>
-        ///     The zwei strings
+        ///     zwei Beschriftungszeilen? true = ja, false = nein
         /// </summary>
         private readonly bool zweiStrings;
 
@@ -85,12 +85,12 @@ namespace _4_1_
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Button" /> class.
+        ///     initialisiert eine neue Schaltfläche
         /// </summary>
-        /// <param name="button">The button.</param>
-        /// <param name="pos">The pos.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="font">The font.</param>
+        /// <param name="button">die Textur</param>
+        /// <param name="pos">die Position</param>
+        /// <param name="description">die Bezeichnung</param>
+        /// <param name="font">die Schriftart</param>
         public Button(Texture2D button, Vector2 pos, string description, SpriteFont font)
         {
             this.button = button;
@@ -106,13 +106,13 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     initialisiert einen neuen Button
+        ///     initialisiert eine neue Schaltfläche
         /// </summary>
-        /// <param name="button">The button.</param>
-        /// <param name="pos">The pos.</param>
-        /// <param name="description1">The description1.</param>
-        /// <param name="description2">The description2.</param>
-        /// <param name="font">The font.</param>
+        /// <param name="button">die Textur</param>
+        /// <param name="pos">dir Position</param>
+        /// <param name="description1">die erste Beschriftungszeile der Schaltfläche</param>
+        /// <param name="description2">die zweite Beschriftungszeile der Schaltfläche</param>
+        /// <param name="font">die Schriftart</param>
         public Button(Texture2D button, Vector2 pos, string description1, string description2, SpriteFont font)
         {
             this.button = button;
@@ -140,8 +140,8 @@ namespace _4_1_
             Draw(spriteBatch, Cselected, unselected, 1);
         }
 
-    /// <summary>
-        ///     Zeichnet den Button
+        /// <summary>
+        ///     Zeichnet die Schaltfläche
         /// </summary>
         /// <param name="spriteBatch">eine Zeichenfläche</param>
         /// <param name="Cselected">die Farbe, wenn der Button ausgewählt ist</param>
