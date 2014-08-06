@@ -1729,6 +1729,7 @@ namespace _4_1_
         public static Semaphore SpriteBatchSemaphor = new Semaphore(1, 1);
         public static bool LadebildschirmAktiv = false;
         public static String LadebildschirmText = "";
+        public static bool LadebildschirmRichtung = false;
 
         /// <summary>
         ///     Reference page contains code sample.
@@ -1791,7 +1792,21 @@ namespace _4_1_
                 SpriteBatchSemaphor.WaitOne();
                 Game1.spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
                 //Game1.spriteBatch.Draw(LadeHintergrundBalken, new Rectangle((int)((float)Verschiebung2.X + faktor * (LadebildschirmPosition < 10 ? 0 : LadebildschirmPosition-10)), (int)Verschiebung2.Y, AnfangsBereich.Width, AnfangsBereich.Height), AnfangsBereich, Color.White);
-                Game1.spriteBatch.Draw(LadeHintergrundBalken, new Rectangle((int)((float)Verschiebung2.X), (int)Verschiebung2.Y, (int)(LadebildschirmPosition * faktor), LadeHintergrundBalken.Height), new Rectangle(0, 0, (int)(LadebildschirmPosition * faktor), LadeHintergrundBalken.Height), Color.White);
+
+                if (!LadebildschirmRichtung)
+                {
+                    Game1.spriteBatch.Draw(LadeHintergrundBalken,
+                        new Rectangle((int) ((float) Verschiebung2.X), (int) Verschiebung2.Y,
+                            (int) (LadebildschirmPosition*faktor), LadeHintergrundBalken.Height),
+                        new Rectangle(0, 0, (int) (LadebildschirmPosition*faktor), LadeHintergrundBalken.Height),
+                        Color.White);
+                } else
+                    Game1.spriteBatch.Draw(LadeHintergrundBalken,
+                        new Rectangle((int)((float)Verschiebung2.X + (LadebildschirmPositionMax-LadebildschirmPosition) * faktor), (int)Verschiebung2.Y,
+                            (int)((LadebildschirmPosition) * faktor), LadeHintergrundBalken.Height),
+                        new Rectangle((int)((LadebildschirmPositionMax-LadebildschirmPosition) * faktor), 0, (int)((LadebildschirmPosition) * faktor), LadeHintergrundBalken.Height),
+                        Color.White);
+
                 Game1.spriteBatch.Draw(LadeHintergrund, new Vector2((int)Verschiebung.X, (int)Verschiebung.Y), Color.White);
 
                 Help.DrawString(Game1.spriteBatch, Schriftart, LadebildschirmText, new Vector2(Game1.screenWidth / 2 - Schriftart.MeasureString(LadebildschirmText).X / 2, Verschiebung.Y + LadeHintergrund.Height), Color.Green,
@@ -1799,7 +1814,18 @@ namespace _4_1_
                 Game1.spriteBatch.End();
                 SpriteBatchSemaphor.Release();
 
-                LadebildschirmPosition+=2;
+                if (!LadebildschirmRichtung)
+                {
+                    LadebildschirmPosition += 1;
+                    if (LadebildschirmPosition == LadebildschirmPositionMax)
+                        LadebildschirmRichtung = true;
+                }
+                else
+                {
+                    LadebildschirmPosition -= 1;
+                    if (LadebildschirmPosition == 0)
+                        LadebildschirmRichtung = false;
+                }
                 return;
             }
 
