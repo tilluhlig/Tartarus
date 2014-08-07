@@ -26,6 +26,22 @@ namespace _4_1_
         #endregion Constructors
     }
 
+    public enum Anteil
+    {
+        Konstant = 0,
+        Fläche =1
+    }
+
+    public enum Wachstum
+    {
+        Konstant = 0,
+        LinearSteigend = 1,
+        LinearFallend = 2,
+        Quadratisch = 3,
+        Wurzel = 4,
+
+    }
+
     public class Kenngroesse
     {
         #region Fields
@@ -272,11 +288,7 @@ namespace _4_1_
                         Help.Abstand(new Vector2(Kenn.Feld.X + Kenn.Feld.Width, Kenn.Feld.Y), _Position) <= _Radius ||
                         Help.Abstand(new Vector2(Kenn.Feld.X, Kenn.Feld.Y + Kenn.Feld.Height), _Position) <= _Radius ||
                         Help.Abstand(new Vector2(Kenn.Feld.X + Kenn.Feld.Width, Kenn.Feld.Y + Kenn.Feld.Height),
-                            _Position) <= _Radius) //
-                    /* if (Kenn.Feld.X >= _Position.X - _Radius)
-             if (Kenn.Feld.Y >= _Position.Y - _Radius)
-                 if (Kenn.Feld.X <= _Position.X + _Radius)
-                     if (Kenn.Feld.Y <= _Position.Y + _Radius)*/
+                            _Position) <= _Radius)
                     {
                         Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += _Wert;
                     }
