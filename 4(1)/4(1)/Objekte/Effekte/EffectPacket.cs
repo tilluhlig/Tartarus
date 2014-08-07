@@ -205,9 +205,9 @@ namespace _4_1_
             return result < 0.0f ? 0.0f : result;
         }
 
-        public bool GibZielhilfe()
+        public int GibZielhilfe()
         {
-            return EffektSumme.Zielhilfe >= 1 ? true : false;
+            return EffektSumme.Zielhilfe;
         }
 
         // Verwaltungsfunktionen

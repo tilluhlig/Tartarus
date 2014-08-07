@@ -1093,10 +1093,12 @@ namespace _4_1_
                     {
                         spriteBatch.Begin();
                         if (Spiel2.CurrentPlayer == i && Spiel2.players[Spiel2.CurrentPlayer].CurrentTank == b &&
-                            Spiel2.players[Spiel2.CurrentPlayer].Effekte[b].GibZielhilfe() &&
+                            Spiel2.players[Spiel2.CurrentPlayer].Effekte[b].GibZielhilfe()>0 &&
                             Spiel2.players[Spiel2.CurrentPlayer].shootingPower >= 2 &&
                             Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
                         {
+
+                            int Zielhilfewert = Spiel2.players[Spiel2.CurrentPlayer].Effekte[b].GibZielhilfe();
                             // Zeichne Flugbahn
                             Vector2 a = Spiel2.players[i].pos[b] - Spiel2.Fenster;
                             Vector2 a2 = Spiel2.players[i].pos[b] - Spiel2.Fenster;
@@ -1126,7 +1128,7 @@ namespace _4_1_
                             c *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
                                  (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
                             getBahn(Waffen.gravity / 10.0f + (Spiel.WIND.Wert ? Spiel2.Wind / 60.0f : Vector2.Zero), c, a,
-                                screenHeight, (int)(a2.X - 1000), (int)(a2.X + 1000), spriteBatch);
+                                screenHeight, (int)(a2.X - Zielhilfewert), (int)(a2.X + Zielhilfewert), spriteBatch);
                         }
 
                         Color r = Color.White;
