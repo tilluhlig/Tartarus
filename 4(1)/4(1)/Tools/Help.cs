@@ -581,9 +581,14 @@ namespace _4_1_
             Point offset = new Point(0, 0);//Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
 
             MouseState temp = Mouse.GetState();
-            //Point iss = Hauptfenster.Program.Formular.pictureBox1.PointToClient(new Point(temp.X, temp.Y));
-            var result = new MouseState(temp.X - offset.X, temp.Y - offset.Y, temp.ScrollWheelValue, temp.LeftButton,
-                temp.MiddleButton, temp.RightButton, temp.XButton1, temp.XButton2);
+            var result = new MouseState(); ;
+            if (Program.game.IsActive)
+            {
+
+                //Point iss = Hauptfenster.Program.Formular.pictureBox1.PointToClient(new Point(temp.X, temp.Y));
+                result = new MouseState(temp.X - offset.X, temp.Y - offset.Y, temp.ScrollWheelValue, temp.LeftButton,
+                    temp.MiddleButton, temp.RightButton, temp.XButton1, temp.XButton2);
+            }
             return result;
         }
 
