@@ -2142,6 +2142,13 @@ namespace _4_1_
                 if (Game1.DEBUG_AKTIV.Wert)
                 {
                     spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
+                    Vector2 Spielerpos = Spiel2.players[Spiel2.CurrentPlayer].pos[
+                        Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]-Spiel2.Fenster;
+
+                    spriteBatch.Draw(Texturen.kreis,
+                        new Rectangle((int)(Spielerpos.X - 350), (int)(Spielerpos.Y - 350), 700, 700),
+                        Color.Yellow*0.5f);
+
                     Kenngroesse Kenn = Spiel2.players[Spiel2.CurrentPlayer].Kenngroesse_Wert;
                     if (Kenn != null)
                     {
@@ -2165,11 +2172,11 @@ namespace _4_1_
                                 if (bereich.Wert >= 60)
                                     Bereichsfarbe = Color.Red;
 
-                                if (Bereichsfarbe != null)
+                                /*if (Bereichsfarbe != null)
                                     Help.DrawRectangle(spriteBatch, this.GraphicsDevice,
                                         new Rectangle((int) (bereich.Feld.X - Spiel2.Fenster.X),
                                             (int) (bereich.Feld.Y - Spiel2.Fenster.Y), bereich.Feld.Width,
-                                            bereich.Feld.Height), Bereichsfarbe, 0.25f);
+                                            bereich.Feld.Height), Bereichsfarbe, 0.25f);*/
 
                                 Color Farbe = Color.Yellow;
                                 Help.DrawLine(spriteBatch,
@@ -2181,11 +2188,24 @@ namespace _4_1_
                                     new Vector2(bereich.Feld.X - Spiel2.Fenster.X,
                                         bereich.Feld.Y - Spiel2.Fenster.Y + bereich.Feld.Height), Farbe, 1);
 
-                                Vector2 text = Texturen.font2.MeasureString(Kenn.Bereiche[i, b].ToString());
-                                Help.DrawString(spriteBatch, Texturen.font2, Kenn.Bereiche[i, b].ToString(),
+                                double Wert = Math.Round(Kenn.Bereiche[i, b],2);
+                                Vector2 text = Texturen.font2.MeasureString(Wert.ToString());
+                                Help.DrawString(spriteBatch, Texturen.font2, Wert.ToString(),
                                     new Vector2(i*Kenn.Feldbreite - Spiel2.Fenster.X + Kenn.Feldbreite/2 - text.X/2,
                                         b*Kenn.Feldhoehe - Spiel2.Fenster.Y + Kenn.Feldhoehe/2 - text.Y/2),
                                     Farbe, Color.Transparent);
+                            }
+
+                        List<List<Vector2>> Flaechen =
+                            Kenn.KonstantenWertHinzufügenAnteilig(
+                                Spiel2.players[Spiel2.CurrentPlayer].pos[
+                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank], 0, 350);
+
+                        for (int i = 0; i < Flaechen.Count; i++)
+                            for (int b = 0; b < Flaechen[i].Count; b++)
+                            {
+                                Help.DrawLine(spriteBatch, Flaechen[i][b%Flaechen[i].Count]-Spiel2.Fenster,
+                                    Flaechen[i][(b + 1) % Flaechen[i].Count] - Spiel2.Fenster, Color.Red, 2);
                             }
                     }
                     spriteBatch.End();

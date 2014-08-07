@@ -1039,10 +1039,10 @@ namespace _4_1_
             var g = new Vector2(-move, 0);
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.SUMPF) g /= 3;
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.WASSER) g /= 1.5f;
-            Kenngroesse_Wert.StatischenWertHinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
+            Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
             pos[id] += g;
             pos[id] = new Vector2(Spiel.Position(pos[id].X), pos[id].Y);
-            Kenngroesse_Wert.StatischenWertHinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
+            Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
 
             //if (!overreach[id])
             {
@@ -1171,10 +1171,10 @@ namespace _4_1_
             var g = new Vector2(move, 0);
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.SUMPF) g /= 3;
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.WASSER) g /= 1.5f;
-            Kenngroesse_Wert.StatischenWertHinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
+            Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
             pos[id] += g;
             pos[id] = new Vector2(Spiel.Position(pos[id].X), pos[id].Y);
-            Kenngroesse_Wert.StatischenWertHinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
+            Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350);
             
 
             /* if (!overreach[id])

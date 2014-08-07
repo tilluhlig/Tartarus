@@ -727,7 +727,7 @@ namespace _4_1_
             for (int i = 0; i < Punkte.Count-1; i++)
                 Summe += (Punkte[i].Y + Punkte[i + 1].Y) * (Punkte[i].X - Punkte[i + 1].X);
             Summe += (Punkte[Punkte.Count - 1].Y + Punkte[0].Y) * (Punkte[Punkte.Count - 1].X - Punkte[0].X);
-            return Summe;
+            return Summe/2.0d;
         }
 
         // Gibt den Winkel für die Drehung zurück (als Bogenmaß)
