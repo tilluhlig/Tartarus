@@ -95,6 +95,8 @@ namespace _4_1_
 
         public List<List<Vector2>> KonstantenWertHinzufügenAnteilig(Vector2 _Position, double _Wert, int _Radius)
         {
+            _Position = new Vector2(((int)_Position.X), ((int)_Position.Y));
+
             int B = (int)Math.Ceiling((double)_Radius / Feldbreite) + 2;
             var Resultat = new List<List<Vector2>>();
 
@@ -135,6 +137,7 @@ namespace _4_1_
                         // alle 4 Ecken befinden sich im Kreis, damit volle Anrechnung
                         Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += _Wert;
                         Resultat.Add(Ecken);
+                        continue;
                     }
                     // Schnittpunkte des Kreises mit dem Bereich berechnen
                     var Schnittpunkte = new List<Vector2>();
@@ -259,8 +262,8 @@ namespace _4_1_
 
                     // Fläche berechnen
                     Resultat.Add(Ecken);
-                    var Flächenanteil = (float)(Help.PolygonFlaeche(Ecken) / (Feldbreite * Feldhoehe));
-                    Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += _Wert * Flächenanteil;
+                    double Flächenanteil = (float)(Help.PolygonFlaeche(Ecken) / (Feldbreite * Feldhoehe));
+                    Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += Math.Round(_Wert * Flächenanteil,2);
                 }
             return Resultat;
         }
