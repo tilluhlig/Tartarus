@@ -371,7 +371,7 @@ namespace _4_1_
 
             float FelderAbstand = Help.Abstand(new Vector2(_Bereich.Feld.Center.X, _Bereich.Feld.Center.Y),
                     _Position);
-            if (FelderAbstand > _Radius) FelderAbstand = _Radius;
+            if (FelderAbstand > _Radius) FelderAbstand = (float)(_Radius - Math.Sqrt(((_Bereich.Feld.Width / 2) * (_Bereich.Feld.Width / 2)) + ((_Bereich.Feld.Height / 2) * (_Bereich.Feld.Height / 2))));
 
             double WertAnteil = _Wert*(_Flache/(_Bereich.Feld.Width*_Bereich.Feld.Height));
             if (_Wachstum == Wachstum.LinearFallend)
