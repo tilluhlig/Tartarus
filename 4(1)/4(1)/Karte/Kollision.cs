@@ -3,28 +3,28 @@
 namespace _4_1_
 {
     /// <summary>
+    ///     das sind die IDs der möglichen Kollisionsarten
+    /// </summary>
+    public enum Kollisionsart
+    {
+        BUNKER = 6,
+        FABRIK = 2,
+        FAHRZEUG = 7,
+        GELAENDE = 0,
+        GESCHUETZ = 8,
+        HAUS = 1,
+        KISTE = 5,
+        TRASH = 4,
+        WAFFENHAENDLER = 3
+    }
+
+    /// <summary>
     ///     Die Klasse beschreibt eine Kollision, wo und unter welchen Umständen
     /// </summary>
     public class Kollision
     {
-        /// <summary>
-        ///     das sind die IDs der möglichen Kollisionsarten
-        /// </summary>
 
-        #region Kollisionsarten
-
-        public static int BUNKER = 6;
-
-        public static int FABRIK = 2;
-        public static int FAHRZEUG = 7;
-        public static int GELAENDE = 0;
-        public static int GESCHUETZ = 8;
-        public static int HAUS = 1;
-        public static int KISTE = 5;
-        public static int TRASH = 4;
-        public static int WAFFENHAENDLER = 3;
-
-        #region Fields
+    #region Fields
 
         /// <summary>
         ///     die Art der Kollision
@@ -115,7 +115,5 @@ namespace _4_1_
         }
 
         #endregion Methods
-
-        #endregion Kollisionsarten
     }
 }

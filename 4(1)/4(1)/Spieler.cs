@@ -595,8 +595,8 @@ namespace _4_1_
             for (int i = 0; i < Haeuser.Lebenspunkte.Count; i++)
             {
                 if (Haeuser.BesitzerPunkte[i] >= Allgemein.MinBesitzerPunkte && Haeuser.Lebenspunkte[i] > 0 &&
-                    Haeuser.Besitzer[i] == id && Haeuser.HausTyp[i] != Gebäudedaten.FABRIK &&
-                    Haeuser.HausTyp[i] != Gebäudedaten.WAFFENHÄNDLER)
+                    Haeuser.Besitzer[i] == id && Haeuser.HausTyp[i] != (int)Gebäudeart.FABRIK &&
+                    Haeuser.HausTyp[i] != (int)Gebäudeart.WAFFENHÄNDLER)
                 {
                     anzahl++;
                 }
@@ -676,7 +676,7 @@ namespace _4_1_
             for (int i = 0; i < Haeuser.Lebenspunkte.Count; i++)
             {
                 if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id &&
-                    Haeuser.HausTyp[i] == Gebäudedaten.FABRIK)
+                    Haeuser.HausTyp[i] == (int)Gebäudeart.FABRIK)
                 {
                     anzahl++;
                 }
@@ -719,7 +719,7 @@ namespace _4_1_
             for (int i = 0; i < Haeuser.Lebenspunkte.Count; i++)
             {
                 if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id &&
-                    Haeuser.HausTyp[i] == Gebäudedaten.WAFFENHÄNDLER)
+                    Haeuser.HausTyp[i] == (int)Gebäudeart.WAFFENHÄNDLER)
                 {
                     anzahl++;
                 }
@@ -734,7 +734,7 @@ namespace _4_1_
             for (int i = 0; i < Haeuser.Lebenspunkte.Count; i++)
             {
                 if (Haeuser.Lebenspunkte[i] > 0 && Haeuser.Besitzer[i] == id &&
-                    Haeuser.HausTyp[i] != Gebäudedaten.FABRIK && Haeuser.HausTyp[i] != Gebäudedaten.WAFFENHÄNDLER)
+                    Haeuser.HausTyp[i] != (int)Gebäudeart.FABRIK && Haeuser.HausTyp[i] != (int)Gebäudeart.WAFFENHÄNDLER)
                 {
                     anzahl++;
                 }

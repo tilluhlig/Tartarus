@@ -2902,8 +2902,8 @@ namespace _4_1_
                         if (Spiel2.Haeuser.Lebenspunkte[i] <= 0) continue;
                         if (Spiel2.Haeuser.BesitzerPunkte[i] < Allgemein.MinBesitzerPunkte) continue;
                         if (Spiel2.Haeuser.Besitzer[i] != t) continue;
-                        if (Spiel2.Haeuser.HausTyp[i] != Gebäudedaten.FABRIK &&
-                            Spiel2.Haeuser.HausTyp[i] != Gebäudedaten.WAFFENHÄNDLER) continue;
+                        if (Spiel2.Haeuser.HausTyp[i] != (int)Gebäudeart.FABRIK &&
+                            Spiel2.Haeuser.HausTyp[i] != (int)Gebäudeart.WAFFENHÄNDLER) continue;
                         if (Spiel2.Haeuser.IsCollision2(i,
                             Spiel2.players[t].pos[Spiel2.players[t].CurrentTank] + new Vector2(0, -5)))
                         {
@@ -4725,7 +4725,7 @@ namespace _4_1_
                         if (!found)
                             for (int i = 0; i < Spiel2.Haeuser.Position.Count; i++)
                             {
-                                if (Spiel2.Haeuser.HausTyp[i] != Gebäudedaten.FABRIK) continue;
+                                if (Spiel2.Haeuser.HausTyp[i] != (int)Gebäudeart.FABRIK) continue;
                                 if (Spiel2.Haeuser.Besitzer[i] != c) continue;
                                 if (Spiel2.Haeuser.IsCollision2(i,
                                     new Vector2(mouseState.X + Spiel2.Fenster.X, mouseState.Y + Spiel2.Fenster.Y)))

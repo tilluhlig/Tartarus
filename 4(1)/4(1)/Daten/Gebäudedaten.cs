@@ -14,6 +14,19 @@
 
 namespace _4_1_
 {
+    public enum Gebäudeart
+    {
+        /// <summary>
+        ///     Die ID der FABRIK
+        /// </summary>
+        FABRIK = 16,
+
+        /// <summary>
+        ///     Die ID des WAFFENHÄNDLERs
+        /// </summary>
+        WAFFENHÄNDLER = 17
+    }
+
     /// <summary>
     ///     diese Klasse wird für allgemeine Gebäudedaten bzw. den Daten zur Erstellung
     ///     von Dörfern und Städten genutzt
@@ -26,12 +39,7 @@ namespace _4_1_
         ///     Definiert DORF als Gebäudekopplung
         ///     -1 steht für zufälliges Haus aus HAEUSERDORF
         /// </summary>
-        public static Var<int[]> DORF = new Var<int[]>("DORF", new[] {-1, 17, -1});
-
-        /// <summary>
-        ///     Die ID der FABRIK
-        /// </summary>
-        public static int FABRIK = 16;
+        public static Var<int[]> DORF = new Var<int[]>("DORF", new[] { -1,(int) Gebäudeart.WAFFENHÄNDLER, -1 });
 
         /// <summary>
         ///     Enthält IDs zu allen Häusern, die in einem DORF vorkommen können
@@ -72,12 +80,7 @@ namespace _4_1_
         ///     Definiert STADT als Gebäudekopplung
         ///     -1 steht für zufälliges Haus aus HAEUSERDORF
         /// </summary>
-        public static Var<int[]> STADT = new Var<int[]>("STADT", new[] {-1, -1, 16, -1, -1});
-
-        /// <summary>
-        ///     Die ID des WAFFENHÄNDLERs
-        /// </summary>
-        public static int WAFFENHÄNDLER = 17;
+        public static Var<int[]> STADT = new Var<int[]>("STADT", new[] { -1, -1, (int)Gebäudeart.FABRIK, -1, -1 });
 
         #endregion Fields
     }

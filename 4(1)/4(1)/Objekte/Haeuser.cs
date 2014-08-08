@@ -377,7 +377,7 @@ namespace _4_1_
                     {
                         bool treffer3 = false;
                         MouseState mouseState = Help.GetMouseState();
-                        if (Game1.MausAktiv && Spiel2.Haeuser.HausTyp[i] == Gebäudedaten.FABRIK &&
+                        if (Game1.MausAktiv && Spiel2.Haeuser.HausTyp[i] == (int)Gebäudeart.FABRIK &&
                             Spiel2.Haeuser.Besitzer[i] == Spiel2.CurrentPlayer &&
                             Spiel2.Haeuser.BesitzerPunkte[i] >= Allgemein.MinBesitzerPunkte &&
                             Spiel2.Haeuser.Lebenspunkte[i] > 0)
