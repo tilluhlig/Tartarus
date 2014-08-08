@@ -4,6 +4,21 @@ using Microsoft.Xna.Framework;
 
 namespace _4_1_
 {
+    public enum Anteil
+    {
+        Konstant = 0,
+        Fläche = 1
+    }
+
+    public enum Wachstum
+    {
+        Konstant = 0,
+        LinearSteigend = 1,
+        LinearFallend = 2,
+        QuadratischSteigend = 3,
+        QuadratischFallend = 4,
+    }
+
     public class Bereich
     {
         #region Fields
@@ -24,22 +39,6 @@ namespace _4_1_
         }
 
         #endregion Constructors
-    }
-
-    public enum Anteil
-    {
-        Konstant = 0,
-        Fläche =1
-    }
-
-    public enum Wachstum
-    {
-        Konstant = 0,
-        LinearSteigend = 1,
-        LinearFallend = 2,
-        Quadratisch = 3,
-        Wurzel = 4,
-
     }
 
     public class Kenngroesse
@@ -107,15 +106,16 @@ namespace _4_1_
             {
                 return KonstantenWertHinzufügenEinfach(_Position, _Wert, _Radius,
              _Wachstum, Ausgabe);
-            } else if (_Anteil == Anteil.Fläche)
+            }
+            else if (_Anteil == Anteil.Fläche)
             {
                 return KonstantenWertHinzufügenAnteilig(_Position, _Wert, _Radius,
             _Wachstum, Ausgabe);
             }
-                return null;
+            return null;
         }
 
-        private List<List<Vector2>> KonstantenWertHinzufügenAnteilig(Vector2 _Position, double _Wert, int _Radius,Wachstum _Wachstum, bool Ausgabe)
+        private List<List<Vector2>> KonstantenWertHinzufügenAnteilig(Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum, bool Ausgabe)
         {
             _Position = new Vector2(((int)_Position.X), ((int)_Position.Y));
 
@@ -143,6 +143,23 @@ namespace _4_1_
                     Ecken.Add(new Vector2(Kenn.Feld.X + Kenn.Feld.Width, Kenn.Feld.Y + Kenn.Feld.Height));
                     Ecken.Add(new Vector2(Kenn.Feld.X, Kenn.Feld.Y + Kenn.Feld.Height));
 
+                    // ist _Position im Bereich
+                    if (Kenn.Feld.X <= _Position.X && Kenn.Feld.X + Kenn.Feld.Width >= _Position.X &&
+                        Kenn.Feld.Y <= _Position.Y && Kenn.Feld.Y + Kenn.Feld.Height >= _Position.Y)
+                    {
+                        if (Kenn.Feld.X <= _Position.X - _Radius)
+                            Ecken.Add(_Position - new Vector2(_Radius, 0));
+
+                        if (Kenn.Feld.X + Kenn.Feld.Width >= _Position.X + _Radius)
+                            Ecken.Add(_Position + new Vector2(_Radius, 0));
+
+                        if (Kenn.Feld.Y <= _Position.Y - _Radius)
+                            Ecken.Add(_Position - new Vector2(0, _Radius));
+
+                        if (Kenn.Feld.Y + Kenn.Feld.Height >= _Position.Y + _Radius)
+                            Ecken.Add(_Position + new Vector2(0, _Radius));
+                    }
+
                     // Berechnen, welche Ecken im Kreis sind
                     for (int c = 0; c < Ecken.Count; c++)
                         if (Help.Abstand(Ecken[c], _Position) < _Radius)
@@ -157,10 +174,10 @@ namespace _4_1_
                     if (Treffer == 4)
                     {
                         // alle 4 Ecken befinden sich im Kreis, damit volle Anrechnung
-                        Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += _Wert;
+                        Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += WachstumAnwenden(Kenn, Kenn.Feld.Width * Kenn.Feld.Height, _Position, _Wert, _Radius, _Wachstum);
 
                         if (Ausgabe)
-                        Resultat.Add(Ecken);
+                            Resultat.Add(Ecken);
                         continue;
                     }
                     // Schnittpunkte des Kreises mit dem Bereich berechnen
@@ -179,8 +196,8 @@ namespace _4_1_
                         if (x1 == x2)
                         {
                             float w = (_Position.X - x1);
-                            w = (float) Math.Sqrt(_Radius * _Radius -
-                                          w*w);
+                            w = (float)Math.Sqrt(_Radius * _Radius -
+                                          w * w);
 
                             Vector2 Punkt = new Vector2(x1,
                                     (float)
@@ -202,14 +219,14 @@ namespace _4_1_
                                (y2 <= Punkt2.Y && Punkt2.Y <= y1))
                             {
                                 Schnittpunkte.Add(Punkt2);
-                                SchnittpunktNach.Add(c + 1+d);
+                                SchnittpunktNach.Add(c + 1 + d);
                             }
                         }
                         else if (y1 == y2)
                         {
                             float w = (_Position.Y - y1);
-                            w = (float) Math.Sqrt(_Radius * _Radius -
-                                          w*w);
+                            w = (float)Math.Sqrt(_Radius * _Radius -
+                                          w * w);
 
                             Vector2 Punkt =
                                     new Vector2(
@@ -229,14 +246,14 @@ namespace _4_1_
                                 (x2 <= Punkt.X && Punkt.X <= x1))
                             {
                                 Schnittpunkte.Add(Punkt);
-                                SchnittpunktNach.Add(c + 1+d);
+                                SchnittpunktNach.Add(c + 1 + d);
                             }
 
                             if ((x1 <= Punkt2.X && Punkt2.X <= x2) ||
                                (x2 <= Punkt2.X && Punkt2.X <= x1))
                             {
                                 Schnittpunkte.Add(Punkt2);
-                                SchnittpunktNach.Add(c + 1+d);
+                                SchnittpunktNach.Add(c + 1 + d);
                             }
                         }
                     }
@@ -251,7 +268,7 @@ namespace _4_1_
                         float sx2 = Schnittpunkte[1].X;
                         float sy1 = Schnittpunkte[0].Y;
                         float sy2 = Schnittpunkte[1].Y;
-                        Vector2 M = new Vector2((sx1+sx2)/2,(sy1+sy2)/2);
+                        Vector2 M = new Vector2((sx1 + sx2) / 2, (sy1 + sy2) / 2);
                         Vector2 _PositionM = M - _Position;
                         float AbstandM = (_PositionM).Length();
                         _PositionM *= _Radius / AbstandM;
@@ -261,8 +278,8 @@ namespace _4_1_
                         if (!Getroffen[SchnittpunktNach[0] - 1])
                             ins = 0;
 
-                            Schnittpunkte.Insert(ins, _PositionM);
-                            SchnittpunktNach.Insert(ins, SchnittpunktNach[0]);
+                        Schnittpunkte.Insert(ins, _PositionM);
+                        SchnittpunktNach.Insert(ins, SchnittpunktNach[0]);
                     }
 
                     // Schnittpunkte einfügen
@@ -282,15 +299,10 @@ namespace _4_1_
                             c--;
                         }
 
-                    
-
-                    // Fläche berechnen
-
                     if (Ausgabe)
-                    Resultat.Add(Ecken);
+                        Resultat.Add(Ecken);
 
-                    double Flächenanteil = (float)(Help.PolygonFlaeche(Ecken) / (Feldbreite * Feldhoehe));
-                    Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += Math.Round(_Wert * Flächenanteil,2);
+                    Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += WachstumAnwenden(Kenn,(float) Help.PolygonFlaeche(Ecken), _Position, _Wert, _Radius, _Wachstum);
                 }
             return Resultat;
         }
@@ -321,7 +333,7 @@ namespace _4_1_
                         Help.Abstand(new Vector2(Kenn.Feld.X + Kenn.Feld.Width, Kenn.Feld.Y + Kenn.Feld.Height),
                             _Position) <= _Radius)
                     {
-                        Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += _Wert;
+                        Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += WachstumAnwenden(Kenn, Kenn.Feld.Width * Kenn.Feld.Height, _Position, _Wert, _Radius, _Wachstum);
 
                         if (Ausgabe)
                         {
@@ -333,8 +345,58 @@ namespace _4_1_
                             Resultat.Add(Ecken);
                         }
                     }
+                    else
+                        if (Kenn.Feld.X <= _Position.X - _Radius && Kenn.Feld.X + Kenn.Feld.Width >= _Position.X + _Radius && Kenn.Feld.Y <= _Position.Y - _Radius && Kenn.Feld.Y + Kenn.Feld.Height >= _Position.Y + _Radius)
+                        {
+                            Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += WachstumAnwenden(Kenn, Kenn.Feld.Width * Kenn.Feld.Height, _Position, _Wert, _Radius, _Wachstum);
+
+                            if (Ausgabe)
+                            {
+                                var Ecken = new List<Vector2>();
+                                Ecken.Add(new Vector2(Kenn.Feld.X, Kenn.Feld.Y));
+                                Ecken.Add(new Vector2(Kenn.Feld.X + Kenn.Feld.Width, Kenn.Feld.Y));
+                                Ecken.Add(new Vector2(Kenn.Feld.X + Kenn.Feld.Width, Kenn.Feld.Y + Kenn.Feld.Height));
+                                Ecken.Add(new Vector2(Kenn.Feld.X, Kenn.Feld.Y + Kenn.Feld.Height));
+                                Resultat.Add(Ecken);
+                            }
+                        }
                 }
             return Resultat;
+        }
+
+        private double WachstumAnwenden(Bereich _Bereich, float _Flache, Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum)
+        {
+            if (_Wachstum == Wachstum.Konstant)
+                return _Wert;
+
+            float FelderAbstand = Help.Abstand(new Vector2(_Bereich.Feld.Center.X, _Bereich.Feld.Center.Y),
+                    _Position);
+            if (FelderAbstand > _Radius) FelderAbstand = _Radius;
+
+            double WertAnteil = _Wert*(_Flache/(_Bereich.Feld.Width*_Bereich.Feld.Height));
+            if (_Wachstum == Wachstum.LinearFallend)
+            {
+                return WertAnteil * (1.0d - (double) FelderAbstand/_Radius);
+            }
+
+            if (_Wachstum == Wachstum.LinearSteigend)
+            {
+                return WertAnteil * ((double) FelderAbstand/_Radius);
+            }
+
+            if (_Wachstum == Wachstum.QuadratischFallend)
+            {
+                double faktor = ((double) FelderAbstand/_Radius);
+                return WertAnteil * (1 - faktor*faktor);
+            }
+
+            if (_Wachstum == Wachstum.QuadratischSteigend)
+            {
+                double faktor = ((double)FelderAbstand / _Radius);
+                return WertAnteil * (faktor * faktor);
+            }
+
+            return 0;
         }
 
         #endregion Methods
