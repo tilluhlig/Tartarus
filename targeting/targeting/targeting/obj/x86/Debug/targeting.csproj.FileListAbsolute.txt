@@ -1,9 +1,0 @@
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\obj\x86\Debug\targeting.csprojResolveAssemblyReference.cache
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\bin\x86\Debug\Content\this.xnb
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\bin\x86\Debug\targeting.exe
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\bin\x86\Debug\targeting.pdb
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\obj\x86\Debug\targeting.exe
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\obj\x86\Debug\targeting.pdb
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\bin\x86\Debug\Content\mauszeiger.xnb
-C:\User_files\else\miniprojekte\targeting\targeting\targeting\bin\x86\Debug\Content\font.xnb

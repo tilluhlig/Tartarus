@@ -93,7 +93,29 @@ namespace _4_1_
                 new Rectangle((int)_Id.X * Feldbreite, (int)_Id.Y * Feldhoehe, Feldbreite, Feldhoehe));
         }
 
-        public List<List<Vector2>> KonstantenWertHinzufügenAnteilig(Vector2 _Position, double _Wert, int _Radius)
+        public void Hinzufügen(Vector2 _Position, double _Wert, int _Radius, Anteil _Anteil,
+            Wachstum _Wachstum)
+        {
+            Hinzufügen(_Position, _Wert, _Radius, _Anteil,
+            _Wachstum, false);
+        }
+
+        public List<List<Vector2>> Hinzufügen(Vector2 _Position, double _Wert, int _Radius, Anteil _Anteil,
+            Wachstum _Wachstum, bool Ausgabe)
+        {
+            if (_Anteil == Anteil.Konstant)
+            {
+                return KonstantenWertHinzufügenEinfach(_Position, _Wert, _Radius,
+             _Wachstum, Ausgabe);
+            } else if (_Anteil == Anteil.Fläche)
+            {
+                return KonstantenWertHinzufügenAnteilig(_Position, _Wert, _Radius,
+            _Wachstum, Ausgabe);
+            }
+                return null;
+        }
+
+        private List<List<Vector2>> KonstantenWertHinzufügenAnteilig(Vector2 _Position, double _Wert, int _Radius,Wachstum _Wachstum, bool Ausgabe)
         {
             _Position = new Vector2(((int)_Position.X), ((int)_Position.Y));
 
@@ -136,6 +158,8 @@ namespace _4_1_
                     {
                         // alle 4 Ecken befinden sich im Kreis, damit volle Anrechnung
                         Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += _Wert;
+
+                        if (Ausgabe)
                         Resultat.Add(Ecken);
                         continue;
                     }
@@ -261,7 +285,10 @@ namespace _4_1_
                     
 
                     // Fläche berechnen
+
+                    if (Ausgabe)
                     Resultat.Add(Ecken);
+
                     double Flächenanteil = (float)(Help.PolygonFlaeche(Ecken) / (Feldbreite * Feldhoehe));
                     Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += Math.Round(_Wert * Flächenanteil,2);
                 }
@@ -274,9 +301,10 @@ namespace _4_1_
         /// <param name="_Position">die Position</param>
         /// <param name="_Wert">der Wert</param>
         /// <param name="_Radius">der Umkreis, in welchem der Wert wirkt</param>
-        public void KonstantenWertHinzufügenEinfach(Vector2 _Position, double _Wert, int _Radius)
+        private List<List<Vector2>> KonstantenWertHinzufügenEinfach(Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum, bool Ausgabe)
         {
             int B = (int)Math.Ceiling((double)_Radius / Feldbreite) + 2;
+            var Resultat = new List<List<Vector2>>();
 
             Bereich aktuell = GibBereichZuPosition(_Position);
             for (int i = -B - 1; i <= B + 1; i++)
@@ -294,8 +322,19 @@ namespace _4_1_
                             _Position) <= _Radius)
                     {
                         Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += _Wert;
+
+                        if (Ausgabe)
+                        {
+                            var Ecken = new List<Vector2>();
+                            Ecken.Add(new Vector2(Kenn.Feld.X, Kenn.Feld.Y));
+                            Ecken.Add(new Vector2(Kenn.Feld.X + Kenn.Feld.Width, Kenn.Feld.Y));
+                            Ecken.Add(new Vector2(Kenn.Feld.X + Kenn.Feld.Width, Kenn.Feld.Y + Kenn.Feld.Height));
+                            Ecken.Add(new Vector2(Kenn.Feld.X, Kenn.Feld.Y + Kenn.Feld.Height));
+                            Resultat.Add(Ecken);
+                        }
                     }
                 }
+            return Resultat;
         }
 
         #endregion Methods

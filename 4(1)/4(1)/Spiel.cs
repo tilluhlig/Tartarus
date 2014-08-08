@@ -862,24 +862,24 @@ namespace _4_1_
                     ;
                     if (players[i].pos[b].Y > Kartenformat.BottomOf(players[i].pos[b]))
                     {
-                        players[i].Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
+                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350,Anteil.Fläche,Wachstum.LinearFallend,false);
                         float diff = players[i].pos[b].Y - Kartenformat.BottomOf(players[i].pos[b]);
                         if (diff > move) diff = move;
                         Vector2 a = players[i].pos[b];
                         a.Y -= diff;
                         players[i].pos[b] = a;
-                        players[i].Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
+                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                         // if (Server.isRunning) Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
                     }
                     else if (players[i].pos[b].Y < Kartenformat.BottomOf(players[i].pos[b]))
                     {
-                        players[i].Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
+                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                         float diff = Kartenformat.BottomOf(players[i].pos[b]) - players[i].pos[b].Y;
                         if (diff > move) diff = move;
                         Vector2 a = players[i].pos[b];
                         a.Y += diff;
                         players[i].pos[b] = a;
-                        players[i].Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
+                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                         //if (Server.isRunning)
                         //   Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
                     }
@@ -1862,8 +1862,8 @@ namespace _4_1_
 
             for (int i = 0; i < players.Length; i++)
                 for (int b = 0; b < players[i].pos.Count; b++)
-                    players[i].Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(players[i].pos[b],
-                        Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350);
+                    players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b],
+                        Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
         }
 
         /// <summary>
@@ -1980,8 +1980,8 @@ namespace _4_1_
 
             for (int i = 0; i < temp.players.Length; i++)
                 for (int b = 0; b < temp.players[i].pos.Count; b++)
-                    temp.players[i].Kenngroesse_Wert.KonstantenWertHinzufügenAnteilig(temp.players[i].pos[b],
-                        Fahrzeugdaten._PANZERWERTE.Wert[temp.players[i].KindofTank[b]], 350);
+                    temp.players[i].Kenngroesse_Wert.Hinzufügen(temp.players[i].pos[b],
+                        Fahrzeugdaten._PANZERWERTE.Wert[temp.players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
 
             return temp;
         }

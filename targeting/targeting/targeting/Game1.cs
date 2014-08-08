@@ -24,7 +24,11 @@ namespace targeting
         Texture2D mouse;
         SpriteFont font;
         int screenheight = 480, screenwidth = 800;
-        float dx = 0, dy = 0, a = -0.5f, g = 0.3f;
+
+        // Wind
+        private float a = 0.5f;
+
+        float dx = 0, dy = 0, g = 0.3f;
         double v0 = 0, t = 0, angle = MathHelper.ToRadians(45);
         bool shoot = false;
 
@@ -228,7 +232,7 @@ namespace targeting
                 getBahn(new Vector2(a, g), new Vector2(x, y), ownPos, screenheight, -1, 1000, spriteBatch);
                 getBahn(new Vector2(a, g), new Vector2(x*0.8f, y*0.8f), ownPos, screenheight, -1, 1000, spriteBatch);
             }
-            //getBahn(new Vector2(2, 3), new Vector2(20, -30), new Vector2(1, 400),480, 0, 800, spriteBatch);
+           // getBahn(new Vector2(2, 3), new Vector2(20, -30), new Vector2(1, 400),480, 0, 800, spriteBatch);
             spriteBatch.End();
             // TODO: Add your drawing code here
 

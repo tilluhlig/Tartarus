@@ -1696,10 +1696,17 @@ namespace _4_1_
             if (_isDirty)
             {
                 _isDirty = false;
+                SpriteBatchSemaphor.WaitOne();
                 return base.BeginDraw();
             }
             else
                 return false;
+        }
+
+        protected override void EndDraw()
+        {
+                base.EndDraw();
+                SpriteBatchSemaphor.Release();
         }
 
         public static Texture2D LadeHintergrund = null;
@@ -1791,7 +1798,6 @@ namespace _4_1_
                     ;
                 }
 
-                SpriteBatchSemaphor.WaitOne();
                 Game1.spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
                 //Game1.spriteBatch.Draw(LadeHintergrundBalken, new Rectangle((int)((float)Verschiebung2.X + faktor * (LadebildschirmPosition < 10 ? 0 : LadebildschirmPosition-10)), (int)Verschiebung2.Y, AnfangsBereich.Width, AnfangsBereich.Height), AnfangsBereich, Color.White);
 
@@ -1814,7 +1820,6 @@ namespace _4_1_
                 Help.DrawString(Game1.spriteBatch, Schriftart, LadebildschirmText, new Vector2(Game1.screenWidth / 2 - Schriftart.MeasureString(LadebildschirmText).X / 2, Verschiebung.Y + LadeHintergrund.Height), Color.Green,
                     Color.Transparent);
                 Game1.spriteBatch.End();
-                SpriteBatchSemaphor.Release();
 
                 if (!LadebildschirmRichtung)
                 {
@@ -1844,7 +1849,6 @@ namespace _4_1_
             // GraphicsDevice.Clear(Color.White);
 
             //SpriteBatch Zeichenflaeche = new SpriteBatch(GraphicsDevice);
-            SpriteBatchSemaphor.WaitOne();
           //  GraphicsDevice.Clear(Color.Black);
             RenderTarget2D rt = new RenderTarget2D(Game1.device, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
             Game1.device.SetRenderTarget(rt);
@@ -2145,10 +2149,6 @@ namespace _4_1_
                     Vector2 Spielerpos = Spiel2.players[Spiel2.CurrentPlayer].pos[
                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]-Spiel2.Fenster;
 
-                    spriteBatch.Draw(Texturen.kreis,
-                        new Rectangle((int)(Spielerpos.X - 350), (int)(Spielerpos.Y - 350), 700, 700),
-                        Color.Yellow*0.5f);
-
                     Kenngroesse Kenn = Spiel2.players[Spiel2.CurrentPlayer].Kenngroesse_Wert;
                     if (Kenn != null)
                     {
@@ -2197,9 +2197,9 @@ namespace _4_1_
                             }
 
                         List<List<Vector2>> Flaechen =
-                            Kenn.KonstantenWertHinzufügenAnteilig(
+                            Kenn.Hinzufügen(
                                 Spiel2.players[Spiel2.CurrentPlayer].pos[
-                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank], 0, 350);
+                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank], 0, 350, Anteil.Fläche, Wachstum.LinearFallend, true);
 
                         for (int i = 0; i < Flaechen.Count; i++)
                             for (int b = 0; b < Flaechen[i].Count; b++)
@@ -2253,7 +2253,6 @@ namespace _4_1_
                 DrawTextEnd();
             }
             spriteBatch.End();
-            SpriteBatchSemaphor.Release();
             
             //GraphicsDevice.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
 

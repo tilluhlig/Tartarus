@@ -581,7 +581,7 @@ namespace _4_1_
             Point offset = new Point(0, 0);//Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
 
             MouseState temp = Mouse.GetState();
-            var result = new MouseState(); ;
+            var result = new MouseState();
             if (Program.game.IsActive)
             {
 
