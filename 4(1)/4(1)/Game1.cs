@@ -1128,7 +1128,7 @@ namespace _4_1_
                             c *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
                                  (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
                             getBahn(Waffen.gravity / 10.0f + (Spiel.WIND.Wert ? Spiel2.Wind / 60.0f : Vector2.Zero), c, a,
-                                screenHeight, (int)(a2.X - Zielhilfewert), (int)(a2.X + Zielhilfewert), spriteBatch);
+                                screenHeight, Zielhilfewert, spriteBatch);
                         }
 
                         Color r = Color.White;
@@ -2575,7 +2575,7 @@ namespace _4_1_
         /// <param name="minx">The minx.</param>
         /// <param name="maxx">The maxx.</param>
         /// <param name="spriteBatch">The sprite batch.</param>
-        private void getBahn(Vector2 g, Vector2 schuss, Vector2 pos, int screenheight, int minx, int maxx,
+        private void getBahn(Vector2 g, Vector2 schuss, Vector2 pos, int screenheight, int Weg,
             SpriteBatch spriteBatch)
         {
             Vector2 temp = pos;
@@ -2586,7 +2586,7 @@ namespace _4_1_
             }
 
             int summe = 0;
-            int maxsumme = 1000;
+            int maxsumme = Weg;
 
             bool draw = true;
             while (temp.Y < screenheight && summe <= maxsumme && !Kartenformat.isSet(temp + Spiel2.Fenster))
@@ -2594,10 +2594,8 @@ namespace _4_1_
                 var angle = (float)Math.Atan2(schuss.Y, schuss.X);
                 if (draw)
                 {
-                    //if (temp.X < maxx && temp.X > minx)
                     spriteBatch.Draw(line, new Rectangle((int)temp.X, (int)temp.Y, (int)schuss.Length(), 2), null,
                         Color.White, angle, new Vector2(0, 0), SpriteEffects.None, 0);
-                    //else return;
                     draw = false;
                     summe += 3 * (int)schuss.Length();
                 }
