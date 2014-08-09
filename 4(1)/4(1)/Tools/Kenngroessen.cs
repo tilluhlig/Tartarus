@@ -77,6 +77,11 @@ namespace _4_1_
 
         #region Methods
 
+       /* public List<Bereich> Find(Predicate<double> Bedingung)
+        {
+            //double[] 
+        }*/
+
         public Bereich GibBereichZuId(Vector2 _Id)
         {
             if (_Id.X < 0 || _Id.X >= FelderAnzahlHorizontal || _Id.Y < 0 || _Id.Y >= FelderAnzahlVertikal) return null;

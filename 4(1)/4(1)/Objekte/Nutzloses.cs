@@ -309,20 +309,24 @@ namespace _4_1_
 
                 if (xPos + Bild[i].Width*scale/2 < 0 || xPos - Bild[i].Width*scale/2 > Game1.screenWidth) continue;
 
+                //Game1.SpriteBatchSemaphor.WaitOne();
                 spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 spriteBatch.Draw(Bild[i], new Vector2(xPos - (Bild[i].Width*scale)/2, yPos - Bild[i].Height*scale), null,
                     Color.White, Winkel[i], new Vector2(0, 0), scale,
                     Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
                 spriteBatch.End();
+              //  Game1.SpriteBatchSemaphor.Release();
 
                 if (Editor.visible && Editor.mouseover == 2 && Editor.mouseoverid == i)
                 {
+                    //Game1.SpriteBatchSemaphor.WaitOne();
                     spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend);
                     spriteBatch.Draw(Bild[i], new Vector2(xPos - (Bild[i].Width*scale)/2, yPos - Bild[i].Height*scale),
                         null, Color.Blue, Winkel[i], new Vector2(0, 0), scale,
                         Gespiegelt[i] ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 1);
                     spriteBatch.End();
+                   // Game1.SpriteBatchSemaphor.Release();
                 }
             }
         }

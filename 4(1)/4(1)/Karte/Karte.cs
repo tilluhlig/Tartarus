@@ -42,6 +42,11 @@ namespace _4_1_
         public static bool KARTE_SYMMETRISCH;
 
         /// <summary>
+        ///     MOD-Variable, Gibt an, ob die Karte Höhlen enthalten soll
+        /// </summary>
+        public static bool KARTE_HOEHLEN;
+
+        /// <summary>
         ///     The material
         /// </summary>
         public static Materialien[] Material = new Materialien[16];
@@ -106,6 +111,12 @@ namespace _4_1_
         /// </summary>
         private static readonly Var<bool> MOD_KARTE_SYMMETRISCH = new Var<bool>("KARTE_SYMMETRISCH", false,
             ref KARTE_SYMMETRISCH);
+
+        /// <summary>
+        ///     Mod-Variable, Gibt an, ob die Karte Höhlen enthalten soll
+        /// </summary>
+        private static readonly Var<bool> MOD_KARTE_HOEHLE = new Var<bool>("KARTE_HOEHLEN", false,
+            ref KARTE_HOEHLEN);
 
         /// <summary>
         ///     MOD-Variable, Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
@@ -611,6 +622,7 @@ namespace _4_1_
             }
 
             // Höhlen
+            if (KARTE_HOEHLEN)
             Höhlenkonfiguration.Generate(hoehle, (symmetrisch ? arraysymm : array), null);
 
             /*// Felsen
@@ -826,6 +838,7 @@ namespace _4_1_
             }
 
             // Höhlen
+            if (KARTE_HOEHLEN)
             Höhlenkonfiguration.Generate(hoehle, (symmetrisch ? arraysymm : array), Haus.Orte);
 
             /*// Felsen

@@ -1284,7 +1284,9 @@ namespace _4_1_
         /// </summary>
         public void Current_Left() // bewegt den aktuellen Panzer nach links
         {
+            if (Mod.SPIELERMENU_VISIBLE.Wert)
             Game1.Spielermenu.intrade = false;
+
             //  if (Client.isRunning) return;
             if (players[CurrentPlayer].CurrentTank <= -1) return;
             if (Spieler.PLAYER_FUEL.Wert &&
@@ -1307,7 +1309,9 @@ namespace _4_1_
         /// </summary>
         public void Current_Right() // bewegt den aktuellen Panzer nach rechts
         {
+            if (Mod.SPIELERMENU_VISIBLE.Wert)
             Game1.Spielermenu.intrade = false;
+
             //if (Client.isRunning) return;
             if (players[CurrentPlayer].CurrentTank <= -1) return;
             if (Spieler.PLAYER_FUEL.Wert &&

@@ -781,6 +781,7 @@ namespace _4_1_
                                 Texturen.font2.MeasureString(cool).Y - 5), Color.Red * 0.8f);
 
                         // Munitionsvorrat
+                        if (Mod.AKTUELLE_MUNITION_BUTTON_MUNITIONSMENGE_VISIBLE.Wert)
                         if (Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] != 0 &&
                             Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] != 5)
                         {
@@ -4454,7 +4455,7 @@ namespace _4_1_
 
             if (!Editor.visible && Spiel2 != null && Tausch.SpielAktiv)
             {
-                if (!Spielermenu.visible)
+                if (!Mod.SPIELERMENU_VISIBLE.Wert || !Spielermenu.visible)
                 {
                     BauMenü.mouseKeys(Help.GetMouseState(), Spiel2.Fenster, Spiel2);
 

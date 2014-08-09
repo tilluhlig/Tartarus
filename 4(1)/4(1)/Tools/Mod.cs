@@ -36,6 +36,12 @@ namespace _4_1_
             false);
 
         /// <summary>
+        ///     MOD-Variable, aktuelle MunitionButton, mit Anzahl der Munition (links oben)
+        /// </summary>
+        public static Var<bool> AKTUELLE_MUNITION_BUTTON_MUNITIONSMENGE_VISIBLE = new Var<bool>("AKTUELLE_MUNITION_BUTTON_MUNITIONSMENGE_VISIBLE",
+            false);
+
+        /// <summary>
         ///     MOD-Variable, die X Position des aktuelle MunitionButton (links oben)
         /// </summary>
         public static Var<int> AKTUELLE_MUNITION_BUTTON_X = new Var<int>("AKTUELLE_MUNITION_BUTTON_X", 10);

@@ -338,7 +338,10 @@ namespace _4_1_
             }
             set
             {
-                if (value != _CurrentTank) Game1.Spielermenu.intrade = false;
+                if (value != _CurrentTank)
+                    if (Mod.SPIELERMENU_VISIBLE.Wert)
+                    Game1.Spielermenu.intrade = false;
+
                 _CurrentTank = value;
             }
         }

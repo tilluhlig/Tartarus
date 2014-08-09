@@ -207,11 +207,13 @@
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
             "A.conf",
-            "B.conf"});
+            "B.conf",
+            "C.conf"});
             this.comboBox3.Location = new System.Drawing.Point(689, 91);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(119, 21);
             this.comboBox3.TabIndex = 14;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // panel10
             // 

@@ -83,9 +83,9 @@ namespace Hauptfenster
             label31.ForeColor = Color.Green;
             label31.AutoSize = true;
 
-            Tausch.Mod = "B.conf";
-            comboBox3.SelectedIndex = 1;
-            comboBox3.Text = "B.conf";
+            Tausch.Mod = "C.conf";
+            comboBox3.SelectedIndex = 2;
+            comboBox3.Text = "C.conf";
             //  timer3.Enabled = true;
         }
 
@@ -1027,6 +1027,11 @@ namespace Hauptfenster
         }
 
         #endregion Classes
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
     /// <summary>

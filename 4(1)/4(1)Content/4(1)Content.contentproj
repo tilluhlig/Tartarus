@@ -110,6 +110,10 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <None Include="Konfiguration\C.conf">
+      <Name>C</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Konfiguration\Minesweeper.exe">
       <Name>Minesweeper</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
