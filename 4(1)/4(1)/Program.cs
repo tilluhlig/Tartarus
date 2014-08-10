@@ -62,7 +62,7 @@ namespace _4_1_
             bb.Parent = gameWindowForm;
             bb.Location = new System.Drawing.Point(50, 50);
             bb.Text = "abc";
-            bb.Show();
+            bb.Hide();
 
 #if DEBUG
                 game.Run();

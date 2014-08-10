@@ -47,6 +47,22 @@ namespace _4_1_
         public static bool KARTE_HOEHLEN;
 
         /// <summary>
+        ///     MOD-Variable, Gibt an, ob die Karte zufälligen Sumpf enthalten soll
+        /// </summary>
+        public static bool KARTE_ZUFALLS_SUMPF;
+
+        /// <summary>
+        ///     MOD-Variable, Gibt an, ob die Karte zufälligen Granit enthalten soll
+        /// </summary>
+        public static bool KARTE_ZUFALLS_GRANIT;
+
+
+        /// <summary>
+        ///     MOD-Variable, Gibt an, ob die Karte zufälliges Wasser enthalten soll
+        /// </summary>
+        public static bool KARTE_ZUFALLS_WASSER;
+
+        /// <summary>
         ///     The material
         /// </summary>
         public static Materialien[] Material = new Materialien[16];
@@ -117,6 +133,24 @@ namespace _4_1_
         /// </summary>
         private static readonly Var<bool> MOD_KARTE_HOEHLE = new Var<bool>("KARTE_HOEHLEN", false,
             ref KARTE_HOEHLEN);
+
+        /// <summary>
+        ///     Mod-Variable, Gibt an, ob die Karte zufälligen Granit enthalten soll
+        /// </summary>
+        private static readonly Var<bool> MOD_KARTE_ZUFALLS_GRANIT = new Var<bool>("KARTE_ZUFALLS_GRANIT", false,
+            ref KARTE_ZUFALLS_GRANIT);
+
+        /// <summary>
+        ///     Mod-Variable, Gibt an, ob die Karte zufälligen Sumpf enthalten soll
+        /// </summary>
+        private static readonly Var<bool> MOD_KARTE_ZUFALLS_SUMPF = new Var<bool>("KARTE_ZUFALLS_SUMPF", false,
+            ref KARTE_ZUFALLS_SUMPF);
+
+        /// <summary>
+        ///     Mod-Variable, Gibt an, ob die Karte zufälliges Wasser enthalten soll
+        /// </summary>
+        private static readonly Var<bool> MOD_KARTE_ZUFALLS_WASSER = new Var<bool>("KARTE_ZUFALLS_WASSER", false,
+            ref KARTE_ZUFALLS_WASSER);
 
         /// <summary>
         ///     MOD-Variable, Gibt an, ob die Gebäude auf der Karte als "Städte" und "Dörfer" angelegt werden sollen
@@ -634,12 +668,15 @@ namespace _4_1_
             CaveConf.Generate(Felsen, array);*/
 
             // Granit
-            var Granit = new Höhlenkonfiguration();
-            Granit.setAllgemein(450, 150, 50, 25, 200, 150, GRANIT1, false);
-            Granit.setA(5, 30, 0, 8, 40, 0.3f);
-            Granit.setB(15, 50, 0, 8, 50, 0.3f);
-            Granit.setC(15, 50, -40, -40, 40, 0.05f);
-            Höhlenkonfiguration.Generate(Granit, (symmetrisch ? arraysymm : array), null);
+            if (KARTE_ZUFALLS_GRANIT)
+            {
+                var Granit = new Höhlenkonfiguration();
+                Granit.setAllgemein(450, 150, 50, 25, 200, 150, GRANIT1, false);
+                Granit.setA(5, 30, 0, 8, 40, 0.3f);
+                Granit.setB(15, 50, 0, 8, 50, 0.3f);
+                Granit.setC(15, 50, -40, -40, 40, 0.05f);
+                Höhlenkonfiguration.Generate(Granit, (symmetrisch ? arraysymm : array), null);
+            }
 
             // Sumpf
             var Sumpf = new Höhlenkonfiguration();
@@ -647,11 +684,17 @@ namespace _4_1_
             Sumpf.setA(5, 30, 0, 0, 0, 0.3f);
             Sumpf.setB(30, 50, 0, 5, 10, 0.5f);
             Sumpf.setC(15, 50, -40, -40, 10, 0.05f);
-            Höhlenkonfiguration.Generate(Sumpf, (symmetrisch ? arraysymm : array), null);
+            if (KARTE_ZUFALLS_SUMPF)
+            {
+                Höhlenkonfiguration.Generate(Sumpf, (symmetrisch ? arraysymm : array), null);
+            }
 
             // Wasser
-            Sumpf.setAllgemein(1000, 50, 0, 35, 200, 450, WASSER, true);
-            Höhlenkonfiguration.Generate(Sumpf, (symmetrisch ? arraysymm : array), null);
+            if (KARTE_ZUFALLS_WASSER)
+            {
+                Sumpf.setAllgemein(1000, 50, 0, 35, 200, 450, WASSER, true);
+                Höhlenkonfiguration.Generate(Sumpf, (symmetrisch ? arraysymm : array), null);
+            }
 
             if (symmetrisch)
             {
@@ -850,12 +893,15 @@ namespace _4_1_
             CaveConf.Generate(Felsen, array);*/
 
             // Granit
-            var Granit = new Höhlenkonfiguration();
-            Granit.setAllgemein(450, 150, 50, 25, 200, 150, GRANIT1, false);
-            Granit.setA(5, 30, 0, 8, 40, 0.3f);
-            Granit.setB(15, 50, 0, 8, 50, 0.3f);
-            Granit.setC(15, 50, -40, -40, 40, 0.05f);
-            Höhlenkonfiguration.Generate(Granit, (symmetrisch ? arraysymm : array), Haus.Orte);
+            if (KARTE_ZUFALLS_GRANIT)
+            {
+                var Granit = new Höhlenkonfiguration();
+                Granit.setAllgemein(450, 150, 50, 25, 200, 150, GRANIT1, false);
+                Granit.setA(5, 30, 0, 8, 40, 0.3f);
+                Granit.setB(15, 50, 0, 8, 50, 0.3f);
+                Granit.setC(15, 50, -40, -40, 40, 0.05f);
+                Höhlenkonfiguration.Generate(Granit, (symmetrisch ? arraysymm : array), Haus.Orte);
+            }
 
             // Sumpf
             var Sumpf = new Höhlenkonfiguration();
@@ -863,11 +909,18 @@ namespace _4_1_
             Sumpf.setA(5, 30, 0, 0, 0, 0.3f);
             Sumpf.setB(30, 50, 0, 5, 10, 0.5f);
             Sumpf.setC(15, 50, -40, -40, 10, 0.05f);
-            Höhlenkonfiguration.Generate(Sumpf, (symmetrisch ? arraysymm : array), Haus.Orte);
+
+            if (KARTE_ZUFALLS_SUMPF)
+            {
+                Höhlenkonfiguration.Generate(Sumpf, (symmetrisch ? arraysymm : array), Haus.Orte);
+            }
 
             // Wasser
-            Sumpf.setAllgemein(1000, 50, 0, 35, 200, 450, WASSER, true);
-            Höhlenkonfiguration.Generate(Sumpf, (symmetrisch ? arraysymm : array), Haus.Orte);
+            if (KARTE_ZUFALLS_WASSER)
+            {
+                Sumpf.setAllgemein(1000, 50, 0, 35, 200, 450, WASSER, true);
+                Höhlenkonfiguration.Generate(Sumpf, (symmetrisch ? arraysymm : array), Haus.Orte);
+            }
 
             if (symmetrisch)
             {
