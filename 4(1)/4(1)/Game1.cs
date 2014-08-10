@@ -4517,9 +4517,10 @@ namespace _4_1_
                 }
             }
 
-            if (!Editor.visible && Mod.SPIELERMENU_VISIBLE.Wert)
+            if (!Editor.visible)
                 if (CurrentTank >= 0)
                 {
+                    if (Mod.SPIELERMENU_VISIBLE.Wert)
                     if (Spielermenu.mouseKeys(mouseState, Spiel2.players[Spiel2.CurrentPlayer].Rucksack[CurrentTank],
                         Spiel2.players[Spiel2.CurrentPlayer].Effekte[CurrentTank]))
                     {

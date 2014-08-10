@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace _4_1_
 {
@@ -26,6 +28,8 @@ namespace _4_1_
         /// ein Zeiger auf das XNA Spielobjekt
         /// </summary>
         public static Game1 game;
+
+        public static System.Windows.Forms.Button bb;
 
         #endregion Fields
 
@@ -49,6 +53,17 @@ namespace _4_1_
             bool fehler = false;
             Thread.Sleep(100);
             Hauptfenster.Program.Formular.Hide();
+
+
+            Form gameWindowForm = (Form)Form.FromHandle(Program.game.Window.Handle);
+            gameWindowForm.BringToFront();
+            gameWindowForm.FormBorderStyle = FormBorderStyle.None;
+            bb = new System.Windows.Forms.Button();
+            bb.Parent = gameWindowForm;
+            bb.Location = new System.Drawing.Point(50, 50);
+            bb.Text = "abc";
+            bb.Show();
+
 #if DEBUG
                 game.Run();
 #else

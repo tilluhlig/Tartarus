@@ -16,6 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Xna.Framework;
@@ -579,7 +585,6 @@ namespace _4_1_
         public static MouseState GetMouseState()
         {
             Point offset = new Point(0, 0);//Hauptfenster.Program.Formular.pictureBox1.PointToScreen(new Point(0, 0));
-
             MouseState temp = Mouse.GetState();
             var result = new MouseState();
             if (Program.game.IsActive)
