@@ -486,6 +486,7 @@ namespace _4_1_
         /// </summary>
         public void DrawArbeitsbereich()
         {
+            if (Fahrzeugdaten.ARBEITSBEREICHE == false) return;
             if (Spiel2.CurrentPlayer == -1) return;
             int i = Spiel2.CurrentPlayer;
             int b = Spiel2.players[i].CurrentTank;
@@ -1448,7 +1449,8 @@ namespace _4_1_
             if (Spiel.TIMEOUT.Wert)
             {
                 String t = Convert.ToString(Spiel2.Timeout / 60);
-                spriteBatch.DrawString(Texturen.font, Spiel2.Timeout > 0 ? t : "---", new Vector2(25, screenHeight - 35),
+                t = Spiel2.Timeout > 0 ? t : "---";
+                spriteBatch.DrawString(Texturen.font,t , new Vector2(screenWidth/2-Texturen.font.MeasureString(t).X, 35),
                     Color.Gold);
             }
             //  spriteBatch.DrawString(Texturen.font, Spiel2.Fenster.X.ToString(), new Vector2(200, 35), Color.Gold);
@@ -2321,7 +2323,7 @@ namespace _4_1_
            check_Datenaustausch();
 
 
-           if (Time.TotalGameTime.TotalMilliseconds - elapsed >= 50)
+           if (Time.TotalGameTime.TotalMilliseconds - elapsed >= 25)
            {
                _isDirty = true;
                elapsed = Time.TotalGameTime.TotalMilliseconds;

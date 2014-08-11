@@ -279,7 +279,7 @@ namespace _4_1_
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Sichtbar) return;
-            e.Handled = true;
+            //e.Handled = true;
             if (Ausgewählt)
             {
                 if (e.KeyChar == 8 && input.Length != 0)

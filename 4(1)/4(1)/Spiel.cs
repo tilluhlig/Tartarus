@@ -115,6 +115,21 @@ namespace _4_1_
         public static Var<bool> TIMEOUT = new Var<bool>("TIMEOUT", false);
 
         /// <summary>
+        ///     The TIMEOUT
+        /// </summary>
+        public static Var<bool> TIMEOUT_SPIELERWECHSEL = new Var<bool>("TIMEOUT_SPIELERWECHSEL", true);
+
+        /// <summary>
+        ///     The TIMEOUT_REDUZIEREN_BEIM_FAHREN
+        /// </summary>
+        public static Var<int> TIMEOUT_REDUZIEREN_BEIM_FAHREN = new Var<int>("TIMEOUT_REDUZIEREN_BEIM_FAHREN", 5);
+
+        /// <summary>
+        ///     The TIMEOUT_SEKUNDEN
+        /// </summary>
+        public static Var<int> TIMEOUT_SEKUNDEN = new Var<int>("TIMEOUT_SEKUNDEN", 60);
+
+        /// <summary>
         ///     The WIND
         /// </summary>
         public static Var<bool> WIND = new Var<bool>("WIND", false);
@@ -1298,7 +1313,7 @@ namespace _4_1_
             bool message = players[CurrentPlayer].Links(Spielfeld, players[CurrentPlayer].CurrentTank);
             if (message)
             {
-                if (TIMEOUT.Wert) Timeout -= 5;
+                if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
                 if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
                 //  if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
@@ -1322,7 +1337,7 @@ namespace _4_1_
             bool message = players[CurrentPlayer].Rechts(Spielfeld, players[CurrentPlayer].CurrentTank, Fenster);
             if (message)
             {
-                if (TIMEOUT.Wert) Timeout -= 5;
+                if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
                 if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
                 // if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
@@ -1856,7 +1871,7 @@ namespace _4_1_
                 }
 
                 players[i].shootingPower = 0f;
-                players[i].MaxTimeout = 180 * 60;
+                players[i].MaxTimeout = TIMEOUT_SEKUNDEN.Wert * 60;
                 players[i].Credits = 5000;
                 players[i].Farbe = Spielerfarben[i];
                 players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, Height, 100, 100, 0);
@@ -1881,32 +1896,11 @@ namespace _4_1_
                 {
                     if (!players[i].isthere[b]) continue;
 
-                    if (CurrentPlayer == i)
+                    if (CurrentPlayer == i || !TIMEOUT_SPIELERWECHSEL.Wert)
                     {
                         players[i].oldpos[b] = players[i].pos[b];
 
-                        // Gift
-                        /* if (players[i].poisoned[b] > 0)
-                             players[i].hp[b] -= players[i].Effekte[b].GetGiftSchaden(players[i].Effekte[b].GetMaxHP((int)(Tankdata.MaxHP[players[i].KindofTank[b]])));
-
-                         if (players[i].poisoned[b] > 0) { players[i].poisoned[b]--; if (players[i].poisoned[b] == 0)players[i].poisoned[b] = -2; }
-                         else
-                             if (players[i].poisoned[b] < 0) players[i].poisoned[b]++;*/
-
-                        /*// Feuer
-                        if (players[i].brennend[b] > 0)
-                            players[i].hp[b] -= (int)(Tankdata.MaxHP[players[i].KindofTank[b]] * 0.13f);*/
-
-                        /*if (players[i].electrified[b] > 0) { players[i].electrified[b]--; if (players[i].electrified[b] == 0)players[i].electrified[b] = -2; }
-                        else
-                            if (players[i].electrified[b] < 0) players[i].electrified[b]++;*/
-
                         players[i].Effekte[b].PrüfeEffektdauer();
-
-                        // freezed
-                        /*if (players[i].freezed[b] > 0) { players[i].freezed[b]--; if (players[i].freezed[b] == 0)players[i].freezed[b] = -2; }
-                        else
-                            if (players[i].freezed[b] < 0) players[i].freezed[b]++;*/
                     }
                 }
             }
@@ -2007,7 +2001,7 @@ namespace _4_1_
             bool message = players[player].Links(Spielfeld, id);
             if (message)
             {
-                if (TIMEOUT.Wert) Timeout -= 5;
+                if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
                 if (!Moving_Map && id == players[player].CurrentTank) Set_Focus_X(players[player].pos[id]);
                 //  if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
@@ -2019,44 +2013,59 @@ namespace _4_1_
         public void next_player() // setzte auf nächsten Spieler
         {
             if (Client.isRunning) return;
-            CurrentPlayer++;
-            if (SpielerAktiv() > 0)
+
+            if (TIMEOUT_SPIELERWECHSEL.Wert)
             {
-                CurrentPlayer %= SpielerAktiv();
-                int i = 0;
-                for (; CurrentPlayer >= 0; i++)
+                CurrentPlayer++;
+                if (SpielerAktiv() > 0)
                 {
-                    bool check = false;
-                    for (int b = 0; b < players[i].pos.Count; b++)
+                    CurrentPlayer %= SpielerAktiv();
+                    int i = 0;
+                    for (; CurrentPlayer >= 0; i++)
                     {
-                        if (players[i].isthere[b])
+                        bool check = false;
+                        for (int b = 0; b < players[i].pos.Count; b++)
                         {
-                            check = true;
-                            break;
+                            if (players[i].isthere[b])
+                            {
+                                check = true;
+                                break;
+                            }
                         }
+                        if (check) CurrentPlayer--;
                     }
-                    if (check) CurrentPlayer--;
+                    i--;
+                    Tausch.CurrentPlayer = i;
+                    CurrentPlayer = i;
+
+                    if (players[i].CurrentWeapon == 5) players[i].CurrentWeapon = 0;
+                    increaseairstrike = false;
+                    Moving_Map = false;
+                    increaseshot = false;
+                    players[i].shootingPower = 0;
+                    int a = players[i].CurrentTank;
+
+                    if (CREDITS.Wert)
+                        players[CurrentPlayer].Credits += players[CurrentPlayer].Generate_Credits(Haeuser, CurrentPlayer);
+
+                    if (TIMEOUT.Wert) Timeout = players[CurrentPlayer].MaxTimeout+1;
+                    if (SCHUESSE.Wert) Schuesse = players[CurrentPlayer].MaxSchuesse;
+                    if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
                 }
-                i--;
-                Tausch.CurrentPlayer = i;
-                CurrentPlayer = i;
-
-                if (players[i].CurrentWeapon == 5) players[i].CurrentWeapon = 0;
-                increaseairstrike = false;
-                Moving_Map = false;
-                increaseshot = false;
-                players[i].shootingPower = 0;
-                int a = players[i].CurrentTank;
-
-                if (CREDITS.Wert)
-                    players[CurrentPlayer].Credits += players[CurrentPlayer].Generate_Credits(Haeuser, CurrentPlayer);
-
-                if (TIMEOUT.Wert) Timeout = players[CurrentPlayer].MaxTimeout;
-                if (SCHUESSE.Wert) Schuesse = players[CurrentPlayer].MaxSchuesse;
-                if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
+                else
+                    CurrentPlayer = -1;
             }
             else
-                CurrentPlayer = -1;
+            {
+                for (int i = 0; i < players.Count(); i++)
+                {
+                    if (CREDITS.Wert)
+                        players[i].Credits += players[i].Generate_Credits(Haeuser, i);
+
+                    if (TIMEOUT.Wert) Timeout = players[i].MaxTimeout+1;
+                    if (SCHUESSE.Wert) Schuesse = players[i].MaxSchuesse;
+                }
+            }
 
             InitRunde();
             /* if (Server.isRunning)
@@ -2187,7 +2196,7 @@ namespace _4_1_
             bool message = players[player].Rechts(Spielfeld, id, Fenster);
             if (message)
             {
-                if (TIMEOUT.Wert) Timeout -= 5;
+                if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
                 if (!Moving_Map && id == players[player].CurrentTank) Set_Focus_X(players[player].pos[id]);
                 // if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }

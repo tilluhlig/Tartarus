@@ -41,7 +41,8 @@ namespace _4_1_
         private static int[] pressed = new int[256];
         private static int[] down = new int[256];
         private static bool first=true;
-        private static int readed = 2;
+        private static int readed = 3;
+        private static List<int> oldTreffer = new List<int>();
 
         public static void OnKeyPress()
         {
@@ -55,6 +56,32 @@ namespace _4_1_
                 first=false;
             }
 
+            for (int i = 0; i < oldTreffer.Count(); i++)
+            {
+                int KEY = (int)oldTreffer[i];
+                if (pressed[KEY] > 0)
+                {
+                    pressed[KEY]--;
+                    if (down[KEY] == 0)
+                    {
+                        down[KEY] = 30;
+                    }
+                    else if (down[KEY] > 1)
+                    {
+                        down[KEY]--;
+                    }
+                    else if (down[KEY] == 1)
+                    {
+                        pressed[KEY] = 0;
+                    }
+                }
+                else
+                {
+                    pressed[KEY] = 0;
+                    down[KEY] = 0;
+                }
+            }
+
             KeyboardState State = Keyboard.GetState();
 
             Keys[] temp = Keyboard.GetState().GetPressedKeys();
@@ -63,6 +90,7 @@ namespace _4_1_
             int shift = (State.IsKeyDown(Keys.LeftShift) || State.IsKeyDown(Keys.RightShift)) ? 1 : 0;
             int alt = (State.IsKeyDown(Keys.LeftAlt)) ? 1 : 0;
             int altGr = (State.IsKeyDown(Keys.RightAlt)) ? 1 : 0;
+            List<int> treffer = new List<int>();
 
             for (int i = 0; i < temp.Count(); i++)
             {
@@ -73,7 +101,9 @@ namespace _4_1_
                         var Key = new KeyPressEventArgs((char) (temp[i] + (1 - shift)*32));
                         AlleAufrufen(Key);
                     }
+
                     pressed[(int)(temp[i] + (1 - shift) * 32)] = readed;
+                    treffer.Add((int)(temp[i] + (1 - shift) * 32));
                 }
              
                 else
@@ -89,8 +119,10 @@ namespace _4_1_
                                     {
                                         var Key = new KeyPressEventArgs(MapChar[b]);
                                         AlleAufrufen(Key);
+                                        
                                     }
                                     pressed[(int)MapChar[b]] = readed;
+                                    treffer.Add((int)MapChar[b]);
                                 }
                             }
                             if (altGr == 1)
@@ -103,6 +135,7 @@ namespace _4_1_
                                         AlleAufrufen(Key);
                                     }
                                     pressed[(int)MapAltGrChar[b]] = readed;
+                                    treffer.Add((int)MapAltGrChar[b]);
                                 }
                             }
                             if (shift == 1)
@@ -115,30 +148,39 @@ namespace _4_1_
                                         AlleAufrufen(Key);
                                     }
                                     pressed[(int)MapShiftChar[b]] = readed;
+                                    treffer.Add((int)MapShiftChar[b]);
                                 }
                             }
                         }
                 }
             }
 
-            for (int i = 0; i < pressed.Count(); i++)
+            for (int i = 0; i < treffer.Count(); i++)
             {
-                if (pressed[i] > 0)
+                int KEY = (int)treffer[i];
+                if (pressed[KEY] > 0)
                 {
-                    pressed[i]--;
-                    if (down[i] == 0)
+                    pressed[KEY]--;
+                    if (down[KEY] == 0)
                     {
-                        down[i] = 30;
-                    } else if (down[i] > 1)
+                        down[KEY] = 30;
+                    }
+                    else if (down[KEY] > 1)
                     {
-                        down[i]--;
-                    } else if (down[i] == 1)
+                        down[KEY]--;
+                    }
+                    else if (down[KEY] == 1)
                     {
-                        pressed[i] = 0;
+                        pressed[KEY] = 0;
                     }
                 }
-                else down[i] = 0;
+                else
+                {
+                    pressed[KEY] = 0;
+                    down[KEY] = 0;
+                }
             }
+            oldTreffer = treffer;
         }
 
         private static void AlleAufrufen(KeyPressEventArgs e)

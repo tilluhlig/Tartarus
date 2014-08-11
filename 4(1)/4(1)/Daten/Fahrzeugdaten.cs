@@ -58,6 +58,17 @@ namespace _4_1_
 
         #region Fields
 
+        /// <summary>
+        ///     MOD-Variable, Gibt an, ob Arbetsbereich für Fahrzeuge verwendet werden
+        /// </summary>
+        public static bool ARBEITSBEREICHE;
+
+        /// <summary>
+        ///     Mod-Variable, Gibt an, ob Arbetsbereich für Fahrzeuge verwendet werden
+        /// </summary>
+        private static readonly Var<bool> MOD_ARBEITSBEREICHE = new Var<bool>("ARBEITSBEREICHE", false,
+            ref ARBEITSBEREICHE);
+
         public static Var<int[]> _PANZERWERTE = new Var<int[]>("_PANZERWERTE", new[] { 30, 25, 5, 10, 15, 15 });
 
         /// <summary>

@@ -250,7 +250,7 @@ namespace _4_1_
         public Spieler() // Initialisiert einen neuen Spieler
         {
             // Eigentlich total sinnlos   löschen???
-            if (Spiel.TIMEOUT.Wert) MaxTimeout = 60 * 60; // Maximale Zeit zum feuern
+            if (Spiel.TIMEOUT.Wert) MaxTimeout = Spiel.TIMEOUT_SEKUNDEN.Wert * 60; // Maximale Zeit zum feuern
             shootingPower = 2;
             if (Spiel.SCHUESSE.Wert) MaxSchuesse = 1; // Maximale anzahl an Schuessen
         }
@@ -1030,7 +1030,7 @@ namespace _4_1_
                 return false;
             var x1 =
                 (int)(oldpos[id].X - Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
-            if (pos[id].X < x1)
+            if (pos[id].X < x1 && Fahrzeugdaten.ARBEITSBEREICHE)
             {
                 return false;
             }
@@ -1161,7 +1161,7 @@ namespace _4_1_
 
             var x2 =
                 (int)(oldpos[id].X + Effekte[id].GibArbeitsbereich(Fahrzeugdaten.ARBEITSBEREICH.Wert[KindofTank[id]]));
-            if (pos[id].X > x2)
+            if (pos[id].X > x2 && Fahrzeugdaten.ARBEITSBEREICHE)
             {
                 return false;
             }
