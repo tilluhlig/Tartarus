@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ReaderStream
 {
+    /// <summary>
+    /// diese Klasse stellt Funktionen zum einlesen einer Datei oder eines Streams bereit
+    /// </summary>
     public class ReaderStream
     {
         #region Fields
@@ -46,6 +49,11 @@ namespace ReaderStream
 
         #region Methods
 
+        /// <summary>
+        /// Berechnet den HASH-Wert einer angegeben Datei
+        /// </summary>
+        /// <param name="Datei">der Dateipfad</param>
+        /// <returns>ein String mit dem HASH</returns>
         public static String HASH(String Datei)
         {
             var daten = new ReaderStream(Datei);
@@ -67,10 +75,10 @@ namespace ReaderStream
         }
 
         /// <summary>
-        ///     HASHs the specified daten.
+        ///   Berechnet den HASH-Wert eines Streams
         /// </summary>
-        /// <param name="Daten">The daten.</param>
-        /// <returns>String.</returns>
+        /// <param name="Daten">der Stream</param>
+        /// <returns>ein String mit dem HASH</returns>
         public static String HASH(Stream Daten)
         {
             MD5 hash = MD5.Create();
@@ -98,6 +106,10 @@ namespace ReaderStream
             }
         }
 
+        /// <summary>
+        /// Liest das nächste Byte aus dem Lesegerät
+        /// </summary>
+        /// <returns>das gelesene Byte, setzt EndOfStream=true, wenn das Ende erreicht wurde</returns>
         public byte ReadByte()
         {
             if (Leseposition < Lesegerät.BaseStream.Length)
@@ -115,7 +127,7 @@ namespace ReaderStream
         /// <summary>
         ///     Liest die nächste Zeile aus dem Stream
         /// </summary>
-        /// <returns></returns>
+        /// <returns>die gelesene Zeile, setzt EndOfStream=true, wenn das Ende erreicht wurde</returns>
         public String ReadLine()
         {
             String data = "";

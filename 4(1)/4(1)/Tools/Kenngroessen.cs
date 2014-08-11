@@ -45,12 +45,39 @@ namespace _4_1_
     {
         #region Fields
 
+        /// <summary>
+        /// hier werden die berechneten Werte gespeichert (eine Speicherzelle pro Bereich)
+        /// </summary>
         public double[,] Bereiche = null;
+
+        /// <summary>
+        /// die Spielfeldbreite
+        /// </summary>
         public int Breite = 0;
+
+        /// <summary>
+        /// die Breite eines Bereichs
+        /// </summary>
         public int Feldbreite = 0;
+
+        /// <summary>
+        ///  die Anzahl der Felder (Horizontal)
+        /// </summary>
         public int FelderAnzahlHorizontal = 0;
+
+        /// <summary>
+        /// die Anzahl der Felder (Vertikal)
+        /// </summary>
         public int FelderAnzahlVertikal = 0;
+
+        /// <summary>
+        /// die Höhe eines Bereichs
+        /// </summary>
         public int Feldhoehe = 0;
+
+        /// <summary>
+        /// die Gesamthöhe des Spielfeldes
+        /// </summary>
         public int Hoehe = 0;
 
         #endregion Fields
@@ -76,11 +103,6 @@ namespace _4_1_
         #endregion Constructors
 
         #region Methods
-
-       /* public List<Bereich> Find(Predicate<double> Bedingung)
-        {
-            //double[] 
-        }*/
 
         public Bereich GibBereichZuId(Vector2 _Id)
         {
@@ -120,6 +142,15 @@ namespace _4_1_
             return null;
         }
 
+        /// <summary>
+        ///     Fügt einen Wert zu allen Bereichen hinzu, die betroffen sind (anteilig der Trefferfläche)
+        /// </summary>
+        /// <param name="_Position">die Position</param>
+        /// <param name="_Wert">der Wert</param>
+        /// <param name="_Radius">der Umkreis, in welchem der Wert wirkt</param>
+        /// <param name="_Wachstum">die Art des Wachstums, von _Position ausgehend</param>
+        /// <param name="Ausgabe">ob die getroffenen Flächen zurückgegeben werden sollen, true = ja, false = nein</param>
+        /// <returns>eine Liste Polygonpunkten, welche vom Radius betroffen sind, sofern Ausgabe=true</returns>
         private List<List<Vector2>> KonstantenWertHinzufügenAnteilig(Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum, bool Ausgabe)
         {
             _Position = new Vector2(((int)_Position.X), ((int)_Position.Y));
@@ -318,6 +349,9 @@ namespace _4_1_
         /// <param name="_Position">die Position</param>
         /// <param name="_Wert">der Wert</param>
         /// <param name="_Radius">der Umkreis, in welchem der Wert wirkt</param>
+        /// <param name="_Wachstum">die Art des Wachstums, von _Position ausgehend</param>
+        /// <param name="Ausgabe">ob die getroffenen Flächen zurückgegeben werden sollen, true = ja, false = nein</param>
+        /// <returns>eine Liste Polygonpunkten, welche vom Radius betroffen sind, sofern Ausgabe=true</returns>
         private List<List<Vector2>> KonstantenWertHinzufügenEinfach(Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum, bool Ausgabe)
         {
             int B = (int)Math.Ceiling((double)_Radius / Feldbreite) + 2;
@@ -369,6 +403,16 @@ namespace _4_1_
             return Resultat;
         }
 
+        /// <summary>
+        /// berechnet einen _Wert für einen Bereich, anhand seines Abstandes zu _Position
+        /// </summary>
+        /// <param name="_Bereich">der betroffene Bereich</param>
+        /// <param name="_Flache">die getroffene Fläche</param>
+        /// <param name="_Position">die Ausgangsposition</param>
+        /// <param name="_Wert">der Gesamtwert</param>
+        /// <param name="_Radius">der Radius</param>
+        /// <param name="_Wachstum">das Wachstumsverhalten, von _Position ausgehend</param>
+        /// <returns>der berechnete Wert</returns>
         private double WachstumAnwenden(Bereich _Bereich, float _Flache, Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum)
         {
             if (_Wachstum == Wachstum.Konstant)

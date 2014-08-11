@@ -366,14 +366,14 @@ namespace _4_1_
 
                 if (Tausch.SpielAktiv)
                 {
-                    if (treffer)
+                    if (treffer && Mod.HAEUSER_UMRISS_VISIBLE.Wert)
                     {
                         spriteBatch.Draw(Texturen.hausumriss[id], new Vector2(xPos, yPos), null, Color.Lime, 0,
                             new Vector2(0, Texturen.haus[id].Height), Gebäudedaten.SKALIERUNG.Wert[id],
                             SpriteEffects.None, 1);
                     }
 
-                    if (!found)
+                    if (!found && Mod.HAEUSER_UMRISS_VISIBLE.Wert)
                     {
                         bool treffer3 = false;
                         MouseState mouseState = Help.GetMouseState();

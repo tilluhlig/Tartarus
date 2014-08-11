@@ -2827,6 +2827,8 @@ namespace _4_1_
                     pauseMenu.hide();
                     StartMenu.hide();
                     Eingabefenster.Eingabe.Verstecken();
+
+                    if (Mod.SPIELERMENU_VISIBLE.Wert)
                     Spielermenu.hide();
                 }
                 else
@@ -2876,6 +2878,7 @@ namespace _4_1_
 
             #region Interaktion
 
+            if (Mod.SPIELERMENU_VISIBLE.Wert)
             if ((currentState.IsConnected && currentState.Buttons.Y == ButtonState.Pressed) ||
                 (!currentState.IsConnected && Keyboard.GetState().IsKeyDown(Keys.I)))
             {
@@ -2890,6 +2893,7 @@ namespace _4_1_
                     if (Spiel2.players[t].PrüfeObKollision(b,
                         Spiel2.players[t].pos[Spiel2.players[t].CurrentTank] + new Vector2(0, -5)))
                     {
+
                         Spielermenu.GetInTrade(Spiel2.players[t].Rucksack[b], new Vector3(0, b, 0));
                         Spielermenu.show();
                         Eingabefenster.Eingabe.Verstecken();

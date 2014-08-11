@@ -312,23 +312,32 @@ namespace _4_1_
             }
 
             // Zeichenmodusfelder
+            spriteBatch.Draw(Texturen.LeeresFeld, new Vector2(15, Fensterhoehe - 15 - Texturen.LeeresFeld.Height * scale),
+null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+            spriteBatch.Draw(Texturen.Objekte, new Vector2(15, Fensterhoehe - 15 - Texturen.LeeresFeld.Height * scale),
+                null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
             if (Zeichenmodus)
+            {
                 Help.DrawRectangle(spriteBatch, graphicsDevice,
                     new Rectangle(15, (int)(Fensterhoehe - 15 - Texturen.LeeresFeld.Height * scale),
                         (int)(Texturen.LeeresFeld.Width * scale), (int)(Texturen.LeeresFeld.Height * scale)), Color.Green,
                     0.7f);
-            spriteBatch.Draw(Texturen.Objekte, new Vector2(15, Fensterhoehe - 15 - Texturen.LeeresFeld.Height * scale),
-                null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+            }
 
+            spriteBatch.Draw(Texturen.LeeresFeld,
+new Vector2(15 + Texturen.LeeresFeld.Width * scale, Fensterhoehe - 15 - Texturen.LeeresFeld.Height * scale),
+null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+            spriteBatch.Draw(Texturen.Karte,
+                new Vector2(15 + Texturen.LeeresFeld.Width * scale, Fensterhoehe - 15 - Texturen.LeeresFeld.Height * scale),
+                null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
             if (!Zeichenmodus)
+            {
                 Help.DrawRectangle(spriteBatch, graphicsDevice,
                     new Rectangle((int)(15 + Texturen.LeeresFeld.Width * scale),
                         (int)(Fensterhoehe - 15 - Texturen.LeeresFeld.Height * scale),
                         (int)(Texturen.LeeresFeld.Width * scale), (int)(Texturen.LeeresFeld.Height * scale)), Color.Green,
                     0.7f);
-            spriteBatch.Draw(Texturen.Karte,
-                new Vector2(15 + Texturen.LeeresFeld.Width * scale, Fensterhoehe - 15 - Texturen.LeeresFeld.Height * scale),
-                null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
+            }
 
             // Textfeld
             Textfelder.Draw(spriteBatch, graphicsDevice, Vector2.Zero, false,

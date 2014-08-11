@@ -83,6 +83,11 @@ namespace _4_1_
         public static Var<bool> HAEUSER_FAHNE_VISIBLE = new Var<bool>("HAEUSER_FAHNE_VISIBLE", false);
 
         /// <summary>
+        ///     MOD-Variable, ob auf Gebäuden der Umriss gezeichnet werden soll, wenn ein Fahrzeug davor steht bzw. der Mauszeiger darüber ist
+        /// </summary>
+        public static Var<bool> HAEUSER_UMRISS_VISIBLE = new Var<bool>("HAEUSER_UMRISS_VISIBLE", true);
+
+        /// <summary>
         ///     MOD-Variable, ob die Lebenspunkte über einem Fahrzeug als Lebenslinie angezeigt werden soll
         /// </summary>
         public static Var<bool> LEBENSLINIE_ON_TANK_VISIBLE = new Var<bool>("LEBENSLINIE_ON_TANK_VISIBLE", false);
