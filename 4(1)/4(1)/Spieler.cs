@@ -615,6 +615,17 @@ namespace _4_1_
             //   if (Server.isRunning) Server.Send("CREDITS " + id + " " + Credits);
         }
 
+        public float Generate_ActionPoints(int id)
+        {
+            if (Client.isRunning) return 0;
+            // Konstanten Wert addieren
+
+            float Points = Spiel.ACTION_POINTS_INCREASE_CONST.Wert;
+
+            return Points;
+        }
+
+
         /// <summary>
         ///     Gets the panzer ID.
         /// </summary>

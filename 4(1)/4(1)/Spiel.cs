@@ -35,6 +35,16 @@ namespace _4_1_
         public static Var<bool> ACTION_POINTS = new Var<bool>("ACTION_POINTS", false);
 
         /// <summary>
+        ///     The ACTIO n_ POINTS
+        /// </summary>
+        public static Var<int> ACTION_POINTS_INCREASE_CONST = new Var<int>("ACTION_POINTS_INCREASE_CONST", 0);
+
+        /// <summary>
+        ///     The ACTIO n_ POINTS
+        /// </summary>
+        public static Var<int> ACTION_POINTS_MAX = new Var<int>("ACTION_POINTS_MAX", 0);
+
+        /// <summary>
         ///     The AIRSTRIKE
         /// </summary>
         public static Var<bool> AIRSTRIKE = new Var<bool>("AIRSTRIKE", false);
@@ -2057,6 +2067,12 @@ namespace _4_1_
                     if (CREDITS.Wert)
                         players[CurrentPlayer].Credits += players[CurrentPlayer].Generate_Credits(Haeuser, CurrentPlayer);
 
+                    if (ACTION_POINTS.Wert)
+                        players[i].ActionPoints += (int) players[i].Generate_ActionPoints(i);
+
+                     if (ACTION_POINTS_MAX.Wert != 0 && players[i].ActionPoints > ACTION_POINTS_MAX.Wert)
+                        players[i].ActionPoints = ACTION_POINTS_MAX.Wert;
+
                     if (TIMEOUT.Wert) Timeout = players[CurrentPlayer].MaxTimeout+1;
                     if (SCHUESSE.Wert) Schuesse = players[CurrentPlayer].MaxSchuesse;
                     if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
@@ -2070,6 +2086,12 @@ namespace _4_1_
                 {
                     if (CREDITS.Wert)
                         players[i].Credits += players[i].Generate_Credits(Haeuser, i);
+
+                    if (ACTION_POINTS.Wert)
+                        players[i].ActionPoints += (int)players[i].Generate_ActionPoints(i);
+
+                    if (ACTION_POINTS_MAX.Wert != 0 && players[i].ActionPoints > ACTION_POINTS_MAX.Wert)
+                        players[i].ActionPoints = ACTION_POINTS_MAX.Wert;
 
                     if (TIMEOUT.Wert) Timeout = players[i].MaxTimeout+1;
                     if (SCHUESSE.Wert) Schuesse = players[i].MaxSchuesse;
