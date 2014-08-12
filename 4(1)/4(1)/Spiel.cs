@@ -127,6 +127,11 @@ namespace _4_1_
         /// <summary>
         ///     The TIMEOUT
         /// </summary>
+        public static Var<bool> TIMEOUT_VISIBLE = new Var<bool>("TIMEOUT_VISIBLE", false);
+
+        /// <summary>
+        ///     The TIMEOUT
+        /// </summary>
         public static Var<bool> TIMEOUT_SPIELERWECHSEL = new Var<bool>("TIMEOUT_SPIELERWECHSEL", true);
 
         /// <summary>
@@ -838,7 +843,7 @@ namespace _4_1_
                 }
                 else
                 {
-                    if (wait_change == 0) next_player();
+                    if (wait_change == 0 || !Spiel.TIMEOUT_SPIELERWECHSEL.Wert) next_player();
                 }
                 // if (Server.isRunning) Server.Send("TIMEOUT " + Timeout);
             }
@@ -846,7 +851,7 @@ namespace _4_1_
             {
                 if (Schuesse <= 0)
                 {
-                    if (wait_change == 0) next_player();
+                    if (wait_change == 0 || !Spiel.TIMEOUT_SPIELERWECHSEL.Wert) next_player();
                 }
                 // if (Server.isRunning) Server.Send("TIMEOUT " + Timeout);
             }
@@ -2073,7 +2078,7 @@ namespace _4_1_
                      if (ACTION_POINTS_MAX.Wert != 0 && players[i].ActionPoints > ACTION_POINTS_MAX.Wert)
                         players[i].ActionPoints = ACTION_POINTS_MAX.Wert;
 
-                    if (TIMEOUT.Wert) Timeout = players[CurrentPlayer].MaxTimeout+1;
+                    if (TIMEOUT.Wert) Timeout = players[CurrentPlayer].MaxTimeout;
                     if (SCHUESSE.Wert) Schuesse = players[CurrentPlayer].MaxSchuesse;
                     if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
                 }
@@ -2093,7 +2098,7 @@ namespace _4_1_
                     if (ACTION_POINTS_MAX.Wert != 0 && players[i].ActionPoints > ACTION_POINTS_MAX.Wert)
                         players[i].ActionPoints = ACTION_POINTS_MAX.Wert;
 
-                    if (TIMEOUT.Wert) Timeout = players[i].MaxTimeout+1;
+                    if (TIMEOUT.Wert) Timeout = players[i].MaxTimeout;
                     if (SCHUESSE.Wert) Schuesse = players[i].MaxSchuesse;
                 }
             }

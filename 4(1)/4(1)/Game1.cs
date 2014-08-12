@@ -1483,7 +1483,7 @@ namespace _4_1_
             if (Spiel2 == null) return;
             if (Spiel2.CurrentPlayer == -1) return;
             Spieler player = Spiel2.players[Spiel2.CurrentPlayer];
-            if (Spiel.TIMEOUT.Wert)
+            if (Spiel.TIMEOUT_VISIBLE.Wert)
             {
                 String t = Convert.ToString(Spiel2.Timeout / 60);
                 t = Spiel2.Timeout > 0 ? t : "---";
