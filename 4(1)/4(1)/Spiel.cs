@@ -1929,6 +1929,7 @@ namespace _4_1_
             temp.CurrentMissile = TextLaden.LadeInt(Liste, "CurrentMissile", temp.CurrentMissile);
             temp.CurrentPlayer = TextLaden.LadeInt(Liste, "CurrentPlayer", temp.CurrentPlayer);
 
+            if (Karte == null) Karte = new Karte();
             Spielfeld = Karte.Laden(Text2);
             Help.Spielfeld = Spielfeld;
 
@@ -1953,6 +1954,8 @@ namespace _4_1_
                 Bunker.Laden(Text2, -1);
             } while (anz != Text2.Count);
 
+            if (Missile==null)Missile = new Waffen[100];
+
             for (int i = 0; i < Missile.Count(); i++)
             {
                 Waffen temp2 = Waffen.Laden(Text2, null);
@@ -1965,11 +1968,17 @@ namespace _4_1_
             }
 
             // Spieler laden
-            for (int i = 0; i < players.Count(); i++)
-            {
+            List<Spieler> temp2play = new List<Spieler>();
+            int anz2 = Text2.Count;
 
-                temp.players[i] = Spieler.Laden(temp, Text2, null);
-            }
+            do
+            {
+                anz2 = Text2.Count;
+                Spieler tempPlayer = new Spieler();
+                tempPlayer = Spieler.Laden(temp, Text2, null);
+                temp2play.Add(tempPlayer);
+            } while (anz2 != Text2.Count);
+            temp.players = temp2play.ToArray();
 
             for (int i = 0; i < temp.players.Length; i++)
             {

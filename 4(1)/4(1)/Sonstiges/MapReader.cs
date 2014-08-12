@@ -78,6 +78,7 @@ namespace _4_1_
             Nutzloses.AlleEntfernen();
             Game1.Spiel2.Haeuser = new Haus();
 
+            Game1.Spiel2 = new Spiel();
             Game1.Spiel2 = Game1.Spiel2.Laden(Data);
             Data.Clear();
             Help.Spielfeld = Game1.Spiel2.Spielfeld;

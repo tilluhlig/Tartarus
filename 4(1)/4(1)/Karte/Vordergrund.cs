@@ -18,6 +18,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Threading;
 using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Hauptfenster;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace _4_1_
 {
@@ -203,6 +210,12 @@ namespace _4_1_
             int screenHeight = Game1.screenHeight;
             Rectangle screen = Game1.screen;
             SpriteBatch spriteBatch = Game1.spriteBatch;
+
+            if (Spiel2.foreground==null)
+                Spiel2.foreground = new Texture2D[(int)Math.Ceiling((double)Spiel.Kartenbreite / 2048)];
+
+            if (Spiel2.foregroundColors==null)
+                Spiel2.foregroundColors = new Color[(int)Math.Ceiling((double)Spiel.Kartenbreite / 2048)][];
 
             for (int c = 0; c < Spiel2.foreground.Length; c++)
             {

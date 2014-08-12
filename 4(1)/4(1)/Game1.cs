@@ -2632,6 +2632,8 @@ namespace _4_1_
 
            // Eingabe.KeyboardKeys(keybState);
             if (Spiel2 == null) return;
+            if (Spiel2.players==null) return;
+            if (Spiel2.players.Count() <= Spiel2.CurrentPlayer) return;
 
             if (!Tausch.SpielAktiv)
             {
