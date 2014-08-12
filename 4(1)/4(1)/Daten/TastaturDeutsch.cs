@@ -4,11 +4,16 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Input;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
+using System.Runtime.InteropServices;
 
 namespace _4_1_
 {
     public static class TastaturDeutsch
     {
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
+
+        public static extern short GetKeyState(int keyCode); 
+
         #region Fields
 
         private static readonly Keys[] Map =
@@ -20,6 +25,14 @@ namespace _4_1_
         private static readonly char[] MapAltGrChar = { '~', (char)0, (char)0, (char)0, (char)0, '|', '\\', (char)0, (char)0, '}', (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, '{', '[', ']',(char)0 };
         private static readonly char[] MapChar = { '+', '#', '-', '.', ',', '<', (char)0,(char)8,' ','0','1','2','3','4','5','6','7','8','9','\n' };
         private static readonly char[] MapShiftChar = { '*', '\'', '_', ':', ';', '>', '?', (char)8, ' ', '=', '!', '"', '§', '$', '%', '&', '/', '(', ')', '\n' };
+
+
+        private static readonly Keys[] Map2 =
+        {
+            Keys.NumPad0, Keys.NumPad1, Keys.NumPad2, Keys.NumPad3,
+            Keys.NumPad4, Keys.NumPad5, Keys.NumPad6,Keys.NumPad7,Keys.NumPad8,Keys.NumPad9
+        };
+        private static readonly char[] Map2Char = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
         #endregion Fields
 
@@ -87,7 +100,11 @@ namespace _4_1_
             Keys[] temp = Keyboard.GetState().GetPressedKeys();
             if (temp.Count() == 0) return;
 
-            int shift = (State.IsKeyDown(Keys.LeftShift) || State.IsKeyDown(Keys.RightShift)) ? 1 : 0;
+            bool CapsLock = (((ushort)GetKeyState(0x14)) & 0xffff) != 0;
+            bool NumLock = (((ushort)GetKeyState(0x90)) & 0xffff) != 0;
+            bool ScrollLock = (((ushort)GetKeyState(0x91)) & 0xffff) != 0;
+
+            int shift = (State.IsKeyDown(Keys.LeftShift) || State.IsKeyDown(Keys.RightShift) || (CapsLock && !(State.IsKeyDown(Keys.LeftShift) || State.IsKeyDown(Keys.RightShift)))) ? 1 : 0;
             int alt = (State.IsKeyDown(Keys.LeftAlt)) ? 1 : 0;
             int altGr = (State.IsKeyDown(Keys.RightAlt)) ? 1 : 0;
             List<int> treffer = new List<int>();
@@ -108,50 +125,80 @@ namespace _4_1_
              
                 else
                 {
-                    for (int b = 0; b < Map.Count(); b++)
-                        if (Map[b] == temp[i])
-                        {
-                            if (shift == 0 && altGr == 0)
+                    bool found = false;
+
+                    if (!found)
+                    {
+                        for (int b = 0; b < Map.Count(); b++)
+                            if (Map[b] == temp[i])
                             {
-                                if (MapChar[b] != 0)
+                                found = true;
+                                if (shift == 0 && altGr == 0)
                                 {
-                                    if (pressed[(int) MapChar[b]] == 0)
+                                    if (MapChar[b] != 0)
                                     {
-                                        var Key = new KeyPressEventArgs(MapChar[b]);
-                                        AlleAufrufen(Key);
-                                        
+                                        if (pressed[(int) MapChar[b]] == 0)
+                                        {
+                                            var Key = new KeyPressEventArgs(MapChar[b]);
+                                            AlleAufrufen(Key);
+
+                                        }
+                                        pressed[(int) MapChar[b]] = readed;
+                                        treffer.Add((int) MapChar[b]);
                                     }
-                                    pressed[(int)MapChar[b]] = readed;
-                                    treffer.Add((int)MapChar[b]);
+                                }
+                                if (altGr == 1)
+                                {
+                                    if (MapAltGrChar[b] != 0)
+                                    {
+                                        if (pressed[(int) MapAltGrChar[b]] == 0)
+                                        {
+                                            var Key = new KeyPressEventArgs(MapAltGrChar[b]);
+                                            AlleAufrufen(Key);
+                                        }
+                                        pressed[(int) MapAltGrChar[b]] = readed;
+                                        treffer.Add((int) MapAltGrChar[b]);
+                                    }
+                                }
+                                if (shift == 1)
+                                {
+                                    if (MapShiftChar[b] != 0)
+                                    {
+                                        if (pressed[(int) MapShiftChar[b]] == 0)
+                                        {
+                                            var Key = new KeyPressEventArgs(MapShiftChar[b]);
+                                            AlleAufrufen(Key);
+                                        }
+                                        pressed[(int) MapShiftChar[b]] = readed;
+                                        treffer.Add((int) MapShiftChar[b]);
+                                    }
                                 }
                             }
-                            if (altGr == 1)
+                    }
+
+                    if (!found)
+                    {
+                        for (int b = 0; b < Map2.Count(); b++)
+                            if (Map2[b] == temp[i])
                             {
-                                if (MapAltGrChar[b] != 0)
+                                found = true;
+                                if (NumLock)
                                 {
-                                    if (pressed[(int) MapAltGrChar[b]] == 0)
+                                    if (Map2Char[b] != 0)
                                     {
-                                        var Key = new KeyPressEventArgs(MapAltGrChar[b]);
-                                        AlleAufrufen(Key);
+                                        if (pressed[(int)Map2Char[b]] == 0)
+                                        {
+                                            var Key = new KeyPressEventArgs(Map2Char[b]);
+                                            AlleAufrufen(Key);
+
+                                        }
+                                        pressed[(int)Map2Char[b]] = readed;
+                                        treffer.Add((int)Map2Char[b]);
                                     }
-                                    pressed[(int)MapAltGrChar[b]] = readed;
-                                    treffer.Add((int)MapAltGrChar[b]);
                                 }
                             }
-                            if (shift == 1)
-                            {
-                                if (MapShiftChar[b] != 0)
-                                {
-                                    if (pressed[(int) MapShiftChar[b]] == 0)
-                                    {
-                                        var Key = new KeyPressEventArgs(MapShiftChar[b]);
-                                        AlleAufrufen(Key);
-                                    }
-                                    pressed[(int)MapShiftChar[b]] = readed;
-                                    treffer.Add((int)MapShiftChar[b]);
-                                }
-                            }
-                        }
+                    }
+
                 }
             }
 

@@ -110,6 +110,7 @@ namespace _4_1_
         {
             if (!visible) return false;
 
+            pos += new Vector2(100, 0);
             this.pos = pos;
             Vector2 Maße = font.MeasureString(("").PadLeft(maxPixelInZeile, 'X'));
             int faktor = Text.Count;
@@ -118,7 +119,7 @@ namespace _4_1_
             Maße.Y *= faktor;
             Maße.X = maxPixelInZeile;
 
-            Vector2 temppos = pos + new Vector2(100, 0);
+            Vector2 temppos = pos;
             if ((temppos + Maße).Y > Game1.screenHeight)
             {
                 temppos.Y = Game1.screenHeight - Maße.Y;
@@ -206,10 +207,67 @@ namespace _4_1_
             if (a.Contains(new Vector3(Help.GetMouseState().X + Fenster.X, Help.GetMouseState().Y + Fenster.Y, 0)) ==
                 ContainmentType.Contains)
             {
+                {
+                    MouseState mouse = Help.GetMouseState();
+                    if (mouse.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+                    {
+                        float x = mouse.X - pos.X;
+                        float y = mouse.Y - pos.Y;
+                        float foundY = -Scrollbar.oberstes * font.MeasureString("a").Y;
+                        int position = 0;
+                        String cursortext = "";
+                        for (int i = 0; i < Text.Count; i++)
+                        {
+                            position += Text[i].Length;
+                            foundY += font.MeasureString("a").Y;
+                            if (foundY >= y)
+                            {
+                                cursor = position - Text[i].Length;
+
+                                float foundX = 0;
+                                for (int b = 1; b <= Text[i].Length; b++)
+                                {
+                                    if (Text[i][b - 1] == '\n') break;
+                                    foundX = font.MeasureString(Text[i].Substring(0,b)).X;
+                                    if (foundX < x)
+                                    {
+                                        cursor++;
+                                    }
+                                    else
+                                        break;
+                                }
+                                break;
+                            }
+
+                            /*if (cursor <= position ||
+                                (Text[i].Length > 0 && Text[i][Text[i].Length - 1] == '\n' && cursor <= position))
+                            {
+                                if (Text[i].Length > 0 && cursor == position && Text[i][Text[i].Length - 1] == '\n') //
+                                {
+                                    y = i + 1;
+                                    x = 0;
+                                    cursortext = Text[i].Substring(0, x);
+                                }
+                                else
+                                {
+                                    y = i;
+                                    x = Text[i].Length - (position - cursor);
+                                    cursortext = Text[i].Substring(0, x);
+                                }
+                                break;
+                            }*/
+                        }
+                    }
+                }
+
                 return true;
             }
 
-            return Scrollbar.MouseKeys(Fenster);
+            bool result = false;
+            result = Scrollbar.MouseKeys(Fenster);
+            
+
+            return result;
         }
 
         /// <summary>

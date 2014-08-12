@@ -539,8 +539,14 @@ null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
             if (!visible) return;
             if (first) return;
 
-            if (visible && Spiel2 != null)
+            if (visible && Spiel2 != null && Zeichenmodus)
             {
+                if (Textfelder.MouseKeys(Vector2.Zero))
+                {
+                    geklickt = true;
+                    return;
+                }
+
                 if (Help.GetMouseState().LeftButton != oldmouseState.LeftButton &&
                     Help.GetMouseState().LeftButton == ButtonState.Pressed && mouseover > -1)
                 {
@@ -675,7 +681,6 @@ null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                 Pinseldicke.MouseKeys(graphicsDevice, Vector2.Zero, oldmouseState);
             }
 
-            if (Textfelder.MouseKeys(Vector2.Zero)) return;
 
             if (!Textfelder.visible && Help.GetMouseState().LeftButton != oldmouseState.LeftButton &&
                 Help.GetMouseState().LeftButton == ButtonState.Pressed)
