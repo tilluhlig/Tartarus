@@ -512,6 +512,12 @@ null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
         /// </summary>
         public static void hide()
         {
+            if (first)
+            {
+                Draw(Game1.spriteBatch, Game1.device, Vector2.Zero, Game1.screenWidth, Game1.screenHeight,
+                    Game1.ContentAll, Game1.Spiel2);
+            }
+
             visible = false;
             Gitter=false;
             Textfelder.hide();
@@ -1022,6 +1028,12 @@ null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
         /// </summary>
         public static void show(int Fensterbreite)
         {
+            if (first)
+            {
+                Draw(Game1.spriteBatch, Game1.device, Vector2.Zero, Game1.screenWidth, Game1.screenHeight,
+                    Game1.ContentAll, Game1.Spiel2);
+            }
+
             visible = true;
             // Optionen.show(new Vector2(Fensterbreite - 100 -25, 0), 0);
             Optionen.show();

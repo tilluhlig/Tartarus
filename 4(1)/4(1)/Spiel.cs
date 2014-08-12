@@ -1985,11 +1985,11 @@ namespace _4_1_
                 temp.players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, temp.Height, 100, 100, 0);
             }
 
-            for (int i = 0; i < temp.players.Length; i++)
+           /* for (int i = 0; i < temp.players.Length; i++)
                 for (int b = 0; b < temp.players[i].pos.Count; b++)
                     temp.players[i].Kenngroesse_Wert.Hinzufügen(temp.players[i].pos[b],
                         Fahrzeugdaten._PANZERWERTE.Wert[temp.players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
-
+            */
             return temp;
         }
 

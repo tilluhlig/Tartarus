@@ -304,6 +304,8 @@ namespace _4_1_
                     screen = new Rectangle(0, 0, screenWidth, screenHeight);
                     a = new Rectangle(0, y, screenWidth, screenHeight);
                     _VordergrundSemaphore.WaitOne();
+
+                    if (b < Spiel2.foreground.Count())
                     spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(-x, 0),
                         SpriteEffects.None, 1);
                     _VordergrundSemaphore.Release();
@@ -317,6 +319,8 @@ namespace _4_1_
                     screen = new Rectangle(0, 0, l, screenHeight);
                     a = new Rectangle(x, y, l, screenHeight);
                     _VordergrundSemaphore.WaitOne();
+
+                    if (b<Spiel2.foreground.Count())
                     spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(0, 0),
                         SpriteEffects.None, 1);
                     _VordergrundSemaphore.Release();

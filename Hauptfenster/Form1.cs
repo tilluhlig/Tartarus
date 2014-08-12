@@ -1046,6 +1046,8 @@ namespace Hauptfenster
         /// </summary>
         public static bool CreateNewGame = false;
 
+        public static bool OeffneEditor = false;
+
         /// <summary>
         ///     The current player
         /// </summary>

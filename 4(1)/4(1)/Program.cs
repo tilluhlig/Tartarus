@@ -35,6 +35,36 @@ namespace _4_1_
 
         #region Methods
 
+        public static void KommandozeilenInterpreter(string[] args)
+        {
+            for (int i = 0; i < args.Count(); i++)
+            {
+                switch (args[i].ToLower())
+                {
+                    case "-kartengroesse":
+                        Tausch.Kartengroesse = Convert.ToInt32(args[i + 1]);
+                        i++;break;
+
+                    case "-zufallskarte":
+                        Tausch.StarteSpiel=true;break;
+
+                    case "-mod":
+                         Tausch.Mod = args[i + 1];
+                        i++;break;
+
+                    case "-editor":
+                        Tausch.OeffneEditor = true; break;
+
+                    case "-map":
+                        Tausch.Map = args[i + 1];
+                        i++;break;
+
+                    case "-laden":
+                         Tausch.SpielLaden = true; break;
+                }
+            }
+        }
+
         /// <summary>
         /// Hier beginnt das Programm
         /// </summary>
@@ -49,7 +79,7 @@ namespace _4_1_
             
             form.pp = game;
             Program.game = game;
-            form.timer3.Enabled = true;
+           // form.timer3.Enabled = true;
             bool fehler = false;
             Thread.Sleep(100);
             Hauptfenster.Program.Formular.Hide();
@@ -63,6 +93,8 @@ namespace _4_1_
             bb.Location = new System.Drawing.Point(50, 50);
             bb.Text = "abc";
             bb.Hide();
+
+            KommandozeilenInterpreter(args);
 
 #if DEBUG
                 game.Run();

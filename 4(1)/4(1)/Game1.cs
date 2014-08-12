@@ -68,7 +68,7 @@ namespace _4_1_
         /// <summary>
         ///     Die Kartenbreite in Pixel
         /// </summary>
-        public int Kartengroesse = 2048*5;
+        public static int Kartengroesse = 2048*5;
 
         /// <summary>
         ///     The menuaufruf
@@ -155,7 +155,7 @@ namespace _4_1_
         /// <summary>
         ///     Maus einschalten oder abschalten
         /// </summary>
-        private Color[,] water;
+        public static Color[,] water;
 
         #endregion Fields
 
@@ -348,7 +348,7 @@ namespace _4_1_
                 Spiel2.CurrentPlayer = Tausch.CurrentPlayer;
             }
 
-            if (Tausch.SpielLaden)
+           /* if (Tausch.SpielLaden)
             {
                 Tausch.SpielLaden = false;
                 var MapReader = new MapReader();
@@ -368,8 +368,9 @@ namespace _4_1_
                 }
                 else
                     Tausch.SpielAktiv = false;
-            }
-            else if (Tausch.CreateNewGame)
+            }*/
+            
+             if (Tausch.CreateNewGame)
             {
 
                 // Neues Spiel erstellen und hochladen
@@ -433,23 +434,59 @@ namespace _4_1_
             }
             else if (Tausch.StarteSpiel)
             {
+
+                Tausch.StarteSpiel = false;
                 LadebildschirmAktiv = true;
                 if (Hauptfenster.Form1.ActiveForm != null)
                 {
                     Hauptfenster.Form1.ActiveForm.BringToFront();
                 }
-                    //Hauptfenster.Program.Formular.Hide();
+                //Hauptfenster.Program.Formular.Hide();
 
-                    Spiel2 = null;
-                    Tausch.StarteSpiel = false;
-                    StarteNeuesSpiel();
+                Spiel2 = null;
+                StarteNeuesSpiel();
 
-                    if (Server.isRunning)
-                    {
-                        Thread.Sleep(5000);
-                        Server.SendAll();
-                    }
-                
+                if (Server.isRunning)
+                {
+                    Thread.Sleep(5000);
+                    Server.SendAll();
+                }
+
+            }
+            else if (Tausch.OeffneEditor && Tausch.SpielAktiv)
+            {
+                Tausch.OeffneEditor = false;
+                if (!Editor.visible)
+                {
+                    Editor.show(screenWidth);
+                    if (pauseMenu.visible) SpielfeldEinblenden(60);
+                    pauseMenu.hide();
+                    StartMenu.hide();
+                    Eingabefenster.Eingabe.Verstecken();
+
+                    if (Mod.SPIELERMENU_VISIBLE.Wert)
+                        Spielermenu.hide();
+                }
+            }
+            else if (Tausch.SpielLaden)
+            {
+                Tausch.SpielLaden = false;
+                Action<object> SpielLaden = (object obj) =>
+                {
+                    MapReader.Laden(this, Tausch.Map);
+                    Meldungen.addMessage("Geladen...");
+                    LadebildschirmAktiv = false;
+                    Game1.SpielfeldEinblenden(60);
+                };
+
+                if (LadenTask == null || LadenTask.IsCompleted)
+                {
+                    LadebildschirmAktiv = true;
+                    Game1.SpielfeldAusblenden(60);
+                    LadebildschirmText = "Spiel wird geladen...";
+                    LadenTask = new Task(SpielLaden, "SpielLaden");
+                    LadenTask.Start();
+                }
             }
         }
 
@@ -1684,6 +1721,8 @@ namespace _4_1_
 
                 Sounds.Lademusik.StopSound(0);
                 LadebildschirmAktiv = false;
+
+                Tausch.SpielAktiv = true;
             };
 
             if (StarteNeuesSpielTask == null || StarteNeuesSpielTask.IsCompleted)
@@ -2478,10 +2517,10 @@ namespace _4_1_
         /// <summary>
         ///     Creates the kasten.
         /// </summary>
-        private void createKasten()
+        public static void createKasten()
         {
             Spiel2.Colors = new Color[screenWidth * screenHeight];
-            Texturen.kasten = new Texture2D(GraphicsDevice, screenWidth, screenHeight);
+            Texturen.kasten = new Texture2D(Game1.device, screenWidth, screenHeight);
 
             Color[,] vordergrund = Farbwahl(Karte.Material[1].Bild);
             Color[,] water = Farbwahl(Texturen.wasser);
@@ -2503,8 +2542,8 @@ namespace _4_1_
 
             int mas = 25;
             Spiel2.Colors = new Color[mas * mas];
-            Texturen.dot = new Texture2D(GraphicsDevice, mas, mas);
-            Texturen.dot2 = new Texture2D(GraphicsDevice, mas, mas);
+            Texturen.dot = new Texture2D(Game1.device, mas, mas);
+            Texturen.dot2 = new Texture2D(Game1.device, mas, mas);
 
             Spiel2.Colors = new Color[mas * mas];
             for (int x = 0; x < mas; x++)
@@ -3124,24 +3163,9 @@ namespace _4_1_
                                       }
                                       else
                                           Hauptfenster.Tausch.SpielAktiv = false;*/
-                        Action<object> SpielLaden = (object obj) =>
-                        {
-                            MapReader.Laden(this, "Spiel.dat");
-                            Meldungen.addMessage("Geladen...");
-                            LadebildschirmAktiv = false;
-                            Game1.SpielfeldEinblenden(60);
-                        };
-
-                        if (LadenTask == null || LadenTask.IsCompleted)
-                        {
-                            LadebildschirmAktiv = true;
-                            Game1.SpielfeldAusblenden(60);
-                            LadebildschirmText = "Spiel wird geladen...";
-                            LadenTask = new Task(SpielLaden, "SpielLaden");
-                            LadenTask.Start();
+                        Tausch.SpielLaden = true;
+                        Tausch.Map ="Spiel.dat";
                         }
-
-                    }
                 }
 
                 if (Spiel2 != null && Keyboard.GetState().IsKeyDown(Keys.F11))

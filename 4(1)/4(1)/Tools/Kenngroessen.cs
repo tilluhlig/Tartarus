@@ -159,6 +159,8 @@ namespace _4_1_
             var Resultat = new List<List<Vector2>>();
 
             Bereich aktuell = GibBereichZuPosition(_Position);
+            if (aktuell == null) return Resultat;
+
             for (int i = -B - 1; i <= B + 1; i++)
                 for (int b = -B - 1; b <= B + 1; b++)
                 {

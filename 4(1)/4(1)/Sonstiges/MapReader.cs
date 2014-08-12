@@ -42,8 +42,8 @@ namespace _4_1_
             Tausch.SpielAktiv = false;
 
             // Reset
-            // Karte.Reset_Materialien();
-            // Fahrzeugdaten.Reset_Tankdata();
+            Karte.Reset_Materialien();
+            Fahrzeugdaten.Reset_Tankdata();
 
             Game1.LadeText("    Tastatur...    ");
             //if (!File.Exists(Map)) { Spielfeld = null; return; }
@@ -53,12 +53,18 @@ namespace _4_1_
             Game1.LadeText("    Mod...    ");
             ///Hauptfenster.Program.Formular.progressBar1.Value = 20;
             // Mod laden
-            //Mod.LadeModVariablen("Content\\Konfiguration\\" + Hauptfenster.Tausch.Mod);
+            Mod.LadeModVariablen("Content\\Konfiguration\\" + Tausch.Mod);
 
             Game1.LadeText("    Komponenten...    ");
             ///Hauptfenster.Program.Formular.progressBar1.Value = 40;
             // Komponenten laden
-            //game.loadAllContent();
+            game.loadAllContent();
+
+            if (!File.Exists(Map))
+            {
+                Game1.Ladebildschirmtexte = null;
+                return;
+            }
 
             var datei = new StreamReader(Map);
             var Data = new List<String>();
@@ -76,9 +82,18 @@ namespace _4_1_
             // Spiel erstellen
             //Game1.Spiel2 = new Spiel(10 * 2048, new Vector2(Game1.screenWidth, Game1.screenHeight));
             Nutzloses.AlleEntfernen();
-            Game1.Spiel2.Haeuser = new Haus();
 
             Game1.Spiel2 = new Spiel();
+            bool symmetrisch = Karte.KARTE_SYMMETRISCH;
+            Spiel.Kartenbreite = Game1.Kartengroesse;
+            Game1.Spiel2.increaseshot = false;
+            Spiel.rand = new Random();
+            Game1.Spiel2.Spielfeld = new List<UInt16>[Spiel.Kartenbreite];
+            for (int i = 0; i < Spiel.Kartenbreite; i++) Game1.Spiel2.Spielfeld[i] = new List<UInt16>();
+            Game1.Spiel2.Karte = new Karte();
+            Help.Spielfeld = Game1.Spiel2.Spielfeld;
+
+            Game1.Spiel2.Haeuser = new Haus();
             Game1.Spiel2 = Game1.Spiel2.Laden(Data);
             Data.Clear();
             Help.Spielfeld = Game1.Spiel2.Spielfeld;
@@ -87,33 +102,20 @@ namespace _4_1_
             //Hauptfenster.Program.Formular.progressBar1.Value = 90;
 
             Game1.LadeText("    Umgebung...    ");
-            //// vordergrund = Farbwahl(Texturen.tilltexture);
-            //water = Game1.Farbwahl(Texturen.wasser);
+            Game1.water = Game1.Farbwahl(Texturen.wasser);
             Vordergrund.ErstelleVordergrund();
-            /*Fog.CreateFog();
-           Mine.Initialisierung(Game1.Content);
-           Eingabefenster.Initialisieren();
-           Game1.createKasten();
-           Feuer.Initialisieren(Game1.Spiel2.Spielfeld.Count());
-           if (Spiel.SCHUESSE.Wert) Game1.Spiel2.Schuesse = Game1.Spiel2.players[Game1.Spiel2.CurrentPlayer].MaxSchuesse;
-           Game1.Spiel2.InitRunde();
-           //Mine.init(Content);
-           Help.angrabbel_funktion();
-           if (Mod.SPIELERMENU_VISIBLE.Wert) Game1.Spielermenu.show();
-           Eingabefenster.Eingabe.Anzeigen();
-           Matrix globalTransformation = Matrix.CreateScale(0);
-           Game1.spriteBatch.Begin(Game1.SpriteMode, BlendState.AlphaBlend, null, null, null, null, globalTransformation);
-           if (Mod.SPIELERMENU_VISIBLE.Wert) Game1.Spielermenu.Draw(Game1.spriteBatch, Texturen.font3, null, null, null, 0.5f);
-           Game1.spriteBatch.Draw(Texturen.mausZeiger, new Vector2(Game1.mouseState.X, Game1.mouseState.Y), null, Color.Orange, 0,
-             new Vector2(0, 0), 0.5f, SpriteEffects.None, 0);
-           Eingabefenster.ZeichneEingabefenster(Game1.spriteBatch);
-           Game1.spriteBatch.End();*/
+            Fog.CreateFog();
+            Mine.Initialisierung(Game1.ContentAll);
+            Eingabefenster.Initialisieren();
+            Game1.createKasten();
+            Feuer.Initialisieren(Game1.Spiel2.Spielfeld.Length);
+            ///if (Spiel.SCHUESSE.Wert) Spiel2.Schuesse = Spiel2.players[Spiel2.CurrentPlayer].MaxSchuesse;
+           // Game1.Spiel2.InitRunde();
+            //Mine.init(Game1.ContentAll);
+            Help.angrabbel_funktion();
+            if (Mod.SPIELERMENU_VISIBLE.Wert) Game1.Spielermenu.show();
             Eingabefenster.Eingabe.Verstecken();
             if (Mod.SPIELERMENU_VISIBLE.Wert) Game1.Spielermenu.hide();
-            ///Hauptfenster.Program.Formular.progressBar1.Value = 100;
-            ///Hauptfenster.Program.Formular.progressBar1.Hide();
-            ///Hauptfenster.Program.Formular.label31.Hide();
-
             // Sounds.Lademusik.StopSound(0);
 
             //Game1.Spiel2 = new Spiel();
