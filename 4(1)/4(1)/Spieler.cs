@@ -555,6 +555,7 @@ namespace _4_1_
             //    electrified.RemoveAt(i);
             Size.RemoveAt(i);
             SizeOfCannon.RemoveAt(i);
+            Kenngroesse_Wert.Hinzufügen(pos[i], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[i]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
             pos.RemoveAt(i);
             oldpos.RemoveAt(i);
             KindofTank.RemoveAt(i);
@@ -910,6 +911,7 @@ namespace _4_1_
             Size.Add(Fahrzeugdaten.SCALEP.Wert[di]);
             SizeOfCannon.Add(Fahrzeugdaten.SCALER.Wert[di]);
             pos.Add(_pos);
+            Kenngroesse_Wert.Hinzufügen(pos[b], Fahrzeugdaten._PANZERWERTE.Wert[di], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
             oldpos.Add(_pos);
             KindofTank.Add(di);
             ExpNow.Add(0);
@@ -1028,7 +1030,9 @@ namespace _4_1_
                     TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position +
                     new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width / 2, 0))
                 {
+                    Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                     pos[id] = po;
+                    Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                     ActionPoints -= Allgemein.TunnelAPKosten;
                     return true;
                 }
@@ -1158,7 +1162,9 @@ namespace _4_1_
                     TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position +
                     new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width / 2, 0))
                 {
+                    Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                     pos[id] = po;
+                    Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                     ActionPoints -= Allgemein.TunnelAPKosten;
                     return true;
                 }

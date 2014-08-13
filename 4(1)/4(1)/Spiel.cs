@@ -419,8 +419,17 @@ namespace _4_1_
         /// <returns>System.Single.</returns>
         public static float Position(float Pos)
         {
-            if (Pos < 0) return Kartenbreite + Pos;
-            if (Pos >= Kartenbreite) return Pos - Kartenbreite;
+            if (Karte.KARTE_SYMMETRISCH)
+            {
+                if (Pos < 0) return Kartenbreite + Pos;
+                if (Pos >= Kartenbreite) return Pos - Kartenbreite;
+            }
+            else
+            {
+                if (Pos < 0) return 0;
+                if (Pos >= Kartenbreite) return Kartenbreite-1;
+            }
+
             return Pos;
         }
 
@@ -2244,10 +2253,16 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void Set_Focus(Vector2 pos)
         {
-            Next_Fenster.X = Position(pos.X - Width / 2);
-            Next_Fenster.Y = 0; // pos.Y - Height / 2;
-            // if (Next_Fenster.X < 0) Next_Fenster.X = 0;
-            // if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
+            if (Karte.KARTE_SYMMETRISCH)
+            {
+                Next_Fenster.X = Position(pos.X - Width/2);
+                Next_Fenster.Y = 0; // pos.Y - Height / 2;
+
+            }
+            else
+            {if (Next_Fenster.X < 0) Next_Fenster.X = 0;
+                 if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
+            }
         }
 
         /// <summary>
@@ -2256,10 +2271,17 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void Set_Focus_X(Vector2 pos)
         {
-            Next_Fenster.X = Position(pos.X - Width / 2);
-            Next_Fenster.Y = 0;
-            //if (Next_Fenster.X < 0) Next_Fenster.X = 0;
-            //if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
+            if (Karte.KARTE_SYMMETRISCH)
+            {
+                Next_Fenster.X = Position(pos.X - Width/2);
+                Next_Fenster.Y = 0;
+            }
+            else
+            {
+                Next_Fenster.X = pos.X - Width / 2;
+               if (Next_Fenster.X < 0) Next_Fenster.X = 0;
+                if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
+            }
         }
 
         /*public void check_Feuer()
@@ -2341,7 +2363,9 @@ namespace _4_1_
                                 {
                                     dat[q] = 1;
 
+                                    players[b].Kenngroesse_Wert.Hinzufügen(players[b].pos[i], -Fahrzeugdaten._PANZERWERTE.Wert[players[b].KindofTank[i]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                                     players[b].pos[i] = new Vector2(q, Spielfeld[q][0]);
+                                    players[b].Kenngroesse_Wert.Hinzufügen(players[b].pos[i], Fahrzeugdaten._PANZERWERTE.Wert[players[b].KindofTank[i]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
                                 }
                                 check = true;
                                 break;

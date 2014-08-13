@@ -288,8 +288,16 @@ namespace _4_1_
             for (int i = -1; i <= Spiel2.foreground.Length; i++)
             {
                 int b = i;
-                if (i == -1) b = Spiel2.foreground.Length - 1;
-                if (i == Spiel2.foreground.Length) b = 0;
+                if (i == -1)
+                {
+                    b = Spiel2.foreground.Length - 1;
+                    if (!Karte.KARTE_SYMMETRISCH) continue;
+                }
+                if (i == Spiel2.foreground.Length)
+                {
+                    b = 0;
+                    if (!Karte.KARTE_SYMMETRISCH) continue;
+                }
 
                 if (Spiel2.Fenster.X > (i + 1)*2048 || Spiel2.Fenster.X + screenWidth < i*2048) continue;
                 if ((int) Spiel2.Fenster.X + screenWidth < i*2048) continue;
