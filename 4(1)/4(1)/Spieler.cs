@@ -317,7 +317,7 @@ namespace _4_1_
                         {
                             Spiel2.increaseairstrike = true;
                             shootingPower = pos[CurrentTankNow2].X;
-                            if (!Spiel2.Moving_Map) Spiel2.Set_Focus(new Vector2(shootingPower, pos[_CurrentTank].Y));
+                            if (!Spiel2.Moving_Map) Spiel2.SetzeFokus(new Vector2(shootingPower, pos[_CurrentTank].Y));
                         }
                         else
                         //  if (!Spiel2.increaseairstrike)

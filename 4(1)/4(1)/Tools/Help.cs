@@ -456,7 +456,7 @@ namespace _4_1_
             //  var rect = new Texture2D(graphicsDevice, 1, 1);
             // rect.SetData(new[] { _Farbe });
             spriteBatch.Draw(Texturen.Punkt, _Rechteck, new Rectangle(0, 0, 1, 1), _Farbe * _Transparenz, 0, Vector2.Zero,
-                SpriteEffects.None, 1);
+                SpriteEffects.None, 0);
         }
 
         /// <summary>
