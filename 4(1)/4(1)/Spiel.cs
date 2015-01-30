@@ -619,11 +619,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Airstrikes the specified pos.
+        ///     löst einen Airstrike aus
         /// </summary>
         /// <param name="pos">The pos.</param>
         /// <param name="Spieler">The spieler.</param>
-        public void Airstrike(Vector2 pos, int Spieler) // löst einen Airstrike aus
+        public void Airstrike(Vector2 pos, int Spieler)
         {
             if (Client.isRunning) return;
             var q = new int[9]; // anzahl der raketen, ungerade anzahl benötigt
@@ -655,9 +655,9 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Check_s the focus.
+        ///     prüft ob zielposition des Fensters erreicht, bewegt fenster notfalls
         /// </summary>
-        public void check_Focus() // prüft ob zielposition des Fensters erreicht, bewegt fenster notfalls
+        public void check_Focus() 
         {
             if (Next_Fenster.X != Fenster.X)
             {
@@ -699,22 +699,52 @@ namespace _4_1_
                 }
                 else
                 {
-                    /* int add = (int)(Fenster.X - Next_Fenster.X);
-                     if (!Moving_Map)
-                     {
-                         if (add < 500)
-                         {
-                             if (add > 14) { add = 14; }
-                         }
-                         else
-                             if (add < 1000)
-                             {
-                                 if (add > 20) { add = 21; }
-                             }
-                             else
-                                 if (add > 25) { add = 35; }
-                     }*/
                     Fenster.X -= add;
+                }
+            }
+
+
+            if (Next_Fenster.Y != Fenster.Y)
+            {
+                var add = (int)(Next_Fenster.Y - Fenster.Y);
+                if (add < 0) add = -add;
+
+                if (!Moving_Map)
+                {
+                    if (add < 100)
+                    {
+                        if (add > 14)
+                        {
+                            add = 14;
+                        }
+                    }
+                    else if (add < 500)
+                    {
+                        if (add > 14)
+                        {
+                            add = 25;
+                        } // 14,14
+                    }
+                    else if (add < 1000)
+                    {
+                        if (add > 20)
+                        {
+                            add = 35;
+                        } // 20,21
+                    }
+                    else if (add > 25)
+                    {
+                        add = 50;
+                    } // 35,35
+                }
+
+                if (Next_Fenster.Y > Fenster.Y)
+                {
+                    Fenster.Y += add;
+                }
+                else
+                {
+                    Fenster.Y -= add;
                 }
             }
         }
@@ -852,7 +882,7 @@ namespace _4_1_
                 }
                 else
                 {
-                    if (wait_change == 0 || !Spiel.TIMEOUT_SPIELERWECHSEL.Wert) next_player();
+                    if (wait_change == 0 || !Spiel.TIMEOUT_SPIELERWECHSEL.Wert) Spielerwechsel();
                 }
                 // if (Server.isRunning) Server.Send("TIMEOUT " + Timeout);
             }
@@ -860,7 +890,7 @@ namespace _4_1_
             {
                 if (Schuesse <= 0)
                 {
-                    if (wait_change == 0 || !Spiel.TIMEOUT_SPIELERWECHSEL.Wert) next_player();
+                    if (wait_change == 0 || !Spiel.TIMEOUT_SPIELERWECHSEL.Wert) Spielerwechsel();
                 }
                 // if (Server.isRunning) Server.Send("TIMEOUT " + Timeout);
             }
@@ -883,14 +913,14 @@ namespace _4_1_
                             players[i].overreach[b] = true;
                             float ang = MathHelper.ToDegrees(players[i].Angle[b]);
                             if (ang < 90) players[i].Angle[b] = MathHelper.ToRadians((90 - ang) + 90);
-                            Right(i, b);
+                            Rechts(i, b);
                         }
                         else if (players[i].Zielpos[b].X < players[i].pos[b].X - 2)
                         {
                             players[i].overreach[b] = false;
                             float ang = MathHelper.ToDegrees(players[i].Angle[b]);
                             if (ang > 90) players[i].Angle[b] = MathHelper.ToRadians(90 - (ang - 90));
-                            Left(i, b);
+                            Links(i, b);
                         }
                         else
                             players[i].Zielpos[b] = new Vector2(0, -9999);
@@ -1164,19 +1194,19 @@ namespace _4_1_
                 if (Missile[i].focused && CurrentMissile != -1)
                 {
                     if (Missile[CurrentMissile].missleShot == false) CurrentMissile = i;
-                    if (!Moving_Map) Set_Focus(Position(Missile[i].misslePosition));
+                    if (!Moving_Map) SetzeFokus(Position(Missile[i].misslePosition));
                     focused_rakete = true;
                 }
             }
             if (wait_change > 0) wait_change--;
             if (focused_rakete && !Moving_Map)
             {
-                Set_Focus(Position(Missile[CurrentMissile].misslePosition));
+                SetzeFokus(Position(Missile[CurrentMissile].misslePosition));
                 wait_change = (int)Waffendaten.Daten2[Missile[CurrentMissile].Art].X;
             }
             if (!focused_rakete && wait_change == 0 && increaseairstrike == false && !Moving_Map &&
                 players[CurrentPlayer].CurrentTank > -1)
-                Set_Focus_X(Position(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]));
+                SetzeFokusX(Position(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]));
         }
 
         /// <summary>
@@ -1338,7 +1368,7 @@ namespace _4_1_
             if (message)
             {
                 if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
-                if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
+                if (!Moving_Map) SetzeFokusX(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
                 //  if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
         }
@@ -1362,7 +1392,7 @@ namespace _4_1_
             if (message)
             {
                 if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
-                if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
+                if (!Moving_Map) SetzeFokusX(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
                 // if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
         }
@@ -1901,7 +1931,7 @@ namespace _4_1_
                 players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, Height, 100, 100, 0);
             }
 
-            SetPanzer(players, symmetrisch);
+            SetzePanzer(players, symmetrisch);
 
             for (int i = 0; i < players.Length; i++)
                 for (int b = 0; b < players[i].pos.Count; b++)
@@ -2018,11 +2048,11 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Lefts the specified player.
+        ///     bewegt den aktuellen Panzer nach links.
         /// </summary>
         /// <param name="player">The player.</param>
         /// <param name="id">The id.</param>
-        public void Left(int player, int id) // bewegt den aktuellen Panzer nach links
+        public void Links(int player, int id)  
         {
             //  if (Client.isRunning) return;
             if (id <= -1) return;
@@ -2035,24 +2065,24 @@ namespace _4_1_
             if (message)
             {
                 if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
-                if (!Moving_Map && id == players[player].CurrentTank) Set_Focus_X(players[player].pos[id]);
+                if (!Moving_Map && id == players[player].CurrentTank) SetzeFokusX(players[player].pos[id]);
                 //  if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
         }
 
         /// <summary>
-        ///     Next_players this instance.
+        ///     setzte auf nächsten Spieler
         /// </summary>
-        public void next_player() // setzte auf nächsten Spieler
+        public void Spielerwechsel() 
         {
             if (Client.isRunning) return;
 
             if (TIMEOUT_SPIELERWECHSEL.Wert)
             {
                 CurrentPlayer++;
-                if (SpielerAktiv() > 0)
+                if (PrüfeAktiveSpieler() > 0)
                 {
-                    CurrentPlayer %= SpielerAktiv();
+                    CurrentPlayer %= PrüfeAktiveSpieler();
                     int i = 0;
                     for (; CurrentPlayer >= 0; i++)
                     {
@@ -2089,7 +2119,7 @@ namespace _4_1_
 
                     if (TIMEOUT.Wert) Timeout = players[CurrentPlayer].MaxTimeout;
                     if (SCHUESSE.Wert) Schuesse = players[CurrentPlayer].MaxSchuesse;
-                    if (!Moving_Map) Set_Focus_X(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
+                    if (!Moving_Map) SetzeFokusX(players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank]);
                 }
                 else
                     CurrentPlayer = -1;
@@ -2229,7 +2259,7 @@ namespace _4_1_
         /// </summary>
         /// <param name="player">The player.</param>
         /// <param name="id">The id.</param>
-        public void Right(int player, int id)
+        public void Rechts(int player, int id)
         {
             //if (Client.isRunning) return;
             if (id <= -1) return;
@@ -2242,7 +2272,7 @@ namespace _4_1_
             if (message)
             {
                 if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
-                if (!Moving_Map && id == players[player].CurrentTank) Set_Focus_X(players[player].pos[id]);
+                if (!Moving_Map && id == players[player].CurrentTank) SetzeFokusX(players[player].pos[id]);
                 // if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
         }
@@ -2251,12 +2281,12 @@ namespace _4_1_
         ///     setzt die Fenster Position so, dass "pos" im Zentrum ist
         /// </summary>
         /// <param name="pos">The pos.</param>
-        public void Set_Focus(Vector2 pos)
+        public void SetzeFokus(Vector2 pos)
         {
             if (Karte.KARTE_SYMMETRISCH)
             {
                 Next_Fenster.X = Position(pos.X - Width/2);
-                Next_Fenster.Y = 0; // pos.Y - Height / 2;
+                Next_Fenster.Y = pos.Y - Height / 2;
 
             }
             else
@@ -2266,15 +2296,15 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     setzt die Fenster Position so, dass "pos" im Zentrum ist  ->  Y=0
+        ///     setzt die Fenster Position so, dass "pos" im Zentrum ist
         /// </summary>
         /// <param name="pos">The pos.</param>
-        public void Set_Focus_X(Vector2 pos)
+        public void SetzeFokusX(Vector2 pos)
         {
             if (Karte.KARTE_SYMMETRISCH)
             {
                 Next_Fenster.X = Position(pos.X - Width/2);
-                Next_Fenster.Y = 0;
+                Next_Fenster.Y = pos.Y - Height / 2;
             }
             else
             {
@@ -2282,6 +2312,12 @@ namespace _4_1_
                if (Next_Fenster.X < 0) Next_Fenster.X = 0;
                 if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
             }
+        }
+
+        public void FensterBewegenAufPosition(Vector2 pos)
+        {
+                Next_Fenster.X = Position(pos.X);
+                Next_Fenster.Y = pos.Y;
         }
 
         /*public void check_Feuer()
@@ -2307,7 +2343,7 @@ namespace _4_1_
         /// </summary>
         /// <param name="players">The players.</param>
         /// <param name="symmetrisch">if set to <c>true</c> [symmetrisch].</param>
-        public void SetPanzer(Spieler[] players, bool symmetrisch)
+        public void SetzePanzer(Spieler[] players, bool symmetrisch)
         {
             if (symmetrisch)
             {
@@ -2474,7 +2510,7 @@ namespace _4_1_
         ///     gibt die Anzahl der aktiven/lebenden Spieler aus
         /// </summary>
         /// <returns>gibt die Anzahl der aktiven/lebenden Spieler aus</returns>
-        public int SpielerAktiv()
+        public int PrüfeAktiveSpieler()
         {
             if (Editor.visible) return players.Length;
 
@@ -2501,7 +2537,7 @@ namespace _4_1_
         /// </summary>
         /// <param name="gameTime">The game time.</param>
         /// <param name="smokeList">The smoke list.</param>
-        public void UpdateMissles(GameTime gameTime, List<Karte.ParticleData> smokeList) // geändert
+        public void AktualisiereGeschosse(GameTime gameTime, List<Karte.ParticleData> smokeList) // geändert
         {
             for (int i = 0; i < Missile.Length; i++)
             {
