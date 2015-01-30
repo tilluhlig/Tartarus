@@ -334,6 +334,20 @@ namespace _4_1_
                     _VordergrundSemaphore.Release();
                 }
             }
+
+        }
+
+        public static void ZeichneUnterwelt()
+        {
+            Spiel Spiel2 = Game1.Spiel2;
+            int screenWidth = Game1.screenWidth;
+            int screenHeight = Game1.screenHeight;
+            Rectangle screen = Game1.screen;
+            SpriteBatch spriteBatch = Game1.spriteBatch;
+
+             // Wassser ???
+            if (Spiel2.Fenster.Y>0)
+                Help.DrawRectangle(Game1.spriteBatch, Game1.device, new Rectangle(0,(int)( screenHeight - Spiel2.Fenster.Y), screenWidth,(int) Spiel2.Fenster.Y), Microsoft.Xna.Framework.Color.Black,1f);
         }
 
         /// <summary>
@@ -356,7 +370,7 @@ namespace _4_1_
                 if (fensterx > (i + 1) * 2048 || fensterx + screenWidth2 < i * 2048) continue;
                 if (fensterx + screenWidth2 < i * 2048) continue;
                 int x = fensterx - i * 2048;
-                var y = (int)Spiel2.Fenster.Y;
+                var y = 0;// (int)Spiel2.Fenster.Y;
 
                 Color col = Color.Gold;
                 col = Color.DarkGreen;
