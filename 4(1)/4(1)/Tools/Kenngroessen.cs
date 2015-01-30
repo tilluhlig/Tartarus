@@ -4,12 +4,18 @@ using Microsoft.Xna.Framework;
 
 namespace _4_1_
 {
+    /// <summary>
+    ///  Anrechnungsarten
+    /// </summary>
     public enum Anteil
     {
         Konstant = 0,
         Fläche = 1
     }
-
+   
+    /// <summary>
+    ///  das Wachstumsverhalten des Ereignisses auf die Bereiche, vom Ausgangspunkt des Ereignisses gesehen
+    /// </summary>
     public enum Wachstum
     {
         Konstant = 0,
@@ -18,19 +24,39 @@ namespace _4_1_
         QuadratischSteigend = 3,
         QuadratischFallend = 4,
     }
-
+   
+    /// <summary>
+    /// diese Klasse erlaubt die Definition von Bereichen mit bestimmten Werten
+    /// </summary>
     public class Bereich
     {
         #region Fields
 
+        /// <summary>
+        ///  die Maße des Bereichs
+        /// </summary>
         public Rectangle Feld = new Rectangle(0, 0, 0, 0);
+
+        /// <summary>
+        ///  die Position im Gitter
+        /// </summary>
         public Vector2 Id = Vector2.Zero;
+
+        /// <summary>
+        ///  der Wert des Bereichs
+        /// </summary>
         public double Wert = 0;
 
         #endregion Fields
 
         #region Constructors
 
+        /// <summary>
+        /// Erzeugt ein neues Bereichs-Objekt
+        /// </summary>
+        /// <param name="_Id">die Position des Bereichs</param>
+        /// <param name="_Wert">der Wert</param>
+        /// <param name="_Feld">die Maße des Bereichs</param>
         public Bereich(Vector2 _Id, double _Wert, Rectangle _Feld)
         {
             Id = _Id;
@@ -41,6 +67,9 @@ namespace _4_1_
         #endregion Constructors
     }
 
+    /// <summary>
+    ///  diese Klasse stellt eine Verwaltung von Kenngrößen und Methoden zur Manipulation von Bereichen bereit.
+    /// </summary>
     public class Kenngroesse
     {
         #region Fields
@@ -84,6 +113,14 @@ namespace _4_1_
 
         #region Constructors
 
+        /// <summary>
+        /// Erzeugt ein neues Kenngroessen objekt
+        /// </summary>
+        /// <param name="_Gesamtbreite">die Breite des Spielfeldes in Pixeln</param>
+        /// <param name="_Gesamthoehe">die Höhe des Spielfeldes in Pixeln</param>
+        /// <param name="_Feldbreite">die Breite eines Feldes</param>
+        /// <param name="_Feldhoehe">die Höhe eines Feldes</param>
+        /// <param name="_Initialwert">der Anfangswert aller Felder</param>
         public Kenngroesse(int _Gesamtbreite, int _Gesamthoehe, int _Feldbreite, int _Feldhoehe, double _Initialwert)
         {
             Breite = _Gesamtbreite;
@@ -104,6 +141,11 @@ namespace _4_1_
 
         #region Methods
 
+        /// <summary>
+        /// Gibt einen Bereich anhand seiner Koordinaten im Gitter zurück
+        /// </summary>
+        /// <param name="_Id">x und y Koordinaten des Bereichs</param>
+        /// <returns>der betroffene Bereich</returns>
         public Bereich GibBereichZuId(Vector2 _Id)
         {
             if (_Id.X < 0 || _Id.X >= FelderAnzahlHorizontal || _Id.Y < 0 || _Id.Y >= FelderAnzahlVertikal) return null;
@@ -111,6 +153,11 @@ namespace _4_1_
                 new Rectangle((int)_Id.X * Feldbreite, (int)_Id.Y * Feldhoehe, Feldbreite, Feldhoehe));
         }
 
+        /// <summary>
+        /// Gibt einen Bereich zu einer Position zurück
+        /// </summary>
+        /// <param name="_Position">der betroffene Bereich</param>
+        /// <returns>der betroffene Bereich</returns>
         public Bereich GibBereichZuPosition(Vector2 _Position)
         {
             if (_Position.X < 0 || _Position.X >= Breite || _Position.Y < 0 || _Position.Y >= Hoehe) return null;
@@ -119,6 +166,14 @@ namespace _4_1_
                 new Rectangle((int)_Id.X * Feldbreite, (int)_Id.Y * Feldhoehe, Feldbreite, Feldhoehe));
         }
 
+        /// <summary>
+        /// Fügt einen Wert zu allen Bereichen hinzu, die betroffen sind
+        /// </summary>
+        /// <param name="_Position">der betroffene Bereich</param>
+        /// <param name="_Wert">der Gesamtwert</param>
+        /// <param name="_Radius">der Radius<</param>
+        /// <param name="_Anteil">die Art der Zurechnung</param>
+        /// <param name="_Wachstum">die Art des Wachstums, von _Position ausgehend</param>
         public void Hinzufügen(Vector2 _Position, double _Wert, int _Radius, Anteil _Anteil,
             Wachstum _Wachstum)
         {
@@ -126,6 +181,16 @@ namespace _4_1_
             _Wachstum, false);
         }
 
+        /// <summary>
+        /// Fügt einen Wert zu allen Bereichen hinzu, die betroffen sind
+        /// </summary>
+        /// <param name="_Position">der betroffene Bereich</param>
+        /// <param name="_Wert">der Gesamtwert</param>
+        /// <param name="_Radius">der Radius<</param>
+        /// <param name="_Anteil">die Art der Zurechnung</param>
+        /// <param name="_Wachstum">die Art des Wachstums, von _Position ausgehend</param>
+        /// <param name="Ausgabe">ob die getroffenen Flächen zurückgegeben werden sollen, true = ja, false = nein</param>
+        /// <returns>eine Liste Polygonpunkten, welche vom Radius betroffen sind, sofern Ausgabe=true</returns>
         public List<List<Vector2>> Hinzufügen(Vector2 _Position, double _Wert, int _Radius, Anteil _Anteil,
             Wachstum _Wachstum, bool Ausgabe)
         {
