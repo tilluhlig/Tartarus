@@ -163,7 +163,7 @@ namespace _4_1_
             if (first)
             {
                 Pinselform = new ComboBox2("Pinselform", new[] { "Rund", "Quadratisch" }, 100, graphicsDevice,
-                    new Vector2(Fensterbreite - 100 - 25 - 100 - 25, 0), Color.Goldenrod, Color.Black, Color.Red,
+                    new Vector2(Fensterbreite - 100 - 25 - 100 - 25, 25), Color.Goldenrod, Color.Black, Color.Red,
                     Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 var data4 = new String[Karte.Material.Length];
@@ -172,7 +172,7 @@ namespace _4_1_
                     data4[i] = Karte.MATERIAL_NAME.Wert[i];
 
                 Pinselfarbe = new ComboBox2("Pinselfarbe", data4, 100, graphicsDevice,
-                    new Vector2(Fensterbreite - 100 - 25 - 200 - 25, 0), Color.Goldenrod, Color.Black, Color.Red,
+                    new Vector2(Fensterbreite - 100 - 25 - 200 - 25, 25), Color.Goldenrod, Color.Black, Color.Red,
                     Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 var data5 = new String[15];
@@ -181,14 +181,14 @@ namespace _4_1_
                     data5[i] = ((i + 1) * 10).ToString();
 
                 Pinseldicke = new ComboBox2("Pinseldicke", data5, 100, graphicsDevice,
-                    new Vector2(Fensterbreite - 100 - 25 - 300 - 25, 0), Color.Goldenrod, Color.Black, Color.Red,
+                    new Vector2(Fensterbreite - 100 - 25 - 300 - 25, 25), Color.Goldenrod, Color.Black, Color.Red,
                     Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 //  List<String> list = new List<String>();
                 // list.Add("Gitternetz aus");
                 // Optionen = new Minimenu(list, Texturen.font4, graphicsDevice, 100, Color.SteelBlue, Color.Black, Color.Goldenrod);
                 Optionen = new ComboBox2("Optionen", new[] { "Gitternetz aus" }, 100, graphicsDevice,
-                    new Vector2(Fensterbreite - 100 - 25, 0), Color.Goldenrod, Color.Black, Color.Red,
+                    new Vector2(Fensterbreite - 100 - 25, 25), Color.Goldenrod, Color.Black, Color.Red,
                     Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 var data = new String[Texturen.baum.Length + Texturen.panzerruine.Length];
@@ -200,7 +200,7 @@ namespace _4_1_
                     data[i] = "Ruine" + b;
 
                 NutzlosesCombo = new ComboBox2("Nutzloses", data, 100, graphicsDevice,
-                    new Vector2(Fensterbreite - 100 - 25 - 100 - 25, 0), Color.Goldenrod, Color.Black, Color.Red,
+                    new Vector2(Fensterbreite - 100 - 25 - 100 - 25, 25), Color.Goldenrod, Color.Black, Color.Red,
                     Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 var data2 = new String[Texturen.haus.Length];
@@ -208,16 +208,16 @@ namespace _4_1_
                     data2[i] = "Haus" + i;
 
                 Häuser = new ComboBox2("Haeuser", data2, 100, graphicsDevice,
-                    new Vector2(Fensterbreite - 100 - 25 - 200 - 25, 0), Color.Goldenrod, Color.Black, Color.Red,
+                    new Vector2(Fensterbreite - 100 - 25 - 200 - 25, 25), Color.Goldenrod, Color.Black, Color.Red,
                     Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 TunnelCombo = new ComboBox2("Tunnel", new[] { "Tunnel" }, 100, graphicsDevice,
-                    new Vector2(Fensterbreite - 100 - 25 - 300 - 25, 0), Color.Goldenrod, Color.Black, Color.Red,
+                    new Vector2(Fensterbreite - 100 - 25 - 300 - 25, 25), Color.Goldenrod, Color.Black, Color.Red,
                     Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 Fahrzeuge = new ComboBox2("Fahrzeuge",
                     new[] { "Artillerie", "Panzer", "Baufahrzeug", "Spaehfahrzeug", "Geschuetz I", "Geschuetz II" }, 100,
-                    graphicsDevice, new Vector2(Fensterbreite - 100 - 25 - 400 - 25, 0), Color.Goldenrod, Color.Black,
+                    graphicsDevice, new Vector2(Fensterbreite - 100 - 25 - 400 - 25, 25), Color.Goldenrod, Color.Black,
                     Color.Red, Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 var data3 = new String[Texturen.waffenbilder.Length];
@@ -225,7 +225,7 @@ namespace _4_1_
                     data3[i] = "Waffe" + i;
 
                 Waffen = new ComboBox2("Waffen", data3, 100, graphicsDevice,
-                    new Vector2(Fensterbreite - 100 - 25 - 500 - 25, 0), Color.Goldenrod, Color.Black, Color.Red,
+                    new Vector2(Fensterbreite - 100 - 25 - 500 - 25, 25), Color.Goldenrod, Color.Black, Color.Red,
                     Color.LightGoldenrodYellow, Color.Black, Color.Red);
 
                 // show(Fensterbreite);
@@ -877,7 +877,7 @@ null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                     }
                     else if (GewaehltePinselform == 0)
                     {
-                        int width = dicke;
+                        /*int width = dicke;
                         var aa = (int)(Math.Log((((width) - 0) * Math.PI), Math.E) * Math.Sqrt(width));
                         for (int i = -aa; i < aa; i++)
                         {
@@ -894,6 +894,28 @@ null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                             list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Pos.Y - add),
                                 add2, Karte.LUFT));
                             //    list.Add(new Vector3((int)(Pos.X + i), (int)(Pos.Y - add), (int)(add2)));
+                        }*/
+                        int Breite = dicke;
+
+                        double BreiteHochZwei = Math.Pow(Breite, 2);
+
+                        for (int i = -Breite; i < Breite; i++)
+                        {
+                            if (i + Pos.X < 0 || i + Pos.X >= Spiel2.Spielfeld.Length) continue;
+
+                            double Distanz = Breite;
+                            if (i != 0)
+                                Distanz = Math.Floor(Math.Sqrt((double)BreiteHochZwei - Math.Pow(i, 2)));
+
+                            if (Distanz == 0) continue;
+
+                            double Anfang = Pos.Y - Distanz;
+                            double Ende = Pos.Y + Distanz;
+
+                            if (Anfang < 0) Anfang = 0;
+                            if (Ende >= Game1.screenHeight) Ende = Game1.screenHeight - 1;
+                            list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Anfang),
+                                (int)Ende, Karte.LUFT));
                         }
                     }
 
