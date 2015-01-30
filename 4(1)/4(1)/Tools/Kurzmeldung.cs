@@ -105,11 +105,11 @@ namespace _4_1_
         /// <param name="font">The font.</param>
         /// <param name="minX">The min X.</param>
         /// <param name="maxX">The max X.</param>
-        public static void Zeichnen(SpriteBatch spriteBatch, SpriteFont font, int minX, int maxX)
+        public static void Zeichnen(SpriteBatch spriteBatch, SpriteFont font, int minX, int maxX, int minY, int maxY)
         {
             for (int i = 0; i < Inhalt.Count; i++)
-                if (Position[i].X >= minX && Position[i].X <= maxX)
-                    spriteBatch.DrawString(font, Inhalt[i], new Vector2(Position[i].X - minX, Position[i].Y),
+                if (Position[i].X >= minX && Position[i].X <= maxX && Position[i].Y >= minY && Position[i].Y <= maxY)
+                    spriteBatch.DrawString(font, Inhalt[i], new Vector2(Position[i].X - minX, Position[i].Y-minY),
                         Textfarbe[i]);
         }
 
