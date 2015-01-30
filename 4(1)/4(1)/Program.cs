@@ -37,6 +37,9 @@ namespace _4_1_
 
         public static void KommandozeilenInterpreter(string[] args)
         {
+            if (args.Count()==0)
+                args = new string[] {"-kartengroesse", "3", "-zufallskarte", "-mod", "C.conf"};
+
             for (int i = 0; i < args.Count(); i++)
             {
                 switch (args[i].ToLower())
