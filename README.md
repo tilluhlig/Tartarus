@@ -1,2 +1,4 @@
 # Tartarus
-![](/Bilder/Images/Gespeichert.jpg)
+![](/Bilder/Gespeichert.jpg)
+![](/Bilder/Waffenbilder.jpg)
+![](/Bilder/CryoRakete.jpg)
