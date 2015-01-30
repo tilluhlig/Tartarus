@@ -17,6 +17,10 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using FarseerPhysics.Collision;
+using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 
 namespace _4_1_
 {
@@ -67,7 +71,7 @@ namespace _4_1_
         ///     die Zerstörungsobjekte
         /// </summary>
         private static readonly List<ZerstörungsObjekt> Zerstörung = new List<ZerstörungsObjekt>();
-
+       /// private static readonly List<Body> Koerper = new List<Body>(); 
         #endregion Privat
 
         #region Methods
@@ -136,6 +140,7 @@ namespace _4_1_
         /// <returns>die Position des entsprechenden Objekts</returns>
         public static Vector2 GibPosition(int ID)
         {
+            ///return Koerper[ID].Position;
             return Position[ID];
         }
 
@@ -176,6 +181,20 @@ namespace _4_1_
             {
                 Zerstörung.Add(new ZerstörungsObjekt(_Bild.Width, _Bild.Height, _Skalierung, true, true, true));
             }
+
+           /* uint[] data = new uint[_Bild.Width * _Bild.Height];
+            _Bild.GetData(data);
+            Vertices verts = PolygonTools.CreatePolygon( data, _Bild.Width, true);
+
+            List<Vertices>_list = FarseerPhysics.Common.Decomposition.BayazitDecomposer.ConvexPartition(verts);
+            Body tempKoerper = BodyFactory.CreateCompoundPolygon(Game1.World, _list, 1);
+            tempKoerper.BodyType = BodyType.Static;
+            tempKoerper.SleepingAllowed = true;
+            tempKoerper.Awake = true;
+            tempKoerper.Position = _Position;
+            Koerper.Add(tempKoerper);*/
+
+          //  Koerper.Add(pol);
         }
 
         /// <summary>
@@ -304,8 +323,8 @@ namespace _4_1_
             for (int i = 0; i < Position.Count; i++)
             {
                 float scale = Skalierung[i];
-                var xPos = (int) (Position[i].X - Spiel2.Fenster.X);
-                var yPos = (int) (Position[i].Y - Spiel2.Fenster.Y);
+                var xPos = (int)(Nutzloses.GibPosition(i).X - Spiel2.Fenster.X);
+                var yPos = (int)(Nutzloses.GibPosition(i).Y - Spiel2.Fenster.Y);
 
                 if (xPos + Bild[i].Width*scale/2 < 0 || xPos - Bild[i].Width*scale/2 > Game1.screenWidth) continue;
 

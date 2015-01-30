@@ -29,6 +29,10 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 using System.Threading.Tasks;
 //using Microsoft.VisualBasic;
 //using System.Diagnostics;
+using FarseerPhysics.Collision;
+using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 
 namespace _4_1_
 {
@@ -204,6 +208,7 @@ namespace _4_1_
         private readonly int YWERT = Tausch.screenheight;
 
         private Vector2 WolkenPos = Vector2.Zero;
+        public static World World;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Game1" /> class.
@@ -1019,7 +1024,7 @@ namespace _4_1_
                 if (!Spiel2.players[i].isthere[b]) continue;
                 if (Spiel2.players[i].pos[b].X < fensterx) continue;
                 var x = (int)(Spiel2.players[i].pos[b].X - Texturen.dot.Width / 2 - fensterx);
-                var y = (int)(Spiel2.players[i].pos[b].Y - Texturen.dot.Height / 2 - Spiel2.Fenster.Y);
+                var y = (int)(Spiel2.players[i].pos[b].Y - Texturen.dot.Height / 2 - 0); //Spiel2.Fenster.Y
                 spriteBatch.Draw(Texturen.dot,
                     new Rectangle((int)(screenWidth - screenWidth2 * fact + x * fact - 1),
                         (int)(screenHeight - screenHeight * fact + y * fact - 1), (int)(Texturen.dot.Width * fact + 3),
@@ -1379,8 +1384,8 @@ namespace _4_1_
         public void DrawSceneryBackground()
         {
             if (Spiel2 == null) return;
-            if (Spiel2.Fenster.X < 0) Spiel2.Fenster.X = 0;
-            if (Spiel2.Fenster.Y < 0) Spiel2.Fenster.Y = 0;
+          //  if (Spiel2.Fenster.X < 0) Spiel2.Fenster.X = 0;
+           // if (Spiel2.Fenster.Y < 0) Spiel2.Fenster.Y = 0;
 
             // die geschwindigkeit, mit der sich das Hintergrundbild bewegt (im Vergleich zur Kartenbewegung)
             // bewegungsFaktor > 1 -> Bewegt sich entgegen der Kartenbewegung
@@ -1390,7 +1395,7 @@ namespace _4_1_
             int ww = screenWidth;
 
             int x = (int)(Spiel2.Fenster.X * bewegungsFaktor) % ww - screenWidth;
-            int y = (int)(Spiel2.Fenster.Y * bewegungsFaktor) % screenHeight;
+            int y = (int)(0 * bewegungsFaktor) % screenHeight;
 
             while (x < screenWidth)
             {
@@ -1404,7 +1409,7 @@ namespace _4_1_
             float bewegungsFaktor2 = .05f;
 
             int x2 = (int)(Spiel2.Fenster.X * bewegungsFaktor2) % ww - screenWidth;
-            int y2 = (int)(Spiel2.Fenster.Y * bewegungsFaktor2 - screenHeight * .75f) % screenHeight;
+            int y2 = (int)(0 * bewegungsFaktor2 - screenHeight * .75f) % screenHeight;
 
             int oldx2 = x2;
             while (y2 < screenHeight)
@@ -1422,7 +1427,7 @@ namespace _4_1_
             float bewegungsFaktor3 = .075f;
 
             int x3 = (int)((Spiel2.Fenster.X + WolkenPos.X) * bewegungsFaktor3) % ww - screenWidth;
-            int y3 = (int)((Spiel2.Fenster.Y + WolkenPos.Y) * bewegungsFaktor3 - screenHeight * .3f) % screenHeight -
+            int y3 = (int)((0 + WolkenPos.Y) * bewegungsFaktor3 - screenHeight * .3f) % screenHeight -
                      screenHeight;
 
             int oldx3 = x3;
@@ -1558,6 +1563,7 @@ namespace _4_1_
         public static int SpielAusblenden = 0;
         public static int SpielAusblendenMax = 0;
         public static float SpielBlend = 0;
+        public static Body HiddenBody;
 
         /// <summary>
         ///     Loads all content.
@@ -1607,6 +1613,17 @@ namespace _4_1_
             menuaufruf = false;
 
             water = Farbwahl(Texturen.wasser);
+
+            if (World == null)
+                World = new World(Vector2.Zero);
+            else
+                World.Clear();
+            Game1.World.Gravity = new Vector2(0, 0f);
+            Game1.HiddenBody = BodyFactory.CreateBody(World, Vector2.Zero);
+
+            // Loading may take a while... so prevent the game from "catching up" once we finished loading
+            //.Game.ResetElapsedTime();
+            this.ResetElapsedTime();
         }
 
         /// <summary>
@@ -1938,6 +1955,8 @@ namespace _4_1_
 
                 bool overnotiz = false;
                 if (Tausch.SpielAktiv)
+                {
+  
                     for (int i = 0; i < Spiel2.players[Spiel2.CurrentPlayer].Notiz.pos.Count; i++)
                     {
                         if (Notizen.Kollision.collision(Help.GetMousePos(),
@@ -1947,7 +1966,7 @@ namespace _4_1_
                             break;
                         }
                     }
-
+                }
                 bool overtank = false;
 
                 if (Tausch.SpielAktiv)
@@ -1995,6 +2014,9 @@ namespace _4_1_
                 spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend, null, null, null);
                 Texturen.effect.CurrentTechnique.Passes[0].Apply();
                 Vordergrund.ZeichneVordergrund();
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend, null, null, null);
+                Vordergrund.ZeichneUnterwelt();
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
 
@@ -2181,10 +2203,11 @@ namespace _4_1_
                 if (Mod.MINIMAP_VISIBLE.Wert && Tausch.SpielAktiv && Spiel2.minimap_visible) DrawMinimapDot();
 
                 Kurzmeldung.Zeichnen(spriteBatch, Texturen.font2, (int) Spiel2.Fenster.X,
-                    (int) (Spiel2.Fenster.X + screenWidth));
+                    (int)(Spiel2.Fenster.X + screenWidth), (int)Spiel2.Fenster.Y, (int)(Spiel2.Fenster.Y + screenHeight));
                 spriteBatch.End();
 
                 // Zeichne Kenngrößen
+                #region KENNGROESSEN
                 if (Game1.DEBUG_AKTIV.Wert)
                 {
                     spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
@@ -2252,6 +2275,7 @@ namespace _4_1_
                     }
                     spriteBatch.End();
                 }
+                #endregion
 
 
                 spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
@@ -2289,13 +2313,13 @@ namespace _4_1_
             SetUpMenu.Draw(spriteBatch);
             if (MausAktiv) DrawMouse();
 
-            if (Spiel2.SpielerAktiv() < 2)
+            if (Spiel2.PrüfeAktiveSpieler() < 2)
             {
                 Tausch.SpielAktiv = false;
                 DrawTextEnd();
             }
             spriteBatch.End();
-            
+
             //GraphicsDevice.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
 
             //base.Draw(gameTime);
@@ -2360,7 +2384,8 @@ namespace _4_1_
         {
            Time = gameTime;
            check_Datenaustausch();
-
+           // if (Game1.World!=null)
+            //    Game1.World.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 30f)));
 
            if (Time.TotalGameTime.TotalMilliseconds - elapsed >= 25)
            {
@@ -2455,11 +2480,13 @@ namespace _4_1_
 
                             if (Spiel2 == null) continue;
                             //  if (Spiel2.paused) pauseMenu.Update(gameTime);
-                            if (Spiel2.SpielerAktiv() > 1 && SpielAktiv)
+                            if (Spiel2.PrüfeAktiveSpieler() > 1 && SpielAktiv)
                             {
+                                //
+
                                 Spiel2.check_shot_increase();
                                 Kurzmeldung.Aktualisieren();
-                                if (Spiel.MISSILE.Wert) Spiel2.UpdateMissles(Time, smokeList);
+                                if (Spiel.MISSILE.Wert) Spiel2.AktualisiereGeschosse(Time, smokeList);
 
                                 if (Spiel.CHECK_RAKETEN.Wert) Spiel2.check_Raketen();
                                 Spiel2.check_players(Time);
@@ -2500,6 +2527,13 @@ namespace _4_1_
                             //base.Update(gameTime);
                             //Draw(gameTime);
                         }
+                        if (Spiel2 != null && SpielAktiv)
+                            if (Game1.World != null)
+                            {
+                               // Game1.World.Enabled = false;
+                                Game1.World.Enabled = true;
+                                Game1.World.Step(1f / 60f);
+                            }
                     }
                     Thread.Sleep(5);
              }
@@ -2510,6 +2544,12 @@ namespace _4_1_
                 UpdateTask = new Task(action, "Update");
                 UpdateTask.Start();
             }
+
+              if (Spiel2 != null && SpielAktiv)
+               {
+                  // if (Game1.World != null)
+                    //   Game1.World.Step(Math.Min((float)gameTime.ElapsedGameTime.TotalSeconds, (1f / 60f)));
+               }
                 updateCount++;
         }
           
@@ -3103,7 +3143,7 @@ namespace _4_1_
                         /*Spieler tmp = Spiel2.players[Spiel2.CurrentPlayer];
                             int id = tmp.CurrentTank;
                             Spiel2.players[Spiel2.CurrentPlayer].Minen.Add(new Mine((int)tmp.pos[id].X, (int)tmp.pos[id].Y,1));*/
-                        Spiel2.next_player();
+                        Spiel2.Spielerwechsel();
                         Meldungen.addMessage("Spieler gewechselt...");
                         //  Optimierung.Optimiere_Bäume();
                         //   Optimierung.Optimiere_Häuser();
@@ -3353,7 +3393,7 @@ namespace _4_1_
 
             #endregion Sounds
 
-            if (Spiel2 != null && Spiel2.SpielerAktiv() > 1 && SpielAktiv)
+            if (Spiel2 != null && Spiel2.PrüfeAktiveSpieler() > 1 && SpielAktiv)
             {
                 #region Tunnel
 
@@ -3993,12 +4033,12 @@ namespace _4_1_
                         Spiel2.players[Spiel2.CurrentPlayer].shootingPower =
                             Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].X;
                         if (!Spiel2.Moving_Map)
-                            Spiel2.Set_Focus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
+                            Spiel2.SetzeFokus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                                 Spiel2.players[Spiel2.CurrentPlayer].pos[
                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].Y));
                     }
                     else if (!Spiel2.Moving_Map)
-                        Spiel2.Set_Focus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
+                        Spiel2.SetzeFokus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                             Spiel2.players[Spiel2.CurrentPlayer].pos[
                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].Y));
 
@@ -4030,12 +4070,12 @@ namespace _4_1_
                         Spiel2.players[Spiel2.CurrentPlayer].shootingPower =
                             Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].X;
                         if (!Spiel2.Moving_Map)
-                            Spiel2.Set_Focus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
+                            Spiel2.SetzeFokus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                                 Spiel2.players[Spiel2.CurrentPlayer].pos[
                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].Y));
                     }
                     else if (!Spiel2.Moving_Map)
-                        Spiel2.Set_Focus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
+                        Spiel2.SetzeFokus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                             Spiel2.players[Spiel2.CurrentPlayer].pos[
                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].Y));
 
@@ -4092,7 +4132,7 @@ namespace _4_1_
                         Spiel2.players[Spiel2.CurrentPlayer].shootingPower =
                             Spiel2.players[Spiel2.CurrentPlayer].pos[CurrentTankNow].X;
                         if (!Spiel2.Moving_Map)
-                            Spiel2.Set_Focus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
+                            Spiel2.SetzeFokus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                                 Spiel2.players[Spiel2.CurrentPlayer].pos[
                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].Y));
                     }
@@ -4136,7 +4176,7 @@ namespace _4_1_
                         Spiel2.players[Spiel2.CurrentPlayer].shootingPower =
                             Spiel2.players[Spiel2.CurrentPlayer].pos[CurrentTankNow].X;
                         if (!Spiel2.Moving_Map)
-                            Spiel2.Set_Focus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
+                            Spiel2.SetzeFokus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                                 Spiel2.players[Spiel2.CurrentPlayer].pos[
                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].Y));
                     }
@@ -4164,7 +4204,7 @@ namespace _4_1_
             {
                 if (Mod.FREIE_KARTENBEWEGUNG.Wert && Spiel2.Moving_Map)
                 {
-                    Spiel2.Set_Focus_X(new Vector2(Spiel2.Next_Fenster.X - 25 + screenWidth / 2, Spiel2.Next_Fenster.Y));
+                    Spiel2.SetzeFokusX(new Vector2(Spiel2.Next_Fenster.X - 25 + screenWidth / 2, Spiel2.Next_Fenster.Y));
                 }
                 else if (Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 2)
                 {
@@ -4174,7 +4214,7 @@ namespace _4_1_
                     //if (Spiel2.players[Spiel2.CurrentPlayer].shootingPower < 0) Spiel2.players[Spiel2.CurrentPlayer].shootingPower = 0;
                     //if (Spiel2.players[Spiel2.CurrentPlayer].shootingPower >= Spiel2.Spielfeld.Length - 1) Spiel2.players[Spiel2.CurrentPlayer].shootingPower = Spiel2.Spielfeld.Length - 1;
                     if (!Spiel2.Moving_Map)
-                        Spiel2.Set_Focus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
+                        Spiel2.SetzeFokus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                             Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].Y));
                 }
             }
@@ -4185,7 +4225,7 @@ namespace _4_1_
             {
                 if (Mod.FREIE_KARTENBEWEGUNG.Wert && Spiel2.Moving_Map)
                 {
-                    Spiel2.Set_Focus_X(new Vector2(Spiel2.Next_Fenster.X + 25 + screenWidth / 2, Spiel2.Next_Fenster.Y));
+                    Spiel2.SetzeFokusX(new Vector2(Spiel2.Next_Fenster.X + 25 + screenWidth / 2, Spiel2.Next_Fenster.Y));
                 }
                 else if (Waffendaten.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 2)
                 {
@@ -4195,7 +4235,7 @@ namespace _4_1_
                     //if (Spiel2.players[Spiel2.CurrentPlayer].shootingPower < 0) Spiel2.players[Spiel2.CurrentPlayer].shootingPower = 0;
                     //if (Spiel2.players[Spiel2.CurrentPlayer].shootingPower >= Spiel2.Spielfeld.Length - 1) Spiel2.players[Spiel2.CurrentPlayer].shootingPower = Spiel2.Spielfeld.Length - 1;
                     if (!Spiel2.Moving_Map)
-                        Spiel2.Set_Focus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
+                        Spiel2.SetzeFokus(new Vector2(Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                             Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank].Y));
                 }
             }
@@ -4480,6 +4520,23 @@ namespace _4_1_
             bool notizrightklicked = false;
             bool notizbereichleftklicked = false;
 
+            if (Spiel2 != null && Tausch.SpielAktiv)
+            {
+                // prüfe Mausbewegung, wenn Mauszeiger am Rand des Bildschirms
+                float move = 25;
+                if (Help.GetMouseState().X <= 5)
+                    Spiel2.FensterBewegenAufPosition(Spiel2.Next_Fenster + new Vector2(-move, 0));
+
+                if (Help.GetMouseState().X >= screenWidth - 5)
+                    Spiel2.FensterBewegenAufPosition(Spiel2.Next_Fenster + new Vector2(+move, 0));
+
+                if (Help.GetMouseState().Y <= 5)
+                    Spiel2.FensterBewegenAufPosition(Spiel2.Next_Fenster + new Vector2(0, -move));
+
+                if (Help.GetMouseState().Y >= screenHeight - 5)
+                    Spiel2.FensterBewegenAufPosition(Spiel2.Next_Fenster + new Vector2(0, +move));
+            }
+
             if (Editor.visible && Spiel2 != null && Tausch.SpielAktiv)
             {
                 Editor.MouseKeys(spriteBatch, device, mouseState, Spiel2);
@@ -4737,8 +4794,8 @@ namespace _4_1_
                         return;
                     }
 
-                    // Etwas auf der Karte anklicken
 
+                    // Etwas auf der Karte anklicken
                     if (Help.GetMouseState().LeftButton == ButtonState.Pressed)
                     {
                         bool found = false;

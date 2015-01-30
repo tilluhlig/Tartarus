@@ -15,6 +15,13 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using FarseerPhysics.Collision;
+using FarseerPhysics.Common;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
+//using FarseerPhysics.Samples.Demos.Prefabs;
+//using FarseerPhysics.Samples.DrawingSystem;
+//using FarseerPhysics.Samples.ScreenSystem;
 
 namespace _4_1_
 {
