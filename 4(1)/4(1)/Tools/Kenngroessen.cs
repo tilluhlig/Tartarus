@@ -340,7 +340,7 @@ namespace _4_1_
                     if (Ausgabe)
                         Resultat.Add(Ecken);
 
-                    Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += WachstumAnwenden(Kenn,(float) Help.PolygonFlaeche(Ecken), _Position, _Wert, _Radius, _Wachstum);
+                    Bereiche[(int)Kenn.Id.X, (int)Kenn.Id.Y] += WachstumAnwenden(Kenn, (float)Help.PolygonFlaeche(Ecken), _Position, _Wert, _Radius, _Wachstum);
                 }
             return Resultat;
         }
@@ -424,21 +424,21 @@ namespace _4_1_
                     _Position);
             if (FelderAbstand > _Radius) FelderAbstand = (float)(_Radius - Math.Sqrt(((_Bereich.Feld.Width / 2) * (_Bereich.Feld.Width / 2)) + ((_Bereich.Feld.Height / 2) * (_Bereich.Feld.Height / 2))));
 
-            double WertAnteil = _Wert*(_Flache/(_Bereich.Feld.Width*_Bereich.Feld.Height));
+            double WertAnteil = _Wert * (_Flache / (_Bereich.Feld.Width * _Bereich.Feld.Height));
             if (_Wachstum == Wachstum.LinearFallend)
             {
-                return WertAnteil * (1.0d - (double) FelderAbstand/_Radius);
+                return WertAnteil * (1.0d - (double)FelderAbstand / _Radius);
             }
 
             if (_Wachstum == Wachstum.LinearSteigend)
             {
-                return WertAnteil * ((double) FelderAbstand/_Radius);
+                return WertAnteil * ((double)FelderAbstand / _Radius);
             }
 
             if (_Wachstum == Wachstum.QuadratischFallend)
             {
-                double faktor = ((double) FelderAbstand/_Radius);
-                return WertAnteil * (1 - faktor*faktor);
+                double faktor = ((double)FelderAbstand / _Radius);
+                return WertAnteil * (1 - faktor * faktor);
             }
 
             if (_Wachstum == Wachstum.QuadratischSteigend)
