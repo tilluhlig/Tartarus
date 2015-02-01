@@ -514,12 +514,9 @@ namespace _4_1_
             if (Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon == 5)
             {
                 int xPos = (int)Spiel2.players[Spiel2.CurrentPlayer].shootingPower - (int)Spiel2.Fenster.X;
-                int yPos = screenHeight / 2 - (int)Spiel2.Fenster.Y;
                 spriteBatch.Draw(Texturen.kreuz,
-                    new Vector2(xPos, Kartenformat.BottomOf(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, 0)),
+                    new Vector2(xPos, Kartenformat.BottomOf(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, 0) - Spiel2.Fenster.Y),
                     null, Color.White, 0, new Vector2(35, 35), 1f, SpriteEffects.None, 1);
-
-                // spriteBatch.Draw(Texturen.kreuz, new Vector2(xPos, (int)(Spiel2.Spielfeld[(int)Spiel2.players[Spiel2.CurrentPlayer].shootingPower][0] - Spiel2.Fenster.Y)), null, Color.White, 0, new Vector2(35, 35), 1f, SpriteEffects.None, 1);
             }
         }
 
@@ -1103,7 +1100,7 @@ namespace _4_1_
             {
                 float posx = Haus.Orte[i].X + Haus.Orte[i].Y / 2 - Spiel2.Fenster.X;
                 if (posx + 100 < 0 || posx >= Spiel2.Width + 100) continue;
-                float posy = Haus.Ortemaxheight[i] - 50;
+                float posy = Haus.Ortemaxheight[i] - 50 - Spiel2.Fenster.Y;
                 spriteBatch.Draw(Texturen.Ort, new Vector2(posx - 50, posy), null, Color.White * 0.4f, 0,
                     new Vector2(0, 0), 1f, SpriteEffects.None, 0);
                 String Name = Haus.Ortsname[i];
