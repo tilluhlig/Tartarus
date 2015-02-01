@@ -38,7 +38,7 @@ namespace _4_1_
         public int selected = 255;
 
         /// <summary>
-        ///     The aux
+        ///     liefert den Abstand zwischen den Buttons
         /// </summary>
         private readonly Vector2 aux = new Vector2(10, 5);
 
@@ -53,7 +53,7 @@ namespace _4_1_
         private readonly byte length = 2;
 
         /// <summary>
-        ///     The own pos
+        ///     die Position des Menüs
         /// </summary>
         private readonly Vector2 ownPos = new Vector2(0, 0);
 
@@ -63,12 +63,12 @@ namespace _4_1_
         private readonly bool vertical;
 
         /// <summary>
-        ///     The button pos
+        ///     die Bildschirmpositionen der Buttons
         /// </summary>
         private Vector2[] buttonPos = new Vector2[0];
 
         /// <summary>
-        ///     The buttons
+        ///     die auswählbaren Felder des Menüs
         /// </summary>
         private BoundingBox[] buttons = new BoundingBox[0];
 
@@ -92,10 +92,9 @@ namespace _4_1_
         #region Constructors
 
         /// <summary>
-        ///  bei allen konstruktoren: maxanz ist vielfaches von length
-        ///  standardrucksack
+        ///
         /// </summary>
-        /// <param name="pos">The pos.</param>
+        /// <param name="pos">die Bildschirmposition des Menüs</param>
         /// <param name="maxAnz">The max anz.</param>
         /// <param name="length">The length.</param>
         /// <param name="height">The height.</param>
@@ -122,9 +121,9 @@ namespace _4_1_
         ///     Zeichnet den Rucksack
         /// </summary>
         /// <param name="_Zeichenfläche">eine Zeichenfläche</param>
-        /// <param name="Rucksack">The rucksack.</param>
-        /// <param name="clickselected">The clickselected.</param>
-        /// <param name="Transparenz">The transparenz.</param>
+        /// <param name="Rucksack">ein Inventar, welches dargestellt wird</param>
+        /// <param name="clickselected">das ausgewählte Feld wird hier übergeben</param>
+        /// <param name="Transparenz">ein Wert für die Transparenz (0.0 bis 1.0)</param>
         public void Draw(SpriteBatch _Zeichenfläche, Inventar Rucksack, ref int clickselected, float Transparenz)
         {
             if (Rucksack == null) return;
@@ -340,12 +339,12 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Mouses the keys.
+        ///     bearbeitet Mauseingaben für das Menü
         /// </summary>
-        /// <param name="mouseState">State of the mouse.</param>
-        /// <param name="clickselected">The clickselected.</param>
-        /// <param name="Rucksack">The rucksack.</param>
-        /// <returns>gibt zuruck, welches item gewahlt wurde</returns>
+        /// <param name="mouseState">der aktuelle Mausstatus</param>
+        /// <param name="clickselected">enthält einen Wert für das ausgewählte Item (ref)</param>
+        /// <param name="Rucksack">das geöffnete Inventar</param>
+        /// <returns>gibt zuruck, ob ein Item gewählt wurde (0==nein, 1==item gewählt, 2==scrolled)</returns>
         public int mouseKeys(MouseState mouseState, ref int clickselected, Inventar Rucksack)
         {
             if (clickselected > 250) selected = 255;
@@ -404,7 +403,7 @@ namespace _4_1_
         }
 
         /// <summary>
-        ///     Sets the buttons.
+        ///     erzeugt die Buttons
         /// </summary>
         private void setButtons()
         {
