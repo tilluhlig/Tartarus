@@ -1878,6 +1878,8 @@ namespace _4_1_
 
                 Help.DrawString(Game1.spriteBatch, Schriftart, LadebildschirmText, new Vector2(Game1.screenWidth / 2 - Schriftart.MeasureString(LadebildschirmText).X / 2, Verschiebung.Y + LadeHintergrund.Height), Color.Green,
                     Color.Transparent);
+
+                ZeichneLogo(1.0f);
                 Game1.spriteBatch.End();
 
                 if (!LadebildschirmRichtung)
@@ -2355,6 +2357,14 @@ namespace _4_1_
         /// </summary>
         protected override void UnloadContent() // keine Funktion
         {
+        }
+
+        public static void ZeichneLogo(float Transparenz)
+        {
+            if (Texturen.tartarus == null)
+                Texturen.tartarus = Game1.ContentAll.Load<Texture2D>("Textures\\Tartarus");
+            Game1.spriteBatch.Draw(Texturen.tartarus, new Vector2((int)10, (int)screenHeight - 10 - Texturen.tartarus.Height*0.25f), new Rectangle(0, 0, Texturen.tartarus.Width, Texturen.tartarus.Height), Color.White * Transparenz, 0.0f, Vector2.Zero, 0.25f, SpriteEffects.None, 0.0f);
+
         }
 
         public static void SpielfeldEinblenden(int Zeit)

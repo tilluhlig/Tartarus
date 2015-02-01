@@ -207,6 +207,11 @@ namespace _4_1_
         #region Texturdeklarationen
 
         /// <summary>
+        ///     das Logo des Spiels
+        /// </summary>
+        public static Texture2D tartarus;
+
+        /// <summary>
         ///     The active background
         /// </summary>
         public static Texture2D activeBackground;
@@ -732,6 +737,9 @@ namespace _4_1_
             Game1.SpriteBatchSemaphor.WaitOne();
             Punkt.SetData(tt);
             Game1.SpriteBatchSemaphor.Release();
+
+            Bilddateien.Add("Tartarus", 1.0f);
+            tartarus = Content.Load<Texture2D>("Textures\\Tartarus");
 
             Bilddateien.Add("powerup", 0.8f);
             shootingpower = Content.Load<Texture2D>("Textures\\powerup"); // neues
