@@ -346,6 +346,10 @@
       <Name>Hauptfenster</Name>
       <Private>True</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\KI\KI\KI.csproj">
+      <Project>{4325EEAA-B5B7-4B9F-8AD1-5F95260FEEA1}</Project>
+      <Name>KI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ReaderStream\ReaderStream.csproj">
       <Project>{6F0205DE-09D2-4807-8CB8-31821D73DA67}</Project>
       <Name>ReaderStream</Name>
