@@ -129,6 +129,8 @@ namespace _4_1_
             int Danach = (int) Math.Ceiling((float) Game1.screenHeight/80) - 4;
             for (int i = menuItems.Length; i < menuItems.Length + Danach; i++)
                 spriteBatch.Draw(Texturen.Button1, aux + new Vector2(0, 80*i), unselected*0.5f);
+
+            Game1.ZeichneLogo(1.0f);
         }
 
         /// <summary>

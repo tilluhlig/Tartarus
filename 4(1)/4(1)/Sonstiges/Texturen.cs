@@ -738,9 +738,6 @@ namespace _4_1_
             Punkt.SetData(tt);
             Game1.SpriteBatchSemaphor.Release();
 
-            Bilddateien.Add("Tartarus", 1.0f);
-            tartarus = Content.Load<Texture2D>("Textures\\Tartarus");
-
             Bilddateien.Add("powerup", 0.8f);
             shootingpower = Content.Load<Texture2D>("Textures\\powerup"); // neues
 

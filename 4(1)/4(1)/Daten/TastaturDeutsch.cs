@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Input;
 using Keys = Microsoft.Xna.Framework.Input.Keys;
-using System.Runtime.InteropServices;
 
 namespace _4_1_
 {
     public static class TastaturDeutsch
     {
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
+        #region Methods
 
-        public static extern short GetKeyState(int keyCode); 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
+        public static extern short GetKeyState(int keyCode);
+
+        #endregion Methods
 
         #region Fields
 
@@ -22,40 +24,44 @@ namespace _4_1_
             Keys.OemComma, Keys.OemOpenBrackets, Keys.OemBackslash,Keys.Back,Keys.Space,Keys.D0,Keys.D1,Keys.D2,Keys.D3,Keys.D4,Keys.D5,Keys.D6,Keys.D7,Keys.D8,Keys.D9,Keys.Enter
         };
 
-        private static readonly char[] MapAltGrChar = { '~', (char)0, (char)0, (char)0, (char)0, '|', '\\', (char)0, (char)0, '}', (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, '{', '[', ']',(char)0 };
-        private static readonly char[] MapChar = { '+', '#', '-', '.', ',', '<', (char)0,(char)8,' ','0','1','2','3','4','5','6','7','8','9','\n' };
-        private static readonly char[] MapShiftChar = { '*', '\'', '_', ':', ';', '>', '?', (char)8, ' ', '=', '!', '"', '§', '$', '%', '&', '/', '(', ')', '\n' };
-
-
         private static readonly Keys[] Map2 =
         {
             Keys.NumPad0, Keys.NumPad1, Keys.NumPad2, Keys.NumPad3,
             Keys.NumPad4, Keys.NumPad5, Keys.NumPad6,Keys.NumPad7,Keys.NumPad8,Keys.NumPad9
         };
+
         private static readonly char[] Map2Char = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        private static readonly char[] MapAltGrChar = { '~', (char)0, (char)0, (char)0, (char)0, '|', '\\', (char)0, (char)0, '}', (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, '{', '[', ']', (char)0 };
+        private static readonly char[] MapChar = { '+', '#', '-', '.', ',', '<', (char)0, (char)8, ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '\n' };
+        private static readonly char[] MapShiftChar = { '*', '\'', '_', ':', ';', '>', '?', (char)8, ' ', '=', '!', '"', '§', '$', '%', '&', '/', '(', ')', '\n' };
 
         #endregion Fields
 
         #region Methods
 
-        public delegate void Del(object sender, KeyPressEventArgs e);
+        private static int[] down = new int[256];
+
+        private static bool first = true;
+
         private static List<Del> Funktionen = new List<Del>();
 
-        public static void Clear()
-        {
-            Funktionen.Clear();
-        }
+        private static List<int> oldTreffer = new List<int>();
+
+        private static int[] pressed = new int[256];
+
+        private static int readed = 3;
+
+        public delegate void Del(object sender, KeyPressEventArgs e);
 
         public static void Add(Del Funktion)
         {
             Funktionen.Add(Funktion);
         }
 
-        private static int[] pressed = new int[256];
-        private static int[] down = new int[256];
-        private static bool first=true;
-        private static int readed = 3;
-        private static List<int> oldTreffer = new List<int>();
+        public static void Clear()
+        {
+            Funktionen.Clear();
+        }
 
         public static void OnKeyPress()
         {
@@ -66,7 +72,7 @@ namespace _4_1_
                     pressed[i] = 0;
                     down[i] = 0;
                 }
-                first=false;
+                first = false;
             }
 
             for (int i = 0; i < oldTreffer.Count(); i++)
@@ -113,16 +119,15 @@ namespace _4_1_
             {
                 if ((int)temp[i] >= 65 && (int)temp[i] <= 90)
                 {
-                    if (pressed[(int) (temp[i] + (1 - shift)*32)] == 0)
+                    if (pressed[(int)(temp[i] + (1 - shift) * 32)] == 0)
                     {
-                        var Key = new KeyPressEventArgs((char) (temp[i] + (1 - shift)*32));
+                        var Key = new KeyPressEventArgs((char)(temp[i] + (1 - shift) * 32));
                         AlleAufrufen(Key);
                     }
 
                     pressed[(int)(temp[i] + (1 - shift) * 32)] = readed;
                     treffer.Add((int)(temp[i] + (1 - shift) * 32));
                 }
-             
                 else
                 {
                     bool found = false;
@@ -137,40 +142,39 @@ namespace _4_1_
                                 {
                                     if (MapChar[b] != 0)
                                     {
-                                        if (pressed[(int) MapChar[b]] == 0)
+                                        if (pressed[(int)MapChar[b]] == 0)
                                         {
                                             var Key = new KeyPressEventArgs(MapChar[b]);
                                             AlleAufrufen(Key);
-
                                         }
-                                        pressed[(int) MapChar[b]] = readed;
-                                        treffer.Add((int) MapChar[b]);
+                                        pressed[(int)MapChar[b]] = readed;
+                                        treffer.Add((int)MapChar[b]);
                                     }
                                 }
                                 if (altGr == 1)
                                 {
                                     if (MapAltGrChar[b] != 0)
                                     {
-                                        if (pressed[(int) MapAltGrChar[b]] == 0)
+                                        if (pressed[(int)MapAltGrChar[b]] == 0)
                                         {
                                             var Key = new KeyPressEventArgs(MapAltGrChar[b]);
                                             AlleAufrufen(Key);
                                         }
-                                        pressed[(int) MapAltGrChar[b]] = readed;
-                                        treffer.Add((int) MapAltGrChar[b]);
+                                        pressed[(int)MapAltGrChar[b]] = readed;
+                                        treffer.Add((int)MapAltGrChar[b]);
                                     }
                                 }
                                 if (shift == 1)
                                 {
                                     if (MapShiftChar[b] != 0)
                                     {
-                                        if (pressed[(int) MapShiftChar[b]] == 0)
+                                        if (pressed[(int)MapShiftChar[b]] == 0)
                                         {
                                             var Key = new KeyPressEventArgs(MapShiftChar[b]);
                                             AlleAufrufen(Key);
                                         }
-                                        pressed[(int) MapShiftChar[b]] = readed;
-                                        treffer.Add((int) MapShiftChar[b]);
+                                        pressed[(int)MapShiftChar[b]] = readed;
+                                        treffer.Add((int)MapShiftChar[b]);
                                     }
                                 }
                             }
@@ -190,7 +194,6 @@ namespace _4_1_
                                         {
                                             var Key = new KeyPressEventArgs(Map2Char[b]);
                                             AlleAufrufen(Key);
-
                                         }
                                         pressed[(int)Map2Char[b]] = readed;
                                         treffer.Add((int)Map2Char[b]);
@@ -198,7 +201,6 @@ namespace _4_1_
                                 }
                             }
                     }
-
                 }
             }
 

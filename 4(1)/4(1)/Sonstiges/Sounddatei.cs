@@ -9,10 +9,10 @@ namespace _4_1_
     {
         #region Fields
 
+        public DynamicSoundEffectInstance dynamicSound;
+        public bool IsLooped = false;
         private readonly byte[] byteArray;
         private readonly int count;
-        public bool IsLooped = false;
-        public DynamicSoundEffectInstance dynamicSound;
         private int position;
 
         #endregion Fields
