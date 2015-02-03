@@ -193,10 +193,12 @@ namespace _4_1_
             for (int i = 0; i < Spiel2.foreground.Count(); i++)
                 if (ischanged[i])
                 {
+                    Game1.SpriteBatchSemaphor.WaitOne();
                     _VordergrundSemaphore.WaitOne();
                     Game1.device.Textures[0] = null;
                     Spiel2.foreground[i].SetData(Spiel2.foregroundColors[i]);
                     _VordergrundSemaphore.Release();
+                    Game1.SpriteBatchSemaphor.Release();
                 }
         }
 
@@ -206,9 +208,6 @@ namespace _4_1_
         public static void ErstelleVordergrund()
         {
             Spiel Spiel2 = Game1.Spiel2;
-            int screenWidth = Game1.screenWidth;
-            int screenHeight = Game1.screenHeight;
-            Rectangle screen = Game1.screen;
             SpriteBatch spriteBatch = Game1.spriteBatch;
 
             if (Spiel2.foreground==null)
@@ -223,7 +222,7 @@ namespace _4_1_
                 Color[,] water = Game1.Farbwahl(Texturen.wasser);
 
                 int Bildbreite = 2048;
-                Spiel2.foregroundColors[c] = new Color[Bildbreite*screenHeight];
+                Spiel2.foregroundColors[c] = new Color[Bildbreite * Game1.Kartenhoehe];
 
                 for (int x = 2048*c; x < Spiel2.Spielfeld.Length && x < 2048*(c + 1); x++)
                 {
@@ -248,7 +247,7 @@ namespace _4_1_
                                     Karte.Material[sorte].CBild[
                                         (x%Karte.Material[sorte].Bild.Width) +
                                         ((sum + d)%Karte.Material[sorte].Bild.Height)*Karte.Material[sorte].Bild.Width];
-                            if (!Kartenformat.isSet(x, sum + d) && sum + d > screenHeight - 20)
+                            if (!Kartenformat.isSet(x, sum + d) && sum + d > Game1.Kartenhoehe - 20)
                             {
                                 t = water[x%Texturen.wasser.Width, (sum + d)%Texturen.wasser.Height];
                             }
@@ -265,7 +264,7 @@ namespace _4_1_
                     }
                 }
                 _VordergrundSemaphore.WaitOne();
-                Spiel2.foreground[c] = new Texture2D(Game1.device, Bildbreite, screenHeight, false, SurfaceFormat.Color);
+                Spiel2.foreground[c] = new Texture2D(Game1.device, Bildbreite, Game1.Kartenhoehe, false, SurfaceFormat.Color);
                 Game1.device.Textures[0] = null;
                 Spiel2.foreground[c].SetData(Spiel2.foregroundColors[c]);
                 _VordergrundSemaphore.Release();
@@ -291,46 +290,46 @@ namespace _4_1_
                 if (i == -1)
                 {
                     b = Spiel2.foreground.Length - 1;
-                    if (!Karte.KARTE_SYMMETRISCH) continue;
+                    if (!Karte.KARTE_ZYKLISCH) continue;
                 }
                 if (i == Spiel2.foreground.Length)
                 {
                     b = 0;
-                    if (!Karte.KARTE_SYMMETRISCH) continue;
+                    if (!Karte.KARTE_ZYKLISCH) continue;
                 }
 
                 if (Spiel2.Fenster.X > (i + 1)*2048 || Spiel2.Fenster.X + screenWidth < i*2048) continue;
                 if ((int) Spiel2.Fenster.X + screenWidth < i*2048) continue;
-                int x = (int) Spiel2.Fenster.X - i*2048;
+                int x = (int)Spiel2.Fenster.X -i * 2048;
                 var y = (int) Spiel2.Fenster.Y;
 
                 Rectangle a;
-                if (x < 0)
+                //if (x < 0)
                 {
                     //continue;
-                    x = (i*2048 - (int) Spiel2.Fenster.X);
-                    screen = new Rectangle(0, 0, screenWidth, screenHeight);
-                    a = new Rectangle(0, y, screenWidth, screenHeight);
+                    //x = (i*2048 - (int) Spiel2.Fenster.X);
+                    //screen = new Rectangle(0, 0, screenWidth, Game1.Kartenhoehe);
+                    //a = new Rectangle(0, y2, screenWidth, h);
                     _VordergrundSemaphore.WaitOne();
 
                     if (b < Spiel2.foreground.Count())
-                    spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(-x, 0),
-                        SpriteEffects.None, 1);
+                        spriteBatch.Draw(Spiel2.foreground[b],(Vector2) new Vector2(-x, -y), Color.White);
+                    //spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(-x, 0),SpriteEffects.None, 1);
                     _VordergrundSemaphore.Release();
                 }
-                else
+                //else
                 {
                     //continue;
-                    int l = 2048 - x;
-                    if (l > screenWidth) l = screenWidth;
-                    if (l < 0) l = 0;
-                    screen = new Rectangle(0, 0, l, screenHeight);
-                    a = new Rectangle(x, y, l, screenHeight);
+                   // int l = 2048 - x;
+                   // if (l > screenWidth) l = screenWidth;
+                   // if (l < 0) l = 0;
+                  //  screen = new Rectangle(0, 0, l, Game1.Kartenhoehe);
+                   // a = new Rectangle(x, y2, l, h);
                     _VordergrundSemaphore.WaitOne();
 
-                    if (b<Spiel2.foreground.Count())
-                    spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(0, 0),
-                        SpriteEffects.None, 1);
+                    //if (b<Spiel2.foreground.Count())
+                    //    spriteBatch.Draw(Spiel2.foreground[b],new Vector2(l,y), Color.White);
+                   // spriteBatch.Draw(Spiel2.foreground[b], screen, a, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.None, 1);
                     _VordergrundSemaphore.Release();
                 }
             }
@@ -346,8 +345,13 @@ namespace _4_1_
             SpriteBatch spriteBatch = Game1.spriteBatch;
 
              // Wassser ???
-            if (Spiel2.Fenster.Y>0)
-                Help.DrawRectangle(Game1.spriteBatch, Game1.device, new Rectangle(0,(int)( screenHeight - Spiel2.Fenster.Y), screenWidth,(int) Spiel2.Fenster.Y), Microsoft.Xna.Framework.Color.Black,1f);
+            if (screenHeight - (Game1.Kartenhoehe - Spiel2.Fenster.Y) > 0)
+            {
+                int h = (int)(Game1.Kartenhoehe - Spiel2.Fenster.Y);
+               // if (h > screenHeight) h = screenHeight;
+                Help.DrawRectangle(Game1.spriteBatch, Game1.device, new Rectangle(0, (int)(h), screenWidth, (int)screenHeight-h), Microsoft.Xna.Framework.Color.Black, 1f);
+
+            }
         }
 
         /// <summary>
@@ -378,10 +382,10 @@ namespace _4_1_
                 if (x < 0)
                 {
                     x = (i * 2048 - fensterx);
-                    a = new Rectangle(0, y, 2048, screenHeight); //screenWidth - screenWidth2 * fact
+                    a = new Rectangle(0, y, 2048, Game1.Kartenhoehe); //screenWidth - screenWidth2 * fact
                     _VordergrundSemaphore.WaitOne();
                     spriteBatch.Draw(Spiel2.foreground[i],
-                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - screenHeight * fact), a, col, 0.0f,
+                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - Game1.Kartenhoehe * fact), a, col, 0.0f,
                         new Vector2(-x, 0), fact, SpriteEffects.None, 1);
                     _VordergrundSemaphore.Release();
                 }
@@ -390,20 +394,20 @@ namespace _4_1_
                     int l = 2048 - x;
                     if (l > 2048) l = 2048;
                     if (l < 0) l = 0;
-                    a = new Rectangle(x, y, l, screenHeight);
+                    a = new Rectangle(x, y, l, Game1.Kartenhoehe);
                     // - screenHeight * fact
                     _VordergrundSemaphore.WaitOne();
                     spriteBatch.Draw(Spiel2.foreground[i],
-                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - screenHeight * fact), a, col, 0.0f,
+                        new Vector2(screenWidth - screenWidth2 * fact, screenHeight - Game1.Kartenhoehe * fact), a, col, 0.0f,
                         new Vector2(0, 0), fact, SpriteEffects.None, 1);
                     _VordergrundSemaphore.Release();
                 }
             }
 
-            var c = new Rectangle(0, 0, screenWidth, screenHeight);
+            var c = new Rectangle(0, 0, screenWidth, Game1.Kartenhoehe);
             // - screenHeight * fact
             spriteBatch.Draw(Texturen.kasten,
-                new Vector2(screenWidth - screenWidth2 / 2 * fact - screenWidth / 2 * fact, screenHeight - screenHeight * fact), c,
+                new Vector2(screenWidth - screenWidth2 / 2 * fact - screenWidth / 2 * fact, screenHeight - Game1.Kartenhoehe * fact), c,
                 Color.White, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
         }
 

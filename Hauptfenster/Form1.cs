@@ -1067,6 +1067,7 @@ namespace Hauptfenster
         ///     The kartengroesse
         /// </summary>
         public static int Kartengroesse = 5;
+        public static int Kartenhoehe = 500;
 
         /// <summary>
         ///     The map
