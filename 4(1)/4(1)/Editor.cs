@@ -269,21 +269,21 @@ namespace _4_1_
 
             if (Gitter)
             {
-                Fenster.X = Fenster.X % Fensterbreite;
-                Fenster.Y = Fenster.Y % Fensterhoehe;
+                int X = (int)Fenster.X ;
+                int Y = (int)Fenster.Y ;
 
-                for (var i = (int)(-Fenster.X); i < Fensterbreite; i += 50)
+                for (var i = (int)(X); i < X + Fensterbreite; i += 50)
                 {
-                    if (i < 0) continue;
-                    Help.DrawLine(spriteBatch, new Vector2(i, 0), new Vector2(i, Fensterhoehe),
-                        Color.LightGoldenrodYellow * 0.15f, 2);
+                    if (i < 0 || i > Game1.Kartengroesse) continue;
+                    int b = (int)(Game1.Kartenhoehe - Fenster.Y);
+                    Help.DrawLine(spriteBatch, new Vector2(i-X, -Fenster.Y), new Vector2(i-X, b),Color.LightGoldenrodYellow * 0.15f, 2);
                 }
 
-                for (var i = (int)(-Fenster.Y); i < Fensterhoehe; i += 50)
+                for (var i = (int)(Y); i<Y+Fensterhoehe; i += 50)
                 {
-                    if (i < 0) continue;
-                    Help.DrawLine(spriteBatch, new Vector2(0, i), new Vector2(Fensterbreite, i),
-                        Color.LightGoldenrodYellow * 0.15f, 2);
+                    if (i < 0 || i > Fensterhoehe || i > Game1.Kartenhoehe) continue;
+                    int b = (int) (Game1.Kartengroesse - Fenster.X);
+                    Help.DrawLine(spriteBatch, new Vector2(-Fenster.X,i-Y), new Vector2(b, i-Y),Color.LightGoldenrodYellow * 0.15f, 2);
                 }
             }
 
@@ -853,7 +853,7 @@ null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                             double Ende = Pos.Y + Distanz;
 
                             if (Anfang < 0) Anfang = 0;
-                            if (Ende >= Game1.screenHeight) Ende = Game1.screenHeight-1;
+                            if (Ende >= Game1.Kartenhoehe) Ende = Game1.Kartenhoehe - 1;
                             list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Anfang),
                                 (int) Ende, GewaehltePinselfarbe));
                         }
@@ -913,7 +913,7 @@ null, Color.White, 0, new Vector2(0, 0), scale, SpriteEffects.None, 1);
                             double Ende = Pos.Y + Distanz;
 
                             if (Anfang < 0) Anfang = 0;
-                            if (Ende >= Game1.screenHeight) Ende = Game1.screenHeight - 1;
+                            if (Ende >= Game1.Kartenhoehe) Ende = Game1.Kartenhoehe - 1;
                             list.AddRange(Kartenformat.SetMaterialFromTo((int)(Pos.X + i), (int)(Anfang),
                                 (int)Ende, Karte.LUFT));
                         }

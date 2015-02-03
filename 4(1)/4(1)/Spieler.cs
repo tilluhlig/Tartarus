@@ -555,7 +555,7 @@ namespace _4_1_
             //    electrified.RemoveAt(i);
             Size.RemoveAt(i);
             SizeOfCannon.RemoveAt(i);
-            Kenngroesse_Wert.Hinzufügen(pos[i], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[i]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+            Kenngroesse_Wert.Hinzufügen(pos[i], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[i]], 350, Anteil.Konstant, Wachstum.Konstant, false);
             pos.RemoveAt(i);
             oldpos.RemoveAt(i);
             KindofTank.RemoveAt(i);
@@ -911,7 +911,9 @@ namespace _4_1_
             Size.Add(Fahrzeugdaten.SCALEP.Wert[di]);
             SizeOfCannon.Add(Fahrzeugdaten.SCALER.Wert[di]);
             pos.Add(_pos);
-            Kenngroesse_Wert.Hinzufügen(pos[b], Fahrzeugdaten._PANZERWERTE.Wert[di], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+            if (Kenngroesse_Wert==null)
+                Kenngroesse_Wert = new Kenngroesse(Spiel.Kartenbreite, Spiel.Kartenhoehe, 100, 100, 0);
+            Kenngroesse_Wert.Hinzufügen(pos[b], Fahrzeugdaten._PANZERWERTE.Wert[di], 350, Anteil.Konstant, Wachstum.Konstant, false);
             oldpos.Add(_pos);
             KindofTank.Add(di);
             ExpNow.Add(0);
@@ -971,6 +973,10 @@ namespace _4_1_
             Effekte[i] = EffectPacket.Laden(Text2, Content);
 
             int id = KindofTank[i];
+            if (Kenngroesse_Wert == null)
+                Kenngroesse_Wert = new Kenngroesse(Spiel.Kartenbreite, Spiel.Kartenhoehe, 100, 100, 0);
+            Kenngroesse_Wert.Hinzufügen(pos[i], Fahrzeugdaten._PANZERWERTE.Wert[id], 350, Anteil.Konstant, Wachstum.Konstant, false);
+
             Kollision[i] = new KollisionsObjekt(Texturen.panzerindex[i], Texturen.panzerindex[i].Width,
                 Texturen.panzerindex[i].Height, Fahrzeugdaten.SCALEP.Wert[id], true, true, true, Vector2.Zero);
             Zerstörung[i] = new ZerstörungsObjekt(Texturen.panzerindex[id].Width, Texturen.panzerindex[id].Height,
@@ -1030,9 +1036,9 @@ namespace _4_1_
                     TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position +
                     new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width / 2, 0))
                 {
-                    Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                    Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                     pos[id] = po;
-                    Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                    Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                     ActionPoints -= Allgemein.TunnelAPKosten;
                     return true;
                 }
@@ -1057,10 +1063,10 @@ namespace _4_1_
             var g = new Vector2(-move, 0);
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.SUMPF) g /= 3;
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.WASSER) g /= 1.5f;
-            Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+            Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Konstant, Wachstum.Konstant, false);
             pos[id] += g;
             pos[id] = new Vector2(Spiel.Position(pos[id].X), pos[id].Y);
-            Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+            Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Konstant, Wachstum.Konstant, false);
 
             //if (!overreach[id])
             {
@@ -1162,9 +1168,9 @@ namespace _4_1_
                     TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Position +
                     new Vector2(TunnelAnlage[GibTunnelAnAktuellerPanzerposition()].Bild.Width / 2, 0))
                 {
-                    Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                    Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                     pos[id] = po;
-                    Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                    Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                     ActionPoints -= Allgemein.TunnelAPKosten;
                     return true;
                 }
@@ -1191,10 +1197,10 @@ namespace _4_1_
             var g = new Vector2(move, 0);
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.SUMPF) g /= 3;
             if (Kartenformat.GetMaterial(pos[id].X, pos[id].Y - 2) == Karte.WASSER) g /= 1.5f;
-            Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+            Kenngroesse_Wert.Hinzufügen(pos[id], -Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Konstant, Wachstum.Konstant, false);
             pos[id] += g;
             pos[id] = new Vector2(Spiel.Position(pos[id].X), pos[id].Y);
-            Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+            Kenngroesse_Wert.Hinzufügen(pos[id], Fahrzeugdaten._PANZERWERTE.Wert[KindofTank[id]], 350, Anteil.Konstant, Wachstum.Konstant, false);
             
 
             /* if (!overreach[id])

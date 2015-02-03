@@ -73,6 +73,7 @@ namespace _4_1_
         ///     Die Kartenbreite in Pixel
         /// </summary>
         public static int Kartengroesse = 2048*5;
+        public static int Kartenhoehe = 600;
 
         /// <summary>
         ///     The menuaufruf
@@ -347,6 +348,7 @@ namespace _4_1_
             screenWidth = (int)baseScreenSize.X;
             screenHeight = (int)baseScreenSize.Y;
             Kartengroesse = 2048 * Tausch.Kartengroesse;
+            Kartenhoehe = Tausch.Kartenhoehe;
             SpielAktiv = Tausch.SpielAktiv;
             if (Spiel2 != null)
             {
@@ -500,7 +502,7 @@ namespace _4_1_
         /// </summary>
         public void CreateNeuesSpiel()
         {
-            Spiel2 = new Spiel(Kartengroesse, new Vector2(screenWidth, screenHeight));
+            Spiel2 = new Spiel(new Vector2(Kartengroesse,Kartenhoehe), new Vector2(screenWidth, screenHeight));
             Help.Spielfeld = Spiel2.Spielfeld;
             Spiel2.Width = screenWidth;
             Spiel2.Height = screenHeight;
@@ -1024,11 +1026,11 @@ namespace _4_1_
                 var y = (int)(Spiel2.players[i].pos[b].Y - Texturen.dot.Height / 2 - 0); //Spiel2.Fenster.Y
                 spriteBatch.Draw(Texturen.dot,
                     new Rectangle((int)(screenWidth - screenWidth2 * fact + x * fact - 1),
-                        (int)(screenHeight - screenHeight * fact + y * fact - 1), (int)(Texturen.dot.Width * fact + 3),
+                        (int)(screenHeight - Game1.Kartenhoehe * fact + y * fact - 1), (int)(Texturen.dot.Width * fact + 3),
                         (int)(Texturen.dot.Height * fact + 3)), new Rectangle(0, 0, 10, 10), Color.Black);
 
                 spriteBatch.Draw(Texturen.dot,
-                    new Vector2(screenWidth - screenWidth2 * fact + x * fact, screenHeight - screenHeight * fact + y * fact),
+                    new Vector2(screenWidth - screenWidth2 * fact + x * fact, screenHeight - Game1.Kartenhoehe * fact + y * fact),
                     null, Spiel2.players[i].Farbe, 0.0f, new Vector2(0, 0), fact, SpriteEffects.None, 1);
             }
         }
@@ -1073,7 +1075,7 @@ namespace _4_1_
                 }
 
                 if (Mod.MISSILE_STRICH_VISIBLE.Wert)
-                    if (Spiel2.Missile[i].misslePosition.Y < 0)
+                    if (Spiel2.Missile[i].misslePosition.Y < Spiel2.Fenster.Y)
                     {
                         xPos = (int)Spiel2.Missile[i].misslePosition.X - (int)Spiel2.Fenster.X;
                         spriteBatch.Draw(Texturen.strich, new Vector2(xPos, 0), null, Color.White, 0, new Vector2(3, 0),
@@ -2263,7 +2265,7 @@ namespace _4_1_
                         List<List<Vector2>> Flaechen =
                             Kenn.Hinzufügen(
                                 Spiel2.players[Spiel2.CurrentPlayer].pos[
-                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank], 0, 350, Anteil.Fläche, Wachstum.LinearFallend, true);
+                                    Spiel2.players[Spiel2.CurrentPlayer].CurrentTank], 0, 350, Anteil.Konstant, Wachstum.LinearFallend, true);
 
                         for (int i = 0; i < Flaechen.Count; i++)
                             for (int b = 0; b < Flaechen[i].Count; b++)
@@ -4653,9 +4655,9 @@ namespace _4_1_
                             case 1:
                                 {
                                     //lademenu
-                                    Ladenmenu.show();
-                                    pauseMenu.hide();
-                                    Tausch.SpielAktiv = false;
+                                    //Ladenmenu.show();
+                                    //pauseMenu.hide();
+                                    //Tausch.SpielAktiv = false;
                                     mouseState = Help.GetMouseState();
                                     return;
                                 }

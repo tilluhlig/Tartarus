@@ -42,6 +42,11 @@ namespace _4_1_
         public static bool KARTE_SYMMETRISCH;
 
         /// <summary>
+        ///     MOD-Variable, Gibt an, ob die Karte zyklisch aufgebaut werden soll
+        /// </summary>
+        public static bool KARTE_ZYKLISCH;
+
+        /// <summary>
         ///     MOD-Variable, Gibt an, ob die Karte Höhlen enthalten soll
         /// </summary>
         public static bool KARTE_HOEHLEN;
@@ -127,6 +132,12 @@ namespace _4_1_
         /// </summary>
         private static readonly Var<bool> MOD_KARTE_SYMMETRISCH = new Var<bool>("KARTE_SYMMETRISCH", false,
             ref KARTE_SYMMETRISCH);
+
+        /// <summary>
+        ///     Mod-Variable, Gibt an, ob die Karte zyklisch aufgebaut werden soll
+        /// </summary>
+        private static readonly Var<bool> MOD_KARTE_ZYKLISCH = new Var<bool>("KARTE_ZYKLISCH", false,
+            ref KARTE_ZYKLISCH);
 
         /// <summary>
         ///     Mod-Variable, Gibt an, ob die Karte Höhlen enthalten soll

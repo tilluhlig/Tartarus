@@ -29,6 +29,8 @@ namespace _4_1_
     {
         #region Fields
 
+        public static Var<int[]> PANZERTYPEN = new Var<int[]>("PANZERTYPEN", new[] { 0, 1, 2, 3, -1, -1,-1,-1,-1,-1 });
+
         /// <summary>
         ///     The ACTIO n_ POINTS
         /// </summary>
@@ -78,6 +80,7 @@ namespace _4_1_
         ///     The kartenbreite
         /// </summary>
         public static int Kartenbreite = 0;
+        public static int Kartenhoehe = 0;
 
         /// <summary>
         ///     The MISSILE
@@ -354,7 +357,7 @@ namespace _4_1_
         /// <param name="Kartengroesse">The kartengroesse.</param>
         /// <param name="screen">The screen.</param>
         /// <param name="symmetrisch">if set to <c>true</c> [symmetrisch].</param>
-        public Spiel(int Kartengroesse, Vector2 screen)
+        public Spiel(Vector2 Kartengroesse, Vector2 screen)
         {
             Init(Kartengroesse, screen);
         }
@@ -419,7 +422,7 @@ namespace _4_1_
         /// <returns>System.Single.</returns>
         public static float Position(float Pos)
         {
-            if (Karte.KARTE_SYMMETRISCH)
+            if (Karte.KARTE_ZYKLISCH)
             {
                 if (Pos < 0) return Kartenbreite + Pos;
                 if (Pos >= Kartenbreite) return Pos - Kartenbreite;
@@ -931,24 +934,24 @@ namespace _4_1_
                     ;
                     if (players[i].pos[b].Y > Kartenformat.BottomOf(players[i].pos[b]))
                     {
-                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350,Anteil.Fläche,Wachstum.LinearFallend,false);
+                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                         float diff = players[i].pos[b].Y - Kartenformat.BottomOf(players[i].pos[b]);
                         if (diff > move) diff = move;
                         Vector2 a = players[i].pos[b];
                         a.Y -= diff;
                         players[i].pos[b] = a;
-                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                         // if (Server.isRunning) Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
                     }
                     else if (players[i].pos[b].Y < Kartenformat.BottomOf(players[i].pos[b]))
                     {
-                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], -Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                         float diff = Kartenformat.BottomOf(players[i].pos[b]) - players[i].pos[b].Y;
                         if (diff > move) diff = move;
                         Vector2 a = players[i].pos[b];
                         a.Y += diff;
                         players[i].pos[b] = a;
-                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                        players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b], Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                         //if (Server.isRunning)
                         //   Server.Send("POS " + i + " " + b + " " + players[i].pos[b].X + " " + players[i].pos[b].Y);
                     }
@@ -1827,20 +1830,21 @@ namespace _4_1_
         /// <param name="Kartengroesse">The kartengroesse.</param>
         /// <param name="screen">The screen.</param>
         /// <param name="symmetrisch">if set to <c>true</c> [symmetrisch].</param>
-        public void Init(int Kartengroesse, Vector2 screen) // Spiel Init -- Aufruf nicht nötig
+        public void Init(Vector2 Kartengroesse, Vector2 screen) // Spiel Init -- Aufruf nicht nötig
         {
             bool symmetrisch = Karte.KARTE_SYMMETRISCH;
-            Kartenbreite = Kartengroesse;
+            Kartenbreite = (int) Kartengroesse.X;
+            Kartenhoehe = (int) Kartengroesse.Y;
             increaseshot = false;
             rand = new Random();
-            Spielfeld = new List<UInt16>[Kartengroesse];
-            for (int i = 0; i < Kartengroesse; i++) Spielfeld[i] = new List<UInt16>();
+            Spielfeld = new List<UInt16>[(int)Kartenbreite];
+            for (int i = 0; i < Kartenbreite; i++) Spielfeld[i] = new List<UInt16>();
             Karte = new Karte();
             Help.Spielfeld = Spielfeld;
             hoehlen = new Höhlenkonfiguration();
 
             //Karte.create_map_staedte_doerfer(Spielfeld, (int)((double)screen.Y * 0.75), (int)((double)screen.Y * 0.5), 30, 175, 50, (int)screen.Y, hoehlen, symmetrisch);
-            Karte.create_map(Spielfeld, (int)(screen.Y * 0.75), (int)(screen.Y * 0.5), 30, 50, 50, (int)screen.Y, hoehlen);
+            Karte.create_map(Spielfeld, (int)(Kartenhoehe * 0.75), (int)(Kartenhoehe * 0.5), 30, 50, 50, (int)Kartenhoehe, hoehlen);
 
             // Spieler erstellen
             players = new Spieler[2];
@@ -1860,7 +1864,7 @@ namespace _4_1_
             Fenster.Y = 0;
 
             Width = (int)screen.X;
-            Height = (int)screen.Y;
+            Height = Tausch.Kartenhoehe;// (int)screen.Y; // !!!
 
             InitialisiereSpieler(symmetrisch);
 
@@ -1877,8 +1881,8 @@ namespace _4_1_
             // TODO hier die Bäume
             if (Baum.BAEUME) Baeume.set_Baeume(Spielfeld, symmetrisch);
 
-            foreground = new Texture2D[(int)Math.Ceiling((double)Kartengroesse / 2048)];
-            foregroundColors = new Color[(int)Math.Ceiling((double)Kartengroesse / 2048)][];
+            foreground = new Texture2D[(int)Math.Ceiling((double)Kartenbreite / 2048)];
+            foregroundColors = new Color[(int)Math.Ceiling((double)Kartenbreite / 2048)][];
 
             // fogColors = new Color[];
             // Nebelkreis = new Color[(int)Math.Ceiling((double)Kartengroesse / 2048)];
@@ -1906,29 +1910,19 @@ namespace _4_1_
             Positionen[0] = new Vector2(a, Spielfeld[a][0]);
             Positionen[1] = new Vector2(bd, Spielfeld[bd][0]);
 
-            int[] PanzerTypen = { 0, 1, 2, 3, 4, 5 };
-
-            if (symmetrisch)
-            {
-                PanzerTypen = new[] { 0, 2, 3, 1 };
-            }
-            else
-            {
-                PanzerTypen = new[] { 0, 1, 2, 3 };
-            }
-
             for (int i = 0; i < players.Length; i++)
             {
-                for (int b = 0; b < PanzerTypen.Count(); b++)
+                for (int b = 0; b < PANZERTYPEN.Wert.Count(); b++)
                 {
-                    AddPanzer(i, PanzerTypen[b], MathHelper.ToRadians(Angle[i]), overreach[i], Positionen[i]);
+                    if (PANZERTYPEN.Wert[b] < 0) continue;
+                    AddPanzer(i, PANZERTYPEN.Wert[b], MathHelper.ToRadians(Angle[i]), overreach[i], Positionen[i]);
                 }
 
                 players[i].shootingPower = 0f;
                 players[i].MaxTimeout = TIMEOUT_SEKUNDEN.Wert * 60;
                 players[i].Credits = 5000;
                 players[i].Farbe = Spielerfarben[i];
-                players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, Height, 100, 100, 0);
+                players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, Kartenhoehe, 100, 100, 0);
             }
 
             SetzePanzer(players, symmetrisch);
@@ -1936,7 +1930,7 @@ namespace _4_1_
             for (int i = 0; i < players.Length; i++)
                 for (int b = 0; b < players[i].pos.Count; b++)
                     players[i].Kenngroesse_Wert.Hinzufügen(players[i].pos[b],
-                        Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                        Fahrzeugdaten._PANZERWERTE.Wert[players[i].KindofTank[b]], 350, Anteil.Konstant, Wachstum.Konstant, false);
         }
 
         /// <summary>
@@ -1967,21 +1961,38 @@ namespace _4_1_
         ///     Erzeugt den Inhalt des Spieles aus einem String
         /// </summary>
         /// <param name="Text">der Text in dem das Spiel definiert ist</param>
-        public Spiel Laden(List<String> Text)
+        public Spiel Laden(Game1 game,List<String> Text)
         {
             Spiel temp = this;
 
             List<String> Text2 = TextLaden.ErmittleBereich(Text, "SPIEL");
 
             Dictionary<String, String> Liste = TextLaden.CreateDictionary(Text2);
-            temp.Width = TextLaden.LadeInt(Liste, "Width", temp.Width); // korrekt?
-            temp.Height = TextLaden.LadeInt(Liste, "Height", temp.Height); // korrekt?
+            Tausch.Mod = TextLaden.LadeString(Liste, "Mod", Tausch.Mod);
+            Mod.LadeModVariablen("Content\\Konfiguration\\" + Tausch.Mod);
+            game.loadAllContent();
+
+            Game1.Kartengroesse = TextLaden.LadeInt(Liste, "Width", Game1.Kartengroesse);
+            Game1.Kartenhoehe = TextLaden.LadeInt(Liste, "Height", Game1.Kartenhoehe);
+            Tausch.Kartengroesse = Game1.Kartengroesse/2048;
+            Tausch.Kartenhoehe = Game1.Kartenhoehe;
+            temp.Width = Game1.screenWidth;
+            temp.Height = Game1.screenHeight;
             temp.Schuesse = TextLaden.LadeInt(Liste, "Schuesse", temp.Schuesse);
             temp.WindTimeout = TextLaden.LadeInt(Liste, "WindTimeout", temp.WindTimeout);
             temp.Wind = TextLaden.LadeVector2(Liste, "Wind", temp.Wind);
             temp.Timeout = TextLaden.LadeInt(Liste, "Timeout", temp.Timeout);
             temp.CurrentMissile = TextLaden.LadeInt(Liste, "CurrentMissile", temp.CurrentMissile);
             temp.CurrentPlayer = TextLaden.LadeInt(Liste, "CurrentPlayer", temp.CurrentPlayer);
+
+            Spiel.Kartenbreite = Game1.Kartengroesse;
+            Spiel.Kartenhoehe = Game1.Kartenhoehe;
+            temp.increaseshot = false;
+            Spiel.rand = new Random();
+            temp.Spielfeld = new List<UInt16>[Spiel.Kartenbreite];
+            for (int i = 0; i < Spiel.Kartenbreite; i++) temp.Spielfeld[i] = new List<UInt16>();
+            temp.Karte = new Karte();
+            Help.Spielfeld = temp.Spielfeld;
 
             if (Karte == null) Karte = new Karte();
             Spielfeld = Karte.Laden(Text2);
@@ -2029,6 +2040,7 @@ namespace _4_1_
             {
                 anz2 = Text2.Count;
                 Spieler tempPlayer = new Spieler();
+                tempPlayer.Kenngroesse_Wert = null;
                 tempPlayer = Spieler.Laden(temp, Text2, null);
                 temp2play.Add(tempPlayer);
             } while (anz2 != Text2.Count);
@@ -2036,7 +2048,7 @@ namespace _4_1_
 
             for (int i = 0; i < temp.players.Length; i++)
             {
-                temp.players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, temp.Height, 100, 100, 0);
+                temp.players[i].Kenngroesse_Wert = new Kenngroesse(Kartenbreite, Kartenhoehe, 100, 100, 0);
             }
 
            /* for (int i = 0; i < temp.players.Length; i++)
@@ -2283,7 +2295,7 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void SetzeFokus(Vector2 pos)
         {
-            if (Karte.KARTE_SYMMETRISCH)
+            if (Karte.KARTE_ZYKLISCH)
             {
                 Next_Fenster.X = Position(pos.X - Width/2);
                 Next_Fenster.Y = pos.Y - Height / 2;
@@ -2301,7 +2313,7 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void SetzeFokusX(Vector2 pos)
         {
-            if (Karte.KARTE_SYMMETRISCH)
+            if (Karte.KARTE_ZYKLISCH)
             {
                 Next_Fenster.X = Position(pos.X - Width/2);
                 Next_Fenster.Y = pos.Y - Height / 2;
@@ -2399,9 +2411,9 @@ namespace _4_1_
                                 {
                                     dat[q] = 1;
 
-                                    players[b].Kenngroesse_Wert.Hinzufügen(players[b].pos[i], -Fahrzeugdaten._PANZERWERTE.Wert[players[b].KindofTank[i]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                                    players[b].Kenngroesse_Wert.Hinzufügen(players[b].pos[i], -Fahrzeugdaten._PANZERWERTE.Wert[players[b].KindofTank[i]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                                     players[b].pos[i] = new Vector2(q, Spielfeld[q][0]);
-                                    players[b].Kenngroesse_Wert.Hinzufügen(players[b].pos[i], Fahrzeugdaten._PANZERWERTE.Wert[players[b].KindofTank[i]], 350, Anteil.Fläche, Wachstum.LinearFallend, false);
+                                    players[b].Kenngroesse_Wert.Hinzufügen(players[b].pos[i], Fahrzeugdaten._PANZERWERTE.Wert[players[b].KindofTank[i]], 350, Anteil.Konstant, Wachstum.Konstant, false);
                                 }
                                 check = true;
                                 break;
@@ -2421,8 +2433,9 @@ namespace _4_1_
             var list = new List<String>();
             // Kartendaten speichern
             list.Add("[SPIEL]");
-            list.Add("Width=" + Width);
-            list.Add("Height=" + Height);
+            list.Add("Width=" + Kartenbreite);
+            list.Add("Height=" + Kartenhoehe);
+            list.Add("Mod=" + Tausch.Mod);
             list.Add("Schuesse=" + Schuesse);
             list.Add("WindTimeout=" + WindTimeout);
             list.Add("Wind=" + Wind);

@@ -53,12 +53,12 @@ namespace _4_1_
             Game1.LadeText("    Mod...    ");
             ///Hauptfenster.Program.Formular.progressBar1.Value = 20;
             // Mod laden
-            Mod.LadeModVariablen("Content\\Konfiguration\\" + Tausch.Mod);
+            //Mod.LadeModVariablen("Content\\Konfiguration\\" + Tausch.Mod);
 
             Game1.LadeText("    Komponenten...    ");
             ///Hauptfenster.Program.Formular.progressBar1.Value = 40;
             // Komponenten laden
-            game.loadAllContent();
+            //game.loadAllContent();
 
             if (!File.Exists(Map))
             {
@@ -84,17 +84,18 @@ namespace _4_1_
             Nutzloses.AlleEntfernen();
 
             Game1.Spiel2 = new Spiel();
-            bool symmetrisch = Karte.KARTE_SYMMETRISCH;
-            Spiel.Kartenbreite = Game1.Kartengroesse;
+            //bool symmetrisch = Karte.KARTE_SYMMETRISCH;
+           /* Spiel.Kartenbreite = Game1.Kartengroesse;
+            Spiel.Kartenhoehe = Game1.Kartenhoehe;
             Game1.Spiel2.increaseshot = false;
             Spiel.rand = new Random();
             Game1.Spiel2.Spielfeld = new List<UInt16>[Spiel.Kartenbreite];
             for (int i = 0; i < Spiel.Kartenbreite; i++) Game1.Spiel2.Spielfeld[i] = new List<UInt16>();
             Game1.Spiel2.Karte = new Karte();
-            Help.Spielfeld = Game1.Spiel2.Spielfeld;
+            Help.Spielfeld = Game1.Spiel2.Spielfeld;*/
 
-            Game1.Spiel2.Haeuser = new Haus();
-            Game1.Spiel2 = Game1.Spiel2.Laden(Data);
+            ///Game1.Spiel2.Haeuser = new Haus();
+            Game1.Spiel2 = Game1.Spiel2.Laden(game,Data);
             Data.Clear();
             Help.Spielfeld = Game1.Spiel2.Spielfeld;
             Game1.Spiel2.Width = Game1.screenWidth;
