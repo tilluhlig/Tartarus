@@ -1268,10 +1268,26 @@ namespace _4_1_
                                     : false, 1.0f, 1.0f, Color.DarkGoldenrod, Besitzer);
 
                         spriteBatch.Begin();
+
+                     if (!Editor.visible)
+                         if (i == Spiel2.CurrentPlayer)
+                         {
+                             if (Tausch.SpielAktiv)
+                             {
+                                 // Ziel anzeigen
+                                 if (Spiel2.players[i].Zielpos[b].Y != -9999 && (Spiel2.players[i].pos[b].X + 40 < Spiel2.players[i].Zielpos[b].X || Spiel2.players[i].pos[b].X + 40 > Spiel2.players[i].Zielpos[b].X))
+                                 {
+                                     spriteBatch.Draw(Texturen.Pfeil2, (Vector2)new Vector2(Spiel2.players[i].Zielpos[b].X - Spiel2.Fenster.X, Kartenformat.BottomOf(Spiel2.players[i].Zielpos[b]) - Spiel2.Fenster.Y), null,
+                                         Color.White, 0, new Vector2(Texturen.Pfeil2.Width / 2, Texturen.Pfeil2.Height), Optimierung.Skalierung(0.1f), SpriteEffects.None, 0);
+                                 }
+                             }
+                         }
+
                         if (!Editor.visible)
                             if (!found && i == Spiel2.CurrentPlayer)
                             {
                                 if (Tausch.SpielAktiv)
+                                {
                                     if (Spiel2.players[i].PrüfeObKollision(b,
                                         new Vector2(mouseState.X + Spiel2.Fenster.X, mouseState.Y + Spiel2.Fenster.Y)))
                                     {
@@ -1285,6 +1301,7 @@ namespace _4_1_
                                                 : SpriteEffects.None, 0);
                                         found = true;
                                     }
+                                }
                             }
 
                         // shootingpower
@@ -2362,7 +2379,7 @@ namespace _4_1_
         {
             if (Texturen.tartarus == null)
                 Texturen.tartarus = Game1.ContentAll.Load<Texture2D>("Textures\\Tartarus");
-            Game1.spriteBatch.Draw(Texturen.tartarus, new Vector2((int)10, (int)screenHeight - 10 - Texturen.tartarus.Height*0.25f), new Rectangle(0, 0, Texturen.tartarus.Width, Texturen.tartarus.Height), Color.White * Transparenz, 0.0f, Vector2.Zero, 0.25f, SpriteEffects.None, 0.0f);
+            Game1.spriteBatch.Draw(Texturen.tartarus, new Vector2((int)10, (int)screenHeight - 10 - Texturen.tartarus.Height * Optimierung.Skalierung(0.25f)), new Rectangle(0, 0, Texturen.tartarus.Width, Texturen.tartarus.Height), Color.White * Transparenz, 0.0f, Vector2.Zero, Optimierung.Skalierung(0.25f), SpriteEffects.None, 0.0f);
 
         }
 

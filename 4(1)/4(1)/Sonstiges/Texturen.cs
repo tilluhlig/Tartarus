@@ -787,6 +787,10 @@ namespace _4_1_
             //  nebelkreis = Content.Load<Texture2D>("Textures\\nebelkreis");
 
             pfeil = Content.Load<Texture2D>("Textures\\pfeil");
+
+            Bilddateien.Add("Tartarus", 0.25f);
+
+            Bilddateien.Add("Pfeil2", 0.1f);
             Pfeil2 = Content.Load<Texture2D>("Textures\\Pfeil2");
 
             Bilddateien.Add("standardmisslebutton", 0.25f);
