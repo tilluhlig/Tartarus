@@ -3230,7 +3230,7 @@ namespace _4_1_
                                       else
                                           Hauptfenster.Tausch.SpielAktiv = false;*/
                         Tausch.SpielLaden = true;
-                        Tausch.Map ="Spiel.dat";
+                        Tausch.Map ="Spiel.sav";
                         }
                 }
 

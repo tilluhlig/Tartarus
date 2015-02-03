@@ -67,9 +67,11 @@ namespace _4_1_
             }
 
             var datei = new StreamReader(Map);
-            var Data = new List<String>();
-            for (; !datei.EndOfStream; ) Data.Add(datei.ReadLine());
-            datei.Close();
+            String output="";
+
+            var Data = Kompression.Kompression.Dekomprimiere(datei.BaseStream);
+            //for (; !datei.EndOfStream; ) Data.Add(datei.ReadLine());
+            //datei.Close();
 
             // Game1.Spiel2 = null;
             Game1.Ladebildschirmtexte = null;
