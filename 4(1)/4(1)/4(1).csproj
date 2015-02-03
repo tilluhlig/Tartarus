@@ -354,6 +354,10 @@
       <Project>{6F0205DE-09D2-4807-8CB8-31821D73DA67}</Project>
       <Name>ReaderStream</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ScreenshotCapture\Pranas.ScreenshotCapture\Pranas.ScreenshotCapture.csproj">
+      <Project>{7361C8BD-7F0A-4EAA-89D2-954F5F26346B}</Project>
+      <Name>Pranas.ScreenshotCapture</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\targeting\targeting\targeting\targeting.csproj">
       <Project>{5FA39EFD-2205-465F-B8E2-8B4CBA6B9F67}</Project>
       <Name>targeting</Name>

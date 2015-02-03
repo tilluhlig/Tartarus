@@ -2733,7 +2733,28 @@ namespace _4_1_
         /// </summary>
         private void KeyboardKeys()
         {
-          TastaturDeutsch.OnKeyPress();
+
+            if (Keyboard.GetState() != keybState && Keyboard.GetState().IsKeyDown(Keys.PrintScreen))
+            {
+                // Screenshot anfertigen
+                System.Drawing.Image screen = Pranas.ScreenshotCapture.TakeScreenshot(true);
+                int add = 1;
+                String addA = "";
+                String Time = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+                if (!Directory.Exists(Application.StartupPath + "\\Content\\Screenshot"))
+                    Directory.CreateDirectory(Application.StartupPath + "\\Content\\Screenshot");
+
+                if (File.Exists(Application.StartupPath+"\\Content\\Screenshot\\img_" + Time + ".png"))
+                {
+                    while (File.Exists(Application.StartupPath + "\\Content\\Screenshot\\img_" + Time + "(" + add + ")" + ".png")) { add++; }
+                    addA="("+add.ToString()+")";
+                }
+
+                screen.Save(Application.StartupPath + "\\Content\\Screenshot\\img_" + Time + addA + ".png", System.Drawing.Imaging.ImageFormat.Png);
+                Meldungen.addMessage("Bildschirmfoto erstellt...");
+            }
+
+            TastaturDeutsch.OnKeyPress();
 
            // Eingabe.KeyboardKeys(keybState);
             if (Spiel2 == null) return;
