@@ -473,6 +473,7 @@ namespace _4_1_
         ///     The pfeil
         /// </summary>
         public static Texture2D pfeil;
+        public static Texture2D Pfeil2;
 
         //public static Texture2D leer;
         /// <summary>
@@ -786,6 +787,7 @@ namespace _4_1_
             //  nebelkreis = Content.Load<Texture2D>("Textures\\nebelkreis");
 
             pfeil = Content.Load<Texture2D>("Textures\\pfeil");
+            Pfeil2 = Content.Load<Texture2D>("Textures\\Pfeil2");
 
             Bilddateien.Add("standardmisslebutton", 0.25f);
             waffenbilder[0] = Content.Load<Texture2D>("Textures\\standardmisslebutton");
