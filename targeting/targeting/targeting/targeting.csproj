@@ -5,7 +5,7 @@
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>targeting</RootNamespace>
     <AssemblyName>targeting</AssemblyName>
@@ -58,6 +58,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
@@ -118,8 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\targetingContent\targetingContent.contentproj">
-      <Name>targetingContent</Name>
+      <Name>targetingContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{8E976F09-514C-4B0F-80E2-E4735A97A5DB}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

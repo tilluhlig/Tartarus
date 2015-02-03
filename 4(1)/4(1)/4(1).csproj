@@ -354,6 +354,10 @@
       <Project>{6F0205DE-09D2-4807-8CB8-31821D73DA67}</Project>
       <Name>ReaderStream</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\targeting\targeting\targeting\targeting.csproj">
+      <Project>{5FA39EFD-2205-465F-B8E2-8B4CBA6B9F67}</Project>
+      <Name>targeting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Update\Update.csproj">
       <Project>{6948DF57-47C0-40C5-918A-4337EAC75423}</Project>
       <Name>Update</Name>

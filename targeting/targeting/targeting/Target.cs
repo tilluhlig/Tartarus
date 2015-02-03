@@ -14,8 +14,7 @@ namespace targeting
         //betrachtet werden nur winkel zwischen 0 und 90 grad! das Fahrzeug soll also in richtung des ziels guggen!
         //
         /// <summary>
-        /// Berechnet Schusskraft 
-        /// Referenztypen, da mehrere Ausgaben
+        /// Berechnet Schusskraft anhand des Winkels angle
         /// </summary>
         /// <param name="angle">Der Abschusswinkel</param>
         /// <param name="dX">Relativer Abstand zum Ziel (X-Koordinate)</param>
