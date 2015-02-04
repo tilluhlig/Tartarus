@@ -4903,7 +4903,7 @@ namespace _4_1_
                 {
                     // Lasse den Panzer fahren
                     Spiel2.players[Spiel2.CurrentPlayer].Zielpos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] =
-                        new Vector2(mouseState.X + Spiel2.Next_Fenster.X,
+                        new Vector2(Spiel.Position(mouseState.X + Spiel2.Next_Fenster.X),
                             Kartenformat.BottomOf(mouseState.X + Spiel2.Next_Fenster.X,
                                 mouseState.Y + Spiel2.Next_Fenster.Y));
                 }

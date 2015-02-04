@@ -410,9 +410,7 @@ namespace _4_1_
         /// <returns>Vector2.</returns>
         public static Vector2 Position(Vector2 Pos)
         {
-            if (Pos.X < 0) return new Vector2(Kartenbreite + Pos.X, Pos.Y);
-            if (Pos.X >= Kartenbreite) return new Vector2(Pos.X - Kartenbreite, Pos.Y);
-            return Pos;
+            return new Vector2(Position(Pos.X),Pos.Y);
         }
 
         /// <summary>
@@ -2295,16 +2293,25 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void SetzeFokus(Vector2 pos)
         {
+            Next_Fenster.Y = pos.Y - Height / 2; 
+            
             if (Karte.KARTE_ZYKLISCH)
             {
-                Next_Fenster.X = Position(pos.X - Width/2);
-                Next_Fenster.Y = pos.Y - Height / 2;
-
+                Next_Fenster.X = Position(pos.X - Width / 2);
+                if (Next_Fenster.X < 0) Next_Fenster.X = 0;
+                if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
             }
             else
-            {if (Next_Fenster.X < 0) Next_Fenster.X = 0;
-                 if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
+            {
+                Next_Fenster.X = pos.X - Width / 2;
+                if (Next_Fenster.X < -Width / 2) Next_Fenster.X = -Width / 2;
+                if (Next_Fenster.X >= Spielfeld.Length - Width / 2) Next_Fenster.X = Spielfeld.Length - Width / 2;
             }
+
+            if (Next_Fenster.Y < -Game1.screenHeight / 2)
+                Next_Fenster.Y = -Game1.screenHeight / 2;
+            if (Next_Fenster.Y + Game1.screenHeight > Game1.Kartenhoehe + Game1.screenHeight / 2)
+                Next_Fenster.Y = Game1.Kartenhoehe - Game1.screenHeight / 2;
         }
 
         /// <summary>
@@ -2313,23 +2320,49 @@ namespace _4_1_
         /// <param name="pos">The pos.</param>
         public void SetzeFokusX(Vector2 pos)
         {
+            Next_Fenster.Y = pos.Y - Height / 2;
+
             if (Karte.KARTE_ZYKLISCH)
             {
-                Next_Fenster.X = Position(pos.X - Width/2);
-                Next_Fenster.Y = pos.Y - Height / 2;
+                Next_Fenster.X = Position(pos.X - Width / 2);
+                if (Next_Fenster.X < 0) Next_Fenster.X = 0;
+                if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
             }
             else
             {
                 Next_Fenster.X = pos.X - Width / 2;
-               if (Next_Fenster.X < 0) Next_Fenster.X = 0;
-                if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
+                if (Next_Fenster.X < -Width / 2) Next_Fenster.X = -Width / 2;
+                if (Next_Fenster.X >= Spielfeld.Length - Width / 2) Next_Fenster.X = Spielfeld.Length - Width / 2;
             }
+
+            if (Next_Fenster.Y < -Game1.screenHeight / 2)
+                Next_Fenster.Y = -Game1.screenHeight / 2;
+            if (Next_Fenster.Y + Game1.screenHeight > Game1.Kartenhoehe + Game1.screenHeight / 2)
+                Next_Fenster.Y = Game1.Kartenhoehe - Game1.screenHeight / 2;
         }
 
         public void FensterBewegenAufPosition(Vector2 pos)
         {
                 Next_Fenster.X = Position(pos.X);
                 Next_Fenster.Y = pos.Y;
+
+                if (Karte.KARTE_ZYKLISCH)
+                {
+                    Next_Fenster.X = Position(pos.X);
+                    if (Next_Fenster.X < 0) Next_Fenster.X = 0;
+                    if (Next_Fenster.X >= Spielfeld.Length - Width) Next_Fenster.X = Spielfeld.Length - Width;
+                }
+                else
+                {
+                    Next_Fenster.X = pos.X;
+                    if (Next_Fenster.X < -Width / 2) Next_Fenster.X = -Width / 2;
+                    if (Next_Fenster.X >= Spielfeld.Length - Width/2) Next_Fenster.X = Spielfeld.Length - Width/2;
+                }
+
+                if (Next_Fenster.Y < -Game1.screenHeight / 2)
+                    Next_Fenster.Y = -Game1.screenHeight / 2;
+                if (Next_Fenster.Y + Game1.screenHeight > Game1.Kartenhoehe + Game1.screenHeight / 2)
+                    Next_Fenster.Y = Game1.Kartenhoehe - Game1.screenHeight / 2;
         }
 
         /*public void check_Feuer()
