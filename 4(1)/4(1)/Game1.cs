@@ -1278,7 +1278,7 @@ namespace _4_1_
                                  if (Spiel2.players[i].Zielpos[b].Y != -9999 && (Spiel2.players[i].pos[b].X + 40 < Spiel2.players[i].Zielpos[b].X || Spiel2.players[i].pos[b].X + 40 > Spiel2.players[i].Zielpos[b].X))
                                  {
                                      spriteBatch.Draw(Texturen.Pfeil2, (Vector2)new Vector2(Spiel2.players[i].Zielpos[b].X - Spiel2.Fenster.X, Kartenformat.BottomOf(Spiel2.players[i].Zielpos[b]) - Spiel2.Fenster.Y), null,
-                                         Color.White, 0, new Vector2(Texturen.Pfeil2.Width / 2, Texturen.Pfeil2.Height), Optimierung.Skalierung(0.1f), SpriteEffects.None, 0);
+                                         (b==Spiel2.players[i].CurrentTank ? Color.Yellow : Color.White), 0, new Vector2(Texturen.Pfeil2.Width / 2, Texturen.Pfeil2.Height), Optimierung.Skalierung(0.1f), SpriteEffects.None, 0);
                                  }
                              }
                          }
