@@ -24,7 +24,7 @@ namespace _4_1_
     /// <summary>
     ///     diese Klasse verwaltet Minen
     /// </summary>
-    public class Mine
+    public class Mine : IMine
     {
         #region Fields
 

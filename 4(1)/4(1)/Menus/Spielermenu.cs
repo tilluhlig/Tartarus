@@ -271,42 +271,42 @@ namespace _4_1_
                         }
                         default:
                         {
-                            int fahrzeuge = Spiel2.players[Spiel2.CurrentPlayer].GibArtillerie() +
+                            int fahrzeuge = Spiel2.players[Spiel2.CurrentPlayer].GibArtillerieAnzahl() +
                                             Spiel2.players[Spiel2.CurrentPlayer].GibPanzer() +
-                                            Spiel2.players[Spiel2.CurrentPlayer].GibBaufahrzeuge() +
+                                            Spiel2.players[Spiel2.CurrentPlayer].GibBaufahrzeugeAnzahl() +
                                             Spiel2.players[Spiel2.CurrentPlayer].GibScout();
-                            int geschütze = Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz() +
-                                            Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz2();
+                            int geschütze = Spiel2.players[Spiel2.CurrentPlayer].GibGeschützAnzahl() +
+                                            Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz2Anzahl();
 
                             aux = "Credits/Runde: " +
                                   Spiel2.players[Spiel2.CurrentPlayer].Generate_Credits(Spiel2.Haeuser,
                                       Spiel2.CurrentPlayer) + "\n" +
                                   "Haeuser: " +
-                                  Spiel2.players[Spiel2.CurrentPlayer].GibHäuser(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
+                                  Spiel2.players[Spiel2.CurrentPlayer].GibHäuserAnzahl(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
                                   "\n" +
                                   "Fabriken: " +
-                                  Spiel2.players[Spiel2.CurrentPlayer].GibFabriken(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
+                                  Spiel2.players[Spiel2.CurrentPlayer].GibFabrikenAnzahl(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
                                   "\n" +
                                   "Haendler: " +
-                                  Spiel2.players[Spiel2.CurrentPlayer].GibHändler(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
+                                  Spiel2.players[Spiel2.CurrentPlayer].GibHändlerAnzahl(Spiel2.Haeuser, Spiel2.CurrentPlayer) +
                                   "\n" +
                                   "Tunnel: " + Spiel2.players[Spiel2.CurrentPlayer].TunnelAnlage.Count + "/" +
                                   Allgemein.MaxTunnel + "\n" +
                                   "\n" +
                                   "Fahrzeuge: " + fahrzeuge + "/" + Allgemein.MaxFahrzeug + "\n" +
-                                  "Artillerie: " + Spiel2.players[Spiel2.CurrentPlayer].GibArtillerie() + "\n" +
+                                  "Artillerie: " + Spiel2.players[Spiel2.CurrentPlayer].GibArtillerieAnzahl() + "\n" +
                                   "Panzer: " + Spiel2.players[Spiel2.CurrentPlayer].GibPanzer() + "\n" +
-                                  "Baufahrzeug: " + Spiel2.players[Spiel2.CurrentPlayer].GibBaufahrzeuge() + "\n" +
+                                  "Baufahrzeug: " + Spiel2.players[Spiel2.CurrentPlayer].GibBaufahrzeugeAnzahl() + "\n" +
                                   "Spaeher: " + Spiel2.players[Spiel2.CurrentPlayer].GibScout() + "\n" +
                                   "\n" +
                                   "Geschuetze: " + geschütze + "/" + Allgemein.MaxGeschuetze + "\n" +
-                                  "Geschuetz I: " + Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz() + "\n" +
-                                  "Geschuetz II: " + Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz2() + "\n";
+                                  "Geschuetz I: " + Spiel2.players[Spiel2.CurrentPlayer].GibGeschützAnzahl() + "\n" +
+                                  "Geschuetz II: " + Spiel2.players[Spiel2.CurrentPlayer].GibGeschütz2Anzahl() + "\n";
                             spriteBatch.DrawString(font, aux, stringpos, Color.Red*Transparenz);
 
                             aux = "\n\n\n\n" +
                                   "Bunker: " +
-                                  Spiel2.players[Spiel2.CurrentPlayer].GibBunker(Spiel2.Bunker, Spiel2.CurrentPlayer) +
+                                  Spiel2.players[Spiel2.CurrentPlayer].GibBunkerAnzahl(Spiel2.Bunker, Spiel2.CurrentPlayer) +
                                   "/" + Allgemein.MaxBunker + "\n";
                             spriteBatch.DrawString(font, aux, stringpos + new Vector2(140, 0), Color.Red*Transparenz);
 

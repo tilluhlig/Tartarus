@@ -239,8 +239,11 @@
     <Compile Include="FMOD\fmod_dsp.cs" />
     <Compile Include="FMOD\fmod_errors.cs" />
     <Compile Include="FMOD\fmod_memoryinfo.cs" />
-    <Compile Include="KI\KI.cs" />
+    <Compile Include="ISpiel.cs" />
+    <Compile Include="ISpieler.cs" />
     <Compile Include="Karte\Kollision.cs" />
+    <Compile Include="KI\Einfach.cs" />
+    <Compile Include="KI\KI.cs" />
     <Compile Include="Koerper\Kraft.cs" />
     <Compile Include="Koerper\Schwerpunkt.cs" />
     <Compile Include="Menus\ComboBox2.cs" />
@@ -276,6 +279,7 @@
     <Compile Include="Karte\Kartenformat.cs" />
     <Compile Include="Daten\Waffendaten.cs" />
     <Compile Include="Koerper\KoerperObjekt.cs" />
+    <Compile Include="Objekte\IMine.cs" />
     <Compile Include="Tools\Kenngroessen.cs" />
     <Compile Include="Unbenutztes\Schrift.cs" />
     <Compile Include="Sonstiges\Optimierung.cs" />
@@ -357,11 +361,6 @@
       <Private>True</Private>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
-    <ProjectReference Include="..\..\KI\KI\KI.csproj">
-      <Project>{4325EEAA-B5B7-4B9F-8AD1-5F95260FEEA1}</Project>
-      <Name>KI</Name>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\ReaderStream\ReaderStream.csproj">
       <Project>{6F0205DE-09D2-4807-8CB8-31821D73DA67}</Project>
       <Name>ReaderStream</Name>
@@ -375,7 +374,8 @@
     <ProjectReference Include="..\..\targeting\targeting\targeting\targeting.csproj">
       <Project>{5FA39EFD-2205-465F-B8E2-8B4CBA6B9F67}</Project>
       <Name>targeting</Name>
-      <Private>False</Private>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\..\Update\Update.csproj">
       <Project>{6948DF57-47C0-40C5-918A-4337EAC75423}</Project>

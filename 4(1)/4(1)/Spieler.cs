@@ -32,7 +32,7 @@ namespace _4_1_
     /// <summary>
     ///     Class Spieler
     /// </summary>
-    public class Spieler
+    public class Spieler : _4_1_.ISpieler
     {
         public Kenngroesse Kenngroesse_Wert = null;
 
@@ -67,16 +67,37 @@ namespace _4_1_
         ///     The action points
         /// </summary>
         public int ActionPoints = 999;
+        public int _ActionPoints
+        {
+            get
+            {
+                return ActionPoints;
+            }
+        }
 
         /// <summary>
         ///     The angle
         /// </summary>
         public List<float> Angle = new List<float>();
+        public List<float> _Angle
+        {
+            get
+            {
+                return Angle;
+            }
+        }
 
         /// <summary>
         ///     The cooldown
         /// </summary>
         public List<int> Cooldown = new List<int>();
+        public List<int> _Cooldown
+        {
+            get
+            {
+                return Cooldown;
+            }
+        }
 
         /// <summary>
         ///     The credits
@@ -87,22 +108,50 @@ namespace _4_1_
         ///     Das aktuelle Level des Fahrzeugs
         /// </summary>
         public List<int> CurrentLv = new List<int>();
+        public List<int> _CurrentLv
+        {
+            get
+            {
+                return CurrentLv;
+            }
+        }
 
         /// <summary>
         ///     The current weapon
         /// </summary>
         public int CurrentWeapon = 0;
+        public int _CurrentWeapon
+        {
+            get
+            {
+                return CurrentWeapon;
+            }
+        }
 
         /// <summary>
         ///     The effekte
         /// </summary>
         public List<EffectPacket> Effekte = new List<EffectPacket>();
+        public List<EffectPacket> _Effekte
+        {
+            get
+            {
+                return Effekte;
+            }
+        }
 
         //enthält den aktuellen Level des Fahrzeugs
         /// <summary>
         ///     The exp now
         /// </summary>
         public List<int> ExpNow = new List<int>();
+        public List<int> _ExpNow
+        {
+            get
+            {
+                return ExpNow;
+            }
+        }
 
         //gibt an, wieviel Exp das Fahrzeug bereits hat
         //    public List<int> ExpProgress = new List<int>();
@@ -123,6 +172,13 @@ namespace _4_1_
         ///     The kindof tank
         /// </summary>
         public List<int> KindofTank = new List<int>();
+        public List<int> _KindofTank
+        {
+            get
+            {
+                return KindofTank;
+            }
+        }
 
         /// <summary>
         ///     The collision
@@ -148,13 +204,40 @@ namespace _4_1_
         ///     The minen
         /// </summary>
         public List<Mine> Minen = new List<Mine>();
+        public List<Mine> _Minen
+        {
+            get
+            {
+                return Minen;
+            }
+        }
 
         /// <summary>
         ///     The munition
         /// </summary>
         public List<int>[] Munition = new List<int>[21];
+        public List<int>[] _Munition
+        {
+            get
+            {
+                return Munition;
+            }
+        }
 
         public List<String> Namen = new List<String>();
+        public List<String> _Namen
+        {
+            get
+            {
+                return Namen;
+            }
+        }
+
+        public void SetzeFahrzeugname(String neuerName, int id)
+        {
+            if (id < 0 || id >= Namen.Count) return;
+            Namen[id] = neuerName;
+        }
 
         public Notizen Notiz = new Notizen();
 
@@ -162,6 +245,13 @@ namespace _4_1_
         ///     The rucksack
         /// </summary>
         public List<Inventar> Rucksack = new List<Inventar>();
+        public List<Inventar> _Rucksack
+        {
+            get
+            {
+                return Rucksack;
+            }
+        }
 
         /// <summary>
         ///     The size
@@ -177,6 +267,13 @@ namespace _4_1_
         ///     The tunnel anlage
         /// </summary>
         public List<Tunnel> TunnelAnlage = new List<Tunnel>();
+        public List<Tunnel> _TunnelAnlage
+        {
+            get
+            {
+                return TunnelAnlage;
+            }
+        }
 
         /// <summary>
         ///     The destruction
@@ -187,6 +284,13 @@ namespace _4_1_
         ///     The zielpos
         /// </summary>
         public List<Vector2> Zielpos = new List<Vector2>();
+        public List<Vector2> _Zielpos
+        {
+            get
+            {
+                return Zielpos;
+            }
+        }
 
         /// <summary>
         ///     The _ current tank
@@ -202,6 +306,14 @@ namespace _4_1_
         ///     The hp
         /// </summary>
         public List<int> hp = new List<int>();
+        public List<int> _hp
+        {
+            get
+            {
+                return hp;
+            }
+        }
+
 
         public int id = 0;
 
@@ -224,11 +336,25 @@ namespace _4_1_
         ///     The overreach
         /// </summary>
         public List<bool> overreach = new List<bool>();
+        public List<bool> _overreach
+        {
+            get
+            {
+                return overreach;
+            }
+        }
 
         /// <summary>
         ///     The pos
         /// </summary>
         public List<Vector2> pos = new List<Vector2>();
+        public List<Vector2> _pos
+        {
+            get
+            {
+                return pos;
+            }
+        }
 
         /// <summary>
         ///     The shooting power
@@ -239,6 +365,13 @@ namespace _4_1_
         ///     The vehikle angle
         /// </summary>
         public List<float> vehikleAngle = new List<float>();
+        public List<float> _vehikleAngle
+        {
+            get
+            {
+                return vehikleAngle;
+            }
+        }
 
         #endregion Fields
 
@@ -642,7 +775,7 @@ namespace _4_1_
             return -1;
         }
 
-        public int GibArtillerie()
+        public int GibArtillerieAnzahl()
         {
             int anzahl = 0;
 
@@ -656,7 +789,7 @@ namespace _4_1_
             return anzahl;
         }
 
-        public int GibBaufahrzeuge()
+        public int GibBaufahrzeugeAnzahl()
         {
             int anzahl = 0;
 
@@ -670,7 +803,7 @@ namespace _4_1_
             return anzahl;
         }
 
-        public int GibBunker(Bunker Bunkeranlagen, int id)
+        public int GibBunkerAnzahl(Bunker Bunkeranlagen, int id)
         {
             int anzahl = 0;
 
@@ -684,7 +817,7 @@ namespace _4_1_
             return anzahl;
         }
 
-        public int GibFabriken(Haus Haeuser, int id)
+        public int GibFabrikenAnzahl(Haus Haeuser, int id)
         {
             int anzahl = 0;
 
@@ -699,7 +832,7 @@ namespace _4_1_
             return anzahl;
         }
 
-        public int GibGeschütz()
+        public int GibGeschützAnzahl()
         {
             int anzahl = 0;
 
@@ -713,7 +846,7 @@ namespace _4_1_
             return anzahl;
         }
 
-        public int GibGeschütz2()
+        public int GibGeschütz2Anzahl()
         {
             int anzahl = 0;
 
@@ -727,7 +860,7 @@ namespace _4_1_
             return anzahl;
         }
 
-        public int GibHändler(Haus Haeuser, int id)
+        public int GibHändlerAnzahl(Haus Haeuser, int id)
         {
             int anzahl = 0;
 
@@ -742,7 +875,7 @@ namespace _4_1_
             return anzahl;
         }
 
-        public int GibHäuser(Haus Haeuser, int id)
+        public int GibHäuserAnzahl(Haus Haeuser, int id)
         {
             int anzahl = 0;
 

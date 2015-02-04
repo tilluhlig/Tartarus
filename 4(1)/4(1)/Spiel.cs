@@ -19,13 +19,14 @@ using System.Linq;
 using Hauptfenster;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using _KI;
 
 namespace _4_1_
 {
     /// <summary>
     ///     Class Spiel
     /// </summary>
-    public class Spiel
+    public class Spiel : _4_1_.ISpiel
     {
         #region Fields
 
@@ -302,6 +303,13 @@ namespace _4_1_
         ///     The spielfeld
         /// </summary>
         public List<UInt16>[] Spielfeld;
+        public List<UInt16>[] _Spielfeld
+        {
+            get
+            {
+                return Spielfeld;
+            }
+        }
 
         /// <summary>
         ///     The timeout
@@ -346,6 +354,33 @@ namespace _4_1_
         ///     auswahl mit Namen
         /// </summary>
         public static List<String> names;
+
+        public static List<KI> KISpieler;
+
+        public void InitKI(){
+            KISpieler = new List<KI>();
+            KI temp = new Einfach();
+            temp.SpielerID = 1;
+            KISpieler.Add(temp);
+        }
+
+        public void checkKI()
+        {
+            for (int i = 0; i < KISpieler.Count; i++)
+            {
+                ISpieler[] gegner = new ISpieler[players.Length - 1];
+                int anz=0;
+                for (int b = 0; b < players.Length; b++)
+                {
+                    if (KISpieler[i].SpielerID!=b){
+                        gegner[anz] = players[b];
+                            anz++;
+                    }
+                }
+
+                KISpieler[i].Rechne(this,players[KISpieler[i].SpielerID],gegner, Fenster);
+            }
+        }
 
         #endregion Fields
 
@@ -1891,6 +1926,8 @@ namespace _4_1_
             //Hauptfenster.Tausch.CurrentPlayer = 1;
             Wind.X = rand.Next(-60, 60) / 10;
             // Wind.Y = rand.Next(-5, 5) / 10;
+
+            InitKI();
         }
 
         /// <summary>
@@ -2075,7 +2112,7 @@ namespace _4_1_
             if (message)
             {
                 if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
-                if (!Moving_Map && id == players[player].CurrentTank) SetzeFokusX(players[player].pos[id]);
+                if (player==CurrentPlayer && !Moving_Map && id == players[player].CurrentTank) SetzeFokusX(players[player].pos[id]);
                 //  if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
         }
@@ -2282,7 +2319,7 @@ namespace _4_1_
             if (message)
             {
                 if (TIMEOUT.Wert) Timeout -= TIMEOUT_REDUZIEREN_BEIM_FAHREN.Wert;
-                if (!Moving_Map && id == players[player].CurrentTank) SetzeFokusX(players[player].pos[id]);
+                if (player == CurrentPlayer && !Moving_Map && id == players[player].CurrentTank) SetzeFokusX(players[player].pos[id]);
                 // if (Server.isRunning) Server.Send("POS " + CurrentPlayer + " " + players[CurrentPlayer].CurrentTank + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].X + " " + players[CurrentPlayer].pos[players[CurrentPlayer].CurrentTank].Y);
             }
         }

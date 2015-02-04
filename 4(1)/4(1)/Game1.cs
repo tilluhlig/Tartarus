@@ -1144,7 +1144,7 @@ namespace _4_1_
                             int Zielhilfewert = Spiel2.players[Spiel2.CurrentPlayer].Effekte[b].GibZielhilfe();
                             // Zeichne Flugbahn
                             Vector2 a = Spiel2.players[i].pos[b] - Spiel2.Fenster;
-                            Vector2 a2 = Spiel2.players[i].pos[b] - Spiel2.Fenster;
+                            //Vector2 a2 = Spiel2.players[i].pos[b] - Spiel2.Fenster;
                             a.Y -=
                                 (float)
                                     Math.Sin(
@@ -2202,6 +2202,9 @@ namespace _4_1_
 
                 #endregion DEBUG
 
+
+                Spiel2.checkKI();
+
                 mouseover = Spiel2.players[Spiel2.CurrentPlayer].Notiz.Draw(spriteBatch, GraphicsDevice, Spiel2.Fenster,
                     overnotiz ? false : true);
                 Editor.Draw(spriteBatch, GraphicsDevice, Spiel2.Fenster, screenWidth, screenHeight, Content, Spiel2);
@@ -2683,13 +2686,13 @@ namespace _4_1_
         /// <param name="minx">The minx.</param>
         /// <param name="maxx">The maxx.</param>
         /// <param name="spriteBatch">The sprite batch.</param>
-        private void getBahn(Vector2 g, Vector2 schuss, Vector2 pos, int screenheight, int Weg,
+        public static void getBahn(Vector2 g, Vector2 schuss, Vector2 pos, int screenheight, int Weg,
             SpriteBatch spriteBatch)
         {
             Vector2 temp = pos;
             if (line == null)
             {
-                line = new Texture2D(GraphicsDevice, 1, 1);
+                line = new Texture2D(Game1.device, 1, 1);
                 line.SetData(new[] { Color.Yellow });
             }
 
