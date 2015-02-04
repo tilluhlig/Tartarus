@@ -20,7 +20,7 @@
     <ApplicationIcon>1376185546_37873.ico</ApplicationIcon>
     <Thumbnail>VisualStudio\GameThumbnail.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\aaaaa\</PublishUrl>
+    <PublishUrl>C:\Tartarus\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -31,11 +31,16 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <TargetCulture>de-DE</TargetCulture>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ProductName>Tartarus</ProductName>
+    <PublisherName>Tartarus</PublisherName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,6 +72,7 @@
     </DocumentationFile>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <DebugSymbols>true</DebugSymbols>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E32ABC75443B51991BD40A23DE238F8C8E3CDC5F</ManifestCertificateThumbprint>
@@ -89,9 +95,13 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network">
       <HintPath>..\..\Lidgren.Network.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -345,30 +355,37 @@
       <Project>{4C294407-CF70-4BF7-814B-9E688786B4B8}</Project>
       <Name>Hauptfenster</Name>
       <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\..\KI\KI\KI.csproj">
       <Project>{4325EEAA-B5B7-4B9F-8AD1-5F95260FEEA1}</Project>
       <Name>KI</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\ReaderStream\ReaderStream.csproj">
       <Project>{6F0205DE-09D2-4807-8CB8-31821D73DA67}</Project>
       <Name>ReaderStream</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\ScreenshotCapture\Pranas.ScreenshotCapture\Pranas.ScreenshotCapture.csproj">
       <Project>{7361C8BD-7F0A-4EAA-89D2-954F5F26346B}</Project>
       <Name>Pranas.ScreenshotCapture</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\targeting\targeting\targeting\targeting.csproj">
       <Project>{5FA39EFD-2205-465F-B8E2-8B4CBA6B9F67}</Project>
       <Name>targeting</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Update\Update.csproj">
       <Project>{6948DF57-47C0-40C5-918A-4337EAC75423}</Project>
       <Name>Update</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Upload\Upload.csproj">
       <Project>{CE1ACFEE-63C2-4513-9ED6-71BCA685F457}</Project>
       <Name>Upload</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\4%281%29Content\4%281%29Content.contentproj">
       <Project>{ECF93204-CE10-48B0-BF50-F23436A641C8}</Project>
@@ -411,7 +428,58 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PublishFile Include="Spiel.XmlSerializers">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>False</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="targeting">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Update">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="Upload">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="VisualStudio\icon.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
