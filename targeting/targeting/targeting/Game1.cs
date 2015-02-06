@@ -97,7 +97,7 @@ namespace targeting
             if (deg > 90) { overreach = true; } else overreach = false;
 
             shoot = true;
-            dx = (targetPos.X - ownPos.X);
+            dx = -(targetPos.X - ownPos.X);
             dy = -(targetPos.Y - ownPos.Y);
             Target.GetPower(angle, dx, dy, a, g, overreach, ref t, ref v0);
             if (t == 0) v0 = 100;
@@ -240,6 +240,47 @@ namespace targeting
                     ownPos = new Vector2(x, y);
                 }
         }
+
+        /// <summary>
+        ///     Rotiert einen Vektor
+        /// </summary>
+        /// <param name="Winkel">der Rotationswinkel</param>
+        /// <param name="u">die Rotationsachse</param>
+        /// <param name="BB">der Vektor, der gedreht werden soll</param>
+        /// <returns>Vector3.</returns>
+        public static Vector3 Rotiere(double Winkel, Vector3 u, Vector3 BB)
+        {
+            double c = Math.Cos(Winkel);
+            double s = Math.Sin(Winkel);
+            double[] A =
+            {
+                (float) c + (1 - c)*u.X*u.X, (float) -s*u.Z + (1 - c)*u.X*u.Y, (float) s*u.Y + (1 - c)*u.X*u.Z
+            };
+            double[] B =
+            {
+                (float) s*u.Z + (1 - c)*u.X*u.Y, (float) c + (1 - c)*u.Y*u.Y, (float) -s*u.X + (1 - c)*u.Y*u.Z
+            };
+            double[] C =
+            {
+                (float) -s*u.Y + (1 - c)*u.X*u.Z, (float) s*u.X + (1 - c)*u.Y*u.Z, (float) c + (1 - c)*u.Z*u.Z
+            };
+            return new Vector3((float)((float)A[0] * BB.X + A[1] * BB.Y + A[2] * BB.Z),
+                (float)((float)B[0] * BB.X + B[1] * BB.Y + B[2] * BB.Z), (float)((float)C[0] * BB.X + C[1] * BB.Y + C[2] * BB.Z));
+        }
+
+        /// <summary>
+        ///     Dreht einen Vektor
+        /// </summary>
+        /// <param name="Winkel">der Drehwinkel</param>
+        /// <param name="u">die Rotationsachse</param>
+        /// <param name="B">der Vektor, welcher gedreht werden soll</param>
+        /// <returns>Vector2.</returns>
+        public static Vector2 Rotiere(double Winkel, Vector3 u, Vector2 B)
+        {
+            Vector3 B2 = Rotiere(Winkel, u, new Vector3(B.X, B.Y, 1));
+            return new Vector2(B2.X, B2.Y);
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -273,9 +314,16 @@ namespace targeting
                 float x2 = (float)(Math.Cos(angle) * v0);
                 float y2 = (float)(-Math.Sin(angle) * v0);
                 //Vector2 schuss = v0 / (float)Math.Log(v0, Math.E);
-                Vector2 schuss = new Vector2(x2, y2);
+                //Vector2 schuss = new Vector2(x2, y2);
 
-                getBahn(new Vector2(a, g), schuss, ownPos, screenheight, -1, 1000, spriteBatch);
+                var up = new Vector2(0, -1);
+                Matrix rotMatrix = Matrix.CreateRotationZ( (float) angle + 0 - MathHelper.PiOver2 );
+                Vector2 schuss = Vector2.Transform(up, rotMatrix);
+                schuss *= (float) v0 / (float)Math.Log(v0, Math.E);
+
+                Vector2 c2 = Rotiere(angle, new Vector3(0, 0, 1), new Vector2(-250, 0) * 0.25f);
+
+                getBahn(new Vector2(a, g), schuss, ownPos+c2, screenheight, -1, 1000, spriteBatch);
                 //getBahn(new Vector2(a, g), schuss*0.8f, ownPos, screenheight, -1, 1000, spriteBatch);
             }
            // getBahn(new Vector2(2, 3), new Vector2(20, -30), new Vector2(1, 400),480, 0, 800, spriteBatch);
