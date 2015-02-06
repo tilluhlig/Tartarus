@@ -37,6 +37,8 @@ namespace targeting
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            screenwidth = graphics.PreferredBackBufferWidth;
+            screenheight = graphics.PreferredBackBufferHeight;
         }
 
         /// <summary>
@@ -48,8 +50,9 @@ namespace targeting
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            LoadContent();
             ownPos = new Vector2(1, 470);
-            targetPos = new Vector2(400,400);
+            targetPos = new Vector2(screenwidth / 2 - dummy.Width / 2, screenheight / 2 - dummy.Height / 2);
             base.Initialize();
         }
 
@@ -90,7 +93,9 @@ namespace targeting
                 this.Exit();
 
             // berechne Schusskraft
-            if (MathHelper.ToDegrees((float) angle) > 180) { overreach = true; } else overreach = false;
+            float deg = MathHelper.ToDegrees((float) angle);
+            if (deg > 90) { overreach = true; } else overreach = false;
+
             shoot = true;
             dx = (targetPos.X - ownPos.X);
             dy = -(targetPos.Y - ownPos.Y);
@@ -218,13 +223,21 @@ namespace targeting
         /// </summary>
         void mouseKeys()
         {
+            float x = Mouse.GetState().X;
+            float y = Mouse.GetState().Y;
+
+            if (x < 0)x=0;
+            if (x >= screenwidth) x = screenwidth-1;
+            if (y < 0) y = 0;
+            if (y >=screenheight) y = screenheight-1;
+
                 if (Mouse.GetState().RightButton == ButtonState.Pressed)
                 {
-                    targetPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                    targetPos = new Vector2(x, y);
                 }
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
-                    ownPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                    ownPos = new Vector2(x, y);
                 }
         }
         /// <summary>
@@ -235,8 +248,15 @@ namespace targeting
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            float x = Mouse.GetState().X;
+            float y = Mouse.GetState().Y;
+            if (x < 0) x = 0;
+            if (x >= screenwidth) x = screenwidth - 1;
+            if (y < 0) y = 0;
+            if (y >= screenheight) y = screenheight - 1;
+
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Maus X: " + Mouse.GetState().X + " Y: " + Mouse.GetState().Y, Vector2.Zero, Color.Red);
+            spriteBatch.DrawString(font, "Maus X: " + x + " Y: " + y, Vector2.Zero, Color.Red);
             spriteBatch.DrawString(font, "Ziel X: " + targetPos.X + " Y: " + targetPos.Y, new Vector2(0, 15), Color.Red);
             spriteBatch.DrawString(font, "v0 " + v0, new Vector2(0, 30), Color.Red);
             /*CannonOrigin[0][0] = ;
@@ -246,14 +266,14 @@ namespace targeting
             spriteBatch.Draw(dummy, targetPos - new Vector2(dummy.Width / 2, dummy.Height / 2),Color.White);
             spriteBatch.Draw(rohr, ownPos, null, Color.Red,
                             (float) (angle + 0), new Vector2(250, 25), 0.25f,
-                            (false ? SpriteEffects.FlipVertically : SpriteEffects.None), 1); //
+                            (overreach ? SpriteEffects.FlipVertically : SpriteEffects.None), 1); //
 
             if (shoot)
             {
-                float x = (float)(Math.Cos(angle) * v0);
-                float y = (float)(-Math.Sin(angle) * v0);
+                float x2 = (float)(Math.Cos(angle) * v0);
+                float y2 = (float)(-Math.Sin(angle) * v0);
                 //Vector2 schuss = v0 / (float)Math.Log(v0, Math.E);
-                Vector2 schuss = new Vector2(x, y);
+                Vector2 schuss = new Vector2(x2, y2);
 
                 getBahn(new Vector2(a, g), schuss, ownPos, screenheight, -1, 1000, spriteBatch);
                 //getBahn(new Vector2(a, g), schuss*0.8f, ownPos, screenheight, -1, 1000, spriteBatch);
