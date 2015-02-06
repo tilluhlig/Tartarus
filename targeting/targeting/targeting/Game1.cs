@@ -19,16 +19,17 @@ namespace targeting
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Vector2 ownPos, targetPos;
-        BoundingBox box;
-        Texture2D pic;
+        Texture2D dummy;
+        Texture2D rohr;
         Texture2D mouse;
         SpriteFont font;
+        bool overreach = false;
         int screenheight = 480, screenwidth = 800;
 
         // Wind
-        private float a = 0.5f;
+        private float a = 0.0f;
 
-        float dx = 0, dy = 0, g = 0.3f;
+        float dx = 0, dy = 0, g = 0.1f;
         double v0 = 0, t = 0, angle = MathHelper.ToRadians(45);
         bool shoot = false;
 
@@ -59,11 +60,10 @@ namespace targeting
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            pic = Content.Load<Texture2D>("this");
+            dummy = Content.Load<Texture2D>("Dummy");
+            rohr = Content.Load<Texture2D>("Rohr");
             mouse = Content.Load<Texture2D>("mauszeiger");
             font=Content.Load<SpriteFont>("font");
-            box = new BoundingBox(new Vector3(targetPos, 0), new Vector3((targetPos
-                        + new Vector2(pic.Width, pic.Height)), 0));
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
@@ -89,6 +89,16 @@ namespace targeting
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            // berechne Schusskraft
+            if (MathHelper.ToDegrees((float) angle) > 180) { overreach = true; } else overreach = false;
+            shoot = true;
+            dx = (targetPos.X - ownPos.X);
+            dy = -(targetPos.Y - ownPos.Y);
+            Target.GetPower(angle, dx, dy, a, g, overreach, ref t, ref v0);
+            if (t == 0) v0 = 100;
+            if (v0 < 0) shoot = false;
+            //else v0 *= Math.Sqrt(10);
+
             mouseKeys();
             KeyboardKeys();
             // TODO: Add your update logic here
@@ -100,17 +110,23 @@ namespace targeting
         /// </summary>
         void KeyboardKeys()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                shoot = true;
-                dx = targetPos.X - ownPos.X;
-                dy = -(targetPos.Y - ownPos.Y);
-                Target.GetPower(angle, dx, dy, a, g, true, ref t, ref v0);
-                if (t == 0) v0 = 100;
-                if (v0 < 0) shoot = false;
-                //else v0 *= Math.Sqrt(10);
+                    angle -= 0.01f;
+                    if (angle < MathHelper.ToRadians(0))
+                    {
+                        angle = MathHelper.ToRadians(0);
+                    }
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                    angle += 0.01f;
+                    if (angle > MathHelper.ToRadians(180))
+                    {
+                        angle = MathHelper.ToRadians(180);
+                    }
+            }
         }
 
         //zeichnet die Flugbahn
@@ -205,8 +221,10 @@ namespace targeting
                 if (Mouse.GetState().RightButton == ButtonState.Pressed)
                 {
                     targetPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-                    box = new BoundingBox(new Vector3(targetPos, 0), new Vector3((targetPos
-                        + new Vector2(pic.Width, pic.Height)), 0));
+                }
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                {
+                    ownPos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
                 }
         }
         /// <summary>
@@ -221,16 +239,24 @@ namespace targeting
             spriteBatch.DrawString(font, "Maus X: " + Mouse.GetState().X + " Y: " + Mouse.GetState().Y, Vector2.Zero, Color.Red);
             spriteBatch.DrawString(font, "Ziel X: " + targetPos.X + " Y: " + targetPos.Y, new Vector2(0, 15), Color.Red);
             spriteBatch.DrawString(font, "v0 " + v0, new Vector2(0, 30), Color.Red);
-
+            /*CannonOrigin[0][0] = ;
+            CannonOrigin[0][1] = new Vector2(-250, 25);*/
 
             spriteBatch.Draw(mouse, new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Color.White);
-            spriteBatch.Draw(pic, targetPos, Color.Red);
+            spriteBatch.Draw(dummy, targetPos - new Vector2(dummy.Width / 2, dummy.Height / 2),Color.White);
+            spriteBatch.Draw(rohr, ownPos, null, Color.Red,
+                            (float) (angle + 0), new Vector2(250, 25), 0.25f,
+                            (false ? SpriteEffects.FlipVertically : SpriteEffects.None), 1); //
+
             if (shoot)
             {
                 float x = (float)(Math.Cos(angle) * v0);
                 float y = (float)(-Math.Sin(angle) * v0);
-                getBahn(new Vector2(a, g), new Vector2(x, y), ownPos, screenheight, -1, 1000, spriteBatch);
-                getBahn(new Vector2(a, g), new Vector2(x*0.8f, y*0.8f), ownPos, screenheight, -1, 1000, spriteBatch);
+                //Vector2 schuss = v0 / (float)Math.Log(v0, Math.E);
+                Vector2 schuss = new Vector2(x, y);
+
+                getBahn(new Vector2(a, g), schuss, ownPos, screenheight, -1, 1000, spriteBatch);
+                //getBahn(new Vector2(a, g), schuss*0.8f, ownPos, screenheight, -1, 1000, spriteBatch);
             }
            // getBahn(new Vector2(2, 3), new Vector2(20, -30), new Vector2(1, 400),480, 0, 800, spriteBatch);
             spriteBatch.End();

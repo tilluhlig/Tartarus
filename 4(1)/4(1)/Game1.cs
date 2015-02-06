@@ -1143,22 +1143,6 @@ namespace _4_1_
 
                             int Zielhilfewert = Spiel2.players[Spiel2.CurrentPlayer].Effekte[b].GibZielhilfe();
                             // Zeichne Flugbahn
-                            Vector2 a = Spiel2.players[i].pos[b] - Spiel2.Fenster;
-                            //Vector2 a2 = Spiel2.players[i].pos[b] - Spiel2.Fenster;
-                            a.Y -=
-                                (float)
-                                    Math.Sin(
-                                        Spiel2.players[Spiel2.CurrentPlayer].Angle[
-                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
-                                        Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
-                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 25;
-                            a.X -=
-                                (float)
-                                    Math.Cos(
-                                        Spiel2.players[Spiel2.CurrentPlayer].Angle[
-                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] +
-                                        Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[
-                                            Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
 
                             var up = new Vector2(0, -1);
                             Matrix rotMatrix =
@@ -1170,7 +1154,7 @@ namespace _4_1_
                             Vector2 c = Vector2.Transform(up, rotMatrix);
                             c *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower /
                                  (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
-                            getBahn(Waffen.gravity / 10.0f + (Spiel.WIND.Wert ? Spiel2.Wind / 60.0f : Vector2.Zero), c, a,
+                            Game1.getBahn(Waffen.gravity / 10.0f + (Spiel.WIND.Wert ? Spiel2.Wind / 60.0f : Vector2.Zero), c, Spiel2.players[Spiel2.CurrentPlayer].Rohrspitze(Spiel2.players[Spiel2.CurrentPlayer].CurrentTank) - Spiel2.Fenster,
                                 screenHeight, Zielhilfewert, spriteBatch);
                         }
 
@@ -3770,7 +3754,7 @@ namespace _4_1_
                                 {
                                     // keybState = Keyboard.GetState();
                                     // Vector2 a = Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
-                                    Vector2 a =
+                                    Vector2 Rohrspitze =
                                         Spiel2.players[Spiel2.CurrentPlayer].Rohrspitze(
                                             Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
 
@@ -3831,10 +3815,6 @@ namespace _4_1_
                                             {
                                                 // normale Rakete
 
-                                                // a.Y -= (float)Math.Sin(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 25;
-                                                //   a.X -= (float)Math.Cos(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
-                                                // Spiel2.players[Spiel2.CurrentPlayer].shootingPower = 100;
-
                                                 float angle =
                                                     Spiel2.players[Spiel2.CurrentPlayer].Angle[
                                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
@@ -3846,7 +3826,7 @@ namespace _4_1_
                                                     float merk = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
                                                     Spiel2.players[Spiel2.CurrentPlayer].shootingPower = 10 +
                                                                                                          Spiel.incshoot;
-                                                    //Spiel.rand.Next(50, (int) (Spiel2.players[Spiel2.CurrentPlayer].shootingPower+1));
+
                                                     Matrix rotMatrix =
                                                         Matrix.CreateRotationZ(
                                                             Spiel2.players[Spiel2.CurrentPlayer].Angle[
@@ -3861,7 +3841,7 @@ namespace _4_1_
                                                              Math.Log(
                                                                  Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                                                                  Math.E);
-                                                    Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, a, b,
+                                                    Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, Rohrspitze, b,
                                                         10, Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
                                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
                                                     Spiel2.players[Spiel2.CurrentPlayer].shootingPower = merk;
@@ -3946,28 +3926,18 @@ namespace _4_1_
                                                              Math.Log(
                                                                  Spiel2.players[Spiel2.CurrentPlayer].shootingPower,
                                                                  Math.E);
-                                                    Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, a,
+                                                    Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer, Rohrspitze,
                                                         b, 300 * 4, Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
                                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
                                                 }
 
                                                 // abschuss rauch
-                                                //  a = Spiel2.players[Spiel2.CurrentPlayer].pos[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank];
-                                                //a.Y -= 25;
-                                                //a.X += 25;
-                                                // a.Y -= (float)Math.Sin(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75 + 50;
-                                                // a.X -= (float)Math.Cos(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank]) * 75;
-
-                                                // up = new Vector2(0, -1);
-                                                // rotMatrix = Matrix.CreateRotationZ(Spiel2.players[Spiel2.CurrentPlayer].Angle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] + Spiel2.players[Spiel2.CurrentPlayer].vehikleAngle[Spiel2.players[Spiel2.CurrentPlayer].CurrentTank] - (float)MathHelper.PiOver2);
-                                                // b = Vector2.Transform(up, rotMatrix);
-                                                //  b *= Spiel2.players[Spiel2.CurrentPlayer].shootingPower / (float)Math.Log(Spiel2.players[Spiel2.CurrentPlayer].shootingPower, Math.E);
                                                 if (
                                                     Waffendaten.Verschiessbar[
                                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 4)
                                                 {
                                                     // MG
-                                                    Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, a, 4, 5, 150,
+                                                    Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, Rohrspitze, 4, 5, 150,
                                                         Time, new Vector3(0.7f, 1f, 1.2f), 18, 0);
                                                 }
                                                 else if (
@@ -3977,7 +3947,7 @@ namespace _4_1_
                                                     // reparieren, erobern
                                                 }
                                                 else
-                                                    Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, a, 10,
+                                                    Spiel2.Karte.AddExplosion(Spiel2.Karte.particleListExp, Rohrspitze, 10,
                                                         35, 650, Time, new Vector3(0.7f, 1f, 1.2f), 18, 0);
 
                                                 if (
@@ -4017,8 +3987,8 @@ namespace _4_1_
                                                         Spiel2.players[Spiel2.CurrentPlayer].CurrentTank],
                                                     Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] >= 1)
                                             {
-                                                a.X = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
-                                                Spiel2.Airstrike(a, Spiel2.CurrentPlayer);
+                                                Rohrspitze.X = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
+                                                Spiel2.Airstrike(Rohrspitze, Spiel2.CurrentPlayer);
                                                 //  Spiel2.players[Spiel2.CurrentPlayer].shootingPower = 2;
                                             }
                                         }
@@ -4027,9 +3997,9 @@ namespace _4_1_
                                         //     if (Rakete.Verschiessbar[Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon] == 1)
                                         {
                                             // Abstand
-                                            a.X = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
+                                            Rohrspitze.X = Spiel2.players[Spiel2.CurrentPlayer].shootingPower;
                                             Spiel2.CurrentMissile = Spiel2.AddRakete(Spiel2.CurrentPlayer,
-                                                new Vector2(a.X, Spiel.rand.Next(-1100, -200)),
+                                                new Vector2(Rohrspitze.X, Spiel.rand.Next(-1100, -200)),
                                                 new Vector2(Spiel.rand.Next(-100, 100) / 25, -1), 300 * 4,
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentWeapon,
                                                 Spiel2.players[Spiel2.CurrentPlayer].CurrentTank);
