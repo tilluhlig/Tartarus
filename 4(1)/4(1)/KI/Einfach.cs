@@ -10,11 +10,33 @@ using targeting;
 
 namespace _KI
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Einfach : KI, IKI
     {
+        /// <summary>
+        /// The richtung
+        /// </summary>
         bool richtung = false;
+
+        /// <summary>
+        /// The bew
+        /// </summary>
         int bew = 0;
+
+        /// <summary>
+        /// The v0
+        /// </summary>
         double v0 = -1;
+
+        /// <summary>
+        /// die ID dieses Spielers im Spiel
+        /// </summary>
+        /// <param name="Spiel"></param>
+        /// <param name="Spieler"></param>
+        /// <param name="Gegner"></param>
+        /// <param name="Fenster"></param>
         override public void Rechne(ISpiel Spiel, ISpieler Spieler, ISpieler[] Gegner, Vector2 Fenster)
         {
             int current = Spieler.CurrentTank;
@@ -88,6 +110,9 @@ namespace _KI
         }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Einfach"/> class.
+        /// </summary>
         public Einfach()
         {
             Name = "Till";

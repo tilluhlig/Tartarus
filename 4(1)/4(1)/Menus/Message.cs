@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace _4_1_
 {
     /// <summary>
-    ///     Class Message
+    /// Class Message
     /// </summary>
     public class Message
     {

@@ -23,17 +23,12 @@ namespace _4_1_
     /// <summary>
     ///     Diese Klasse stellt Inventare in einem Menü dar
     /// </summary>
-    public class Backpack
+    public class Rucksack
     {
         #region Fields
 
         /// <summary>
-        ///     The max anz
-        /// </summary>
-        public byte maxAnz;
-
-        /// <summary>
-        ///     The selected
+        ///     enthält einen Wert für das ausgewählte Item
         /// </summary>
         public int selected = 255;
 
@@ -43,12 +38,12 @@ namespace _4_1_
         private readonly Vector2 aux = new Vector2(10, 5);
 
         /// <summary>
-        ///     The height
+        ///     die Breite des Rucksacks (Darstellung)
         /// </summary>
         private readonly byte height = 1;
 
         /// <summary>
-        ///     The length
+        ///     die Länge des Rucksacks (Darstellung)
         /// </summary>
         private readonly byte length = 2;
 
@@ -56,11 +51,6 @@ namespace _4_1_
         ///     die Position des Menüs
         /// </summary>
         private readonly Vector2 ownPos = new Vector2(0, 0);
-
-        /// <summary>
-        ///     The vertical
-        /// </summary>
-        private readonly bool vertical;
 
         /// <summary>
         ///     die Bildschirmpositionen der Buttons
@@ -73,43 +63,25 @@ namespace _4_1_
         private BoundingBox[] buttons = new BoundingBox[0];
 
         /// <summary>
-        ///     The maxscrolls
-        /// </summary>
-        private int maxscrolls;
-
-        /// <summary>
-        ///     The scrolled
+        ///     aktuelle Scrollposition
         /// </summary>
         private int scrolled;
-
-        /// <summary>
-        ///     The scrollvalue
-        /// </summary>
-        private byte scrollvalue;
 
         #endregion Fields
 
         #region Constructors
 
         /// <summary>
-        ///
+        /// initialisiert ein neues Rucksackobjekt
         /// </summary>
         /// <param name="pos">die Bildschirmposition des Menüs</param>
-        /// <param name="maxAnz">The max anz.</param>
-        /// <param name="length">The length.</param>
-        /// <param name="height">The height.</param>
-        public Backpack(Vector2 pos, byte maxAnz, byte length, byte height)
+        /// <param name="length">die Länge des Inventars (Darstellung)</param>
+        /// <param name="height">die Breite des Inventars (Darstellung)</param>
+        public Rucksack(Vector2 pos, byte length, byte height)
         {
             ownPos = pos;
             this.length = length;
             this.height = height;
-            this.maxAnz = maxAnz;
-            if (height > length)
-            {
-                vertical = true;
-                scrollvalue = height;
-            }
-            else scrollvalue = length;
             setButtons();
         }
 
@@ -162,7 +134,7 @@ namespace _4_1_
             List<Vector2> upglist = Rucksack.GibtListeUpgrades();
             List<Vector2> konlist = Rucksack.GibListeKonsumierbares();
 
-            maxscrolls = ((mun + upg + kon + tre) - length) / (length);
+            int maxscrolls = ((mun + upg + kon + tre) - length) / (length);
 
             for (byte i = 0; i < height * length; i++)
             {
@@ -352,7 +324,7 @@ namespace _4_1_
             int mun = Rucksack.GibMunitionsFächer();
             int upg = Rucksack.GibUpgradeFächer();
             int kon = Rucksack.GibKonsumierbareFächer();
-            maxscrolls = ((mun + upg + kon + tre) - length) / (length);
+            int maxscrolls = ((mun + upg + kon + tre) - length) / (length);
 
             if (buttons[length * height].Contains(new Vector3(Help.GetMouseState().X, Help.GetMouseState().Y, 0)) ==
                 ContainmentType.Contains)
@@ -410,42 +382,6 @@ namespace _4_1_
             float dist = 5 / 4;
             buttonPos = new Vector2[length * height + 2];
             buttons = new BoundingBox[length * height + 2];
-            if (vertical)
-            {
-                for (byte i = 0; i < length; i++)
-                    for (byte j = 0; j < height; j++)
-                    {
-                        buttonPos[i * height + j] = ownPos +
-                                                  new Vector2(
-                                                      (Texturen.LeeresFeld.Width * Optimierung.Skalierung(0.25f)) * i,
-                                                      (Texturen.LeeresFeld.Height * Optimierung.Skalierung(0.25f) + +dist) *
-                                                      j);
-                        buttons[i * height + j] = new BoundingBox(new Vector3(buttonPos[i * height + j], 0),
-                            new Vector3(
-                                buttonPos[i * height + j] +
-                                new Vector2(Texturen.LeeresFeld.Width * Optimierung.Skalierung(0.25f),
-                                    Texturen.LeeresFeld.Height * Optimierung.Skalierung(0.25f)), 0));
-                    }
-                buttonPos[length * height] = ownPos +
-                                           new Vector2(0,
-                                               (Texturen.LeeresFeld.Height * Optimierung.Skalierung(0.25f) + dist) * height);
-                buttonPos[length * height + 1] = buttonPos[length * height] +
-                                               new Vector2(
-                                                   (Texturen.LeeresFeld.Width * Optimierung.Skalierung(0.25f) + +dist) *
-                                                   (length - 1), 0);
-                buttons[length * height] = new BoundingBox(new Vector3(buttonPos[height * length], 0),
-                    new Vector3(
-                        buttonPos[height * length] +
-                        new Vector2(Texturen.nachOben.Width * Optimierung.Skalierung(0.25f),
-                            Texturen.nachOben.Height * Optimierung.Skalierung(0.25f)), 0));
-                buttons[length * height + 1] = new BoundingBox(new Vector3(buttonPos[length * height + 1], 0),
-                    new Vector3(
-                        buttonPos[length * height + 1] +
-                        new Vector2(Texturen.nachOben.Width * Optimierung.Skalierung(0.25f),
-                            Texturen.nachOben.Height * Optimierung.Skalierung(0.25f)), 0));
-                // maxscrolls = (byte)((maxAnz - length * height) / height);
-            }
-            else
             {
                 for (byte i = 0; i < height; i++)
                     for (byte j = 0; j < length; j++)

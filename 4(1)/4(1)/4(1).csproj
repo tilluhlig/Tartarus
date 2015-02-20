@@ -252,7 +252,7 @@
     <Compile Include="Kompression\LZMA\RangeCoder\RangeCoderBit.cs" />
     <Compile Include="Kompression\LZMA\RangeCoder\RangeCoderBitTree.cs" />
     <Compile Include="Laden.cs" />
-    <Compile Include="Menus\Backpack.cs" />
+    <Compile Include="Menus\Rucksack.cs" />
     <Compile Include="Menus\BauMenü.cs" />
     <Compile Include="Menus\KleinesMenu.cs" />
     <Compile Include="Menus\Minimenu.cs" />

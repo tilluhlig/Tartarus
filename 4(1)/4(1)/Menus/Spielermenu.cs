@@ -37,10 +37,6 @@ namespace _4_1_
         /// </summary>
         public static Texture2D spielermenu;
 
-        //public static Texture2D spielermenuok;
-        /// <summary>
-        ///     The spielermenuok
-        /// </summary>
         /// <summary>
         ///     The spielermenutextbox
         /// </summary>
@@ -51,7 +47,6 @@ namespace _4_1_
         /// </summary>
         public static BoundingBox[] tempbox = new BoundingBox[9];
 
-        //temporären spielerdaten
         /// <summary>
         ///     The temppos
         /// </summary>
@@ -115,7 +110,7 @@ namespace _4_1_
         /// <summary>
         ///     The back pack
         /// </summary>
-        public Backpack backPack;
+        public Rucksack backPack;
 
         /// <summary>
         ///     The intrade
@@ -130,7 +125,7 @@ namespace _4_1_
         /// <summary>
         ///     The tradebackpack
         /// </summary>
-        private Backpack tradebackpack;
+        private Rucksack tradebackpack;
 
         /// <summary>
         ///     The visible
@@ -434,8 +429,8 @@ namespace _4_1_
                     new Vector2(spielermenutextbox.Width, spielermenutextbox.Height)*Optimierung.Skalierung(0.5f), 0));
             stringpos = textboxpos + new Vector2(10, 6);
 
-            backPack = new Backpack(ownPos + new Vector2(3, 268), 18, 6, 2);
-            tradebackpack = new Backpack(ownPos + new Vector2(505, 105), 18, 3, 4);
+            backPack = new Rucksack(ownPos + new Vector2(3, 268), 6, 2);
+            tradebackpack = new Rucksack(ownPos + new Vector2(505, 105), 3, 4);
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j < 3; j++)
                 {
