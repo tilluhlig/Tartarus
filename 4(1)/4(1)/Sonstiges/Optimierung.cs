@@ -132,7 +132,7 @@ namespace _4_1_
             String[] HausBilder =
             {
                 "Haus", "Haus2", "Haus3", "Haus4", "Haus5", "Haus6", "Haus7", "Haus8", "Haus9",
-                "Haus10", "Haus11", "Haus12", "Haus13", "Haus14", "Haus15", "Haus16", "Haus17", "Haus18"
+                "Haus10", "Haus11", "Haus12", "Haus13", "Haus14", "Haus15", "Haus16", "Haus17", "Haus18", "Statue", "Statue2"
             };
 
             for (int i = 0; i < HausBilder.Count(); i++)

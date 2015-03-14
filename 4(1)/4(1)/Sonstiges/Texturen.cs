@@ -316,7 +316,7 @@ namespace _4_1_
         /// <summary>
         ///     The haus
         /// </summary>
-        public static Texture2D[] haus = new Texture2D[18];
+        public static Texture2D[] haus = new Texture2D[20];
 
         /// <summary>
         ///     The hausbutton
@@ -326,7 +326,7 @@ namespace _4_1_
         /// <summary>
         ///     The hausumriss
         /// </summary>
-        public static Texture2D[] hausumriss = new Texture2D[18];
+        public static Texture2D[] hausumriss = new Texture2D[20];
 
         /// <summary>
         ///     The hp status
@@ -1081,6 +1081,12 @@ namespace _4_1_
 
                 haus[17] = Content.Load<Texture2D>("Textures\\Haus18");
                 haus[17].Tag = "Textures\\Haus18";
+
+                haus[18] = Content.Load<Texture2D>("Textures\\Statue");
+                haus[18].Tag = "Textures\\Statue";
+
+                haus[19] = Content.Load<Texture2D>("Textures\\Statue2");
+                haus[19].Tag = "Textures\\Statue2";
 
                 HaeuserSkalierung();
 
