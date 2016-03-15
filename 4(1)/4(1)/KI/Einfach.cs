@@ -40,7 +40,7 @@ namespace _KI
         override public void Rechne(ISpiel Spiel, ISpieler Spieler, ISpieler[] Gegner, Vector2 Fenster)
         {
             int current = Spieler.CurrentTank;
-            current = 3;
+            current = 3; /// das stürzt natürlich ab, wenn der Spieler zerstört wird
 
             // finde Gegner
             bool found = false;
