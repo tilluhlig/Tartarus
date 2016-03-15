@@ -177,6 +177,7 @@ namespace _4_1_
         public void Hinzufügen(Vector2 _Position, double _Wert, int _Radius, Anteil _Anteil,
             Wachstum _Wachstum)
         {
+            return;
             Hinzufügen(_Position, _Wert, _Radius, _Anteil,
             _Wachstum, false);
         }
@@ -194,6 +195,7 @@ namespace _4_1_
         public List<List<Vector2>> Hinzufügen(Vector2 _Position, double _Wert, int _Radius, Anteil _Anteil,
             Wachstum _Wachstum, bool Ausgabe)
         {
+            return new List<List<Vector2>>();
             if (_Anteil == Anteil.Konstant)
             {
                 return KonstantenWertHinzufügenEinfach(_Position, _Wert, _Radius,
@@ -218,6 +220,7 @@ namespace _4_1_
         /// <returns>eine Liste Polygonpunkten, welche vom Radius betroffen sind, sofern Ausgabe=true</returns>
         private List<List<Vector2>> KonstantenWertHinzufügenAnteilig(Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum, bool Ausgabe)
         {
+            return new List<List<Vector2>>();
             _Position = new Vector2(((int)_Position.X), ((int)_Position.Y));
 
             int B = (int)Math.Ceiling((double)_Radius / Feldbreite) + 2;
@@ -421,6 +424,7 @@ namespace _4_1_
         /// <returns>eine Liste Polygonpunkten, welche vom Radius betroffen sind, sofern Ausgabe=true</returns>
         private List<List<Vector2>> KonstantenWertHinzufügenEinfach(Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum, bool Ausgabe)
         {
+            return new List<List<Vector2>>();
             int B = (int)Math.Ceiling((double)_Radius / Feldbreite) + 2;
             var Resultat = new List<List<Vector2>>();
 
@@ -482,6 +486,7 @@ namespace _4_1_
         /// <returns>der berechnete Wert</returns>
         private double WachstumAnwenden(Bereich _Bereich, float _Flache, Vector2 _Position, double _Wert, int _Radius, Wachstum _Wachstum)
         {
+            return 0;
             if (_Wachstum == Wachstum.Konstant)
                 return _Wert;
 

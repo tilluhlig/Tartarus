@@ -2213,7 +2213,7 @@ namespace _4_1_
 
                 // Zeichne Kenngrößen
                 #region KENNGROESSEN
-                if (Game1.DEBUG_AKTIV.Wert)
+                if (false && Game1.DEBUG_AKTIV.Wert)
                 {
                     spriteBatch.Begin(SpriteMode, BlendState.AlphaBlend);
                     Vector2 Spielerpos = Spiel2.players[Spiel2.CurrentPlayer].pos[
