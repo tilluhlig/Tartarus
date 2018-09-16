@@ -20,6 +20,61 @@ namespace statistik
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var excludeList = new List<String>();
+            String confFile = "statistic.conf";
+
+            if (File.Exists(confFile))
+            {
+                string[] elements = File.ReadAllLines(confFile);
+                excludeList.AddRange(elements);
+            }
+            excludeList.Add("statistic.conf");
+            excludeList.Add("/Backup");
+            excludeList.Add(".exe");
+            excludeList.Add(".pdf");
+            excludeList.Add(".pdb");
+            excludeList.Add(".suo");
+            excludeList.Add(".sln");
+            excludeList.Add(".ico");
+            excludeList.Add(".dll");
+            excludeList.Add(".png");
+            excludeList.Add(".jpg");
+            excludeList.Add(".jpeg");
+            excludeList.Add(".tiff");
+            excludeList.Add(".png");
+            excludeList.Add(".gif");
+            excludeList.Add(".bmp");
+            excludeList.Add(".xcf");
+            excludeList.Add(".xnb");
+            excludeList.Add(".csproj");
+            excludeList.Add(".idx");
+            excludeList.Add(".reqifz");
+            excludeList.Add(".zip");
+            excludeList.Add(".rar");
+            excludeList.Add(".ogg");
+            excludeList.Add(".mp3");
+            excludeList.Add(".mp4");
+            excludeList.Add(".avi");
+            excludeList.Add(".mpeg");
+            excludeList.Add(".flv");
+            excludeList.Add(".mp2");
+            excludeList.Add(".wav");
+            excludeList.Add(".cache");
+            excludeList.Add(".resources");
+            excludeList.Add(".spritefont");
+            excludeList.Add("/.git");
+
+            for (int i = 0; i < excludeList.Count; i++)
+            {
+                if (excludeList[i].Trim() == "")
+                {
+                    excludeList.RemoveAt(i);
+                    i--;
+                    continue;
+                }
+                excludeList[i] = excludeList[i].Replace("\\", "/");
+            }
+
             var Dateien = new List<String>();
             var Verzeichnisse = new List<String>();
             // String meins = Application.StartupPath + Path.DirectorySeparatorChar.ToString();
@@ -49,31 +104,46 @@ namespace statistik
             Verboten.Add("AssemblyInfo.cs");
 
             int Count = 0;
+            int Count2 = 0;
             int Zeichen = 0;
             int Datei = 0;
             comboBox1.Items.Clear();
             for (int i = 0; i < Dateien.Count; i++)
             {
-                if (Path.GetExtension(Dateien[i]).ToUpper() != ".CS" &&
-                    Path.GetExtension(Dateien[i]).ToUpper() != ".PHP" &&
-                    Path.GetExtension(Dateien[i]).ToUpper() != ".CPP" && Path.GetExtension(Dateien[i]).ToUpper() != ".H" &&
-                    Path.GetExtension(Dateien[i]).ToUpper() != ".ASM") continue;
                 String Name = Path.GetFileName(Dateien[i]);
-                if (Verboten.Contains(Name)) continue;
+                bool foundForbiddenFile = false;
+                for (int b=0;b<excludeList.Count;b++){
+                    if (Dateien[i].Replace("\\","/").Contains(excludeList[b]))
+                    {
+                        foundForbiddenFile = true;
+                        break;
+                    }
+                }
+
+                if (foundForbiddenFile)
+                    continue;
 
                 String dat = Dateien[i];
                 Datei++;
-                comboBox1.Items.Add(Path.GetFileName(Dateien[i]));
+                int currentLines = 0;
                 var datei = new StreamReader(dat);
                 for (; !datei.EndOfStream; Count++)
                 {
-                    Zeichen += datei.ReadLine().Length;
+                    String q = datei.ReadLine();
+                    String trimmedChars = q.Trim();
+                    if (trimmedChars != "")
+                    {
+                        Count2++;
+                        currentLines++;
+                        Zeichen += trimmedChars.Length;
+                    }
                 }
+                comboBox1.Items.Add(Path.GetFileName(Dateien[i]) + " -- " + currentLines.ToString());
                 datei.Close();
             }
-            label3.Text = "Dateien: " + Datei;
-            label2.Text = "Zeilen: " + Count;
-            label1.Text = "Zeichen: " + Zeichen;
+            label3.Text = "Files: " + Datei;
+            label2.Text = "Lines: " + Count + "/"+Count2+" (without empty lines)";
+            label1.Text = "Characters: " + Zeichen;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -154,5 +224,10 @@ namespace statistik
         }
 
         #endregion Methods
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
