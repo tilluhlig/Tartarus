@@ -113,7 +113,7 @@ namespace statistik
                 String Name = Path.GetFileName(Dateien[i]);
                 bool foundForbiddenFile = false;
                 for (int b=0;b<excludeList.Count;b++){
-                    if (Dateien[i].Replace("\\","/").Contains(excludeList[b]))
+                    if (Dateien[i].Replace("\\","/").ToLower().Contains(excludeList[b].ToLower()))
                     {
                         foundForbiddenFile = true;
                         break;
