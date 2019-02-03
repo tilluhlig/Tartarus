@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace statistik
 {
+
     public partial class Form1 : Form
     {
         #region Constructors
@@ -108,12 +109,13 @@ namespace statistik
             int Zeichen = 0;
             int Datei = 0;
             comboBox1.Items.Clear();
+            var Ausgabe = new List<Ergebnis>();
             for (int i = 0; i < Dateien.Count; i++)
             {
                 String Name = Path.GetFileName(Dateien[i]);
                 bool foundForbiddenFile = false;
-                for (int b=0;b<excludeList.Count;b++){
-                    if (Dateien[i].Replace("\\","/").ToLower().Contains(excludeList[b].ToLower()))
+                for (int b = 0; b < excludeList.Count; b++) {
+                    if (Dateien[i].Replace("\\", "/").ToLower().Contains(excludeList[b].ToLower()))
                     {
                         foundForbiddenFile = true;
                         break;
@@ -138,8 +140,25 @@ namespace statistik
                         Zeichen += trimmedChars.Length;
                     }
                 }
-                comboBox1.Items.Add(Path.GetFileName(Dateien[i]) + " -- " + currentLines.ToString());
+
+                Ergebnis neuesErgebnis = new Ergebnis(Path.GetFileName(Dateien[i]), currentLines);
+                Ausgabe.Add(neuesErgebnis);
                 datei.Close();
+            }
+
+            if (this.checkBox1.Checked)
+            {
+                compareByExtension cbe = new compareByExtension();
+                Ausgabe.Sort(cbe);
+            }
+            else
+            {
+                compareBySize cbs = new compareBySize();
+                Ausgabe.Sort(cbs);
+            }
+
+            for (int i = 0; i < Ausgabe.Count; i++) {
+                comboBox1.Items.Add(Ausgabe[i].Dateiname + " -- " + Ausgabe[i].Zeilen.ToString());
             }
             label3.Text = "Files: " + Datei;
             label2.Text = "Lines: " + Count + "/"+Count2+" (without empty lines)";
@@ -228,6 +247,36 @@ namespace statistik
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+    }
+
+    public class Ergebnis
+    {
+        public String Dateiname;
+        public int Zeilen;
+
+        public Ergebnis(String Dateiname, int Zeilen)
+        {
+            this.Dateiname = Dateiname;
+            this.Zeilen = Zeilen;
+        }
+    }
+
+    public class compareBySize : IComparer<Ergebnis>
+    {
+        public int Compare(Ergebnis x, Ergebnis y)
+        {
+            return y.Zeilen.CompareTo(x.Zeilen);
+        }
+    }
+
+    public class compareByExtension : IComparer<Ergebnis>
+    {
+        public int Compare(Ergebnis x, Ergebnis y)
+        {
+            String xExt = Path.GetExtension(x.Dateiname);
+            String yExt = Path.GetExtension(y.Dateiname);
+            return xExt.CompareTo(yExt);
         }
     }
 }
