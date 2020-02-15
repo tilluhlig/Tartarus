@@ -13,57 +13,38 @@ namespace statistik
         public Form1()
         {
             InitializeComponent();
+
+            myBaseName = Path.GetFileNameWithoutExtension(Application.ExecutablePath);
         }
 
         #endregion Constructors
 
         #region Methods
 
-        private void button1_Click(object sender, EventArgs e)
+        public int amountOfLines = 0;
+        public int amountOfLinesWithoutEmptyLines = 0;
+
+        public bool computeComposition = false;
+        public int images = 0;
+        public int modelFiles = 0;
+        public int codeFiles = 0;
+        public int otherFiles = 0;
+        public String languages = "";
+
+        public String myBaseName = "";
+
+        public void button1_Click(object sender, EventArgs e)
         {
             var excludeList = new List<String>();
-            String confFile = "statistic.conf";
+            String confFile = myBaseName + ".conf";
+            List<String> availableLanguages = new List<string>();
 
             if (File.Exists(confFile))
             {
                 string[] elements = File.ReadAllLines(confFile);
                 excludeList.AddRange(elements);
             }
-            excludeList.Add("statistic.conf");
-            excludeList.Add("/Backup");
-            excludeList.Add(".exe");
-            excludeList.Add(".pdf");
-            excludeList.Add(".pdb");
-            excludeList.Add(".suo");
-            excludeList.Add(".sln");
-            excludeList.Add(".ico");
-            excludeList.Add(".dll");
-            excludeList.Add(".png");
-            excludeList.Add(".jpg");
-            excludeList.Add(".jpeg");
-            excludeList.Add(".tiff");
-            excludeList.Add(".png");
-            excludeList.Add(".gif");
-            excludeList.Add(".bmp");
-            excludeList.Add(".xcf");
-            excludeList.Add(".xnb");
-            excludeList.Add(".csproj");
-            excludeList.Add(".idx");
-            excludeList.Add(".reqifz");
-            excludeList.Add(".zip");
-            excludeList.Add(".rar");
-            excludeList.Add(".ogg");
-            excludeList.Add(".mp3");
-            excludeList.Add(".mp4");
-            excludeList.Add(".avi");
-            excludeList.Add(".mpeg");
-            excludeList.Add(".flv");
-            excludeList.Add(".mp2");
-            excludeList.Add(".wav");
-            excludeList.Add(".cache");
-            excludeList.Add(".resources");
-            excludeList.Add(".spritefont");
-            excludeList.Add("/.git");
+            excludeList.Add(confFile);
 
             for (int i = 0; i < excludeList.Count; i++)
             {
@@ -126,24 +107,75 @@ namespace statistik
                     continue;
 
                 String dat = Dateien[i];
-                Datei++;
-                int currentLines = 0;
-                var datei = new StreamReader(dat);
-                for (; !datei.EndOfStream; Count++)
+
+                // Projektzusammensetzung berechnen
+                if (this.computeComposition)
                 {
-                    String q = datei.ReadLine();
-                    String trimmedChars = q.Trim();
-                    if (trimmedChars != "")
-                    {
-                        Count2++;
-                        currentLines++;
-                        Zeichen += trimmedChars.Length;
-                    }
+                    String fileExtension = Path.GetExtension(dat).ToLower();
+                    String[] imageFilesList = { ".png",".jpg",".tiff",".jpeg",".gif",".bmp" };
+                    String[] codefilesList = { ".c", ".h", ".cpp", ".cs", ".cmd", ".bat", ".tex", ".py", ".m", ".java", ".asm"};
+                    String[] modelFilesList = { ".mdl", ".slx"};
+
+                    if (Array.IndexOf(imageFilesList, fileExtension) >= 0) { images++; }
+                    else
+                    if (Array.IndexOf(codefilesList, fileExtension) >= 0) { codeFiles++; }
+                    else
+                    if (Array.IndexOf(modelFilesList, fileExtension) >= 0) { modelFiles++; }
+                    else
+                    { otherFiles++; }
+
+                    String[] languageCSharp = { ".cs" };
+                    String[] languageC = { ".c" };
+                    String[] languageCpp = { ".cpp" };
+                    String[] languageLatex= { ".tex" };
+                    String[] languageMatlab = { ".m", ".mdl", ".slx" };
+                    String[] languageAssembler = { ".asm" };
+                    String[] languageBatch = { ".bat", ".cmd" };
+                    String[] languagePython = { ".py" };
+                    String[] languageJava = {".java" };
+                    String[] languageSql = { ".sql" };
+                    String[] languageXml = { ".xml" };
+                    String[] languageXmlSchema = { ".xsd" };
+                    String[] languageJson = { ".json" };
+                    String[] languageReqif = { ".reqif", "reqifz" };
+
+                    if (Array.IndexOf(languageCSharp, fileExtension) >= 0) availableLanguages.Add("C#");
+                    if (Array.IndexOf(languageC, fileExtension) >= 0) availableLanguages.Add("C");
+                    if (Array.IndexOf(languageCpp, fileExtension) >= 0) availableLanguages.Add("C++");
+                    if (Array.IndexOf(languageLatex, fileExtension) >= 0) availableLanguages.Add("Latex");
+                    if (Array.IndexOf(languageMatlab, fileExtension) >= 0) availableLanguages.Add("Matlab");
+                    if (Array.IndexOf(languageAssembler, fileExtension) >= 0) availableLanguages.Add("Assembler");
+                    if (Array.IndexOf(languageBatch, fileExtension) >= 0) availableLanguages.Add("Batch");
+                    if (Array.IndexOf(languagePython, fileExtension) >= 0) availableLanguages.Add("Python");
+                    if (Array.IndexOf(languageJava, fileExtension) >= 0) availableLanguages.Add("Java");
+                    if (Array.IndexOf(languageSql, fileExtension) >= 0) availableLanguages.Add("Sql");
+                    if (Array.IndexOf(languageXml, fileExtension) >= 0) availableLanguages.Add("Xml");
+                    if (Array.IndexOf(languageXmlSchema, fileExtension) >= 0) availableLanguages.Add("Xml-Schema");
+                    if (Array.IndexOf(languageJson, fileExtension) >= 0) availableLanguages.Add("Json");
+                    if (Array.IndexOf(languageReqif, fileExtension) >= 0) availableLanguages.Add("Reqif");
                 }
 
-                Ergebnis neuesErgebnis = new Ergebnis(Path.GetFileName(Dateien[i]), currentLines);
-                Ausgabe.Add(neuesErgebnis);
-                datei.Close();
+                if (!this.computeComposition)
+                {
+                    Datei++;
+                    int currentLines = 0;
+                    var datei = new StreamReader(dat);
+                    for (; !datei.EndOfStream; Count++)
+                    {
+                        String q = datei.ReadLine();
+                        String trimmedChars = q.Trim();
+                        if (trimmedChars != "")
+                        {
+                            Count2++;
+                            currentLines++;
+                            Zeichen += trimmedChars.Length;
+                        }
+                    }
+
+                    Ergebnis neuesErgebnis = new Ergebnis(Path.GetFileName(Dateien[i]), currentLines);
+                    Ausgabe.Add(neuesErgebnis);
+                    datei.Close();
+                }
             }
 
             if (this.checkBox1.Checked)
@@ -163,6 +195,15 @@ namespace statistik
             label3.Text = "Files: " + Datei;
             label2.Text = "Lines: " + Count + "/"+Count2+" (without empty lines)";
             label1.Text = "Characters: " + Zeichen;
+
+            amountOfLines = Count;
+            amountOfLinesWithoutEmptyLines = Count2;
+
+            if (computeComposition)
+            {
+                var unique_items = new HashSet<string>(availableLanguages);
+                this.languages = String.Join(", ", unique_items);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
